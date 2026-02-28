@@ -25886,12 +25886,33 @@ def api_sar_bias_stats():
             time_range['start'] = all_data[0]['timestamp']
             time_range['end'] = all_data[-1]['timestamp']
         
-        # 计算当天统计总计（仅第1页）
-        daily_stats = {'total_bullish': 0, 'total_bearish': 0}
-        if page == 1:  # 只在第1页计算
-            for record in all_data:
-                daily_stats['total_bullish'] += record['bullish_count']
-                daily_stats['total_bearish'] += record['bearish_count']
+        # 读取当天统计总计（优先从summary文件读取，否则实时计算）
+        daily_stats = None
+        summary_file = data_dir / f"daily_summary_{display_date.strftime('%Y%m%d')}.json"
+        
+        if summary_file.exists():
+            # 从预先生成的summary文件读取
+            try:
+                with open(summary_file, 'r', encoding='utf-8') as f:
+                    summary_data = json.load(f)
+                    daily_stats = {
+                        'total_bullish': summary_data.get('total_bullish', 0),
+                        'total_bearish': summary_data.get('total_bearish', 0),
+                        'unique_bullish_count': summary_data.get('unique_bullish_count', 0),
+                        'unique_bearish_count': summary_data.get('unique_bearish_count', 0),
+                        'total_points': summary_data.get('total_points', 0),
+                        'generated_at': summary_data.get('generated_at', '')
+                    }
+            except Exception as e:
+                print(f'⚠️ 读取summary文件失败: {e}')
+        
+        # 如果没有summary文件，实时计算（仅第1页）
+        if daily_stats is None:
+            daily_stats = {'total_bullish': 0, 'total_bearish': 0}
+            if page == 1:  # 只在第1页计算
+                for record in all_data:
+                    daily_stats['total_bullish'] += record['bullish_count']
+                    daily_stats['total_bearish'] += record['bearish_count']
         
         response = jsonify({
             'success': True,
