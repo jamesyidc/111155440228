@@ -904,16 +904,33 @@ cf6d1dd - feat: Add new high/new low statistics page</pre>
         
         // 加载数据
         async function loadData() {
+            console.log('🔄 [New High/Low] 开始加载数据...', new Date().toLocaleString());
+            
             try {
-                const response = await fetch(`/api/price-position/new-high-low-stats?_t=${Date.now()}`, {
-                    cache: 'no-store'
+                const url = `/api/price-position/new-high-low-stats?_t=${Date.now()}`;
+                console.log('📡 [New High/Low] API URL:', url);
+                
+                const response = await fetch(url, {
+                    cache: 'no-store',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache'
+                    }
                 });
                 
+                console.log('📥 [New High/Low] 响应状态:', response.status, response.statusText);
+                
                 if (!response.ok) {
-                    throw new Error('API请求失败');
+                    throw new Error(`API请求失败: ${response.status} ${response.statusText}`);
                 }
                 
                 const data = await response.json();
+                console.log('✅ [New High/Low] 数据加载成功:', {
+                    timestamp: data.timestamp,
+                    coin_count: data.coin_count,
+                    today_events: data.today?.total_events,
+                    seven_days_events: data['7days']?.total_events
+                });
                 
                 if (!data.success) {
                     throw new Error(data.error || '数据加载失败');
@@ -926,23 +943,30 @@ cf6d1dd - feat: Add new high/new low statistics page</pre>
                 document.getElementById('status').className = 'status-ok';
                 
                 // 更新统计卡片
+                console.log('📊 [New High/Low] 更新统计卡片...');
                 updateStatCard('today', data.today || {});
                 updateStatCard('yesterday', data.yesterday || {});
                 updateStatCard('3days', data['3days'] || {});
                 updateStatCard('7days', data['7days'] || {});
                 
                 // 更新图表
+                console.log('📈 [New High/Low] 更新图表...');
                 updateComparisonChart(data);
                 updateSymbolStatsChart(data['7days'].by_symbol || {});
                 
                 // 更新币种状态表格
+                console.log('📋 [New High/Low] 更新币种状态表格...');
                 updateCoinStatesTable(data.coin_states || {}, data.timestamp);
                 
                 // 更新事件列表
+                console.log('📝 [New High/Low] 更新事件列表...');
                 updateEventsTable(data.today.events || []);
                 
+                console.log('✅ [New High/Low] 页面更新完成');
+                
             } catch (error) {
-                console.error('加载数据失败:', error);
+                console.error('❌ [New High/Low] 加载数据失败:', error);
+                console.error('❌ [New High/Low] 错误堆栈:', error.stack);
                 document.getElementById('status').textContent = '加载失败';
                 document.getElementById('status').className = 'status-error';
             }
