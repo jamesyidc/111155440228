@@ -16806,6 +16806,25 @@ def get_okx_tpsl_settings(account_id):
                         'enabled': jsonl_settings.get('enabled', True),
                         'lastUpdated': jsonl_settings.get('last_updated', '')
                     }
+                    
+                    # 📊 读取百分比止盈止损配置
+                    percent_jsonl_file = os.path.join(settings_dir, f'{account_id}_percent_tpsl.jsonl')
+                    if os.path.exists(percent_jsonl_file):
+                        with open(percent_jsonl_file, 'r', encoding='utf-8') as pf:
+                            percent_line = pf.readline().strip()
+                            if percent_line:
+                                percent_settings = json.loads(percent_line)
+                                settings['percentTakeProfitThreshold'] = percent_settings.get('percentTakeProfitThreshold', 5.0)
+                                settings['percentStopLossThreshold'] = percent_settings.get('percentStopLossThreshold', 7.0)
+                                settings['percentTakeProfitEnabled'] = percent_settings.get('percentTakeProfitEnabled', False)
+                                settings['percentStopLossEnabled'] = percent_settings.get('percentStopLossEnabled', False)
+                    else:
+                        # 默认值
+                        settings['percentTakeProfitThreshold'] = 5.0
+                        settings['percentStopLossThreshold'] = 7.0
+                        settings['percentTakeProfitEnabled'] = False
+                        settings['percentStopLossEnabled'] = False
+                    
                     return jsonify({
                         'success': True,
                         'settings': settings,
@@ -16828,6 +16847,10 @@ def get_okx_tpsl_settings(account_id):
             'stopLossThreshold': -8.0,
             'takeProfitEnabled': True,
             'stopLossEnabled': True,
+            'percentTakeProfitThreshold': 5.0,
+            'percentStopLossThreshold': 7.0,
+            'percentTakeProfitEnabled': False,
+            'percentStopLossEnabled': False,
             'rsiTakeProfitThreshold': 1900,
             'rsiTakeProfitEnabled': False,
             'rsiShortTakeProfitThreshold': 810,
@@ -16888,6 +16911,29 @@ def save_okx_tpsl_settings(account_id):
             'comment': '止盈止损配置 - 最大单笔保护 + RSI多单止盈 + RSI空单止盈 + 市场情绪止盈 + 见顶信号做空'
         }
         
+        # 📊 保存百分比止盈止损配置到独立JSONL文件
+        percent_tpsl_settings = {
+            'account_id': account_id,
+            'percentTakeProfitEnabled': bool(data.get('percentTakeProfitEnabled', False)),
+            'percentTakeProfitThreshold': float(data.get('percentTakeProfitThreshold', 5.0)),
+            'percentStopLossEnabled': bool(data.get('percentStopLossEnabled', False)),
+            'percentStopLossThreshold': float(data.get('percentStopLossThreshold', 7.0)),
+            'last_updated': last_updated,
+            'comment': '百分比止盈止损配置 - 基于总保证金百分比计算'
+        }
+        
+        # 保存百分比止盈止损到独立JSONL文件
+        percent_jsonl_file = os.path.join(settings_dir, f'{account_id}_percent_tpsl.jsonl')
+        with open(percent_jsonl_file, 'w', encoding='utf-8') as f:
+            f.write(json.dumps(percent_tpsl_settings, ensure_ascii=False) + '\n')
+        
+        # 保存到历史记录
+        percent_history_file = os.path.join(settings_dir, f'{account_id}_percent_history.jsonl')
+        with open(percent_history_file, 'a', encoding='utf-8') as f:
+            history_entry = percent_tpsl_settings.copy()
+            history_entry['timestamp'] = datetime.now().isoformat()
+            f.write(json.dumps(history_entry, ensure_ascii=False) + '\n')
+        
         # 保存到JSONL文件（覆盖第一行）
         jsonl_file = os.path.join(settings_dir, f'{account_id}_tpsl.jsonl')
         with open(jsonl_file, 'w', encoding='utf-8') as f:
@@ -16906,6 +16952,10 @@ def save_okx_tpsl_settings(account_id):
             'stopLossThreshold': jsonl_settings['stop_loss_threshold'],
             'takeProfitEnabled': jsonl_settings['take_profit_enabled'],
             'stopLossEnabled': jsonl_settings['stop_loss_enabled'],
+            'percentTakeProfitThreshold': percent_tpsl_settings['percentTakeProfitThreshold'],
+            'percentStopLossThreshold': percent_tpsl_settings['percentStopLossThreshold'],
+            'percentTakeProfitEnabled': percent_tpsl_settings['percentTakeProfitEnabled'],
+            'percentStopLossEnabled': percent_tpsl_settings['percentStopLossEnabled'],
             'rsiTakeProfitThreshold': jsonl_settings['rsi_take_profit_threshold'],
             'rsiTakeProfitEnabled': jsonl_settings['rsi_take_profit_enabled'],
             'rsiShortTakeProfitThreshold': jsonl_settings['rsi_short_take_profit_threshold'],
@@ -16984,6 +17034,73 @@ def save_account_credentials(account_id):
         return jsonify({
             'success': True,
             'message': f'账户 {account_id} API凭证已保存'
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        })
+
+@app.route('/api/okx-trading/percent-tpsl-status/<account_id>', methods=['GET'])
+def get_percent_tpsl_status(account_id):
+    """获取百分比止盈止损监控状态"""
+    try:
+        import json
+        import os
+        from datetime import datetime
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        settings_dir = os.path.join(current_dir, 'data', 'okx_tpsl_settings')
+        
+        # 读取配置
+        config_file = os.path.join(settings_dir, f'{account_id}_percent_tpsl.jsonl')
+        if not os.path.exists(config_file):
+            return jsonify({
+                'success': False,
+                'error': '未找到配置文件'
+            })
+        
+        with open(config_file, 'r', encoding='utf-8') as f:
+            config = json.loads(f.readline().strip())
+        
+        # 读取执行记录
+        execution_file = os.path.join(settings_dir, f'{account_id}_percent_tpsl_execution.jsonl')
+        executions = []
+        if os.path.exists(execution_file):
+            with open(execution_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    if line.strip():
+                        executions.append(json.loads(line))
+        
+        # 获取最近的执行记录（最多10条）
+        recent_executions = executions[-10:] if executions else []
+        
+        # 统计
+        total_executions = len(executions)
+        take_profit_count = sum(1 for e in executions if e.get('triggerType') == 'percent_take_profit')
+        stop_loss_count = sum(1 for e in executions if e.get('triggerType') == 'percent_stop_loss')
+        success_count = sum(1 for e in executions if e.get('success'))
+        failed_count = total_executions - success_count
+        
+        return jsonify({
+            'success': True,
+            'config': {
+                'percentTakeProfitEnabled': config.get('percentTakeProfitEnabled', False),
+                'percentTakeProfitThreshold': config.get('percentTakeProfitThreshold', 5.0),
+                'percentStopLossEnabled': config.get('percentStopLossEnabled', False),
+                'percentStopLossThreshold': config.get('percentStopLossThreshold', 7.0),
+                'lastUpdated': config.get('last_updated', '')
+            },
+            'statistics': {
+                'totalExecutions': total_executions,
+                'takeProfitCount': take_profit_count,
+                'stopLossCount': stop_loss_count,
+                'successCount': success_count,
+                'failedCount': failed_count
+            },
+            'recentExecutions': recent_executions
         })
     
     except Exception as e:

@@ -1,0 +1,45 @@
+Traceback (most recent call last):
+  File "/home/user/webapp/source_code/market_sentiment_collector.py", line 344, in main
+    next_time = next_time.replace(hour=next_time.hour + 1)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: hour must be in 0..23
+Traceback (most recent call last):
+  File "/home/user/webapp/source_code/market_sentiment_collector.py", line 344, in main
+    next_time = next_time.replace(hour=next_time.hour + 1)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: hour must be in 0..23
+Traceback (most recent call last):
+  File "/home/user/webapp/source_code/market_sentiment_collector.py", line 344, in main
+    next_time = next_time.replace(hour=next_time.hour + 1)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: hour must be in 0..23
+Traceback (most recent call last):
+  File "/home/user/webapp/source_code/market_sentiment_collector.py", line 344, in main
+    next_time = next_time.replace(hour=next_time.hour + 1)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: hour must be in 0..23
+Traceback (most recent call last):
+  File "/home/user/webapp/source_code/market_sentiment_collector.py", line 344, in main
+    next_time = next_time.replace(hour=next_time.hour + 1)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: hour must be in 0..23
+Traceback (most recent call last):
+  File "/home/user/webapp/source_code/market_sentiment_collector.py", line 344, in main
+    next_time = next_time.replace(hour=next_time.hour + 1)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: hour must be in 0..23
+Traceback (most recent call last):
+  File "/home/user/webapp/source_code/market_sentiment_collector.py", line 344, in main
+    next_time = next_time.replace(hour=next_time.hour + 1)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: hour must be in 0..23
+Traceback (most recent call last):
+  File "/home/user/webapp/source_code/market_sentiment_collector.py", line 344, in main
+    next_time = next_time.replace(hour=next_time.hour + 1)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: hour must be in 0..23
+Traceback (most recent call last):
+  File "/home/user/webapp/source_code/market_sentiment_collector.py", line 344, in main
+    next_time = next_time.replace(hour=next_time.hour + 1)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: hour must be in 0..23

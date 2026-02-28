@@ -255,6 +255,17 @@ module.exports = {
       out_file: '/home/user/webapp/logs/okx-tpsl-monitor-out.log'
     },
     {
+      name: 'okx-percent-tpsl-monitor',
+      script: 'source_code/okx_percent_tpsl_monitor.py',
+      interpreter: 'python3',
+      cwd: '/home/user/webapp',
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '300M',
+      error_file: '/home/user/webapp/logs/okx-percent-tpsl-monitor-error.log',
+      out_file: '/home/user/webapp/logs/okx-percent-tpsl-monitor-out.log'
+    },
+    {
       name: 'okx-trade-history',
       script: 'source_code/okx_trade_history_collector.py',
       interpreter: 'python3',
