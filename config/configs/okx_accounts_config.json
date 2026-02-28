@@ -1,0 +1,61 @@
+{
+  "main_account": {
+    "account_name": "主账户",
+    "api_key": "b0c18f2d-e014-4ae8-9c3c-cb02161de4db",
+    "secret_key": "92F864C599B2CE2EC5186AD14C8B4110",
+    "passphrase": "Tencent@123",
+    "base_url": "https://www.okx.com",
+    "trade_mode": "real",
+    "simulated": false,
+    "permissions": {
+      "read": true,
+      "trade": true,
+      "withdraw": false
+    }
+  },
+  "fangfang12": {
+    "account_name": "fangfang12",
+    "api_key": "e5867a9a-93b7-476f-81ce-093c3aacae0d",
+    "secret_key": "4624EE63A9BF3F84250AC71C9A37F47D",
+    "passphrase": "Tencent@123",
+    "base_url": "https://www.okx.com",
+    "trade_mode": "real",
+    "simulated": false,
+    "permissions": {
+      "read": true,
+      "trade": true,
+      "withdraw": false
+    }
+  },
+  "sub_account": {
+    "account_name": "子账户",
+    "api_key": "8650e46c-059b-431d-93cf-55f8c79babdb",
+    "secret_key": "4C2BD2AC6A08615EA7F36A6251857FCE",
+    "passphrase": "Wu666666.",
+    "base_url": "https://www.okx.com",
+    "trade_mode": "real",
+    "simulated": false,
+    "permissions": {
+      "read": true,
+      "trade": false,
+      "withdraw": false
+    }
+  },
+  "anchor_account": {
+    "account_name": "锚点账户",
+    "api_key": "0b05a729-40eb-4809-b3eb-eb2de75b7e9e",
+    "secret_key": "4E4DA8BE3B18D01AA07185A006BF9F8E",
+    "passphrase": "Tencent@123",
+    "base_url": "https://www.okx.com",
+    "trade_mode": "real",
+    "simulated": false,
+    "permissions": {
+      "read": true,
+      "trade": true,
+      "withdraw": false
+    }
+  },
+  "default_account": "main_account",
+  "created_at": "2026-02-03T04:34:00Z",
+  "updated_at": "2026-02-07T01:25:00Z"
+}

@@ -1,0 +1,314 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+OKX趋势角度分析器
+分析趋势图中的锐角和钝角形态
+"""
+
+import json
+import os
+import math
+from datetime import datetime, timedelta
+from collections import defaultdict
+
+# 数据目录
+DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data')
+COIN_TRACKER_DIR = os.path.join(DATA_DIR, 'coin_change_tracker')
+OUTPUT_DIR = os.path.join(DATA_DIR, 'okx_angle_analysis')
+
+def load_trend_data(date_str):
+    """加载指定日期的趋势数据（从coin_change_tracker）"""
+    file_path = os.path.join(COIN_TRACKER_DIR, f'coin_change_{date_str}.jsonl')
+    
+    if not os.path.exists(file_path):
+        print(f"⚠️ 文件不存在: {file_path}")
+        return []
+    
+    data_points = []
+    with open(file_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            if line.strip():
+                try:
+                    item = json.loads(line)
+                    # 转换为统一格式
+                    data_points.append({
+                        'time': item['time'],  # HH:MM:SS
+                        'cumulative_pct': float(item.get('total_change', 0)),
+                        'timestamp': item.get('timestamp', '')
+                    })
+                except Exception as e:
+                    print(f"解析数据错误: {e}")
+                    continue
+    
+    # 按时间排序
+    data_points.sort(key=lambda x: x['time'])
+    
+    return data_points
+
+def parse_time_to_minutes(time_str):
+    """将时间字符串转换为分钟数（从00:00:00开始）"""
+    try:
+        h, m, s = map(int, time_str.split(':'))
+        return h * 60 + m + s / 60.0
+    except:
+        return 0
+
+def find_peak_and_valley(data_points, start_idx=0):
+    """
+    找到最高点A和其后的回升点C
+    
+    返回: (peak_idx, valley_idx) 或 None
+    """
+    if len(data_points) < 3:
+        return None
+    
+    # 找最高点A
+    peak_idx = start_idx
+    peak_value = data_points[start_idx]['cumulative_pct']
+    
+    for i in range(start_idx, len(data_points)):
+        if data_points[i]['cumulative_pct'] > peak_value:
+            peak_value = data_points[i]['cumulative_pct']
+            peak_idx = i
+    
+    if peak_idx == len(data_points) - 1:
+        return None  # 最高点在最后，无法找到后续的谷底
+    
+    # 在最高点之后找谷底（回升点C）
+    # 谷底定义：价格下跌后开始回升的点
+    valley_idx = None
+    min_value = peak_value
+    
+    for i in range(peak_idx + 1, len(data_points)):
+        current = data_points[i]['cumulative_pct']
+        
+        if current < min_value:
+            min_value = current
+            valley_idx = i
+        elif valley_idx is not None and current > data_points[valley_idx]['cumulative_pct']:
+            # 找到回升点
+            break
+    
+    if valley_idx is None or valley_idx == peak_idx + 1:
+        return None
+    
+    return (peak_idx, valley_idx)
+
+def find_price_match_before_peak(data_points, peak_idx, valley_price):
+    """
+    在最高点A之前，找到与谷底C价格相等（或最接近）的点C'
+    
+    返回: c_prime_idx 或 None
+    """
+    if peak_idx == 0:
+        return None
+    
+    best_idx = None
+    min_diff = float('inf')
+    
+    # 在最高点之前查找
+    for i in range(peak_idx):
+        price = data_points[i]['cumulative_pct']
+        diff = abs(price - valley_price)
+        
+        if diff < min_diff:
+            min_diff = diff
+            best_idx = i
+    
+    # 如果差异太大（超过1%），认为没有找到合适的点
+    if min_diff > 1.0:
+        return None
+    
+    return best_idx
+
+def calculate_angle(data_points, c_prime_idx, peak_idx):
+    """
+    计算角度（度数）
+    
+    角度 = arctan(垂直距离 / 水平距离) * 180 / π
+    
+    注意：水平距离使用数据点个数，而不是时间（分钟）
+    这样可以更准确地反映趋势的陡峭程度
+    """
+    # 垂直距离（价格差）
+    vertical = data_points[peak_idx]['cumulative_pct'] - data_points[c_prime_idx]['cumulative_pct']
+    
+    # 水平距离（数据点个数）
+    horizontal = peak_idx - c_prime_idx
+    
+    if horizontal <= 0:
+        return None
+    
+    # 计算角度（弧度转角度）
+    angle_rad = math.atan(vertical / horizontal)
+    angle_deg = math.degrees(angle_rad)
+    
+    # 时间差（用于显示）
+    time_peak = parse_time_to_minutes(data_points[peak_idx]['time'])
+    time_c_prime = parse_time_to_minutes(data_points[c_prime_idx]['time'])
+    time_diff = time_peak - time_c_prime
+    
+    return {
+        'angle': angle_deg,
+        'type': 'acute' if angle_deg < 45 else 'obtuse',  # acute=锐角, obtuse=钝角
+        'vertical_distance': vertical,
+        'horizontal_distance': horizontal,  # 数据点个数
+        'time_distance': time_diff,  # 时间差（分钟）
+        'c_prime_time': data_points[c_prime_idx]['time'],
+        'c_prime_price': data_points[c_prime_idx]['cumulative_pct'],
+        'peak_time': data_points[peak_idx]['time'],
+        'peak_price': data_points[peak_idx]['cumulative_pct'],
+        'valley_time': data_points[peak_idx]['time'],  # 将在外部设置
+        'valley_price': 0  # 将在外部设置
+    }
+
+def analyze_angles_by_hour(data_points):
+    """
+    按小时分析角度
+    每小时只保留最大的一个角度
+    """
+    angles_by_hour = defaultdict(list)
+    
+    processed_peaks = set()  # 记录已处理的峰值，避免重复
+    
+    idx = 0
+    while idx < len(data_points):
+        result = find_peak_and_valley(data_points, idx)
+        
+        if result is None:
+            idx += 1
+            continue
+        
+        peak_idx, valley_idx = result
+        
+        if peak_idx in processed_peaks:
+            idx += 1
+            continue
+        
+        processed_peaks.add(peak_idx)
+        
+        valley_price = data_points[valley_idx]['cumulative_pct']
+        
+        # 找C'点
+        c_prime_idx = find_price_match_before_peak(data_points, peak_idx, valley_price)
+        
+        if c_prime_idx is None:
+            idx = peak_idx + 1
+            continue
+        
+        # 计算角度
+        angle_info = calculate_angle(data_points, c_prime_idx, peak_idx)
+        
+        if angle_info is None:
+            idx = peak_idx + 1
+            continue
+        
+        # 补充谷底信息
+        angle_info['valley_time'] = data_points[valley_idx]['time']
+        angle_info['valley_price'] = data_points[valley_idx]['cumulative_pct']
+        
+        # 获取小时
+        hour = data_points[peak_idx]['time'].split(':')[0]
+        angles_by_hour[hour].append(angle_info)
+        
+        # 移动到谷底之后继续分析
+        idx = valley_idx + 1
+    
+    # 每小时只保留最大角度
+    result = {}
+    for hour, angles in angles_by_hour.items():
+        max_angle = max(angles, key=lambda x: abs(x['angle']))
+        result[hour] = max_angle
+    
+    return result
+
+def save_angle_analysis(date_str, angles_by_hour):
+    """保存角度分析结果到JSONL文件"""
+    output_file = os.path.join(OUTPUT_DIR, f'okx_angles_{date_str}.jsonl')
+    
+    with open(output_file, 'w', encoding='utf-8') as f:
+        for hour, angle_info in sorted(angles_by_hour.items()):
+            record = {
+                'date': date_str,
+                'hour': hour,
+                **angle_info,
+                'analyzed_at': datetime.now().isoformat()
+            }
+            f.write(json.dumps(record, ensure_ascii=False) + '\n')
+    
+    print(f"✅ 保存分析结果: {output_file}")
+    return output_file
+
+def analyze_date(date_str):
+    """分析指定日期的角度"""
+    print(f"\n{'='*60}")
+    print(f"📐 分析日期: {date_str}")
+    print(f"{'='*60}")
+    
+    # 加载数据
+    data_points = load_trend_data(date_str)
+    
+    if not data_points:
+        print(f"❌ 没有数据可分析")
+        return None
+    
+    print(f"📊 加载了 {len(data_points)} 个数据点")
+    
+    # 分析角度
+    angles_by_hour = analyze_angles_by_hour(data_points)
+    
+    if not angles_by_hour:
+        print(f"❌ 未找到有效的角度形态")
+        return None
+    
+    print(f"\n📈 找到 {len(angles_by_hour)} 个小时的角度形态:")
+    print(f"{'='*60}")
+    
+    for hour, angle_info in sorted(angles_by_hour.items()):
+        angle_type_cn = "🔺 锐角" if angle_info['type'] == 'acute' else "🔻 钝角"
+        print(f"\n⏰ {hour}:00 - {int(hour) + 1}:00")
+        print(f"   类型: {angle_type_cn}")
+        print(f"   角度: {angle_info['angle']:.2f}°")
+        print(f"   C'点: {angle_info['c_prime_time']} ({angle_info['c_prime_price']:.2f}%)")
+        print(f"   A点:  {angle_info['peak_time']} ({angle_info['peak_price']:.2f}%)")
+        print(f"   C点:  {angle_info['valley_time']} ({angle_info['valley_price']:.2f}%)")
+        print(f"   上涨: {angle_info['vertical_distance']:.2f}% / {angle_info['horizontal_distance']} 个点 / {angle_info['time_distance']:.1f}分钟")
+    
+    # 保存结果
+    output_file = save_angle_analysis(date_str, angles_by_hour)
+    
+    print(f"\n{'='*60}")
+    print(f"✅ 分析完成")
+    print(f"{'='*60}\n")
+    
+    return output_file
+
+def analyze_recent_days(days=7):
+    """分析最近N天的角度"""
+    today = datetime.now()
+    
+    for i in range(days):
+        date = today - timedelta(days=i)
+        date_str = date.strftime('%Y%m%d')
+        
+        try:
+            analyze_date(date_str)
+        except Exception as e:
+            print(f"❌ 分析 {date_str} 时出错: {e}")
+            continue
+
+if __name__ == '__main__':
+    import sys
+    
+    # 确保输出目录存在
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    
+    if len(sys.argv) > 1:
+        # 指定日期分析
+        date_str = sys.argv[1]
+        analyze_date(date_str)
+    else:
+        # 分析最近7天
+        print("📐 OKX趋势角度分析器")
+        print("=" * 60)
+        analyze_recent_days(days=7)

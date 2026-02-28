@@ -1,0 +1,79 @@
+{
+  "enabled": true,
+  "bot_token": "8437045462:AAFePnwdC21cqeWhZISMQHGGgjmroVqE2H0",
+  "chat_id": "-1003227444260",
+  "events": {
+    "general_top_escape": {
+      "name": "事件1: 通用逃顶信号(100+)",
+      "enabled": true,
+      "description": "2h见顶信号数量≥100，市场过热，建议逃顶",
+      "action": "开空单",
+      "priority": "high"
+    },
+    "strong_top_escape": {
+      "name": "事件2: 强逃顶信号(120+)",
+      "enabled": true,
+      "description": "2h见顶信号数量≥120，市场极度过热，强烈建议逃顶",
+      "action": "开空单",
+      "priority": "high"
+    },
+    "strong_short_liquidation": {
+      "name": "事件3: 强空头爆仓",
+      "enabled": true,
+      "description": "爆仓金额≥2500万，10分钟内持续创新高，强空头信号",
+      "action": "开空单",
+      "priority": "high"
+    },
+    "weak_short_liquidation": {
+      "name": "事件4: 弱空头爆仓",
+      "enabled": true,
+      "description": "爆仓金额≥2500万，10分钟内未创新高，弱空头信号",
+      "action": "开空单",
+      "priority": "medium"
+    },
+    "red_to_green_mark": {
+      "name": "事件5: 红色标转绿色表",
+      "enabled": true,
+      "description": "多空盈利标记从红色转为绿色，市场从强势转弱势",
+      "action": "开空单",
+      "priority": "medium"
+    },
+    "green_to_red_mark": {
+      "name": "事件6: 绿色表转红色标",
+      "enabled": true,
+      "description": "多空盈利标记从绿色转为红色，市场从弱势转强势",
+      "action": "开多单",
+      "priority": "medium"
+    },
+    "extreme_rally_pullback": {
+      "name": "事件7: 极端拉升后回调",
+      "enabled": true,
+      "description": "总涨跌幅绝对值≥50 且 SAR偏空≥80%币种≥20个，极端拉升后回调",
+      "action": "开空单",
+      "priority": "high"
+    },
+    "extreme_drop_rebound": {
+      "name": "事件8: 极端下跌后反弹",
+      "enabled": true,
+      "description": "总涨跌幅绝对值≥50 且 SAR偏多≥80%币种≥7个，极端下跌后反弹",
+      "action": "开多单",
+      "priority": "high"
+    },
+    "super_liquidation_drop": {
+      "name": "事件9: 超强爆仓之后的主跌",
+      "enabled": true,
+      "description": "爆仓金额≥1.5亿，总涨跌幅从阶段性高点回落≥10%，超强爆仓后主跌",
+      "action": "开空单",
+      "priority": "critical"
+    }
+  },
+  "notification_settings": {
+    "send_immediately": true,
+    "include_data_snapshot": true,
+    "include_recommendation": true,
+    "cooldown_minutes": 30,
+    "max_retries": 3
+  },
+  "created_at": "2026-02-07T01:30:00Z",
+  "updated_at": "2026-02-07T01:30:00Z"
+}

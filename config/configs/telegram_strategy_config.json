@@ -1,0 +1,28 @@
+{
+  "enabled": true,
+  "max_position_per_coin": 10,
+  "max_total_position": 60,
+  "slippage_protection": 0.5,
+  "cooldown_seconds": 300,
+  "max_daily_executions": 10,
+  "accounts": [
+    {
+      "name": "锚点账户",
+      "api_key": "",
+      "secret_key": "",
+      "passphrase": "",
+      "enabled": true,
+      "note": "从 OKX API 配置中获取"
+    }
+  ],
+  "rank_definitions": {
+    "top": {
+      "name": "前6名",
+      "description": "按市值或涨跌幅排名前6的币种"
+    },
+    "bottom": {
+      "name": "后6名",
+      "description": "按市值或涨跌幅排名后6的币种"
+    }
+  }
+}
