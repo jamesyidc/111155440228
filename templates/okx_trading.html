@@ -1799,6 +1799,106 @@
             </div>
         </div>
 
+        <!-- 🔥 止盈止损后台自动执行说明 (2026-02-28) -->
+        <div style="margin: 10px 0; padding: 15px; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-radius: 8px; border: 2px solid #10b981; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);">
+            <h4 style="margin: 0 0 10px 0; color: #065f46; font-size: 14px; font-weight: 800;">
+                ✅ 止盈止损后台自动执行 - 无需浏览器打开 (v3.0 - 2026-02-28)
+            </h4>
+            <div style="font-size: 11px; line-height: 1.8; color: #064e3b;">
+                <p style="margin: 0 0 8px 0;"><strong>【问题】</strong>止盈止损需要浏览器保持打开，关闭后无法执行</p>
+                
+                <p style="margin: 0 0 8px 0;"><strong>【修复】</strong>后台自动监控服务 - 7×24小时运行</p>
+                <div style="background: white; padding: 10px; border-radius: 6px; margin: 8px 0;">
+                    <p style="margin: 0 0 6px 0; font-weight: 700; color: #10b981;">🟢 后台监控进程：okx-tpsl-monitor</p>
+                    <ul style="margin: 4px 0 0 20px; padding: 0; font-size: 10px;">
+                        <li>✅ PM2守护进程管理，崩溃自动重启</li>
+                        <li>✅ 每60秒自动检查所有账户的持仓盈亏</li>
+                        <li>✅ 触发止盈/止损条件时立即执行平仓</li>
+                        <li>✅ 完全不依赖浏览器，关闭浏览器也能执行</li>
+                        <li>✅ 支持普通止盈止损 + 市场情绪紧急止盈</li>
+                    </ul>
+                </div>
+                
+                <p style="margin: 8px 0 6px 0; font-weight: 700; color: #065f46;">📊 监控账户（5个）：</p>
+                <ul style="margin: 4px 0 0 20px; padding: 0; font-size: 10px;">
+                    <li>account_main（主账户）</li>
+                    <li>account_fangfang12</li>
+                    <li>account_poit_main（POIT子账户）</li>
+                    <li>account_anchor（锚点账户）</li>
+                    <li>account_dadanini（新增）</li>
+                </ul>
+                
+                <p style="margin: 8px 0 6px 0; font-weight: 700; color: #065f46;">🎯 工作流程：</p>
+                <div style="background: #f0fdf4; padding: 8px; border-radius: 4px; margin: 6px 0; border-left: 3px solid #10b981;">
+                    <ol style="margin: 0; padding-left: 20px; font-size: 10px;">
+                        <li>每60秒扫描所有账户</li>
+                        <li>读取止盈止损配置（data/okx_tpsl_settings/）</li>
+                        <li>获取当前持仓并计算盈亏百分比</li>
+                        <li>检查是否触发：
+                            <ul style="margin: 4px 0 0 15px;">
+                                <li>市场情绪止盈（优先）：检测到极端信号立即平仓</li>
+                                <li>普通止盈：盈亏% ≥ 止盈阈值</li>
+                                <li>普通止损：盈亏% ≤ 止损阈值</li>
+                            </ul>
+                        </li>
+                        <li>执行平仓（调用OKX API设置条件单）</li>
+                        <li>记录执行结果（防止重复执行）</li>
+                        <li>发送Telegram通知</li>
+                    </ol>
+                </div>
+                
+                <p style="margin: 8px 0 6px 0; font-weight: 700; color: #065f46;">🔒 安全机制：</p>
+                <ul style="margin: 4px 0 0 20px; padding: 0; font-size: 10px;">
+                    <li>✅ 防重复执行：每个持仓的止盈/止损只执行一次</li>
+                    <li>✅ 执行记录：保存到 {account_id}_tpsl_execution.jsonl</li>
+                    <li>✅ 自动重启：PM2确保进程崩溃后自动恢复</li>
+                    <li>✅ 日志记录：详细记录每次检查和执行过程</li>
+                    <li>✅ 实时通知：Telegram推送执行结果</li>
+                </ul>
+                
+                <p style="margin: 8px 0 6px 0; font-weight: 700; color: #065f46;">📋 配置文件：</p>
+                <ul style="margin: 4px 0 0 20px; padding: 0; font-size: 10px;">
+                    <li>止盈止损设置：<code>data/okx_tpsl_settings/{account_id}_tpsl.jsonl</code></li>
+                    <li>账户API凭证：<code>data/okx_auto_strategy/{account_id}.json</code></li>
+                    <li>执行记录：<code>data/okx_tpsl_settings/{account_id}_tpsl_execution.jsonl</code></li>
+                </ul>
+                
+                <p style="margin: 8px 0 6px 0; font-weight: 700; color: #065f46;">🔍 查看运行状态：</p>
+                <div style="background: #1f2937; color: #10b981; padding: 8px; border-radius: 4px; font-family: monospace; font-size: 10px; margin: 6px 0;">
+                    # 查看监控进程<br>
+                    pm2 list | grep okx-tpsl-monitor<br>
+                    <br>
+                    # 查看实时日志<br>
+                    pm2 logs okx-tpsl-monitor --lines 50<br>
+                    <br>
+                    # 日志示例：<br>
+                    [account_main] 📊 DOT-USDT-SWAP long: 盈亏=0.41%<br>
+                    [account_main] 📊 UNI-USDT-SWAP long: 盈亏=-0.75%<br>
+                    [account_main] 🎯 触发止盈: 12.5% >= 12.0%<br>
+                    [account_main] ✅ 止盈设置成功<br>
+                    等待 60 秒后继续...
+                </div>
+                
+                <p style="margin: 10px 0 0 0; padding: 10px; background: #fef3c7; border-radius: 6px; border-left: 3px solid #f59e0b; font-size: 10px;">
+                    <strong>💡 重要提示：</strong><br>
+                    1. 监控进程已经在后台运行，无需手动启动<br>
+                    2. 浏览器中的止盈止损开关只控制前端页面的弹窗提示<br>
+                    3. 后台监控服务读取JSONL配置文件，不受前端开关影响<br>
+                    4. 修改止盈止损阈值后，后台会在下次检查时自动读取新配置<br>
+                    5. 如需临时禁用监控，修改JSONL文件中的 <code>enabled</code> 字段为 <code>false</code>
+                </p>
+                
+                <p style="margin: 10px 0 0 0; padding: 10px; background: #fee2e2; border-radius: 6px; border-left: 3px solid #dc2626; font-size: 10px;">
+                    <strong>⚠️ 注意事项：</strong><br>
+                    1. 确保账户API凭证配置正确（apiKey、apiSecret、passphrase）<br>
+                    2. 确保账户有足够的持仓才会触发止盈止损<br>
+                    3. 监控进程每60秒检查一次，不是实时的（已够快）<br>
+                    4. 市场剧烈波动时可能存在滑点，建议设置合理的止盈止损阈值<br>
+                    5. 详细文档：<code>FIX_BACKEND_AUTOMATION_2026-02-28.md</code>
+                </p>
+            </div>
+        </div>
+
         <!-- 系统架构说明（可伸缩） -->
         <div style="margin-top: 10px; padding: 10px; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 8px; border: 2px solid #0ea5e9;">
             <div style="cursor: pointer; display: flex; align-items: center; justify-content: space-between;" onclick="document.getElementById('systemArchitecture').style.display = document.getElementById('systemArchitecture').style.display === 'none' ? 'block' : 'none'; document.getElementById('archToggleIcon').textContent = document.getElementById('systemArchitecture').style.display === 'none' ? '▶' : '▼';">

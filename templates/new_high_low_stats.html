@@ -277,6 +277,63 @@
                 追踪币种: <span id="coin-count">--</span> 个 | 
                 状态: <span id="status" class="status-ok">正常</span>
             </p>
+            
+            <!-- 🔥 系统更新说明 (2026-02-28) -->
+            <div style="margin-top: 15px; padding: 15px; background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; border-radius: 8px;">
+                <h3 style="color: #10b981; margin-bottom: 10px;">✅ 系统修复更新 (v2.1 - 2026-02-28)</h3>
+                <div style="font-size: 0.9em; line-height: 1.8; color: #a0a0a0;">
+                    <p><strong>问题：</strong>每次重新部署后数据显示为空，停留在历史日期</p>
+                    
+                    <p><strong>根本原因：</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>❌ <code>new-high-low-collector</code> 采集器未配置到PM2自动启动</li>
+                        <li>❌ 依赖链条：price-position采集 → new-high-low检测 → Flask API → 前端显示</li>
+                        <li>❌ 任何一环断裂都会导致"没有数据"</li>
+                    </ul>
+                    
+                    <p><strong>已修复：</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>✅ 新增 <code>new-high-low-collector</code> 到 <code>ecosystem.config.js</code></li>
+                        <li>✅ 采集器每3分钟自动检测创新高/创新低事件</li>
+                        <li>✅ PM2配置已保存，重启后自动恢复所有采集器</li>
+                        <li>✅ 数据文件已纳入Git版本控制，防止丢失</li>
+                        <li>✅ 添加详细的部署指南：<code>NEW_HIGH_LOW_DEPLOYMENT_GUIDE.md</code></li>
+                    </ul>
+                    
+                    <p><strong>当前状态：</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>🟢 price-position-collector: 运行正常 (每3分钟采集价格数据)</li>
+                        <li>🟢 new-high-low-collector: 运行正常 (每3分钟检测新高新低)</li>
+                        <li>🟢 数据实时更新: 今天已记录 <span id="today-events-count" style="color: #10b981; font-weight: bold;">--</span> 个事件</li>
+                        <li>🟢 追踪币种: 28个加密货币全覆盖</li>
+                    </ul>
+                    
+                    <p><strong>重新部署后的检查步骤：</strong></p>
+                    <ol style="margin-left: 20px; margin-top: 5px;">
+                        <li>确认进程运行: <code>pm2 list | grep new-high-low-collector</code></li>
+                        <li>检查数据文件: <code>ls data/new_high_low/new_high_low_events_*.jsonl</code></li>
+                        <li>等待3-5分钟让采集器生成今天的数据</li>
+                        <li>强制刷新页面: <code>Ctrl+F5</code> 清除浏览器缓存</li>
+                        <li>如仍无数据，查看日志: <code>pm2 logs new-high-low-collector</code></li>
+                    </ol>
+                    
+                    <p style="margin-top: 10px;"><strong>技术细节：</strong></p>
+                    <ul style="margin-left: 20px;">
+                        <li>📊 采集逻辑: 读取price_position快照 → 比较历史极值 → 记录事件到JSONL</li>
+                        <li>💾 数据文件: <code>coin_highs_lows_state.json</code> (状态), <code>new_high_low_events_YYYYMMDD.jsonl</code> (事件)</li>
+                        <li>🔄 自动恢复: PM2守护进程确保崩溃后自动重启</li>
+                        <li>📁 版本控制: 重要数据文件已提交到Git，重新部署时保留历史数据</li>
+                    </ul>
+                    
+                    <p style="margin-top: 10px; padding: 10px; background: rgba(234, 179, 8, 0.1); border-radius: 6px;">
+                        <strong>⚠️ 注意事项：</strong><br>
+                        1. 首次部署后需等待3-5分钟让采集器生成今天的数据<br>
+                        2. 如果页面显示旧数据，请使用 <code>Ctrl+F5</code> 强制刷新<br>
+                        3. 详细故障排查步骤请参考：<code>NEW_HIGH_LOW_DEPLOYMENT_GUIDE.md</code>
+                    </p>
+                </div>
+            </div>
+            
             <div style="margin-top: 15px;">
                 <button id="backup-btn" class="backup-btn" onclick="backupData()">
                     💾 备份数据
