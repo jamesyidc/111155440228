@@ -1743,6 +1743,47 @@
             transform: translateX(20px);
         }
         
+        /* 📊 百分比止盈止损开关样式 */
+        .slider-percent-takeprofit:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        #percentTakeProfitSwitch:checked + .slider-percent-takeprofit {
+            background-color: #22c55e;
+        }
+        
+        #percentTakeProfitSwitch:checked + .slider-percent-takeprofit:before {
+            transform: translateX(20px);
+        }
+        
+        .slider-percent-stoploss:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        #percentStopLossSwitch:checked + .slider-percent-stoploss {
+            background-color: #ef4444;
+        }
+        
+        #percentStopLossSwitch:checked + .slider-percent-stoploss:before {
+            transform: translateX(20px);
+        }
+        
         .switch input:checked + .slider:before {
             transform: translateX(20px);
         }
@@ -3977,6 +4018,54 @@ data/
                         </div>
                     </div>
                     
+                    <!-- 百分比止盈止损设置 -->
+                    <div style="margin-top: 10px; padding: 10px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%); border-radius: 8px; border: 1px solid #3b82f6;">
+                        <div style="font-weight: 600; font-size: 14px; color: #1e40af; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+                            📊 百分比止盈止损
+                            <span style="font-size: 10px; color: #6b7280; font-weight: normal;">(根据持仓金额动态计算)</span>
+                        </div>
+                        
+                        <!-- 百分比止盈 -->
+                        <div style="padding: 10px; background: rgba(34, 197, 94, 0.1); border-radius: 6px; border: 1px solid #22c55e; margin-bottom: 8px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="color: #166534; font-weight: 600; font-size: 13px;">📈 百分比止盈</span>
+                                <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                    <input type="checkbox" id="percentTakeProfitSwitch" style="opacity: 0; width: 0; height: 0;">
+                                    <span class="slider slider-percent-takeprofit" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;"></span>
+                                </label>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <input type="number" id="percentTakeProfitThreshold" value="5" step="0.5" min="0.5" max="100"
+                                       style="flex: 1; padding: 6px 10px; border: 1px solid #22c55e; border-radius: 6px; font-size: 13px;"
+                                       placeholder="百分比">
+                                <span style="color: #166534; font-size: 13px; font-weight: 600;">%</span>
+                            </div>
+                            <div style="font-size: 11px; color: #166534; margin-top: 6px;">
+                                当前计算值: <span id="percentTakeProfitDisplay" style="font-weight: 600;">--</span> USDT
+                            </div>
+                        </div>
+                        
+                        <!-- 百分比止损 -->
+                        <div style="padding: 10px; background: rgba(239, 68, 68, 0.1); border-radius: 6px; border: 1px solid #ef4444;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="color: #991b1b; font-weight: 600; font-size: 13px;">📉 百分比止损</span>
+                                <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                    <input type="checkbox" id="percentStopLossSwitch" style="opacity: 0; width: 0; height: 0;">
+                                    <span class="slider slider-percent-stoploss" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;"></span>
+                                </label>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <input type="number" id="percentStopLossThreshold" value="7" step="0.5" min="0.5" max="100"
+                                       style="flex: 1; padding: 6px 10px; border: 1px solid #ef4444; border-radius: 6px; font-size: 13px;"
+                                       placeholder="百分比">
+                                <span style="color: #991b1b; font-size: 13px; font-weight: 600;">%</span>
+                            </div>
+                            <div style="font-size: 11px; color: #991b1b; margin-top: 6px;">
+                                当前计算值: <span id="percentStopLossDisplay" style="font-weight: 600;">--</span> USDT (输入大约)
+                            </div>
+                        </div>
+                    </div>
+                    
                     <!-- RSI多单止盈设置 -->
                     <div style="margin-top: 10px; padding: 10px; background: rgba(251, 146, 60, 0.1); border-radius: 8px; border: 1px solid #fb923c;">
                         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
@@ -5149,10 +5238,18 @@ data/
                     
                     if (positionsCount === 0) {
                         document.getElementById('positionsList').innerHTML = '<div class="no-positions">暂无持仓</div>';
+                        // 没有持仓时重置总保证金
+                        currentTotalMargin = 0;
+                        updatePercentThresholds();
                     } else {
                         // 更新已用保证金
                         if (result.summary) {
-                            document.getElementById('usedMargin').textContent = result.summary.totalMargin.toFixed(2) + ' USDT';
+                            const totalMargin = result.summary.totalMargin;
+                            document.getElementById('usedMargin').textContent = totalMargin.toFixed(2) + ' USDT';
+                            
+                            // 更新全局变量并刷新百分比显示
+                            currentTotalMargin = totalMargin;
+                            updatePercentThresholds();
                         }
                         
                         // 渲染持仓列表
@@ -5224,6 +5321,11 @@ data/
         let lastStopLossTime = 0;
         const ALERT_COOLDOWN = 5 * 60 * 1000; // 5分钟冷却时间
         
+        // 📊 百分比止盈止损状态
+        let currentTotalMargin = 0; // 当前总保证金
+        let lastPercentTakeProfitTime = 0;
+        let lastPercentStopLossTime = 0;
+        
         // 🔥 智能止损检测系统
         let stopLossCheckTimer = null;
         let currentCheckInterval = 10000; // 默认10秒检查一次
@@ -5231,6 +5333,25 @@ data/
         const WARNING_CHECK_INTERVAL = 5000;    // 警告：5秒
         const DANGER_CHECK_INTERVAL = 2000;     // 危险：2秒
         const CRITICAL_CHECK_INTERVAL = 500;    // 紧急：0.5秒
+
+        // 📊 更新百分比止盈止损显示值
+        function updatePercentThresholds() {
+            const percentTakeProfitThreshold = parseFloat(document.getElementById('percentTakeProfitThreshold').value) || 0;
+            const percentStopLossThreshold = parseFloat(document.getElementById('percentStopLossThreshold').value) || 0;
+            
+            if (currentTotalMargin > 0) {
+                // 计算止盈金额 (正数)
+                const takeProfitAmount = (currentTotalMargin * percentTakeProfitThreshold / 100).toFixed(2);
+                document.getElementById('percentTakeProfitDisplay').textContent = `+${takeProfitAmount}`;
+                
+                // 计算止损金额 (负数)
+                const stopLossAmount = (currentTotalMargin * percentStopLossThreshold / 100).toFixed(2);
+                document.getElementById('percentStopLossDisplay').textContent = `-${stopLossAmount}`;
+            } else {
+                document.getElementById('percentTakeProfitDisplay').textContent = '--';
+                document.getElementById('percentStopLossDisplay').textContent = '--';
+            }
+        }
 
         // 检查止盈止损
         function checkTakeProfitStopLoss(unrealizedPnl) {
@@ -5261,6 +5382,36 @@ data/
                     lastStopLossTime = now;
                     showStopLossAlert(unrealizedPnl, stopLossThreshold);
                     playAlertSound();
+                }
+            }
+            
+            // 📊 检查百分比止盈
+            const percentTakeProfitSwitch = document.getElementById('percentTakeProfitSwitch');
+            const percentTakeProfitThreshold = parseFloat(document.getElementById('percentTakeProfitThreshold').value);
+            
+            if (percentTakeProfitSwitch && percentTakeProfitSwitch.checked && 
+                !isNaN(percentTakeProfitThreshold) && currentTotalMargin > 0) {
+                const percentTakeProfitAmount = currentTotalMargin * percentTakeProfitThreshold / 100;
+                if (unrealizedPnl >= percentTakeProfitAmount && now - lastPercentTakeProfitTime > ALERT_COOLDOWN) {
+                    lastPercentTakeProfitTime = now;
+                    showTakeProfitAlert(unrealizedPnl, percentTakeProfitAmount, true, percentTakeProfitThreshold);
+                    playAlertSound();
+                    console.log(`📊 百分比止盈触发: ${percentTakeProfitThreshold}% (${percentTakeProfitAmount.toFixed(2)} USDT), 当前盈亏: ${unrealizedPnl.toFixed(2)} USDT`);
+                }
+            }
+            
+            // 📊 检查百分比止损
+            const percentStopLossSwitch = document.getElementById('percentStopLossSwitch');
+            const percentStopLossThreshold = parseFloat(document.getElementById('percentStopLossThreshold').value);
+            
+            if (percentStopLossSwitch && percentStopLossSwitch.checked && 
+                !isNaN(percentStopLossThreshold) && currentTotalMargin > 0) {
+                const percentStopLossAmount = -(currentTotalMargin * percentStopLossThreshold / 100);
+                if (unrealizedPnl <= percentStopLossAmount && now - lastPercentStopLossTime > ALERT_COOLDOWN) {
+                    lastPercentStopLossTime = now;
+                    showStopLossAlert(unrealizedPnl, percentStopLossAmount, true, percentStopLossThreshold);
+                    playAlertSound();
+                    console.log(`📊 百分比止损触发: ${percentStopLossThreshold}% (${percentStopLossAmount.toFixed(2)} USDT), 当前盈亏: ${unrealizedPnl.toFixed(2)} USDT`);
                 }
             }
         }
@@ -5363,28 +5514,33 @@ data/
         }
 
         // 显示止盈警报
-        async function showTakeProfitAlert(currentPnl, threshold) {
-            console.log('🎉🎉🎉 止盈触发！', {currentPnl, threshold});
+        async function showTakeProfitAlert(currentPnl, threshold, isPercent = false, percentValue = 0) {
+            const typeText = isPercent ? `📊 百分比止盈 (${percentValue}%)` : '💰 止盈';
+            console.log(`🎉🎉🎉 ${typeText}触发！`, {currentPnl, threshold});
             
-            // 自动关闭止盈开关
-            const takeProfitSwitch = document.getElementById('takeProfitSwitch');
-            if (takeProfitSwitch) {
-                takeProfitSwitch.checked = false;
+            // 自动关闭相应的止盈开关
+            const switchId = isPercent ? 'percentTakeProfitSwitch' : 'takeProfitSwitch';
+            const profitSwitch = document.getElementById(switchId);
+            if (profitSwitch) {
+                profitSwitch.checked = false;
                 
                 // 静默保存设置到服务器（不显示提示）
                 await saveTakeProfitStopLossSettings(true);
                 
-                console.log('[止盈警报] 止盈已触发并自动关闭，下次需要手动开启');
+                console.log(`[${typeText}警报] ${typeText}已触发并自动关闭，下次需要手动开启`);
             }
             
             // ⚠️ 重要：调用一键全平所有账户（而不是只平当前账户）
-            console.log('[止盈警报] 🚨 自动触发【一键全平所有账户】');
+            console.log(`[${typeText}警报] 🚨 自动触发【一键全平所有账户】`);
             await closeAllAccountsPositions();  // 修改：确保平掉所有账户
             
             // 发送浏览器通知（如果用户允许）
             if ('Notification' in window && Notification.permission === 'granted') {
-                new Notification('🎉 止盈警报', {
-                    body: `当前盈利：+${currentPnl.toFixed(2)} USDT，已达止盈目标！已自动执行一键全平所有账户。`,
+                const message = isPercent 
+                    ? `百分比止盈 ${percentValue}% (${threshold.toFixed(2)} USDT) 触发！当前盈利：+${currentPnl.toFixed(2)} USDT`
+                    : `当前盈利：+${currentPnl.toFixed(2)} USDT，已达止盈目标！`;
+                new Notification(`🎉 ${typeText}警报`, {
+                    body: `${message} 已自动执行一键全平所有账户。`,
                     icon: '/static/favicon.ico',
                     requireInteraction: true
                 });
@@ -5392,27 +5548,32 @@ data/
         }
 
         // 显示止损警报
-        async function showStopLossAlert(currentPnl, threshold) {
-            console.log('🚨🚨🚨 止损触发！', {currentPnl, threshold});
+        async function showStopLossAlert(currentPnl, threshold, isPercent = false, percentValue = 0) {
+            const typeText = isPercent ? `📊 百分比止损 (${percentValue}%)` : '⚠️ 止损';
+            console.log(`🚨🚨🚨 ${typeText}触发！`, {currentPnl, threshold});
             
-            // 自动关闭止损开关
-            const stopLossSwitch = document.getElementById('stopLossSwitch');
-            if (stopLossSwitch) {
-                stopLossSwitch.checked = false;
+            // 自动关闭相应的止损开关
+            const switchId = isPercent ? 'percentStopLossSwitch' : 'stopLossSwitch';
+            const lossSwitch = document.getElementById(switchId);
+            if (lossSwitch) {
+                lossSwitch.checked = false;
                 
                 // 静默保存设置到服务器（不显示提示）
                 await saveTakeProfitStopLossSettings(true);
                 
-                console.log('[止损警报] 止损已触发并自动关闭，下次需要手动开启');
+                console.log(`[${typeText}警报] ${typeText}已触发并自动关闭，下次需要手动开启`);
             }
             
             // ⚠️ 重要：调用一键全平所有账户（而不是只平当前账户）
-            console.log('[止损警报] 🚨 自动触发【一键全平所有账户】');
+            console.log(`[${typeText}警报] 🚨 自动触发【一键全平所有账户】`);
             await closeAllAccountsPositions();  // 修改：确保平掉所有账户
             
             // 发送浏览器通知（如果用户允许）
             if ('Notification' in window && Notification.permission === 'granted') {
-                new Notification('⚠️ 止损警报', {
+                const message = isPercent 
+                    ? `百分比止损 ${percentValue}% (${threshold.toFixed(2)} USDT) 触发！当前亏损：${currentPnl.toFixed(2)} USDT`
+                    : `当前亏损：${currentPnl.toFixed(2)} USDT，已达止损阈值！`;
+                new Notification(`⚠️ ${typeText}警报`, {
                     body: `当前亏损：${currentPnl.toFixed(2)} USDT，已达止损线！已自动执行一键全平所有账户。`,
                     icon: '/static/favicon.ico',
                     requireInteraction: true
@@ -8406,6 +8567,12 @@ ${data.sMsg || result.message || ''}`);
                     document.getElementById('takeProfitSwitch').checked = settings.takeProfitEnabled || false;
                     document.getElementById('stopLossSwitch').checked = settings.stopLossEnabled || false;
                     
+                    // 📊 加载百分比止盈止损设置
+                    document.getElementById('percentTakeProfitThreshold').value = settings.percentTakeProfitThreshold || 5;
+                    document.getElementById('percentStopLossThreshold').value = settings.percentStopLossThreshold || 7;
+                    document.getElementById('percentTakeProfitSwitch').checked = settings.percentTakeProfitEnabled || false;
+                    document.getElementById('percentStopLossSwitch').checked = settings.percentStopLossEnabled || false;
+                    
                     // 加载RSI止盈设置
                     document.getElementById('rsiTakeProfitThreshold').value = settings.rsiTakeProfitThreshold || 1900;
                     document.getElementById('rsiTakeProfitSwitch').checked = settings.rsiTakeProfitEnabled || false;
@@ -8548,6 +8715,10 @@ ${data.sMsg || result.message || ''}`);
                 stopLossThreshold: parseFloat(document.getElementById('stopLossThreshold').value),
                 takeProfitEnabled: document.getElementById('takeProfitSwitch').checked,
                 stopLossEnabled: document.getElementById('stopLossSwitch').checked,
+                percentTakeProfitThreshold: parseFloat(document.getElementById('percentTakeProfitThreshold').value),
+                percentStopLossThreshold: parseFloat(document.getElementById('percentStopLossThreshold').value),
+                percentTakeProfitEnabled: document.getElementById('percentTakeProfitSwitch').checked,
+                percentStopLossEnabled: document.getElementById('percentStopLossSwitch').checked,
                 rsiTakeProfitThreshold: parseFloat(document.getElementById('rsiTakeProfitThreshold').value),
                 rsiTakeProfitEnabled: document.getElementById('rsiTakeProfitSwitch').checked,
                 rsiShortTakeProfitThreshold: parseFloat(document.getElementById('rsiShortTakeProfitThreshold').value),
@@ -9951,6 +10122,9 @@ ${data.sMsg || result.message || ''}`);
             console.log('🔥 启动智能止损检测系统...');
             restartStopLossTimer();
             
+            // 📊 初始化百分比止盈止损显示
+            updatePercentThresholds();
+            
             // ✅ 添加事件监听器（必须在DOM加载后）
             // 添加止盈止损设置的事件监听器
             ['takeProfitThreshold', 'stopLossThreshold', 'rsiTakeProfitThreshold'].forEach(id => {
@@ -9961,6 +10135,24 @@ ${data.sMsg || result.message || ''}`);
             });
             
             ['takeProfitSwitch', 'stopLossSwitch'].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('change', saveTakeProfitStopLossSettings);
+                }
+            });
+            
+            // 📊 添加百分比止盈止损设置的事件监听器
+            ['percentTakeProfitThreshold', 'percentStopLossThreshold'].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    // 输入改变时立即更新显示
+                    element.addEventListener('input', updatePercentThresholds);
+                    // 失去焦点时保存设置
+                    element.addEventListener('change', saveTakeProfitStopLossSettings);
+                }
+            });
+            
+            ['percentTakeProfitSwitch', 'percentStopLossSwitch'].forEach(id => {
                 const element = document.getElementById(id);
                 if (element) {
                     element.addEventListener('change', saveTakeProfitStopLossSettings);
