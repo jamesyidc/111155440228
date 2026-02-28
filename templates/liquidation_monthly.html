@@ -308,6 +308,84 @@
             </div>
         </div>
         
+        <!-- 🔥 标记持久化修复说明 (2026-02-28) -->
+        <div style="margin: 0; padding: 15px 20px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-bottom: 2px solid #047857;">
+            <h4 style="margin: 0 0 10px 0; color: #fff; font-size: 14px; font-weight: 800;">
+                ✅ 标记持久化修复 - 重新部署后不会丢失 (v2.1 - 2026-02-28)
+            </h4>
+            <div style="font-size: 11px; line-height: 1.8; color: #f0fdf4;">
+                <p style="margin: 0 0 8px 0;"><strong>【问题】</strong>重新部署后，设置的多空标记会消失</p>
+                
+                <p style="margin: 0 0 8px 0;"><strong>【根本原因】</strong></p>
+                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 6px; margin: 8px 0;">
+                    <ul style="margin: 0; padding-left: 20px; font-size: 10px;">
+                        <li>❌ API路由定义在 <code style="color: #fef3c7;">if __name__ == '__main__'</code> 块内部</li>
+                        <li>❌ 通过PM2运行时，main块不执行，路由未注册</li>
+                        <li>❌ 前端调用API返回404，无法保存到服务器</li>
+                        <li>❌ 标记只保存在浏览器localStorage，清除缓存会丢失</li>
+                        <li>❌ 跨浏览器/设备不同步，URL变化后丢失</li>
+                    </ul>
+                </div>
+                
+                <p style="margin: 8px 0 6px 0; font-weight: 700; color: #fff;">✅ 修复方案：</p>
+                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 6px; margin: 8px 0;">
+                    <ol style="margin: 0; padding-left: 20px; font-size: 10px;">
+                        <li>将 <code style="color: #fef3c7;">/api/liquidation/marks</code> 路由移到全局作用域（main块之前）</li>
+                        <li>修复GET接口，正确提取marks数组（兼容新旧格式）</li>
+                        <li>前端实现双重保存：localStorage（本地备份） + 服务器（永久存储）</li>
+                        <li>前端加载时优先从服务器读取，失败时回退到localStorage</li>
+                        <li>数据保存在 <code style="color: #fef3c7;">data/liquidation_marks.json</code>，包含时间戳</li>
+                    </ol>
+                </div>
+                
+                <p style="margin: 8px 0 6px 0; font-weight: 700; color: #fff;">🎯 工作流程：</p>
+                <div style="background: rgba(0,0,0,0.2); padding: 8px; border-radius: 4px; margin: 6px 0; border-left: 3px solid #fbbf24; font-family: monospace; font-size: 10px;">
+                    用户点击标记点 → 设置多/空标记<br>
+                    ↓<br>
+                    saveMarksToStorage() 函数触发<br>
+                    ├─ 保存到 localStorage（即时生效）<br>
+                    └─ 保存到服务器 POST /api/liquidation/marks<br>
+                       └─ 写入 data/liquidation_marks.json<br>
+                    <br>
+                    页面加载时 → loadMarksFromStorage()<br>
+                    ├─ 优先：GET /api/liquidation/marks（服务器）<br>
+                    └─ 回退：localStorage（本地备份）
+                </div>
+                
+                <p style="margin: 8px 0 6px 0; font-weight: 700; color: #fff;">📊 数据格式：</p>
+                <div style="background: rgba(0,0,0,0.2); padding: 8px; border-radius: 4px; margin: 6px 0; font-family: monospace; font-size: 10px;">
+                    {<br>
+                    &nbsp;&nbsp;"marks": [<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"time": "2026-02-28 10:00", "markType": "long"},<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;{"time": "2026-02-28 12:00", "markType": "short"}<br>
+                    &nbsp;&nbsp;],<br>
+                    &nbsp;&nbsp;"last_updated": "2026-02-28T12:43:11.478999",<br>
+                    &nbsp;&nbsp;"count": 2<br>
+                    }
+                </div>
+                
+                <p style="margin: 8px 0 6px 0; font-weight: 700; color: #fff;">✅ 修复后的优势：</p>
+                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 6px; margin: 8px 0;">
+                    <ul style="margin: 0; padding-left: 20px; font-size: 10px;">
+                        <li>✅ 标记永久保存在服务器，重新部署后不会丢失</li>
+                        <li>✅ 跨浏览器/设备同步，所有地方看到相同的标记</li>
+                        <li>✅ 清除浏览器缓存不影响服务器数据</li>
+                        <li>✅ URL变化（sandbox ID变化）不影响标记</li>
+                        <li>✅ 双重保存机制，更安全可靠</li>
+                    </ul>
+                </div>
+                
+                <p style="margin: 10px 0 0 0; padding: 10px; background: rgba(251, 191, 36, 0.2); border-radius: 6px; border-left: 3px solid #fbbf24; font-size: 10px;">
+                    <strong>💡 使用提示：</strong><br>
+                    1. 标记会自动保存到服务器，无需任何操作<br>
+                    2. 每次设置标记后，控制台会显示 "✅ 已保存 N 个标记到服务器"<br>
+                    3. 页面加载时会显示 "✅ 从服务器加载了 N 个标记"<br>
+                    4. 如果API保存失败，标记仍会保存在localStorage作为备份<br>
+                    5. 详细文档：<code style="color: #fef3c7;">FIX_LIQUIDATION_MARKS_PERSISTENCE_2026-02-28.md</code>
+                </p>
+            </div>
+        </div>
+        
         <!-- 图例栏 -->
         <div class="legend-bar">
             <div class="legend-item">
