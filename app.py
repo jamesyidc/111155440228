@@ -16714,7 +16714,7 @@ def get_okx_accounts_list():
                 accounts = config.get('accounts', [])
                 default_account = config.get('default_account', accounts[0]['id'] if accounts else None)
         else:
-            # 如果配置文件不存在,返回硬编码的4个账户
+            # 如果配置文件不存在,返回硬编码的5个账户
             accounts = [
                 {
                     "id": "account_main",
@@ -16743,6 +16743,13 @@ def get_okx_accounts_list():
                     "apiKey": "8650e46c-059b-431d-93cf-55f8c79babdb",
                     "apiSecret": "4C2BD2AC6A08615EA7F36A6251857FCE",
                     "passphrase": "Wu666666."
+                },
+                {
+                    "id": "account_dadanini",
+                    "name": "DADANINI",
+                    "apiKey": "1463198a-fad0-46ac-9ad8-2a386461782c",
+                    "apiSecret": "1D112283B7456290056C253C56E9F3A6",
+                    "passphrase": "Tencent@123"
                 }
             ]
             default_account = "account_main"

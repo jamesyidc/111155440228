@@ -27,6 +27,13 @@
       "apiKey": "8650e46c-059b-431d-93cf-55f8c79babdb",
       "apiSecret": "4C2BD2AC6A08615EA7F36A6251857FCE",
       "passphrase": "Wu666666."
+    },
+    {
+      "id": "account_dadanini",
+      "name": "DADANINI",
+      "apiKey": "1463198a-fad0-46ac-9ad8-2a386461782c",
+      "apiSecret": "1D112283B7456290056C253C56E9F3A6",
+      "passphrase": "Tencent@123"
     }
   ],
   "default_account": "account_main"
