@@ -3050,3 +3050,1090 @@
 [2026-02-28 13:23:36] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
 [2026-02-28 13:23:38] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
 [2026-02-28 13:23:40] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:24:40] 🔍 开始检查见底信号...
+[2026-02-28 13:24:40] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:24:40] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:24:42] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:24:44] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:24:46] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:24:48] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:24:50] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:24:52] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:24:54] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:24:56] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:24:58] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:25:00] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:26:00] 🔍 开始检查见底信号...
+[2026-02-28 13:26:00] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:26:00] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:26:02] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:26:04] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:26:06] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:26:08] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:26:10] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:26:12] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:26:14] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:26:16] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:26:18] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:26:20] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:27:20] 🔍 开始检查见底信号...
+[2026-02-28 13:27:20] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:27:20] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:27:22] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:27:24] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:27:26] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:27:28] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:27:30] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:27:32] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:27:34] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:27:36] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:27:38] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:27:40] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:28:40] 🔍 开始检查见底信号...
+[2026-02-28 13:28:40] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:28:40] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:28:42] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:28:44] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:28:46] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:28:48] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:28:50] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:28:52] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:28:54] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:28:56] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:28:58] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:29:00] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:30:00] 🔍 开始检查见底信号...
+[2026-02-28 13:30:00] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:30:00] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:30:02] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:30:04] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:30:06] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:30:08] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:30:10] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:30:12] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:30:14] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:30:16] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:30:18] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:30:20] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:31:20] 🔍 开始检查见底信号...
+[2026-02-28 13:31:20] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:31:20] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:31:22] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:31:24] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:31:26] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:31:28] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:31:30] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:31:32] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:31:34] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:31:36] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:31:38] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:31:40] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:32:40] 🔍 开始检查见底信号...
+[2026-02-28 13:32:40] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:32:40] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:32:42] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:32:44] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:32:46] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:32:48] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:32:50] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:32:52] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:32:54] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:32:56] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:32:58] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:33:00] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:34:00] 🔍 开始检查见底信号...
+[2026-02-28 13:34:00] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:34:00] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:34:02] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:34:04] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:34:06] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:34:08] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:34:10] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:34:12] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:34:14] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:34:16] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:34:18] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:34:20] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:35:20] 🔍 开始检查见底信号...
+[2026-02-28 13:35:20] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:35:20] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:35:22] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:35:24] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:35:26] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:35:28] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:35:30] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:35:32] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:35:34] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:35:36] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:35:38] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:35:40] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:36:40] 🔍 开始检查见底信号...
+[2026-02-28 13:36:40] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:36:40] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:36:42] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:36:44] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:36:46] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:36:48] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:36:50] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:36:52] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:36:54] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:36:56] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:36:58] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:37:00] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:38:00] 🔍 开始检查见底信号...
+[2026-02-28 13:38:00] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:38:00] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:38:02] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:38:04] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:38:06] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:38:08] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:38:10] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:38:12] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:38:14] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:38:16] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:38:18] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:38:20] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:39:20] 🔍 开始检查见底信号...
+[2026-02-28 13:39:20] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:39:20] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:39:22] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:39:24] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:39:26] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:39:28] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:39:30] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:39:32] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:39:34] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:39:36] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:39:38] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:39:40] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:40:40] 🔍 开始检查见底信号...
+[2026-02-28 13:40:40] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:40:40] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:40:42] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:40:44] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:40:46] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:40:48] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:40:50] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:40:52] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:40:54] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:40:56] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:40:58] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:41:00] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:42:00] 🔍 开始检查见底信号...
+[2026-02-28 13:42:00] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:42:00] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:42:02] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:42:04] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:42:06] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:42:08] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:42:10] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:42:12] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:42:14] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:42:16] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:42:18] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:42:20] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:43:20] 🔍 开始检查见底信号...
+[2026-02-28 13:43:20] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:43:20] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:43:22] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:43:24] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:43:26] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:43:28] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:43:30] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:43:32] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:43:34] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:43:36] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:43:38] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:43:40] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:44:40] 🔍 开始检查见底信号...
+[2026-02-28 13:44:40] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:44:40] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:44:42] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:44:44] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:44:46] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:44:48] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:44:50] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:44:52] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:44:54] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:44:56] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:44:58] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:45:00] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:46:00] 🔍 开始检查见底信号...
+[2026-02-28 13:46:00] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:46:00] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:46:02] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:46:04] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:46:06] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:46:08] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:46:10] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:46:12] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:46:14] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:46:16] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:46:18] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:46:20] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:47:20] 🔍 开始检查见底信号...
+[2026-02-28 13:47:20] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:47:20] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:47:22] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:47:24] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:47:26] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:47:28] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:47:30] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:47:32] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:47:34] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:47:36] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:47:38] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:47:40] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:48:40] 🔍 开始检查见底信号...
+[2026-02-28 13:48:40] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:48:40] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:48:42] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:48:44] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:48:46] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:48:48] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:48:50] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:48:52] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:48:54] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:48:56] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:48:58] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:49:00] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:50:00] 🔍 开始检查见底信号...
+[2026-02-28 13:50:00] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:50:00] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:50:02] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:50:04] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:50:06] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:50:08] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:50:10] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:50:12] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:50:14] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:50:16] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:50:18] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:50:20] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:51:20] 🔍 开始检查见底信号...
+[2026-02-28 13:51:20] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:51:20] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:51:22] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:51:24] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:51:26] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:51:28] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:51:30] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:51:32] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:51:34] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:51:36] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:51:38] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:51:40] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:52:40] 🔍 开始检查见底信号...
+[2026-02-28 13:52:40] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:52:40] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:52:42] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:52:44] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:52:46] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:52:48] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:52:50] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:52:52] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:52:54] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:52:56] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:52:58] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:53:00] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:54:00] 🔍 开始检查见底信号...
+[2026-02-28 13:54:00] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:54:00] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:54:02] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:54:04] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:54:06] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:54:08] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:54:10] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:54:12] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:54:14] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:54:16] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:54:18] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:54:20] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:55:20] 🔍 开始检查见底信号...
+[2026-02-28 13:55:20] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:55:20] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:55:22] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:55:24] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:55:26] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:55:28] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:55:30] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:55:32] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:55:34] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:55:36] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:55:38] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:55:40] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:56:40] 🔍 开始检查见底信号...
+[2026-02-28 13:56:40] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:56:40] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:56:42] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:56:44] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:56:46] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:56:48] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:56:50] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:56:52] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:56:54] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:56:56] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:56:58] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:57:00] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:58:00] 🔍 开始检查见底信号...
+[2026-02-28 13:58:00] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:58:00] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:58:02] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:58:04] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:58:06] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:58:08] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:58:10] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:58:12] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:58:14] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:58:16] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:58:18] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:58:20] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 13:59:20] 🔍 开始检查见底信号...
+[2026-02-28 13:59:20] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 13:59:20] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:59:22] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:59:24] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:59:26] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:59:28] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:59:30] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:59:32] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 13:59:34] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 13:59:36] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:59:38] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 13:59:40] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:00:40] 🔍 开始检查见底信号...
+[2026-02-28 14:00:40] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:00:40] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:00:42] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:00:44] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:00:46] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:00:48] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:00:50] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:00:52] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:00:54] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:00:56] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:00:58] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:01:00] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:02:00] 🔍 开始检查见底信号...
+[2026-02-28 14:02:00] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:02:00] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:02:02] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:02:04] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:02:06] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:02:08] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:02:10] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:02:12] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:02:14] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:02:16] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:02:18] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:02:20] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:03:20] 🔍 开始检查见底信号...
+[2026-02-28 14:03:20] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:03:20] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:03:22] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:03:24] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:03:26] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:03:28] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:03:30] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:03:32] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:03:34] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:03:36] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:03:38] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:03:40] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:04:40] 🔍 开始检查见底信号...
+[2026-02-28 14:04:40] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:04:40] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:04:42] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:04:44] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:04:46] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:04:48] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:04:50] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:04:52] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:04:54] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:04:56] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:04:58] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:05:00] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:06:00] 🔍 开始检查见底信号...
+[2026-02-28 14:06:00] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:06:00] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:06:02] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:06:04] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:06:06] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:06:08] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:06:10] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:06:12] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:06:14] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:06:16] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:06:18] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:06:20] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:07:20] 🔍 开始检查见底信号...
+[2026-02-28 14:07:20] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:07:20] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:07:22] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:07:24] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:07:26] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:07:28] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:07:30] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:07:32] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:07:34] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:07:36] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:07:38] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:07:40] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:08:40] 🔍 开始检查见底信号...
+[2026-02-28 14:08:40] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:08:40] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:08:42] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:08:44] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:08:46] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:08:48] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:08:50] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:08:52] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:08:54] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:08:56] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:08:58] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:09:00] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:10:00] 🔍 开始检查见底信号...
+[2026-02-28 14:10:00] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:10:00] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:10:02] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:10:04] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:10:06] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:10:08] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:10:10] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:10:12] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:10:14] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:10:16] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:10:18] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:10:20] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:11:20] 🔍 开始检查见底信号...
+[2026-02-28 14:11:21] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:11:21] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:11:23] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:11:25] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:11:27] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:11:29] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:11:31] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:11:33] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:11:35] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:11:37] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:11:39] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:11:41] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:12:41] 🔍 开始检查见底信号...
+[2026-02-28 14:12:41] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:12:41] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:12:43] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:12:45] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:12:47] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:12:49] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:12:51] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:12:53] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:12:55] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:12:57] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:12:59] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:13:01] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:14:01] 🔍 开始检查见底信号...
+[2026-02-28 14:14:01] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:14:01] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:14:03] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:14:05] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:14:07] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:14:09] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:14:11] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:14:13] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:14:15] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:14:17] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:14:19] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:14:21] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:15:21] 🔍 开始检查见底信号...
+[2026-02-28 14:15:21] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:15:21] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:15:23] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:15:25] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:15:27] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:15:29] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:15:31] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:15:33] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:15:35] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:15:37] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:15:39] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:15:41] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:16:41] 🔍 开始检查见底信号...
+[2026-02-28 14:16:41] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:16:41] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:16:43] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:16:45] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:16:47] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:16:49] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:16:51] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:16:53] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:16:55] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:16:57] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:16:59] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:17:01] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:18:01] 🔍 开始检查见底信号...
+[2026-02-28 14:18:01] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:18:01] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:18:03] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:18:05] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:18:07] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:18:09] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:18:11] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:18:13] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:18:15] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:18:17] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:18:19] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:18:21] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:19:21] 🔍 开始检查见底信号...
+[2026-02-28 14:19:21] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:19:21] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:19:23] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:19:25] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:19:27] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:19:29] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:19:31] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:19:33] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:19:35] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:19:37] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:19:39] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:19:41] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:20:41] 🔍 开始检查见底信号...
+[2026-02-28 14:20:41] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:20:41] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:20:43] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:20:45] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:20:47] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:20:49] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:20:51] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:20:53] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:20:55] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:20:57] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:20:59] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:21:01] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:22:01] 🔍 开始检查见底信号...
+[2026-02-28 14:22:01] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:22:01] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:22:03] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:22:05] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:22:07] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:22:09] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:22:11] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:22:13] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:22:15] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:22:17] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:22:19] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:22:21] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:23:21] 🔍 开始检查见底信号...
+[2026-02-28 14:23:21] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:23:21] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:23:23] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:23:25] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:23:27] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:23:29] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:23:31] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:23:33] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:23:35] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:23:37] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:23:39] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:23:41] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:24:41] 🔍 开始检查见底信号...
+[2026-02-28 14:24:41] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:24:41] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:24:43] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:24:45] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:24:47] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:24:49] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:24:51] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:24:53] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:24:55] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:24:57] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:24:59] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:25:01] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:26:01] 🔍 开始检查见底信号...
+[2026-02-28 14:26:01] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:26:01] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:26:03] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:26:05] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:26:07] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:26:09] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:26:11] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:26:13] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:26:15] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:26:17] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:26:19] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:26:21] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:27:21] 🔍 开始检查见底信号...
+[2026-02-28 14:27:21] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:27:21] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:27:23] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:27:25] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:27:27] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:27:29] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:27:31] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:27:33] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:27:35] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:27:37] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:27:39] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:27:41] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:28:41] 🔍 开始检查见底信号...
+[2026-02-28 14:28:41] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:28:41] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:28:43] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:28:45] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:28:47] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:28:49] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:28:51] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:28:53] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:28:55] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:28:57] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:28:59] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:29:01] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:30:01] 🔍 开始检查见底信号...
+[2026-02-28 14:30:01] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:30:01] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:30:03] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:30:05] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:30:07] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:30:09] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:30:11] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:30:13] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:30:15] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:30:17] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:30:19] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:30:21] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:31:21] 🔍 开始检查见底信号...
+[2026-02-28 14:31:21] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:31:21] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:31:23] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:31:25] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:31:27] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:31:29] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:31:31] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:31:33] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:31:35] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:31:37] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:31:39] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:31:41] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:32:41] 🔍 开始检查见底信号...
+[2026-02-28 14:32:41] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:32:41] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:32:43] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:32:45] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:32:47] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:32:49] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:32:51] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:32:53] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:32:55] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:32:57] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:32:59] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:33:01] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:34:01] 🔍 开始检查见底信号...
+[2026-02-28 14:34:01] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:34:01] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:34:03] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:34:05] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:34:07] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:34:09] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:34:11] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:34:13] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:34:15] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:34:17] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:34:19] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:34:21] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:35:21] 🔍 开始检查见底信号...
+[2026-02-28 14:35:21] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:35:21] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:35:23] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:35:25] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:35:27] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:35:29] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:35:31] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:35:33] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:35:35] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:35:37] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:35:39] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:35:41] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:36:41] 🔍 开始检查见底信号...
+[2026-02-28 14:36:41] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:36:41] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:36:43] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:36:45] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:36:47] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:36:49] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:36:51] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:36:53] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:36:55] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:36:57] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:36:59] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:37:01] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:38:01] 🔍 开始检查见底信号...
+[2026-02-28 14:38:01] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:38:01] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:38:03] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:38:05] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:38:07] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:38:09] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:38:11] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:38:13] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:38:15] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:38:17] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:38:19] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:38:21] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:39:21] 🔍 开始检查见底信号...
+[2026-02-28 14:39:21] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:39:21] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:39:23] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:39:25] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:39:27] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:39:29] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:39:31] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:39:33] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:39:35] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:39:37] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:39:39] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:39:41] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:40:41] 🔍 开始检查见底信号...
+[2026-02-28 14:40:41] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:40:41] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:40:43] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:40:45] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:40:47] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:40:49] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:40:51] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:40:53] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:40:55] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:40:57] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:40:59] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:41:01] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:42:01] 🔍 开始检查见底信号...
+[2026-02-28 14:42:01] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:42:01] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:42:03] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:42:05] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:42:07] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:42:09] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:42:11] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:42:13] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:42:15] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:42:17] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:42:19] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:42:21] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:43:21] 🔍 开始检查见底信号...
+[2026-02-28 14:43:21] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:43:21] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:43:23] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:43:25] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:43:27] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:43:29] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:43:31] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:43:33] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:43:35] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:43:37] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:43:39] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:43:41] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:44:41] 🔍 开始检查见底信号...
+[2026-02-28 14:44:42] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:44:42] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:44:44] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:44:46] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:44:48] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:44:50] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:44:52] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:44:54] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:44:56] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:44:58] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:45:00] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:45:02] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:46:02] 🔍 开始检查见底信号...
+[2026-02-28 14:46:02] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:46:02] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:46:04] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:46:06] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:46:08] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:46:10] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:46:12] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:46:14] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:46:16] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:46:18] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:46:20] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:46:22] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:47:22] 🔍 开始检查见底信号...
+[2026-02-28 14:47:22] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:47:22] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:47:24] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:47:26] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:47:28] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:47:30] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:47:32] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:47:34] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:47:36] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:47:38] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:47:40] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:47:42] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:48:42] 🔍 开始检查见底信号...
+[2026-02-28 14:48:42] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:48:42] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:48:44] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:48:46] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:48:48] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:48:50] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:48:52] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:48:54] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:48:56] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:48:58] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:49:00] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:49:02] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:50:02] 🔍 开始检查见底信号...
+[2026-02-28 14:50:02] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:50:02] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:50:04] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:50:06] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:50:08] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:50:10] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:50:12] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:50:14] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:50:16] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:50:18] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:50:20] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:50:22] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:51:22] 🔍 开始检查见底信号...
+[2026-02-28 14:51:22] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:51:22] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:51:24] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:51:26] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:51:28] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:51:30] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:51:32] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:51:34] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:51:36] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:51:38] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:51:40] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:51:42] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:52:42] 🔍 开始检查见底信号...
+[2026-02-28 14:52:42] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:52:42] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:52:44] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:52:46] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:52:48] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:52:50] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:52:52] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:52:54] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:52:56] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:52:58] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:53:00] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:53:02] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:54:02] 🔍 开始检查见底信号...
+[2026-02-28 14:54:02] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:54:02] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:54:04] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:54:06] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:54:08] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:54:10] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:54:12] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:54:14] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:54:16] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:54:18] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:54:20] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:54:22] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:55:22] 🔍 开始检查见底信号...
+[2026-02-28 14:55:22] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:55:22] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:55:24] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:55:26] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:55:28] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:55:30] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:55:32] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:55:34] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:55:36] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:55:38] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:55:40] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:55:42] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:56:42] 🔍 开始检查见底信号...
+[2026-02-28 14:56:42] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:56:42] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:56:44] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:56:46] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:56:48] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:56:50] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:56:52] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:56:54] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:56:56] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:56:58] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:57:00] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:57:02] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:58:02] 🔍 开始检查见底信号...
+[2026-02-28 14:58:02] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:58:02] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:58:04] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:58:06] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:58:08] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:58:10] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:58:12] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:58:14] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:58:16] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:58:18] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:58:20] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:58:22] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 14:59:22] 🔍 开始检查见底信号...
+[2026-02-28 14:59:22] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 14:59:22] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:59:24] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:59:26] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:59:28] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:59:30] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:59:32] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:59:34] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 14:59:36] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 14:59:38] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:59:40] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 14:59:42] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 15:00:42] 🔍 开始检查见底信号...
+[2026-02-28 15:00:42] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 15:00:42] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:00:44] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:00:46] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:00:48] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:00:50] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:00:52] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:00:54] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:00:56] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:00:58] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:01:00] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:01:02] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 15:02:02] 🔍 开始检查见底信号...
+[2026-02-28 15:02:02] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 15:02:02] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:02:04] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:02:06] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:02:08] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:02:10] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:02:12] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:02:14] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:02:16] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:02:18] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:02:20] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:02:22] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 15:03:22] 🔍 开始检查见底信号...
+[2026-02-28 15:03:22] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 15:03:22] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:03:24] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:03:26] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:03:28] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:03:30] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:03:32] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:03:34] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:03:36] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:03:38] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:03:40] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:03:42] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 15:04:42] 🔍 开始检查见底信号...
+[2026-02-28 15:04:42] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 15:04:42] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:04:44] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:04:46] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:04:48] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:04:50] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:04:52] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:04:54] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:04:56] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:04:58] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:05:00] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:05:02] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 15:06:02] 🔍 开始检查见底信号...
+[2026-02-28 15:06:02] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 15:06:02] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:06:04] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:06:06] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:06:08] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:06:10] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:06:12] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:06:14] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:06:16] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:06:18] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:06:20] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:06:22] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 15:07:22] 🔍 开始检查见底信号...
+[2026-02-28 15:07:22] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 15:07:22] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:07:24] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:07:26] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:07:28] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:07:30] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:07:32] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:07:34] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:07:36] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:07:38] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:07:40] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:07:42] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 15:08:42] 🔍 开始检查见底信号...
+[2026-02-28 15:08:42] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 15:08:42] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:08:44] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:08:46] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:08:48] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:08:50] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:08:52] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:08:54] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:08:56] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:08:58] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:09:00] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:09:02] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 15:10:02] 🔍 开始检查见底信号...
+[2026-02-28 15:10:02] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 15:10:02] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:10:04] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:10:06] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:10:08] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:10:10] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:10:12] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:10:14] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:10:16] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:10:18] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:10:20] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:10:22] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 15:11:22] 🔍 开始检查见底信号...
+[2026-02-28 15:11:23] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 15:11:23] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:11:25] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:11:27] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:11:29] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:11:31] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:11:33] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:11:35] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:11:37] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:11:39] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:11:41] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:11:43] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 15:12:43] 🔍 开始检查见底信号...
+[2026-02-28 15:12:43] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 15:12:43] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:12:45] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:12:47] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:12:49] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:12:51] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:12:53] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:12:55] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:12:57] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:12:59] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:13:01] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:13:03] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 15:14:03] 🔍 开始检查见底信号...
+[2026-02-28 15:14:03] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 15:14:03] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:14:05] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:14:07] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:14:09] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:14:11] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:14:13] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:14:15] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:14:17] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:14:19] ⚠️  [account_dadanini/top8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:14:21] ⚠️  [account_dadanini/bottom8_long] 配置文件不存在，使用默认配置
+[2026-02-28 15:14:23] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 15:15:23] 🔍 开始检查见底信号...
+[2026-02-28 15:15:23] ✅ 获取账户列表成功: 5 个账户
+[2026-02-28 15:15:23] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:15:25] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:15:27] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 15:15:29] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:15:31] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 15:15:33] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U

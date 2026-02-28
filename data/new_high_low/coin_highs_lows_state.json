@@ -48,8 +48,8 @@
     "lowest_time": "2026-02-28 20:47:43"
   },
   "DOT": {
-    "highest_price": 1.486,
-    "highest_time": "2026-02-28 20:57:58",
+    "highest_price": 1.535,
+    "highest_time": "2026-02-28 21:59:25",
     "lowest_price": 1.239,
     "lowest_time": "2026-02-23 10:00:28"
   },
@@ -62,8 +62,8 @@
   "BCH": {
     "highest_price": 583.6,
     "highest_time": "2026-02-22 15:31:52",
-    "lowest_price": 443.1,
-    "lowest_time": "2026-02-28 21:21:51"
+    "lowest_price": 441.7,
+    "lowest_time": "2026-02-28 21:42:21"
   },
   "LINK": {
     "highest_price": 8.985,
@@ -72,8 +72,8 @@
     "lowest_time": "2026-02-23 12:44:53"
   },
   "UNI": {
-    "highest_price": 3.667,
-    "highest_time": "2026-02-21 20:26:12",
+    "highest_price": 3.684,
+    "highest_time": "2026-02-28 21:59:25",
     "lowest_price": 3.281,
     "lowest_time": "2026-02-23 10:00:28"
   },
@@ -128,14 +128,14 @@
   "OKB": {
     "highest_price": 81.52,
     "highest_time": "2026-02-21 20:02:14",
-    "lowest_price": 73.63,
-    "lowest_time": "2026-02-28 20:54:32"
+    "lowest_price": 73.51,
+    "lowest_time": "2026-02-28 21:42:21"
   },
   "CRO": {
     "highest_price": 0.08095,
     "highest_time": "2026-02-17 07:11:53",
-    "lowest_price": 0.0727,
-    "lowest_time": "2026-02-28 20:51:08"
+    "lowest_price": 0.07259,
+    "lowest_time": "2026-02-28 21:38:56"
   },
   "HBAR": {
     "highest_price": 0.10201,
@@ -146,8 +146,8 @@
   "TON": {
     "highest_price": 1.462,
     "highest_time": "2026-02-16 22:22:26",
-    "lowest_price": 1.234,
-    "lowest_time": "2026-02-28 20:47:43"
+    "lowest_price": 1.233,
+    "lowest_time": "2026-02-28 21:35:30"
   },
   "TAO": {
     "highest_price": 202.4,
@@ -164,7 +164,7 @@
   "XLM": {
     "highest_price": 0.17027,
     "highest_time": "2026-02-16 23:03:38",
-    "lowest_price": 0.1488,
-    "lowest_time": "2026-02-28 20:54:32"
+    "lowest_price": 0.1484,
+    "lowest_time": "2026-02-28 21:42:21"
   }
 }

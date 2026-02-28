@@ -11696,3 +11696,2457 @@ OKX 止盈止损自动监控服务启动
 ============================================================
 等待 60 秒后继续...
 ============================================================
+
+============================================================
+第 322 次检查 - 2026-02-28 13:25:15
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2825, 价值=43.79U, 盈亏=-0.70%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.308, 价值=44.86U, 盈亏=0.27%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07282, 价值=4.51U, 盈亏=1.08%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.96, 价值=45.01U, 盈亏=1.06%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.468, 价值=44.04U, 盈亏=-0.81%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0484, 价值=4.40U, 盈亏=-0.23%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.594, 价值=46.72U, 盈亏=-0.25%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2987, 价值=0.45U, 盈亏=0.62%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2825, 价值=44.92U, 盈亏=0.70%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.309, 价值=45.70U, 盈亏=-0.28%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07282, 价值=4.59U, 盈亏=-1.08%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.96, 价值=45.80U, 盈亏=-1.06%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.468, 价值=45.51U, 盈亏=0.74%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0484, 价值=4.61U, 盈亏=0.25%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.594, 价值=46.72U, 盈亏=0.19%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2987, 价值=0.47U, 盈亏=-0.64%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.309, 价值=30.74U, 盈亏=0.28%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07282, 价值=3.13U, 盈亏=1.08%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.468, 价值=30.83U, 盈亏=-0.74%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.96, 价值=31.58U, 盈亏=1.06%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.594, 价值=32.35U, 盈亏=-0.19%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0484, 价值=3.15U, 盈亏=-0.25%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2987, 价值=0.31U, 盈亏=0.64%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 323 次检查 - 2026-02-28 13:26:17
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2824, 价值=43.77U, 盈亏=-0.74%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.306, 价值=44.85U, 盈亏=0.24%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07281, 价值=4.51U, 盈亏=1.07%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.89, 价值=44.97U, 盈亏=0.97%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.467, 价值=44.01U, 盈亏=-0.88%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0482, 价值=4.40U, 盈亏=-0.25%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.592, 价值=46.70U, 盈亏=-0.31%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2978, 价值=0.45U, 盈亏=0.55%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2825, 价值=44.92U, 盈亏=0.70%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.306, 价值=45.68U, 盈亏=-0.24%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07281, 价值=4.59U, 盈亏=-1.07%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.88, 价值=45.75U, 盈亏=-0.96%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.467, 价值=45.48U, 盈亏=0.81%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0482, 价值=4.61U, 盈亏=0.27%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.592, 价值=46.70U, 盈亏=0.25%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2978, 价值=0.47U, 盈亏=-0.57%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.306, 价值=30.73U, 盈亏=0.24%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07281, 价值=3.13U, 盈亏=1.07%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.467, 价值=30.81U, 盈亏=-0.81%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.88, 价值=31.55U, 盈亏=0.96%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.592, 价值=32.33U, 盈亏=-0.25%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0482, 价值=3.14U, 盈亏=-0.27%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2978, 价值=0.31U, 盈亏=0.57%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 324 次检查 - 2026-02-28 13:27:18
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2824, 价值=43.77U, 盈亏=-0.74%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.305, 价值=44.85U, 盈亏=0.23%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07276, 价值=4.51U, 盈亏=1.00%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.89, 价值=44.97U, 盈亏=0.97%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.469, 价值=44.07U, 盈亏=-0.74%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0482, 价值=4.40U, 盈亏=-0.25%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.59, 价值=46.67U, 盈亏=-0.36%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2981, 价值=0.45U, 盈亏=0.58%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2824, 价值=44.90U, 盈亏=0.74%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.306, 价值=45.68U, 盈亏=-0.24%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07276, 价值=4.58U, 盈亏=-1.00%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.89, 价值=45.76U, 盈亏=-0.97%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.469, 价值=45.54U, 盈亏=0.68%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0482, 价值=4.61U, 盈亏=0.27%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.59, 价值=46.67U, 盈亏=0.31%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2982, 价值=0.47U, 盈亏=-0.60%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.306, 价值=30.73U, 盈亏=0.24%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07276, 价值=3.13U, 盈亏=1.00%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.469, 价值=30.85U, 盈亏=-0.68%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.89, 价值=31.56U, 盈亏=0.97%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.591, 价值=32.32U, 盈亏=-0.28%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0482, 价值=3.14U, 盈亏=-0.27%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2981, 价值=0.31U, 盈亏=0.59%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 325 次检查 - 2026-02-28 13:28:19
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2824, 价值=43.77U, 盈亏=-0.74%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.302, 价值=44.83U, 盈亏=0.19%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07274, 价值=4.51U, 盈亏=0.97%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.81, 价值=44.92U, 盈亏=0.87%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.466, 价值=43.98U, 盈亏=-0.95%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0479, 价值=4.40U, 盈亏=-0.28%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.589, 价值=46.66U, 盈亏=-0.39%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2977, 价值=0.45U, 盈亏=0.54%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2824, 价值=44.90U, 盈亏=0.74%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.302, 价值=45.66U, 盈亏=-0.19%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07274, 价值=4.58U, 盈亏=-0.97%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.81, 价值=45.71U, 盈亏=-0.87%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.466, 价值=45.45U, 盈亏=0.88%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.048, 价值=4.61U, 盈亏=0.29%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.589, 价值=46.66U, 盈亏=0.33%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2977, 价值=0.47U, 盈亏=-0.56%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.302, 价值=30.72U, 盈亏=0.19%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07274, 价值=3.13U, 盈亏=0.97%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.466, 价值=30.79U, 盈亏=-0.88%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.81, 价值=31.52U, 盈亏=0.87%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.589, 价值=32.30U, 盈亏=-0.33%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.048, 价值=3.14U, 盈亏=-0.29%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2977, 价值=0.31U, 盈亏=0.56%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 326 次检查 - 2026-02-28 13:29:20
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2826, 价值=43.80U, 盈亏=-0.67%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.3, 价值=44.82U, 盈亏=0.17%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07271, 价值=4.51U, 盈亏=0.93%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.81, 价值=44.92U, 盈亏=0.87%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.466, 价值=43.98U, 盈亏=-0.95%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.048, 价值=4.40U, 盈亏=-0.27%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.589, 价值=46.66U, 盈亏=-0.39%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2981, 价值=0.45U, 盈亏=0.58%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2826, 价值=44.93U, 盈亏=0.67%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.3, 价值=45.65U, 盈亏=-0.17%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07271, 价值=4.58U, 盈亏=-0.93%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.81, 价值=45.71U, 盈亏=-0.87%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.466, 价值=45.45U, 盈亏=0.88%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.048, 价值=4.61U, 盈亏=0.29%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.589, 价值=46.66U, 盈亏=0.33%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2981, 价值=0.47U, 盈亏=-0.59%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.3, 价值=30.71U, 盈亏=0.17%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07271, 价值=3.13U, 盈亏=0.93%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.466, 价值=30.79U, 盈亏=-0.88%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.81, 价值=31.52U, 盈亏=0.87%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.589, 价值=32.30U, 盈亏=-0.33%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.048, 价值=3.14U, 盈亏=-0.29%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2981, 价值=0.31U, 盈亏=0.59%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 327 次检查 - 2026-02-28 13:30:22
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2826, 价值=43.80U, 盈亏=-0.67%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.308, 价值=44.86U, 盈亏=0.27%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07272, 价值=4.51U, 盈亏=0.94%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.86, 价值=44.95U, 盈亏=0.93%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.466, 价值=43.98U, 盈亏=-0.95%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0483, 价值=4.40U, 盈亏=-0.24%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.592, 价值=46.70U, 盈亏=-0.31%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2985, 价值=0.45U, 盈亏=0.61%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2826, 价值=44.93U, 盈亏=0.67%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.31, 价值=45.71U, 盈亏=-0.29%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07272, 价值=4.58U, 盈亏=-0.94%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.86, 价值=45.74U, 盈亏=-0.93%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.466, 价值=45.45U, 盈亏=0.88%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0483, 价值=4.61U, 盈亏=0.26%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.592, 价值=46.70U, 盈亏=0.25%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2985, 价值=0.47U, 盈亏=-0.62%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.31, 价值=30.75U, 盈亏=0.29%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07272, 价值=3.13U, 盈亏=0.94%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.466, 价值=30.79U, 盈亏=-0.88%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.86, 价值=31.54U, 盈亏=0.93%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.592, 价值=32.33U, 盈亏=-0.25%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0483, 价值=3.14U, 盈亏=-0.26%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2985, 价值=0.31U, 盈亏=0.62%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 328 次检查 - 2026-02-28 13:31:23
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2829, 价值=43.85U, 盈亏=-0.56%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.315, 价值=44.90U, 盈亏=0.35%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07274, 价值=4.51U, 盈亏=0.97%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.94, 价值=45.00U, 盈亏=1.04%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.467, 价值=44.01U, 盈亏=-0.88%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0486, 价值=4.40U, 盈亏=-0.21%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.595, 价值=46.73U, 盈亏=-0.22%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2998, 价值=0.45U, 盈亏=0.71%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2829, 价值=44.98U, 盈亏=0.56%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.317, 价值=45.74U, 盈亏=-0.37%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07273, 价值=4.58U, 盈亏=-0.96%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.94, 价值=45.79U, 盈亏=-1.04%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.467, 价值=45.48U, 盈亏=0.81%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0487, 价值=4.61U, 盈亏=0.22%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.595, 价值=46.73U, 盈亏=0.17%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2998, 价值=0.47U, 盈亏=-0.72%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.316, 价值=30.77U, 盈亏=0.36%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07273, 价值=3.13U, 盈亏=0.96%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.467, 价值=30.81U, 盈亏=-0.81%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.94, 价值=31.58U, 盈亏=1.04%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.595, 价值=32.36U, 盈亏=-0.17%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0487, 价值=3.15U, 盈亏=-0.22%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2998, 价值=0.31U, 盈亏=0.72%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 329 次检查 - 2026-02-28 13:32:24
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2828, 价值=43.83U, 盈亏=-0.60%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.311, 价值=44.88U, 盈亏=0.30%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07274, 价值=4.51U, 盈亏=0.97%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.93, 价值=44.99U, 盈亏=1.02%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.468, 价值=44.04U, 盈亏=-0.81%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0484, 价值=4.40U, 盈亏=-0.23%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.596, 价值=46.75U, 盈亏=-0.19%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.3005, 价值=0.46U, 盈亏=0.76%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2828, 价值=44.97U, 盈亏=0.60%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.314, 价值=45.73U, 盈亏=-0.34%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07275, 价值=4.58U, 盈亏=-0.99%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.93, 价值=45.78U, 盈亏=-1.02%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.468, 价值=45.51U, 盈亏=0.74%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0482, 价值=4.61U, 盈亏=0.27%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.596, 价值=46.75U, 盈亏=0.14%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.3006, 价值=0.47U, 盈亏=-0.78%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.314, 价值=30.76U, 盈亏=0.34%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07275, 价值=3.13U, 盈亏=0.99%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.468, 价值=30.83U, 盈亏=-0.74%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.94, 价值=31.58U, 盈亏=1.04%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.596, 价值=32.36U, 盈亏=-0.14%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0482, 价值=3.14U, 盈亏=-0.27%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.3006, 价值=0.31U, 盈亏=0.78%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 330 次检查 - 2026-02-28 13:33:26
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2824, 价值=43.77U, 盈亏=-0.74%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.302, 价值=44.83U, 盈亏=0.19%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07267, 价值=4.51U, 盈亏=0.87%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.84, 价值=44.94U, 盈亏=0.91%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.466, 价值=43.98U, 盈亏=-0.95%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0468, 价值=4.40U, 盈亏=-0.38%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.596, 价值=46.75U, 盈亏=-0.19%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2977, 价值=0.45U, 盈亏=0.54%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2824, 价值=44.90U, 盈亏=0.74%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.302, 价值=45.66U, 盈亏=-0.19%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07267, 价值=4.58U, 盈亏=-0.87%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.84, 价值=45.73U, 盈亏=-0.91%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.466, 价值=45.45U, 盈亏=0.88%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0468, 价值=4.61U, 盈亏=0.40%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.596, 价值=46.75U, 盈亏=0.14%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2977, 价值=0.47U, 盈亏=-0.56%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.303, 价值=30.72U, 盈亏=0.21%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07266, 价值=3.12U, 盈亏=0.86%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.466, 价值=30.79U, 盈亏=-0.88%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.84, 价值=31.54U, 盈亏=0.91%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.596, 价值=32.36U, 盈亏=-0.14%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0468, 价值=3.14U, 盈亏=-0.40%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2978, 价值=0.31U, 盈亏=0.57%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 331 次检查 - 2026-02-28 13:34:27
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2826, 价值=43.80U, 盈亏=-0.67%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.309, 价值=44.87U, 盈亏=0.28%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.0727, 价值=4.51U, 盈亏=0.92%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.88, 价值=44.96U, 盈亏=0.96%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.466, 价值=43.98U, 盈亏=-0.95%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0472, 价值=4.40U, 盈亏=-0.34%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.599, 价值=46.79U, 盈亏=-0.11%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2988, 价值=0.45U, 盈亏=0.63%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2825, 价值=44.92U, 盈亏=0.70%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.309, 价值=45.70U, 盈亏=-0.28%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.0727, 价值=4.58U, 盈亏=-0.92%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.88, 价值=45.75U, 盈亏=-0.96%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.466, 价值=45.45U, 盈亏=0.88%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0472, 价值=4.61U, 盈亏=0.36%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.599, 价值=46.79U, 盈亏=0.06%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2989, 价值=0.47U, 盈亏=-0.65%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.308, 价值=30.74U, 盈亏=0.27%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.0727, 价值=3.13U, 盈亏=0.92%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.466, 价值=30.79U, 盈亏=-0.88%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.88, 价值=31.55U, 盈亏=0.96%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.599, 价值=32.39U, 盈亏=-0.06%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0473, 价值=3.14U, 盈亏=-0.35%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2989, 价值=0.31U, 盈亏=0.65%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 332 次检查 - 2026-02-28 13:35:28
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2824, 价值=43.77U, 盈亏=-0.74%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.304, 价值=44.84U, 盈亏=0.22%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07266, 价值=4.50U, 盈亏=0.86%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.87, 价值=44.96U, 盈亏=0.95%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.465, 价值=43.95U, 盈亏=-1.01%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0475, 价值=4.40U, 盈亏=-0.31%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.599, 价值=46.79U, 盈亏=-0.11%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2982, 价值=0.45U, 盈亏=0.58%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2824, 价值=44.90U, 盈亏=0.74%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.304, 价值=45.67U, 盈亏=-0.22%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07265, 价值=4.58U, 盈亏=-0.85%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.87, 价值=45.74U, 盈亏=-0.95%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.465, 价值=45.41U, 盈亏=0.95%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0474, 价值=4.61U, 盈亏=0.34%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.599, 价值=46.79U, 盈亏=0.06%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2982, 价值=0.47U, 盈亏=-0.60%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.304, 价值=30.72U, 盈亏=0.22%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07265, 价值=3.12U, 盈亏=0.85%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.465, 价值=30.77U, 盈亏=-0.95%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.87, 价值=31.55U, 盈亏=0.95%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.599, 价值=32.39U, 盈亏=-0.06%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0474, 价值=3.14U, 盈亏=-0.34%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2982, 价值=0.31U, 盈亏=0.60%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 333 次检查 - 2026-02-28 13:36:30
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2821, 价值=43.73U, 盈亏=-0.84%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.298, 价值=44.81U, 盈亏=0.14%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07262, 价值=4.50U, 盈亏=0.81%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.77, 价值=44.90U, 盈亏=0.82%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.463, 价值=43.89U, 盈亏=-1.15%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0465, 价值=4.40U, 盈亏=-0.41%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.592, 价值=46.70U, 盈亏=-0.31%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2967, 价值=0.45U, 盈亏=0.47%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2821, 价值=44.85U, 盈亏=0.84%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.298, 价值=45.64U, 盈亏=-0.14%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07262, 价值=4.58U, 盈亏=-0.81%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.77, 价值=45.69U, 盈亏=-0.82%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.463, 价值=45.35U, 盈亏=1.08%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0465, 价值=4.60U, 盈亏=0.43%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.592, 价值=46.70U, 盈亏=0.25%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2964, 价值=0.47U, 盈亏=-0.46%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.298, 价值=30.70U, 盈亏=0.14%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07262, 价值=3.12U, 盈亏=0.81%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.463, 价值=30.72U, 盈亏=-1.08%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.76, 价值=31.50U, 盈亏=0.81%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.592, 价值=32.33U, 盈亏=-0.25%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0465, 价值=3.14U, 盈亏=-0.43%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2964, 价值=0.31U, 盈亏=0.46%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 334 次检查 - 2026-02-28 13:37:31
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2822, 价值=43.74U, 盈亏=-0.81%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.295, 价值=44.79U, 盈亏=0.11%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07257, 价值=4.50U, 盈亏=0.74%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.76, 价值=44.89U, 盈亏=0.81%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.462, 价值=43.86U, 盈亏=-1.22%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0462, 价值=4.39U, 盈亏=-0.44%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.593, 价值=46.71U, 盈亏=-0.28%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.298, 价值=0.45U, 盈亏=0.57%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2822, 价值=44.87U, 盈亏=0.81%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.295, 价值=45.62U, 盈亏=-0.11%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07257, 价值=4.57U, 盈亏=-0.74%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.76, 价值=45.68U, 盈亏=-0.81%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.462, 价值=45.32U, 盈亏=1.15%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0462, 价值=4.60U, 盈亏=0.46%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.593, 价值=46.71U, 盈亏=0.22%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.298, 价值=0.47U, 盈亏=-0.58%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.295, 价值=30.69U, 盈亏=0.11%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07257, 价值=3.12U, 盈亏=0.74%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.462, 价值=30.70U, 盈亏=-1.15%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.76, 价值=31.50U, 盈亏=0.81%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.593, 价值=32.34U, 盈亏=-0.22%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0462, 价值=3.14U, 盈亏=-0.46%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.298, 价值=0.31U, 盈亏=0.58%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 335 次检查 - 2026-02-28 13:38:33
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2824, 价值=43.77U, 盈亏=-0.74%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.299, 价值=44.81U, 盈亏=0.16%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07261, 价值=4.50U, 盈亏=0.79%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.76, 价值=44.89U, 盈亏=0.81%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.463, 价值=43.89U, 盈亏=-1.15%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.047, 价值=4.40U, 盈亏=-0.36%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.592, 价值=46.70U, 盈亏=-0.31%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2987, 价值=0.45U, 盈亏=0.62%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2824, 价值=44.90U, 盈亏=0.74%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.299, 价值=45.64U, 盈亏=-0.16%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07261, 价值=4.57U, 盈亏=-0.79%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.76, 价值=45.68U, 盈亏=-0.81%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.462, 价值=45.32U, 盈亏=1.15%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0469, 价值=4.61U, 盈亏=0.39%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.592, 价值=46.70U, 盈亏=0.25%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2987, 价值=0.47U, 盈亏=-0.64%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.299, 价值=30.71U, 盈亏=0.16%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07261, 价值=3.12U, 盈亏=0.79%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.462, 价值=30.70U, 盈亏=-1.15%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.76, 价值=31.50U, 盈亏=0.81%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.592, 价值=32.33U, 盈亏=-0.25%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0469, 价值=3.14U, 盈亏=-0.39%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2987, 价值=0.31U, 盈亏=0.64%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 336 次检查 - 2026-02-28 13:39:34
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2823, 价值=43.76U, 盈亏=-0.77%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.304, 价值=44.84U, 盈亏=0.22%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.0726, 价值=4.50U, 盈亏=0.78%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.78, 价值=44.90U, 盈亏=0.83%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.464, 价值=43.92U, 盈亏=-1.08%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0463, 价值=4.39U, 盈亏=-0.43%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.596, 价值=46.75U, 盈亏=-0.19%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2985, 价值=0.45U, 盈亏=0.61%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2823, 价值=44.89U, 盈亏=0.77%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.304, 价值=45.67U, 盈亏=-0.22%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07261, 价值=4.57U, 盈亏=-0.79%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.78, 价值=45.69U, 盈亏=-0.83%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.464, 价值=45.38U, 盈亏=1.01%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0463, 价值=4.60U, 盈亏=0.45%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.597, 价值=46.76U, 盈亏=0.11%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2985, 价值=0.47U, 盈亏=-0.62%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.304, 价值=30.72U, 盈亏=0.22%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07261, 价值=3.12U, 盈亏=0.79%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.464, 价值=30.74U, 盈亏=-1.01%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.78, 价值=31.51U, 盈亏=0.83%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.597, 价值=32.37U, 盈亏=-0.11%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0463, 价值=3.14U, 盈亏=-0.45%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2985, 价值=0.31U, 盈亏=0.62%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 337 次检查 - 2026-02-28 13:40:35
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.282, 价值=43.71U, 盈亏=-0.88%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.293, 价值=44.78U, 盈亏=0.08%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07256, 价值=4.50U, 盈亏=0.72%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.69, 价值=44.85U, 盈亏=0.72%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.462, 价值=43.86U, 盈亏=-1.22%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0444, 价值=4.39U, 盈亏=-0.61%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.59, 价值=46.67U, 盈亏=-0.36%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2967, 价值=0.45U, 盈亏=0.47%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.282, 价值=44.84U, 盈亏=0.88%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.293, 价值=45.61U, 盈亏=-0.08%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07256, 价值=4.57U, 盈亏=-0.72%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.69, 价值=45.64U, 盈亏=-0.72%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.462, 价值=45.32U, 盈亏=1.15%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0444, 价值=4.60U, 盈亏=0.63%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.59, 价值=46.67U, 盈亏=0.31%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2967, 价值=0.47U, 盈亏=-0.48%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.293, 价值=30.68U, 盈亏=0.08%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07256, 价值=3.12U, 盈亏=0.72%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.462, 价值=30.70U, 盈亏=-1.15%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.69, 价值=31.48U, 盈亏=0.72%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.59, 价值=32.31U, 盈亏=-0.31%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0444, 价值=3.13U, 盈亏=-0.63%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2967, 价值=0.31U, 盈亏=0.48%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 338 次检查 - 2026-02-28 13:41:37
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2823, 价值=43.76U, 盈亏=-0.77%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.299, 价值=44.81U, 盈亏=0.16%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07257, 价值=4.50U, 盈亏=0.74%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.76, 价值=44.89U, 盈亏=0.81%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.464, 价值=43.92U, 盈亏=-1.08%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0456, 价值=4.39U, 盈亏=-0.49%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.59, 价值=46.67U, 盈亏=-0.36%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.298, 价值=0.45U, 盈亏=0.57%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2823, 价值=44.89U, 盈亏=0.77%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.299, 价值=45.64U, 盈亏=-0.16%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07257, 价值=4.57U, 盈亏=-0.74%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.76, 价值=45.68U, 盈亏=-0.81%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.464, 价值=45.38U, 盈亏=1.01%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0456, 价值=4.60U, 盈亏=0.51%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.59, 价值=46.67U, 盈亏=0.31%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2979, 价值=0.47U, 盈亏=-0.57%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.299, 价值=30.71U, 盈亏=0.16%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07257, 价值=3.12U, 盈亏=0.74%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.464, 价值=30.74U, 盈亏=-1.01%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.76, 价值=31.50U, 盈亏=0.81%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.59, 价值=32.31U, 盈亏=-0.31%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0455, 价值=3.14U, 盈亏=-0.52%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2979, 价值=0.31U, 盈亏=0.57%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 339 次检查 - 2026-02-28 13:42:38
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2824, 价值=43.77U, 盈亏=-0.74%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.301, 价值=44.83U, 盈亏=0.18%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.0726, 价值=4.50U, 盈亏=0.78%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.77, 价值=44.90U, 盈亏=0.82%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.464, 价值=43.92U, 盈亏=-1.08%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0444, 价值=4.39U, 盈亏=-0.61%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.587, 价值=46.63U, 盈亏=-0.44%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2975, 价值=0.45U, 盈亏=0.53%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2824, 价值=44.90U, 盈亏=0.74%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.301, 价值=45.66U, 盈亏=-0.18%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.0726, 价值=4.57U, 盈亏=-0.78%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.77, 价值=45.69U, 盈亏=-0.82%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.464, 价值=45.38U, 盈亏=1.01%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0444, 价值=4.60U, 盈亏=0.63%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.588, 价值=46.64U, 盈亏=0.36%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2974, 价值=0.47U, 盈亏=-0.53%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.301, 价值=30.71U, 盈亏=0.18%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.0726, 价值=3.12U, 盈亏=0.78%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.464, 价值=30.74U, 盈亏=-1.01%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.76, 价值=31.50U, 盈亏=0.81%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.588, 价值=32.29U, 盈亏=-0.36%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0444, 价值=3.13U, 盈亏=-0.63%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2974, 价值=0.31U, 盈亏=0.53%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 340 次检查 - 2026-02-28 13:43:39
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2827, 价值=43.82U, 盈亏=-0.63%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.306, 价值=44.85U, 盈亏=0.24%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07262, 价值=4.50U, 盈亏=0.81%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.84, 价值=44.94U, 盈亏=0.91%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.466, 价值=43.98U, 盈亏=-0.95%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0446, 价值=4.39U, 盈亏=-0.59%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.591, 价值=46.68U, 盈亏=-0.33%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2987, 价值=0.45U, 盈亏=0.62%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2827, 价值=44.95U, 盈亏=0.63%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.305, 价值=45.68U, 盈亏=-0.23%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07263, 价值=4.58U, 盈亏=-0.82%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.84, 价值=45.73U, 盈亏=-0.91%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.466, 价值=45.45U, 盈亏=0.88%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0447, 价值=4.60U, 盈亏=0.60%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.592, 价值=46.70U, 盈亏=0.25%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2987, 价值=0.47U, 盈亏=-0.64%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.305, 价值=30.73U, 盈亏=0.23%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07263, 价值=3.12U, 盈亏=0.82%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.466, 价值=30.79U, 盈亏=-0.88%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.85, 价值=31.54U, 盈亏=0.92%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.592, 价值=32.33U, 盈亏=-0.25%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0447, 价值=3.13U, 盈亏=-0.60%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.299, 价值=0.31U, 盈亏=0.66%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 341 次检查 - 2026-02-28 13:44:41
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2833, 价值=43.91U, 盈亏=-0.42%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.321, 价值=44.93U, 盈亏=0.42%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07275, 价值=4.51U, 盈亏=0.99%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=79.04, 价值=45.05U, 盈亏=1.16%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.467, 价值=44.01U, 盈亏=-0.88%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0467, 价值=4.40U, 盈亏=-0.39%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.6, 价值=46.80U, 盈亏=-0.08%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.3011, 价值=0.46U, 盈亏=0.81%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2833, 价值=45.04U, 盈亏=0.42%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.321, 价值=45.77U, 盈亏=-0.42%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07275, 价值=4.58U, 盈亏=-0.99%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=79.04, 价值=45.84U, 盈亏=-1.16%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.467, 价值=45.48U, 盈亏=0.81%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0467, 价值=4.61U, 盈亏=0.41%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.6, 价值=46.80U, 盈亏=0.03%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.3011, 价值=0.47U, 盈亏=-0.82%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.321, 价值=30.79U, 盈亏=0.42%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07275, 价值=3.13U, 盈亏=0.99%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.467, 价值=30.81U, 盈亏=-0.81%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=79.04, 价值=31.62U, 盈亏=1.16%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.6, 价值=32.40U, 盈亏=-0.03%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0467, 价值=3.14U, 盈亏=-0.41%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.3011, 价值=0.31U, 盈亏=0.82%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 342 次检查 - 2026-02-28 13:45:42
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2842, 价值=44.05U, 盈亏=-0.11%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.337, 价值=45.02U, 盈亏=0.62%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07294, 价值=4.52U, 盈亏=1.25%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=79.26, 价值=45.18U, 盈亏=1.45%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.471, 价值=44.13U, 盈亏=-0.61%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0499, 价值=4.41U, 盈亏=-0.09%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.609, 价值=46.92U, 盈亏=0.17%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.304, 价值=0.46U, 盈亏=1.03%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2841, 价值=45.17U, 盈亏=0.14%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.337, 价值=45.85U, 盈亏=-0.62%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07294, 价值=4.60U, 盈亏=-1.25%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=79.26, 价值=45.97U, 盈亏=-1.45%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.471, 价值=45.60U, 盈亏=0.54%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0499, 价值=4.62U, 盈亏=0.10%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.609, 价值=46.92U, 盈亏=-0.22%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.3039, 价值=0.47U, 盈亏=-1.04%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.337, 价值=30.85U, 盈亏=0.62%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07294, 价值=3.14U, 盈亏=1.25%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.471, 价值=30.89U, 盈亏=-0.54%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=79.26, 价值=31.70U, 盈亏=1.45%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.609, 价值=32.48U, 盈亏=0.22%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0499, 价值=3.15U, 盈亏=-0.10%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.3039, 价值=0.31U, 盈亏=1.04%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 343 次检查 - 2026-02-28 13:46:43
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2842, 价值=44.05U, 盈亏=-0.11%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.336, 价值=45.01U, 盈亏=0.60%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07295, 价值=4.52U, 盈亏=1.26%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=79.27, 价值=45.18U, 盈亏=1.46%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.472, 价值=44.16U, 盈亏=-0.54%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0498, 价值=4.41U, 盈亏=-0.10%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.611, 价值=46.94U, 盈亏=0.22%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.3051, 价值=0.46U, 盈亏=1.12%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2842, 价值=45.19U, 盈亏=0.11%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.336, 价值=45.85U, 盈亏=-0.60%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07295, 价值=4.60U, 盈亏=-1.26%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=79.27, 价值=45.98U, 盈亏=-1.46%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.472, 价值=45.63U, 盈亏=0.47%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0498, 价值=4.62U, 盈亏=0.11%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.611, 价值=46.94U, 盈亏=-0.28%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.305, 价值=0.47U, 盈亏=-1.12%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.336, 价值=30.84U, 盈亏=0.60%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07295, 价值=3.14U, 盈亏=1.26%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.472, 价值=30.91U, 盈亏=-0.47%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=79.26, 价值=31.70U, 盈亏=1.45%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.611, 价值=32.50U, 盈亏=0.28%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0498, 价值=3.15U, 盈亏=-0.11%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.305, 价值=0.31U, 盈亏=1.12%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 344 次检查 - 2026-02-28 13:47:45
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2848, 价值=44.14U, 盈亏=0.11%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.351, 价值=45.10U, 盈亏=0.78%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07306, 价值=4.53U, 盈亏=1.42%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=79.36, 价值=45.24U, 盈亏=1.57%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.475, 价值=44.25U, 盈亏=-0.34%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0529, 价值=4.42U, 盈亏=0.20%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.618, 价值=47.03U, 盈亏=0.42%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.309, 价值=0.46U, 盈亏=1.42%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2848, 价值=45.28U, 盈亏=-0.11%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.351, 价值=45.93U, 盈亏=-0.78%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07305, 价值=4.60U, 盈亏=-1.40%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=79.36, 价值=46.03U, 盈亏=-1.57%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.476, 价值=45.76U, 盈亏=0.20%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0529, 价值=4.63U, 盈亏=-0.18%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.618, 价值=47.03U, 盈亏=-0.47%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.3091, 价值=0.47U, 盈亏=-1.44%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.352, 价值=30.90U, 盈亏=0.80%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07305, 价值=3.14U, 盈亏=1.40%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.475, 价值=30.98U, 盈亏=-0.27%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=79.36, 价值=31.74U, 盈亏=1.57%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.618, 价值=32.56U, 盈亏=0.47%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0529, 价值=3.16U, 盈亏=0.18%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.3091, 价值=0.31U, 盈亏=1.44%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 345 次检查 - 2026-02-28 13:48:46
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2873, 价值=44.53U, 盈亏=0.98%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.401, 价值=45.37U, 盈亏=1.39%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07336, 价值=4.55U, 盈亏=1.83%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=79.85, 价值=45.51U, 盈亏=2.20%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.486, 价值=44.58U, 盈亏=0.41%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0608, 价值=4.46U, 盈亏=0.95%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.642, 价值=47.35U, 盈亏=1.08%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.3188, 价值=0.46U, 盈亏=2.18%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2872, 价值=45.66U, 盈亏=-0.95%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.402, 价值=46.21U, 盈亏=-1.40%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07334, 价值=4.62U, 盈亏=-1.80%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=79.87, 价值=46.32U, 盈亏=-2.23%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.486, 价值=46.07U, 盈亏=-0.47%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.061, 价值=4.67U, 盈亏=-0.95%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.642, 价值=47.35U, 盈亏=-1.14%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.3193, 价值=0.47U, 盈亏=-2.23%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.405, 价值=31.10U, 盈亏=1.44%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07334, 价值=3.15U, 盈亏=1.80%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.486, 价值=31.21U, 盈亏=0.47%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=79.85, 价值=31.94U, 盈亏=2.20%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.642, 价值=32.78U, 盈亏=1.14%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0612, 价值=3.18U, 盈亏=0.97%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.3193, 价值=0.32U, 盈亏=2.23%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 346 次检查 - 2026-02-28 13:49:47
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2888, 价值=44.76U, 盈亏=1.51%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.438, 价值=45.57U, 盈亏=1.83%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07367, 价值=4.57U, 盈亏=2.26%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=80.22, 价值=45.73U, 盈亏=2.68%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.508, 价值=45.24U, 盈亏=1.89%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0663, 价值=4.48U, 盈亏=1.48%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.664, 价值=47.63U, 盈亏=1.69%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.3281, 价值=0.46U, 盈亏=2.90%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2887, 价值=45.90U, 盈亏=-1.48%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.437, 价值=46.40U, 盈亏=-1.82%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07365, 价值=4.64U, 盈亏=-2.23%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=80.2, 价值=46.52U, 盈亏=-2.65%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.508, 价值=46.75U, 盈亏=-1.96%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0662, 价值=4.69U, 盈亏=-1.45%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.664, 价值=47.63U, 盈亏=-1.75%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.3278, 价值=0.48U, 盈亏=-2.89%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.436, 价值=31.21U, 盈亏=1.81%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07365, 价值=3.17U, 盈亏=2.23%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.508, 价值=31.67U, 盈亏=1.96%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=80.2, 价值=32.08U, 盈亏=2.65%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.664, 价值=32.98U, 盈亏=1.75%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0662, 价值=3.20U, 盈亏=1.45%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.3278, 价值=0.32U, 盈亏=2.89%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 347 次检查 - 2026-02-28 13:50:49
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 5
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=80.14, 价值=46.48U, 盈亏=-2.57%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.5, 价值=46.50U, 盈亏=-1.42%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0636, 价值=4.68U, 盈亏=-1.20%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.649, 价值=47.44U, 盈亏=-1.33%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.3245, 价值=0.48U, 盈亏=-2.63%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.413, 价值=31.13U, 盈亏=1.53%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07353, 价值=3.16U, 盈亏=2.07%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.5, 价值=31.50U, 盈亏=1.42%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=80.15, 价值=32.06U, 盈亏=2.59%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.649, 价值=32.84U, 盈亏=1.33%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0636, 价值=3.19U, 盈亏=1.20%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.3246, 价值=0.32U, 盈亏=2.64%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 348 次检查 - 2026-02-28 13:51:50
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.43, 价值=31.19U, 盈亏=1.74%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07358, 价值=3.16U, 盈亏=2.14%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.504, 价值=31.58U, 盈亏=1.69%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=80.41, 价值=32.16U, 盈亏=2.92%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.662, 价值=32.96U, 盈亏=1.69%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0636, 价值=3.19U, 盈亏=1.20%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.3297, 价值=0.32U, 盈亏=3.04%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 349 次检查 - 2026-02-28 13:52:51
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.43, 价值=31.19U, 盈亏=1.74%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07358, 价值=3.16U, 盈亏=2.14%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.499, 价值=31.48U, 盈亏=1.35%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=80.43, 价值=32.17U, 盈亏=2.94%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.662, 价值=32.96U, 盈亏=1.69%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0627, 价值=3.19U, 盈亏=1.11%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.3271, 价值=0.32U, 盈亏=2.84%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 350 次检查 - 2026-02-28 13:53:53
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.477, 价值=31.36U, 盈亏=2.31%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07391, 价值=3.18U, 盈亏=2.60%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.514, 价值=31.79U, 盈亏=2.37%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=80.76, 价值=32.30U, 盈亏=3.37%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.69, 价值=33.21U, 盈亏=2.47%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0713, 价值=3.21U, 盈亏=1.93%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.337, 价值=0.32U, 盈亏=3.60%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 351 次检查 - 2026-02-28 13:54:54
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] 📊 当前持仓数: 5
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.512, 价值=31.75U, 盈亏=2.23%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=80.52, 价值=32.21U, 盈亏=3.06%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.683, 价值=33.15U, 盈亏=2.28%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0689, 价值=3.21U, 盈亏=1.70%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.3311, 价值=0.32U, 盈亏=3.15%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 352 次检查 - 2026-02-28 13:55:55
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] 📊 当前持仓数: 3
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.664, 价值=32.98U, 盈亏=1.75%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0637, 价值=3.19U, 盈亏=1.21%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.3249, 价值=0.32U, 盈亏=2.67%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 353 次检查 - 2026-02-28 13:56:57
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] 📊 当前持仓数: 2
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.065, 价值=3.19U, 盈亏=1.33%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.3282, 价值=0.32U, 盈亏=2.92%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 354 次检查 - 2026-02-28 13:57:58
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 355 次检查 - 2026-02-28 13:58:59
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 356 次检查 - 2026-02-28 14:00:00
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 357 次检查 - 2026-02-28 14:01:02
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 358 次检查 - 2026-02-28 14:02:03
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 359 次检查 - 2026-02-28 14:03:04
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 360 次检查 - 2026-02-28 14:04:06
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 361 次检查 - 2026-02-28 14:05:07
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 362 次检查 - 2026-02-28 14:06:08
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 363 次检查 - 2026-02-28 14:07:10
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 364 次检查 - 2026-02-28 14:08:11
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 365 次检查 - 2026-02-28 14:09:12
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 366 次检查 - 2026-02-28 14:10:14
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 367 次检查 - 2026-02-28 14:11:15
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 368 次检查 - 2026-02-28 14:12:16
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 369 次检查 - 2026-02-28 14:13:18
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 370 次检查 - 2026-02-28 14:14:19
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 371 次检查 - 2026-02-28 14:15:20
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 372 次检查 - 2026-02-28 14:16:22
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 373 次检查 - 2026-02-28 14:17:23
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 374 次检查 - 2026-02-28 14:18:24
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 375 次检查 - 2026-02-28 14:19:26
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 376 次检查 - 2026-02-28 14:20:27
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 377 次检查 - 2026-02-28 14:21:28
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 378 次检查 - 2026-02-28 14:22:30
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 379 次检查 - 2026-02-28 14:23:31
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 380 次检查 - 2026-02-28 14:24:32
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 381 次检查 - 2026-02-28 14:25:33
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 382 次检查 - 2026-02-28 14:26:35
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 383 次检查 - 2026-02-28 14:27:36
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 384 次检查 - 2026-02-28 14:28:38
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 385 次检查 - 2026-02-28 14:29:39
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 386 次检查 - 2026-02-28 14:30:40
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 387 次检查 - 2026-02-28 14:31:42
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 388 次检查 - 2026-02-28 14:32:43
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 389 次检查 - 2026-02-28 14:33:44
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 390 次检查 - 2026-02-28 14:34:46
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 391 次检查 - 2026-02-28 14:35:47
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 392 次检查 - 2026-02-28 14:36:48
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 393 次检查 - 2026-02-28 14:37:50
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 394 次检查 - 2026-02-28 14:38:51
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 395 次检查 - 2026-02-28 14:39:52
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 396 次检查 - 2026-02-28 14:40:54
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 397 次检查 - 2026-02-28 14:41:55
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 398 次检查 - 2026-02-28 14:42:56
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 399 次检查 - 2026-02-28 14:43:58
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 400 次检查 - 2026-02-28 14:44:59
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 401 次检查 - 2026-02-28 14:46:00
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 402 次检查 - 2026-02-28 14:47:02
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 403 次检查 - 2026-02-28 14:48:03
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 404 次检查 - 2026-02-28 14:49:04
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 405 次检查 - 2026-02-28 14:50:05
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 406 次检查 - 2026-02-28 14:51:07
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 407 次检查 - 2026-02-28 14:52:08
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 408 次检查 - 2026-02-28 14:53:09
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 409 次检查 - 2026-02-28 14:54:11
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 410 次检查 - 2026-02-28 14:55:12
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 411 次检查 - 2026-02-28 14:56:13
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 412 次检查 - 2026-02-28 14:57:14
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 413 次检查 - 2026-02-28 14:58:16
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 414 次检查 - 2026-02-28 14:59:17
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 415 次检查 - 2026-02-28 15:00:18
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 416 次检查 - 2026-02-28 15:01:20
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 417 次检查 - 2026-02-28 15:02:21
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 418 次检查 - 2026-02-28 15:03:22
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 419 次检查 - 2026-02-28 15:04:24
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 420 次检查 - 2026-02-28 15:05:25
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 421 次检查 - 2026-02-28 15:06:26
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 422 次检查 - 2026-02-28 15:07:27
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 423 次检查 - 2026-02-28 15:08:29
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 424 次检查 - 2026-02-28 15:09:30
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 425 次检查 - 2026-02-28 15:10:31
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 426 次检查 - 2026-02-28 15:11:33
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 427 次检查 - 2026-02-28 15:12:34
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 428 次检查 - 2026-02-28 15:13:35
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 429 次检查 - 2026-02-28 15:14:37
+============================================================
+
+[account_main] ℹ️  当前无持仓
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] ℹ️  当前无持仓
+[account_poit_main] ℹ️  当前无持仓
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================

@@ -2333,3 +2333,817 @@ SAR JSONL 数据采集器启动
 [已采集] 63 次
 
 [等待] 下次采集时间: 21:21:20 (300秒后)
+
+[2026-02-28 21:25:32] 开始第 64 次采集...
+[成功] AAVE: bearish Q3 持续1分钟 斜率0.1396
+[成功] APT: bearish Q3 持续5分钟 斜率-0.0006
+[成功] BCH: bearish Q3 持续2分钟 斜率-0.0733
+[成功] BNB: bearish Q3 持续1分钟 斜率-0.0342
+[成功] BTC: bullish Q1 持续3分钟 斜率9.2229
+[成功] CFX: bearish Q3 持续2分钟 斜率-0.0000
+[成功] CRO: bearish Q3 持续2分钟 斜率-0.0000
+[成功] CRV: bearish Q3 持续2分钟 斜率-0.0001
+[成功] DOGE: bearish Q3 持续2分钟 斜率-0.0000
+[成功] DOT: bearish Q3 持续5分钟 斜率-0.0007
+[成功] ETC: bearish Q3 持续2分钟 斜率-0.0027
+[成功] ETH: bearish Q3 持续2分钟 斜率-0.3419
+[成功] FIL: bearish Q3 持续5分钟 斜率-0.0005
+[成功] HBAR: bearish Q3 持续3分钟 斜率-0.0000
+[成功] LDO: bearish Q3 持续2分钟 斜率-0.0001
+[成功] LINK: bearish Q3 持续2分钟 斜率-0.0017
+[成功] LTC: bearish Q3 持续2分钟 斜率-0.0182
+[成功] NEAR: bearish Q3 持续2分钟 斜率-0.0004
+[成功] OKB: bearish Q3 持续2分钟 斜率-0.0188
+[成功] SOL: bearish Q3 持续1分钟 斜率-0.0177
+[成功] STX: bearish Q3 持续2分钟 斜率-0.0002
+[成功] SUI: bullish Q1 持续3分钟 斜率0.0002
+[成功] TAO: bearish Q3 持续2分钟 斜率-0.0266
+[成功] TON: bearish Q3 持续2分钟 斜率-0.0001
+[成功] TRX: bullish Q1 持续2分钟 斜率0.0000
+[成功] UNI: bearish Q3 持续2分钟 斜率-0.0006
+[成功] XLM: bearish Q3 持续2分钟 斜率-0.0001
+[成功] XRP: bearish Q3 持续2分钟 斜率-0.0003
+[成功] ADA: bearish Q3 持续2分钟 斜率-0.0001
+
+[统计] 成功: 29/29
+[多空] 多头: 3, 空头: 26
+[已采集] 64 次
+
+[等待] 下次采集时间: 21:26:32 (300秒后)
+
+[2026-02-28 21:30:45] 开始第 65 次采集...
+[成功] AAVE: bearish Q3 持续2分钟 斜率-0.0086
+[成功] APT: bearish Q3 持续6分钟 斜率-0.0003
+[成功] BCH: bearish Q3 持续3分钟 斜率-0.0598
+[成功] BNB: bearish Q3 持续2分钟 斜率-0.0498
+[成功] BTC: bearish Q3 持续1分钟 斜率41.4430
+[成功] CFX: bearish Q3 持续3分钟 斜率-0.0000
+[成功] CRO: bearish Q3 持续3分钟 斜率-0.0000
+[成功] CRV: bearish Q3 持续3分钟 斜率-0.0001
+[成功] DOGE: bearish Q3 持续3分钟 斜率-0.0000
+[成功] DOT: bearish Q3 持续6分钟 斜率-0.0009
+[成功] ETC: bearish Q3 持续3分钟 斜率-0.0020
+[成功] ETH: bearish Q3 持续3分钟 斜率-0.3587
+[成功] FIL: bullish Q1 持续1分钟 斜率-0.0009
+[成功] HBAR: bearish Q3 持续4分钟 斜率-0.0000
+[成功] LDO: bearish Q3 持续3分钟 斜率-0.0001
+[成功] LINK: bearish Q3 持续3分钟 斜率-0.0018
+[成功] LTC: bearish Q3 持续3分钟 斜率-0.0194
+[成功] NEAR: bearish Q3 持续3分钟 斜率-0.0003
+[成功] OKB: bullish Q1 持续1分钟 斜率-0.0399
+[成功] SOL: bearish Q3 持续2分钟 斜率-0.0345
+[成功] STX: bearish Q3 持续3分钟 斜率-0.0001
+[成功] SUI: bearish Q3 持续1分钟 斜率-0.0001
+[成功] TAO: bearish Q3 持续3分钟 斜率-0.0241
+[成功] TON: bearish Q3 持续3分钟 斜率-0.0001
+[成功] TRX: bullish Q1 持续3分钟 斜率0.0000
+[成功] UNI: bearish Q3 持续3分钟 斜率-0.0007
+[成功] XLM: bearish Q3 持续3分钟 斜率-0.0001
+[成功] XRP: bearish Q3 持续3分钟 斜率-0.0002
+[成功] ADA: bearish Q3 持续3分钟 斜率-0.0001
+
+[统计] 成功: 29/29
+[多空] 多头: 3, 空头: 26
+[已采集] 65 次
+
+[等待] 下次采集时间: 21:31:45 (300秒后)
+
+[2026-02-28 21:35:57] 开始第 66 次采集...
+[成功] AAVE: bearish Q3 持续3分钟 斜率-0.0078
+[成功] APT: bearish Q3 持续7分钟 斜率0.0006
+[成功] BCH: bearish Q3 持续4分钟 斜率-0.0487
+[成功] BNB: bearish Q3 持续3分钟 斜率-0.0873
+[成功] BTC: bearish Q3 持续2分钟 斜率-3.9921
+[成功] CFX: bearish Q3 持续4分钟 斜率-0.0000
+[成功] CRO: bearish Q3 持续4分钟 斜率-0.0000
+[成功] CRV: bullish Q1 持续1分钟 斜率-0.0002
+[成功] DOGE: bullish Q1 持续1分钟 斜率0.0000
+[成功] DOT: bearish Q3 持续7分钟 斜率-0.0006
+[成功] ETC: bearish Q3 持续4分钟 斜率-0.0015
+[成功] ETH: bearish Q3 持续4分钟 斜率-0.5340
+[成功] FIL: bearish Q3 持续1分钟 斜率0.0007
+[成功] HBAR: bearish Q3 持续5分钟 斜率-0.0000
+[成功] LDO: bullish Q1 持续1分钟 斜率0.0000
+[成功] LINK: bearish Q3 持续4分钟 斜率-0.0017
+[成功] LTC: bearish Q3 持续4分钟 斜率-0.0118
+[成功] NEAR: bearish Q3 持续4分钟 斜率-0.0003
+[成功] OKB: bullish Q1 持续2分钟 斜率0.0078
+[成功] SOL: bearish Q3 持续3分钟 斜率-0.0242
+[成功] STX: bearish Q3 持续4分钟 斜率-0.0001
+[成功] SUI: bearish Q3 持续2分钟 斜率-0.0002
+[成功] TAO: bearish Q3 持续4分钟 斜率-0.0213
+[成功] TON: bearish Q3 持续4分钟 斜率-0.0001
+[成功] TRX: bearish Q3 持续1分钟 斜率0.0001
+[成功] UNI: bullish Q1 持续1分钟 斜率-0.0039
+[成功] XLM: bearish Q3 持续4分钟 斜率-0.0000
+[成功] XRP: bearish Q3 持续4分钟 斜率-0.0002
+[成功] ADA: bearish Q3 持续4分钟 斜率-0.0000
+
+[统计] 成功: 29/29
+[多空] 多头: 5, 空头: 24
+[已采集] 66 次
+
+[等待] 下次采集时间: 21:36:57 (300秒后)
+
+[2026-02-28 21:41:11] 开始第 67 次采集...
+[成功] AAVE: bearish Q3 持续4分钟 斜率-0.0413
+[成功] APT: bearish Q3 持续8分钟 斜率-0.0002
+[成功] BCH: bearish Q3 持续5分钟 斜率-0.1716
+[成功] BNB: bearish Q3 持续4分钟 斜率-0.2145
+[成功] BTC: bearish Q3 持续3分钟 斜率-19.8849
+[成功] CFX: bearish Q3 持续5分钟 斜率-0.0000
+[成功] CRO: bearish Q3 持续5分钟 斜率-0.0000
+[成功] CRV: bearish Q3 持续1分钟 斜率-0.0001
+[成功] DOGE: bearish Q3 持续1分钟 斜率-0.0000
+[成功] DOT: bearish Q3 持续8分钟 斜率-0.0008
+[成功] ETC: bearish Q3 持续5分钟 斜率-0.0035
+[成功] ETH: bearish Q3 持续5分钟 斜率-0.5758
+[成功] FIL: bearish Q3 持续2分钟 斜率-0.0001
+[成功] HBAR: bearish Q3 持续6分钟 斜率-0.0000
+[成功] LDO: bearish Q3 持续1分钟 斜率0.0003
+[成功] LINK: bearish Q3 持续5分钟 斜率-0.0025
+[成功] LTC: bullish Q1 持续1分钟 斜率-0.0336
+[成功] NEAR: bearish Q3 持续5分钟 斜率-0.0002
+[成功] OKB: bearish Q3 持续1分钟 斜率0.1059
+[成功] SOL: bearish Q3 持续4分钟 斜率-0.0271
+[成功] STX: bearish Q3 持续5分钟 斜率-0.0002
+[成功] SUI: bearish Q3 持续3分钟 斜率-0.0004
+[成功] TAO: bearish Q3 持续5分钟 斜率-0.0193
+[成功] TON: bearish Q3 持续5分钟 斜率-0.0005
+[成功] TRX: bearish Q3 持续2分钟 斜率-0.0000
+[成功] UNI: bearish Q3 持续1分钟 斜率0.0047
+[成功] XLM: bearish Q3 持续5分钟 斜率-0.0001
+[成功] XRP: bearish Q3 持续5分钟 斜率-0.0003
+[成功] ADA: bearish Q3 持续5分钟 斜率-0.0001
+
+[统计] 成功: 29/29
+[多空] 多头: 1, 空头: 28
+[已采集] 67 次
+
+[等待] 下次采集时间: 21:42:11 (300秒后)
+
+[2026-02-28 21:46:23] 开始第 68 次采集...
+[成功] AAVE: bullish Q1 持续1分钟 斜率-0.1145
+[成功] APT: bullish Q1 持续1分钟 斜率-0.0010
+[成功] BCH: bullish Q1 持续1分钟 斜率-0.3399
+[成功] BNB: bullish Q1 持续1分钟 斜率-0.1613
+[成功] BTC: bullish Q1 持续1分钟 斜率-46.0001
+[成功] CFX: bullish Q1 持续1分钟 斜率0.0000
+[成功] CRO: bullish Q1 持续1分钟 斜率0.0000
+[成功] CRV: bullish Q1 持续1分钟 斜率-0.0003
+[成功] DOGE: bullish Q1 持续1分钟 斜率-0.0001
+[成功] DOT: bullish Q1 持续1分钟 斜率0.0004
+[成功] ETC: bullish Q1 持续1分钟 斜率-0.0041
+[成功] ETH: bullish Q1 持续1分钟 斜率-0.3767
+[成功] FIL: bullish Q1 持续1分钟 斜率0.0004
+[成功] HBAR: bullish Q1 持续1分钟 斜率-0.0000
+[成功] LDO: bullish Q1 持续1分钟 斜率-0.0003
+[成功] LINK: bullish Q1 持续1分钟 斜率-0.0030
+[成功] LTC: bullish Q1 持续2分钟 斜率0.0108
+[成功] NEAR: bullish Q1 持续1分钟 斜率-0.0008
+[成功] OKB: bearish Q3 持续2分钟 斜率-0.0129
+[成功] SOL: bullish Q1 持续1分钟 斜率-0.0213
+[成功] STX: bullish Q1 持续1分钟 斜率-0.0001
+[成功] SUI: bullish Q1 持续1分钟 斜率-0.0003
+[成功] TAO: bullish Q1 持续1分钟 斜率-0.2483
+[成功] TON: bullish Q1 持续1分钟 斜率-0.0013
+[成功] TRX: bearish Q3 持续3分钟 斜率-0.0000
+[成功] UNI: bullish Q1 持续1分钟 斜率-0.0053
+[成功] XLM: bullish Q1 持续1分钟 斜率-0.0001
+[成功] XRP: bullish Q1 持续1分钟 斜率-0.0005
+[成功] ADA: bullish Q1 持续1分钟 斜率-0.0002
+
+[统计] 成功: 29/29
+[多空] 多头: 27, 空头: 2
+[已采集] 68 次
+
+[等待] 下次采集时间: 21:47:23 (300秒后)
+
+[2026-02-28 21:51:37] 开始第 69 次采集...
+[成功] AAVE: bullish Q1 持续2分钟 斜率0.1874
+[成功] APT: bullish Q1 持续2分钟 斜率0.0023
+[成功] BCH: bullish Q1 持续2分钟 斜率0.8018
+[成功] BNB: bullish Q1 持续2分钟 斜率0.7386
+[成功] BTC: bullish Q1 持续2分钟 斜率72.1150
+[成功] CFX: bullish Q1 持续2分钟 斜率0.0001
+[成功] CRO: bullish Q1 持续2分钟 斜率0.0001
+[成功] CRV: bullish Q1 持续2分钟 斜率0.0005
+[成功] DOGE: bullish Q1 持续2分钟 斜率0.0002
+[成功] DOT: bullish Q1 持续2分钟 斜率0.0040
+[成功] ETC: bullish Q1 持续2分钟 斜率0.0180
+[成功] ETH: bullish Q1 持续2分钟 斜率2.8346
+[成功] FIL: bullish Q1 持续2分钟 斜率0.0026
+[成功] HBAR: bullish Q1 持续2分钟 斜率0.0002
+[成功] LDO: bullish Q1 持续2分钟 斜率0.0006
+[成功] LINK: bullish Q1 持续2分钟 斜率0.0150
+[成功] LTC: bullish Q1 持续3分钟 斜率0.0937
+[成功] NEAR: bullish Q1 持续2分钟 斜率0.0018
+[成功] OKB: bullish Q1 持续1分钟 斜率-0.0892
+[成功] SOL: bullish Q1 持续2分钟 斜率0.1863
+[成功] STX: bullish Q1 持续2分钟 斜率0.0005
+[成功] SUI: bullish Q1 持续2分钟 斜率0.0025
+[成功] TAO: bullish Q1 持续2分钟 斜率0.4676
+[成功] TON: bullish Q1 持续2分钟 斜率0.0016
+[成功] TRX: bullish Q1 持续1分钟 斜率0.0000
+[成功] UNI: bullish Q1 持续2分钟 斜率0.0052
+[成功] XLM: bullish Q1 持续2分钟 斜率0.0003
+[成功] XRP: bullish Q1 持续2分钟 斜率0.0038
+[成功] ADA: bullish Q1 持续2分钟 斜率0.0006
+
+[统计] 成功: 29/29
+[多空] 多头: 29, 空头: 0
+[已采集] 69 次
+
+[等待] 下次采集时间: 21:52:37 (300秒后)
+
+[2026-02-28 21:56:49] 开始第 70 次采集...
+[成功] AAVE: bullish Q1 持续3分钟 斜率0.1756
+[成功] APT: bearish Q3 持续1分钟 斜率0.0042
+[成功] BCH: bearish Q3 持续1分钟 斜率1.8811
+[成功] BNB: bearish Q3 持续1分钟 斜率1.3661
+[成功] BTC: bullish Q1 持续3分钟 斜率86.8666
+[成功] CFX: bullish Q1 持续3分钟 斜率0.0001
+[成功] CRO: bearish Q3 持续1分钟 斜率0.0003
+[成功] CRV: bullish Q1 持续3分钟 斜率0.0005
+[成功] DOGE: bullish Q1 持续3分钟 斜率0.0002
+[成功] DOT: bullish Q1 持续3分钟 斜率0.0035
+[成功] ETC: bearish Q3 持续1分钟 斜率0.0309
+[成功] ETH: bullish Q1 持续3分钟 斜率3.2636
+[成功] FIL: bearish Q3 持续1分钟 斜率0.0041
+[成功] HBAR: bearish Q3 持续1分钟 斜率0.0005
+[成功] LDO: bullish Q1 持续3分钟 斜率0.0005
+[成功] LINK: bullish Q1 持续3分钟 斜率0.0126
+[成功] LTC: bearish Q3 持续1分钟 斜率0.1371
+[成功] NEAR: bullish Q1 持续3分钟 斜率0.0017
+[成功] OKB: bullish Q1 持续2分钟 斜率0.0663
+[成功] SOL: bullish Q1 持续3分钟 斜率0.1215
+[成功] STX: bullish Q1 持续3分钟 斜率0.0004
+[成功] SUI: bearish Q3 持续1分钟 斜率0.0037
+[成功] TAO: bullish Q1 持续3分钟 斜率0.4398
+[成功] TON: bullish Q1 持续3分钟 斜率0.0018
+[成功] TRX: bullish Q1 持续2分钟 斜率0.0000
+[成功] UNI: bullish Q1 持续3分钟 斜率0.0071
+[成功] XLM: bullish Q1 持续3分钟 斜率0.0002
+[成功] XRP: bearish Q3 持续1分钟 斜率0.0063
+[成功] ADA: bullish Q1 持续3分钟 斜率0.0005
+
+[统计] 成功: 29/29
+[多空] 多头: 19, 空头: 10
+[已采集] 70 次
+
+[等待] 下次采集时间: 21:57:49 (300秒后)
+
+[2026-02-28 22:02:02] 开始第 71 次采集...
+[成功] AAVE: bullish Q1 持续4分钟 斜率0.1216
+[成功] APT: bullish Q1 持续1分钟 斜率-0.0005
+[成功] BCH: bearish Q3 持续2分钟 斜率-0.1023
+[成功] BNB: bullish Q1 持续1分钟 斜率-1.1795
+[成功] BTC: bullish Q1 持续4分钟 斜率72.7491
+[成功] CFX: bullish Q1 持续4分钟 斜率-0.0001
+[成功] CRO: bullish Q1 持续1分钟 斜率-0.0002
+[成功] CRV: bullish Q1 持续4分钟 斜率-0.0003
+[成功] DOGE: bullish Q1 持续4分钟 斜率0.0001
+[成功] DOT: bearish Q3 持续1分钟 斜率0.0083
+[成功] ETC: bullish Q1 持续1分钟 斜率-0.0200
+[成功] ETH: bullish Q1 持续4分钟 斜率-4.2514
+[成功] FIL: bullish Q1 持续1分钟 斜率-0.0027
+[成功] HBAR: bullish Q1 持续1分钟 斜率-0.0003
+[成功] LDO: bullish Q1 持续4分钟 斜率0.0003
+[成功] LINK: bullish Q1 持续4分钟 斜率0.0086
+[成功] LTC: bullish Q1 持续1分钟 斜率-0.0543
+[成功] NEAR: bullish Q1 持续4分钟 斜率0.0010
+[成功] OKB: bullish Q1 持续3分钟 斜率0.0986
+[成功] SOL: bullish Q1 持续4分钟 斜率0.1068
+[成功] STX: bullish Q1 持续4分钟 斜率0.0004
+[成功] SUI: bullish Q1 持续1分钟 斜率-0.0015
+[成功] TAO: bullish Q1 持续4分钟 斜率0.3589
+[成功] TON: bullish Q1 持续4分钟 斜率0.0012
+[成功] TRX: bullish Q1 持续3分钟 斜率0.0001
+[成功] UNI: bearish Q3 持续1分钟 斜率0.0115
+[成功] XLM: bearish Q3 持续1分钟 斜率0.0005
+[成功] XRP: bullish Q1 持续1分钟 斜率-0.0031
+[成功] ADA: bullish Q1 持续4分钟 斜率0.0004
+
+[统计] 成功: 29/29
+[多空] 多头: 25, 空头: 4
+[已采集] 71 次
+
+[等待] 下次采集时间: 22:03:02 (300秒后)
+
+[2026-02-28 22:07:15] 开始第 72 次采集...
+[成功] AAVE: bearish Q3 持续1分钟 斜率-0.0850
+[成功] APT: bearish Q3 持续1分钟 斜率-0.0005
+[成功] BCH: bearish Q3 持续3分钟 斜率-0.0925
+[成功] BNB: bullish Q1 持续2分钟 斜率0.0922
+[成功] BTC: bearish Q3 持续1分钟 斜率-30.3165
+[成功] CFX: bearish Q3 持续1分钟 斜率-0.0000
+[成功] CRO: bearish Q3 持续1分钟 斜率0.0001
+[成功] CRV: bearish Q3 持续1分钟 斜率-0.0001
+[成功] DOGE: bearish Q3 持续1分钟 斜率-0.0001
+[成功] DOT: bearish Q3 持续2分钟 斜率-0.0016
+[成功] ETC: bearish Q3 持续1分钟 斜率-0.0044
+[成功] ETH: bearish Q3 持续1分钟 斜率-0.8934
+[成功] FIL: bearish Q3 持续1分钟 斜率0.0024
+[成功] HBAR: bearish Q3 持续1分钟 斜率0.0002
+[成功] LDO: bearish Q3 持续1分钟 斜率-0.0002
+[成功] LINK: bearish Q3 持续1分钟 斜率-0.0058
+[成功] LTC: bearish Q3 持续1分钟 斜率-0.0207
+[成功] NEAR: bearish Q3 持续1分钟 斜率-0.0008
+[成功] OKB: bearish Q3 持续1分钟 斜率0.1791
+[成功] SOL: bearish Q3 持续1分钟 斜率-0.0390
+[成功] STX: bearish Q3 持续1分钟 斜率-0.0002
+[成功] SUI: bearish Q3 持续1分钟 斜率0.0030
+[成功] TAO: bearish Q3 持续1分钟 斜率-0.1590
+[成功] TON: bearish Q3 持续1分钟 斜率-0.0005
+[成功] TRX: bearish Q3 持续1分钟 斜率-0.0000
+[成功] UNI: bearish Q3 持续2分钟 斜率-0.0034
+[成功] XLM: bearish Q3 持续2分钟 斜率-0.0001
+[成功] XRP: bearish Q3 持续1分钟 斜率-0.0008
+[成功] ADA: bearish Q3 持续1分钟 斜率-0.0002
+
+[统计] 成功: 29/29
+[多空] 多头: 1, 空头: 28
+[已采集] 72 次
+
+[等待] 下次采集时间: 22:08:15 (300秒后)
+
+[2026-02-28 22:12:27] 开始第 73 次采集...
+[成功] AAVE: bearish Q3 持续2分钟 斜率-0.0689
+[成功] APT: bearish Q3 持续2分钟 斜率-0.0005
+[成功] BCH: bearish Q3 持续4分钟 斜率-0.0836
+[成功] BNB: bullish Q1 持续3分钟 斜率0.0913
+[成功] BTC: bearish Q3 持续2分钟 斜率-24.6373
+[成功] CFX: bullish Q1 持续1分钟 斜率-0.0002
+[成功] CRO: bearish Q3 持续2分钟 斜率-0.0000
+[成功] CRV: bearish Q3 持续2分钟 斜率-0.0001
+[成功] DOGE: bearish Q3 持续2分钟 斜率-0.0001
+[成功] DOT: bearish Q3 持续3分钟 斜率-0.0013
+[成功] ETC: bearish Q3 持续2分钟 斜率-0.0040
+[成功] ETH: bearish Q3 持续2分钟 斜率-0.8019
+[成功] FIL: bearish Q3 持续2分钟 斜率-0.0003
+[成功] HBAR: bearish Q3 持续2分钟 斜率-0.0000
+[成功] LDO: bearish Q3 持续2分钟 斜率-0.0001
+[成功] LINK: bearish Q3 持续2分钟 斜率-0.0047
+[成功] LTC: bearish Q3 持续2分钟 斜率-0.0192
+[成功] NEAR: bearish Q3 持续2分钟 斜率-0.0006
+[成功] OKB: bearish Q3 持续2分钟 斜率-0.0172
+[成功] SOL: bearish Q3 持续2分钟 斜率-0.0361
+[成功] STX: bearish Q3 持续2分钟 斜率-0.0001
+[成功] SUI: bearish Q3 持续2分钟 斜率-0.0003
+[成功] TAO: bearish Q3 持续2分钟 斜率-0.1277
+[成功] TON: bearish Q3 持续2分钟 斜率-0.0004
+[成功] TRX: bearish Q3 持续2分钟 斜率-0.0000
+[成功] UNI: bearish Q3 持续3分钟 斜率-0.0028
+[成功] XLM: bearish Q3 持续3分钟 斜率-0.0001
+[成功] XRP: bearish Q3 持续2分钟 斜率-0.0008
+[成功] ADA: bearish Q3 持续2分钟 斜率-0.0002
+
+[统计] 成功: 29/29
+[多空] 多头: 2, 空头: 27
+[已采集] 73 次
+
+[等待] 下次采集时间: 22:13:27 (300秒后)
+
+[2026-02-28 22:17:40] 开始第 74 次采集...
+[成功] AAVE: bearish Q3 持续3分钟 斜率-0.0661
+[成功] APT: bearish Q3 持续3分钟 斜率-0.0004
+[成功] BCH: bearish Q3 持续5分钟 斜率-0.0755
+[成功] BNB: bullish Q1 持续4分钟 斜率0.0826
+[成功] BTC: bearish Q3 持续3分钟 斜率-22.0013
+[成功] CFX: bullish Q1 持续2分钟 斜率0.0000
+[成功] CRO: bearish Q3 持续3分钟 斜率-0.0000
+[成功] CRV: bearish Q3 持续3分钟 斜率-0.0001
+[成功] DOGE: bearish Q3 持续3分钟 斜率-0.0000
+[成功] DOT: bearish Q3 持续4分钟 斜率-0.0019
+[成功] ETC: bearish Q3 持续3分钟 斜率-0.0033
+[成功] ETH: bearish Q3 持续3分钟 斜率-0.7177
+[成功] FIL: bearish Q3 持续3分钟 斜率-0.0005
+[成功] HBAR: bearish Q3 持续3分钟 斜率-0.0000
+[成功] LDO: bearish Q3 持续3分钟 斜率-0.0001
+[成功] LINK: bearish Q3 持续3分钟 斜率-0.0057
+[成功] LTC: bearish Q3 持续3分钟 斜率-0.0244
+[成功] NEAR: bearish Q3 持续3分钟 斜率-0.0008
+[成功] OKB: bearish Q3 持续3分钟 斜率-0.0197
+[成功] SOL: bearish Q3 持续3分钟 斜率-0.0462
+[成功] STX: bearish Q3 持续3分钟 斜率-0.0001
+[成功] SUI: bearish Q3 持续3分钟 斜率-0.0006
+[成功] TAO: bearish Q3 持续3分钟 斜率-0.0974
+[成功] TON: bearish Q3 持续3分钟 斜率-0.0004
+[成功] TRX: bearish Q3 持续3分钟 斜率-0.0000
+[成功] UNI: bullish Q1 持续1分钟 斜率-0.0079
+[成功] XLM: bullish Q1 持续1分钟 斜率-0.0004
+[成功] XRP: bearish Q3 持续3分钟 斜率-0.0008
+[成功] ADA: bearish Q3 持续3分钟 斜率-0.0002
+
+[统计] 成功: 29/29
+[多空] 多头: 4, 空头: 25
+[已采集] 74 次
+
+[等待] 下次采集时间: 22:18:40 (300秒后)
+
+[2026-02-28 22:22:52] 开始第 75 次采集...
+[成功] AAVE: bearish Q3 持续4分钟 斜率-0.0408
+[成功] APT: bearish Q3 持续4分钟 斜率-0.0004
+[成功] BCH: bearish Q3 持续6分钟 斜率-0.0683
+[成功] BNB: bullish Q1 持续5分钟 斜率0.0746
+[成功] BTC: bearish Q3 持续4分钟 斜率-26.7831
+[成功] CFX: bullish Q1 持续3分钟 斜率0.0000
+[成功] CRO: bearish Q3 持续4分钟 斜率-0.0000
+[成功] CRV: bearish Q3 持续4分钟 斜率-0.0001
+[成功] DOGE: bearish Q3 持续4分钟 斜率-0.0000
+[成功] DOT: bearish Q3 持续5分钟 斜率-0.0019
+[成功] ETC: bearish Q3 持续4分钟 斜率-0.0027
+[成功] ETH: bullish Q1 持续1分钟 斜率-2.8697
+[成功] FIL: bearish Q3 持续4分钟 斜率-0.0004
+[成功] HBAR: bearish Q3 持续4分钟 斜率-0.0000
+[成功] LDO: bearish Q3 持续4分钟 斜率-0.0001
+[成功] LINK: bearish Q3 持续4分钟 斜率-0.0034
+[成功] LTC: bearish Q3 持续4分钟 斜率-0.0246
+[成功] NEAR: bearish Q3 持续4分钟 斜率-0.0005
+[成功] OKB: bearish Q3 持续4分钟 斜率-0.0313
+[成功] SOL: bearish Q3 持续4分钟 斜率-0.0402
+[成功] STX: bearish Q3 持续4分钟 斜率-0.0001
+[成功] SUI: bearish Q3 持续4分钟 斜率-0.0005
+[成功] TAO: bearish Q3 持续4分钟 斜率-0.0991
+[成功] TON: bearish Q3 持续4分钟 斜率-0.0003
+[成功] TRX: bearish Q3 持续4分钟 斜率-0.0000
+[成功] UNI: bullish Q1 持续2分钟 斜率0.0018
+[成功] XLM: bullish Q1 持续2分钟 斜率0.0000
+[成功] XRP: bearish Q3 持续4分钟 斜率-0.0007
+[成功] ADA: bullish Q1 持续1分钟 斜率0.0000
+
+[统计] 成功: 29/29
+[多空] 多头: 6, 空头: 23
+[已采集] 75 次
+
+[等待] 下次采集时间: 22:23:52 (300秒后)
+
+[2026-02-28 22:28:05] 开始第 76 次采集...
+[成功] AAVE: bullish Q1 持续1分钟 斜率0.0173
+[成功] APT: bullish Q1 持续1分钟 斜率0.0003
+[成功] BCH: bearish Q3 持续7分钟 斜率-0.0605
+[成功] BNB: bullish Q1 持续6分钟 斜率0.0661
+[成功] BTC: bullish Q1 持续1分钟 斜率7.7264
+[成功] CFX: bullish Q1 持续4分钟 斜率0.0000
+[成功] CRO: bearish Q3 持续5分钟 斜率-0.0000
+[成功] CRV: bullish Q1 持续1分钟 斜率-0.0003
+[成功] DOGE: bullish Q1 持续1分钟 斜率0.0000
+[成功] DOT: bullish Q1 持续1分钟 斜率0.0004
+[成功] ETC: bullish Q1 持续1分钟 斜率-0.0101
+[成功] ETH: bullish Q1 持续2分钟 斜率0.2661
+[成功] FIL: bearish Q3 持续5分钟 斜率-0.0003
+[成功] HBAR: bearish Q3 持续5分钟 斜率-0.0000
+[成功] LDO: bullish Q1 持续1分钟 斜率-0.0004
+[成功] LINK: bullish Q1 持续1分钟 斜率0.0019
+[成功] LTC: bullish Q1 持续1分钟 斜率0.0088
+[成功] NEAR: bullish Q1 持续1分钟 斜率0.0003
+[成功] OKB: bearish Q3 持续5分钟 斜率-0.0245
+[成功] SOL: bullish Q1 持续1分钟 斜率-0.1325
+[成功] STX: bullish Q1 持续1分钟 斜率0.0000
+[成功] SUI: bearish Q3 持续5分钟 斜率-0.0004
+[成功] TAO: bullish Q1 持续1分钟 斜率0.0538
+[成功] TON: bullish Q1 持续1分钟 斜率-0.0011
+[成功] TRX: bearish Q3 持续5分钟 斜率-0.0000
+[成功] UNI: bullish Q1 持续3分钟 斜率0.0024
+[成功] XLM: bullish Q1 持续3分钟 斜率0.0001
+[成功] XRP: bullish Q1 持续1分钟 斜率-0.0025
+[成功] ADA: bullish Q1 持续2分钟 斜率0.0000
+
+[统计] 成功: 29/29
+[多空] 多头: 22, 空头: 7
+[已采集] 76 次
+
+[等待] 下次采集时间: 22:29:05 (300秒后)
+
+[2026-02-28 22:33:18] 开始第 77 次采集...
+[成功] AAVE: bearish Q3 持续1分钟 斜率0.1362
+[成功] APT: bearish Q3 持续1分钟 斜率0.0019
+[成功] BCH: bearish Q3 持续8分钟 斜率-0.0547
+[成功] BNB: bearish Q3 持续1分钟 斜率0.8878
+[成功] BTC: bullish Q1 持续2分钟 斜率-58.2800
+[成功] CFX: bearish Q3 持续1分钟 斜率0.0001
+[成功] CRO: bullish Q1 持续1分钟 斜率-0.0001
+[成功] CRV: bullish Q1 持续2分钟 斜率0.0000
+[成功] DOGE: bearish Q3 持续1分钟 斜率0.0001
+[成功] DOT: bearish Q3 持续1分钟 斜率0.0028
+[成功] ETC: bullish Q1 持续2分钟 斜率0.0011
+[成功] ETH: bullish Q1 持续3分钟 斜率0.2406
+[成功] FIL: bearish Q3 持续6分钟 斜率-0.0002
+[成功] HBAR: bearish Q3 持续6分钟 斜率-0.0000
+[成功] LDO: bullish Q1 持续2分钟 斜率0.0001
+[成功] LINK: bullish Q1 持续2分钟 斜率0.0017
+[成功] LTC: bearish Q3 持续1分钟 斜率0.0616
+[成功] NEAR: bearish Q3 持续1分钟 斜率0.0014
+[成功] OKB: bearish Q3 持续6分钟 斜率-0.0200
+[成功] SOL: bullish Q1 持续2分钟 斜率0.0086
+[成功] STX: bearish Q3 持续1分钟 斜率0.0003
+[成功] SUI: bearish Q3 持续6分钟 斜率-0.0003
+[成功] TAO: bearish Q3 持续1分钟 斜率0.3828
+[成功] TON: bullish Q1 持续2分钟 斜率0.0001
+[成功] TRX: bearish Q3 持续6分钟 斜率-0.0000
+[成功] UNI: bearish Q3 持续1分钟 斜率0.0029
+[成功] XLM: bullish Q1 持续4分钟 斜率0.0000
+[成功] XRP: bullish Q1 持续2分钟 斜率0.0003
+[成功] ADA: bearish Q3 持续1分钟 斜率0.0002
+
+[统计] 成功: 29/29
+[多空] 多头: 11, 空头: 18
+[已采集] 77 次
+
+[等待] 下次采集时间: 22:34:18 (300秒后)
+
+[2026-02-28 22:38:31] 开始第 78 次采集...
+[成功] AAVE: bullish Q1 持续1分钟 斜率-0.0853
+[成功] APT: bullish Q1 持续1分钟 斜率-0.0018
+[成功] BCH: bullish Q1 持续1分钟 斜率-0.7774
+[成功] BNB: bullish Q1 持续1分钟 斜率-0.8282
+[成功] BTC: bullish Q1 持续3分钟 斜率10.3535
+[成功] CFX: bullish Q1 持续1分钟 斜率-0.0001
+[成功] CRO: bullish Q1 持续2分钟 斜率0.0000
+[成功] CRV: bullish Q1 持续3分钟 斜率0.0001
+[成功] DOGE: bullish Q1 持续1分钟 斜率-0.0001
+[成功] DOT: bullish Q1 持续1分钟 斜率-0.0040
+[成功] ETC: bullish Q1 持续3分钟 斜率-0.0046
+[成功] ETH: bullish Q1 持续4分钟 斜率0.7363
+[成功] FIL: bullish Q1 持续1分钟 斜率-0.0017
+[成功] HBAR: bullish Q1 持续1分钟 斜率-0.0002
+[成功] LDO: bullish Q1 持续3分钟 斜率-0.0001
+[成功] LINK: bullish Q1 持续3分钟 斜率-0.0045
+[成功] LTC: bullish Q1 持续1分钟 斜率-0.0784
+[成功] NEAR: bullish Q1 持续1分钟 斜率-0.0017
+[成功] OKB: bullish Q1 持续1分钟 斜率-0.1214
+[成功] SOL: bullish Q1 持续3分钟 斜率0.0330
+[成功] STX: bullish Q1 持续1分钟 斜率-0.0002
+[成功] SUI: bullish Q1 持续1分钟 斜率-0.0019
+[成功] TAO: bullish Q1 持续1分钟 斜率-0.3688
+[成功] TON: bullish Q1 持续3分钟 斜率0.0001
+[成功] TRX: bullish Q1 持续1分钟 斜率-0.0001
+[成功] UNI: bullish Q1 持续1分钟 斜率-0.0036
+[成功] XLM: bullish Q1 持续5分钟 斜率-0.0001
+[成功] XRP: bullish Q1 持续3分钟 斜率0.0005
+[成功] ADA: bullish Q1 持续1分钟 斜率-0.0003
+
+[统计] 成功: 29/29
+[多空] 多头: 29, 空头: 0
+[已采集] 78 次
+
+[等待] 下次采集时间: 22:39:31 (300秒后)
+
+[2026-02-28 22:43:43] 开始第 79 次采集...
+[成功] AAVE: bullish Q1 持续2分钟 斜率0.0724
+[成功] APT: bullish Q1 持续2分钟 斜率0.0007
+[成功] BCH: bullish Q1 持续2分钟 斜率0.1208
+[成功] BNB: bullish Q1 持续2分钟 斜率0.1314
+[成功] BTC: bullish Q1 持续4分钟 斜率24.6650
+[成功] CFX: bullish Q1 持续2分钟 斜率0.0000
+[成功] CRO: bullish Q1 持续3分钟 斜率0.0000
+[成功] CRV: bullish Q1 持续4分钟 斜率0.0002
+[成功] DOGE: bullish Q1 持续2分钟 斜率0.0001
+[成功] DOT: bullish Q1 持续2分钟 斜率0.0011
+[成功] ETC: bullish Q1 持续4分钟 斜率0.0027
+[成功] ETH: bullish Q1 持续5分钟 斜率1.4217
+[成功] FIL: bullish Q1 持续2分钟 斜率0.0008
+[成功] HBAR: bullish Q1 持续2分钟 斜率0.0000
+[成功] LDO: bullish Q1 持续4分钟 斜率0.0001
+[成功] LINK: bullish Q1 持续4分钟 斜率0.0049
+[成功] LTC: bullish Q1 持续2分钟 斜率0.0239
+[成功] NEAR: bullish Q1 持续2分钟 斜率0.0010
+[成功] OKB: bearish Q3 持续1分钟 斜率0.0928
+[成功] SOL: bullish Q1 持续4分钟 斜率0.0731
+[成功] STX: bullish Q1 持续2分钟 斜率0.0002
+[成功] SUI: bullish Q1 持续2分钟 斜率0.0006
+[成功] TAO: bullish Q1 持续2分钟 斜率0.1096
+[成功] TON: bullish Q1 持续4分钟 斜率0.0004
+[成功] TRX: bearish Q3 持续1分钟 斜率-0.0000
+[成功] UNI: bullish Q1 持续2分钟 斜率0.0021
+[成功] XLM: bullish Q1 持续6分钟 斜率0.0001
+[成功] XRP: bearish Q3 持续1分钟 斜率0.0024
+[成功] ADA: bullish Q1 持续2分钟 斜率0.0002
+
+[统计] 成功: 29/29
+[多空] 多头: 26, 空头: 3
+[已采集] 79 次
+
+[等待] 下次采集时间: 22:44:43 (300秒后)
+
+[2026-02-28 22:48:55] 开始第 80 次采集...
+[成功] AAVE: bearish Q3 持续1分钟 斜率0.1926
+[成功] APT: bearish Q3 持续1分钟 斜率0.0019
+[成功] BCH: bearish Q3 持续1分钟 斜率0.7635
+[成功] BNB: bearish Q3 持续1分钟 斜率0.5903
+[成功] BTC: bearish Q3 持续1分钟 斜率95.6501
+[成功] CFX: bearish Q3 持续1分钟 斜率0.0001
+[成功] CRO: bearish Q3 持续1分钟 斜率0.0001
+[成功] CRV: bearish Q3 持续1分钟 斜率0.0003
+[成功] DOGE: bearish Q3 持续1分钟 斜率0.0002
+[成功] DOT: bearish Q3 持续1分钟 斜率0.0042
+[成功] ETC: bearish Q3 持续1分钟 斜率0.0123
+[成功] ETH: bearish Q3 持续1分钟 斜率-0.4566
+[成功] FIL: bearish Q3 持续1分钟 斜率0.0022
+[成功] HBAR: bearish Q3 持续1分钟 斜率0.0002
+[成功] LDO: bearish Q3 持续1分钟 斜率0.0005
+[成功] LINK: bearish Q3 持续1分钟 斜率0.0113
+[成功] LTC: bearish Q3 持续1分钟 斜率0.0828
+[成功] NEAR: bearish Q3 持续1分钟 斜率0.0021
+[成功] OKB: bearish Q3 持续2分钟 斜率-0.0121
+[成功] SOL: bearish Q3 持续1分钟 斜率0.1736
+[成功] STX: bearish Q3 持续1分钟 斜率0.0004
+[成功] SUI: bearish Q3 持续1分钟 斜率0.0021
+[成功] TAO: bearish Q3 持续1分钟 斜率0.3815
+[成功] TON: bearish Q3 持续1分钟 斜率0.0014
+[成功] TRX: bullish Q1 持续1分钟 斜率0.0000
+[成功] UNI: bearish Q3 持续1分钟 斜率0.0048
+[成功] XLM: bearish Q3 持续1分钟 斜率0.0002
+[成功] XRP: bearish Q3 持续2分钟 斜率-0.0008
+[成功] ADA: bearish Q3 持续1分钟 斜率0.0004
+
+[统计] 成功: 29/29
+[多空] 多头: 1, 空头: 28
+[已采集] 80 次
+
+[等待] 下次采集时间: 22:49:55 (300秒后)
+
+[2026-02-28 22:54:08] 开始第 81 次采集...
+[成功] AAVE: bearish Q3 持续2分钟 斜率-0.1261
+[成功] APT: bearish Q3 持续2分钟 斜率-0.0006
+[成功] BCH: bearish Q3 持续2分钟 斜率-0.3492
+[成功] BNB: bearish Q3 持续2分钟 斜率-0.2420
+[成功] BTC: bearish Q3 持续2分钟 斜率-42.6519
+[成功] CFX: bearish Q3 持续2分钟 斜率-0.0000
+[成功] CRO: bearish Q3 持续2分钟 斜率-0.0000
+[成功] CRV: bearish Q3 持续2分钟 斜率-0.0001
+[成功] DOGE: bearish Q3 持续2分钟 斜率-0.0001
+[成功] DOT: bearish Q3 持续2分钟 斜率-0.0012
+[成功] ETC: bearish Q3 持续2分钟 斜率-0.0045
+[成功] ETH: bearish Q3 持续2分钟 斜率-2.1741
+[成功] FIL: bearish Q3 持续2分钟 斜率-0.0005
+[成功] HBAR: bearish Q3 持续2分钟 斜率-0.0001
+[成功] LDO: bearish Q3 持续2分钟 斜率-0.0003
+[成功] LINK: bearish Q3 持续2分钟 斜率-0.0055
+[成功] LTC: bearish Q3 持续2分钟 斜率-0.0395
+[成功] NEAR: bearish Q3 持续2分钟 斜率-0.0007
+[成功] OKB: bearish Q3 持续3分钟 斜率-0.0406
+[成功] SOL: bearish Q3 持续2分钟 斜率-0.0661
+[成功] STX: bearish Q3 持续2分钟 斜率-0.0003
+[成功] SUI: bearish Q3 持续2分钟 斜率-0.0012
+[成功] TAO: bearish Q3 持续2分钟 斜率-0.1727
+[成功] TON: bearish Q3 持续2分钟 斜率-0.0007
+[成功] TRX: bearish Q3 持续1分钟 斜率0.0001
+[成功] UNI: bearish Q3 持续2分钟 斜率-0.0032
+[成功] XLM: bearish Q3 持续2分钟 斜率-0.0001
+[成功] XRP: bearish Q3 持续3分钟 斜率-0.0019
+[成功] ADA: bearish Q3 持续2分钟 斜率-0.0002
+
+[统计] 成功: 29/29
+[多空] 多头: 0, 空头: 29
+[已采集] 81 次
+
+[等待] 下次采集时间: 22:55:08 (300秒后)
+
+[2026-02-28 22:59:21] 开始第 82 次采集...
+[成功] AAVE: bearish Q3 持续3分钟 斜率-0.1591
+[成功] APT: bearish Q3 持续3分钟 斜率-0.0007
+[成功] BCH: bearish Q3 持续3分钟 斜率-0.4370
+[成功] BNB: bearish Q3 持续3分钟 斜率-0.4042
+[成功] BTC: bearish Q3 持续3分钟 斜率-53.4009
+[成功] CFX: bearish Q3 持续3分钟 斜率-0.0001
+[成功] CRO: bearish Q3 持续3分钟 斜率-0.0001
+[成功] CRV: bearish Q3 持续3分钟 斜率-0.0002
+[成功] DOGE: bearish Q3 持续3分钟 斜率-0.0001
+[成功] DOT: bearish Q3 持续3分钟 斜率-0.0009
+[成功] ETC: bearish Q3 持续3分钟 斜率-0.0076
+[成功] ETH: bearish Q3 持续3分钟 斜率-1.9776
+[成功] FIL: bearish Q3 持续3分钟 斜率-0.0009
+[成功] HBAR: bearish Q3 持续3分钟 斜率-0.0001
+[成功] LDO: bearish Q3 持续3分钟 斜率-0.0003
+[成功] LINK: bearish Q3 持续3分钟 斜率-0.0083
+[成功] LTC: bearish Q3 持续3分钟 斜率-0.0562
+[成功] NEAR: bearish Q3 持续3分钟 斜率-0.0007
+[成功] OKB: bearish Q3 持续4分钟 斜率-0.0512
+[成功] SOL: bearish Q3 持续3分钟 斜率-0.0809
+[成功] STX: bearish Q3 持续3分钟 斜率-0.0003
+[成功] SUI: bearish Q3 持续3分钟 斜率-0.0012
+[成功] TAO: bearish Q3 持续3分钟 斜率-0.2307
+[成功] TON: bearish Q3 持续3分钟 斜率-0.0009
+[成功] TRX: bearish Q3 持续2分钟 斜率-0.0000
+[成功] UNI: bearish Q3 持续3分钟 斜率-0.0046
+[成功] XLM: bearish Q3 持续3分钟 斜率-0.0001
+[成功] XRP: bearish Q3 持续4分钟 斜率-0.0016
+[成功] ADA: bearish Q3 持续3分钟 斜率-0.0002
+
+[统计] 成功: 29/29
+[多空] 多头: 0, 空头: 29
+[已采集] 82 次
+
+[等待] 下次采集时间: 23:00:21 (300秒后)
+
+[2026-02-28 23:04:33] 开始第 83 次采集...
+[成功] AAVE: bullish Q1 持续1分钟 斜率-0.2044
+[成功] APT: bearish Q3 持续4分钟 斜率-0.0005
+[成功] BCH: bullish Q1 持续1分钟 斜率-0.5391
+[成功] BNB: bullish Q1 持续1分钟 斜率-0.6547
+[成功] BTC: bearish Q3 持续4分钟 斜率-33.3180
+[成功] CFX: bearish Q3 持续4分钟 斜率-0.0000
+[成功] CRO: bearish Q3 持续4分钟 斜率-0.0000
+[成功] CRV: bullish Q1 持续1分钟 斜率-0.0003
+[成功] DOGE: bullish Q1 持续1分钟 斜率-0.0001
+[成功] DOT: bearish Q3 持续4分钟 斜率-0.0005
+[成功] ETC: bullish Q1 持续1分钟 斜率-0.0123
+[成功] ETH: bullish Q1 持续1分钟 斜率-1.1526
+[成功] FIL: bearish Q3 持续4分钟 斜率-0.0006
+[成功] HBAR: bullish Q1 持续1分钟 斜率-0.0002
+[成功] LDO: bullish Q1 持续1分钟 斜率-0.0002
+[成功] LINK: bullish Q1 持续1分钟 斜率-0.0106
+[成功] LTC: bullish Q1 持续1分钟 斜率-0.0928
+[成功] NEAR: bullish Q1 持续1分钟 斜率-0.0015
+[成功] OKB: bullish Q1 持续1分钟 斜率-0.0518
+[成功] SOL: bullish Q1 持续1分钟 斜率-0.1207
+[成功] STX: bullish Q1 持续1分钟 斜率-0.0003
+[成功] SUI: bullish Q1 持续1分钟 斜率-0.0015
+[成功] TAO: bearish Q3 持续4分钟 斜率-0.1311
+[成功] TON: bearish Q3 持续4分钟 斜率-0.0006
+[成功] TRX: bearish Q3 持续3分钟 斜率-0.0000
+[成功] UNI: bullish Q1 持续1分钟 斜率-0.0059
+[成功] XLM: bearish Q3 持续4分钟 斜率-0.0001
+[成功] XRP: bullish Q1 持续1分钟 斜率0.0002
+[成功] ADA: bullish Q1 持续1分钟 斜率-0.0004
+
+[统计] 成功: 29/29
+[多空] 多头: 19, 空头: 10
+[已采集] 83 次
+
+[等待] 下次采集时间: 23:05:33 (300秒后)
+
+[2026-02-28 23:09:46] 开始第 84 次采集...
+[成功] AAVE: bullish Q1 持续2分钟 斜率0.0571
+[成功] APT: bearish Q3 持续5分钟 斜率0.0002
+[成功] BCH: bullish Q1 持续2分钟 斜率0.1295
+[成功] BNB: bullish Q1 持续2分钟 斜率0.1129
+[成功] BTC: bullish Q1 持续1分钟 斜率11.6063
+[成功] CFX: bearish Q3 持续5分钟 斜率0.0000
+[成功] CRO: bearish Q3 持续5分钟 斜率0.0000
+[成功] CRV: bearish Q3 持续1分钟 斜率0.0003
+[成功] DOGE: bearish Q3 持续1分钟 斜率0.0001
+[成功] DOT: bearish Q3 持续5分钟 斜率0.0005
+[成功] ETC: bearish Q3 持续1分钟 斜率0.0086
+[成功] ETH: bearish Q3 持续1分钟 斜率2.1876
+[成功] FIL: bearish Q3 持续5分钟 斜率-0.0000
+[成功] HBAR: bullish Q1 持续2分钟 斜率0.0000
+[成功] LDO: bearish Q3 持续1分钟 斜率0.0004
+[成功] LINK: bullish Q1 持续2分钟 斜率0.0009
+[成功] LTC: bearish Q3 持续1分钟 斜率0.0723
+[成功] NEAR: bearish Q3 持续1分钟 斜率0.0013
+[成功] OKB: bullish Q1 持续2分钟 斜率0.0219
+[成功] SOL: bullish Q1 持续2分钟 斜率0.0216
+[成功] STX: bearish Q3 持续1分钟 斜率0.0004
+[成功] SUI: bearish Q3 持续1分钟 斜率0.0013
+[成功] TAO: bearish Q3 持续5分钟 斜率0.2400
+[成功] TON: bearish Q3 持续5分钟 斜率0.0004
+[成功] TRX: bearish Q3 持续4分钟 斜率-0.0000
+[成功] UNI: bullish Q1 持续2分钟 斜率0.0008
+[成功] XLM: bearish Q3 持续5分钟 斜率0.0000
+[成功] XRP: bearish Q3 持续1分钟 斜率0.0024
+[成功] ADA: bearish Q3 持续1分钟 斜率0.0003
+
+[统计] 成功: 29/29
+[多空] 多头: 9, 空头: 20
+[已采集] 84 次
+
+[等待] 下次采集时间: 23:10:46 (300秒后)
+
+[2026-02-28 23:14:58] 开始第 85 次采集...
+[成功] AAVE: bearish Q3 持续1分钟 斜率0.1214
+[成功] APT: bearish Q3 持续6分钟 斜率-0.0002
+[成功] BCH: bearish Q3 持续1分钟 斜率0.4642
+[成功] BNB: bearish Q3 持续1分钟 斜率0.5759
+[成功] BTC: bearish Q3 持续1分钟 斜率52.2734
+[成功] CFX: bearish Q3 持续6分钟 斜率-0.0000
+[成功] CRO: bearish Q3 持续6分钟 斜率-0.0000
+[成功] CRV: bearish Q3 持续2分钟 斜率-0.0001
+[成功] DOGE: bearish Q3 持续2分钟 斜率-0.0000
+[成功] DOT: bearish Q3 持续6分钟 斜率-0.0006
+[成功] ETC: bearish Q3 持续2分钟 斜率-0.0012
+[成功] ETH: bearish Q3 持续2分钟 斜率-0.5658
+[成功] FIL: bearish Q3 持续6分钟 斜率-0.0002
+[成功] HBAR: bearish Q3 持续1分钟 斜率-0.0000
+[成功] LDO: bearish Q3 持续2分钟 斜率-0.0001
+[成功] LINK: bearish Q3 持续1分钟 斜率-0.0020
+[成功] LTC: bearish Q3 持续2分钟 斜率-0.0080
+[成功] NEAR: bearish Q3 持续2分钟 斜率-0.0005
+[成功] OKB: bearish Q3 持续1分钟 斜率-0.0175
+[成功] SOL: bearish Q3 持续1分钟 斜率-0.0369
+[成功] STX: bearish Q3 持续2分钟 斜率-0.0001
+[成功] SUI: bearish Q3 持续2分钟 斜率-0.0004
+[成功] TAO: bearish Q3 持续6分钟 斜率-0.1401
+[成功] TON: bearish Q3 持续6分钟 斜率-0.0011
+[成功] TRX: bearish Q3 持续5分钟 斜率-0.0000
+[成功] UNI: bearish Q3 持续1分钟 斜率-0.0007
+[成功] XLM: bearish Q3 持续6分钟 斜率-0.0000
+[成功] XRP: bearish Q3 持续2分钟 斜率-0.0004
+[成功] ADA: bearish Q3 持续2分钟 斜率-0.0000
+
+[统计] 成功: 29/29
+[多空] 多头: 0, 空头: 29
+[已采集] 85 次
+
+[等待] 下次采集时间: 23:15:58 (300秒后)
