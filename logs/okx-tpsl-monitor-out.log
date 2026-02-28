@@ -11056,3 +11056,243 @@ OKX 止盈止损自动监控服务启动
 ============================================================
 等待 60 秒后继续...
 ============================================================
+
+============================================================
+第 306 次检查 - 2026-02-28 13:08:54
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2819, 价值=43.69U, 盈亏=-0.91%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.314, 价值=44.90U, 盈亏=0.34%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07287, 价值=4.52U, 盈亏=1.15%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.88, 价值=44.96U, 盈亏=0.96%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.474, 价值=44.22U, 盈亏=-0.41%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0513, 价值=4.42U, 盈亏=0.05%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.594, 价值=46.72U, 盈亏=-0.25%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2976, 价值=0.45U, 盈亏=0.54%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2819, 价值=44.82U, 盈亏=0.91%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.314, 价值=45.73U, 盈亏=-0.34%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07287, 价值=4.59U, 盈亏=-1.15%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.88, 价值=45.75U, 盈亏=-0.96%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.474, 价值=45.69U, 盈亏=0.34%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0512, 价值=4.63U, 盈亏=-0.02%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.594, 价值=46.72U, 盈亏=0.19%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2976, 价值=0.47U, 盈亏=-0.55%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.314, 价值=30.76U, 盈亏=0.34%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07287, 价值=3.13U, 盈亏=1.15%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.474, 价值=30.95U, 盈亏=-0.34%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.88, 价值=31.55U, 盈亏=0.96%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.594, 价值=32.35U, 盈亏=-0.19%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0512, 价值=3.15U, 盈亏=0.02%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2977, 价值=0.31U, 盈亏=0.56%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 307 次检查 - 2026-02-28 13:09:55
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.282, 价值=43.71U, 盈亏=-0.88%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.317, 价值=44.91U, 盈亏=0.37%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07291, 价值=4.52U, 盈亏=1.21%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.87, 价值=44.96U, 盈亏=0.95%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.474, 价值=44.22U, 盈亏=-0.41%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0503, 价值=4.41U, 盈亏=-0.05%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.595, 价值=46.73U, 盈亏=-0.22%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2974, 价值=0.45U, 盈亏=0.52%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.282, 价值=44.84U, 盈亏=0.88%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.317, 价值=45.74U, 盈亏=-0.37%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07291, 价值=4.59U, 盈亏=-1.21%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.87, 价值=45.74U, 盈亏=-0.95%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.474, 价值=45.69U, 盈亏=0.34%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0503, 价值=4.62U, 盈亏=0.07%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.595, 价值=46.73U, 盈亏=0.17%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2975, 价值=0.47U, 盈亏=-0.54%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.316, 价值=30.77U, 盈亏=0.36%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07291, 价值=3.14U, 盈亏=1.21%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.474, 价值=30.95U, 盈亏=-0.34%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.87, 价值=31.55U, 盈亏=0.95%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.595, 价值=32.36U, 盈亏=-0.17%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0503, 价值=3.15U, 盈亏=-0.07%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2975, 价值=0.31U, 盈亏=0.54%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 308 次检查 - 2026-02-28 13:10:57
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2816, 价值=43.65U, 盈亏=-1.02%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.311, 价值=44.88U, 盈亏=0.30%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07287, 价值=4.52U, 盈亏=1.15%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.89, 价值=44.97U, 盈亏=0.97%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.474, 价值=44.22U, 盈亏=-0.41%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.05, 价值=4.41U, 盈亏=-0.08%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.586, 价值=46.62U, 盈亏=-0.47%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2974, 价值=0.45U, 盈亏=0.52%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2816, 价值=44.77U, 盈亏=1.02%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.311, 价值=45.71U, 盈亏=-0.30%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07287, 价值=4.59U, 盈亏=-1.15%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.89, 价值=45.76U, 盈亏=-0.97%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.474, 价值=45.69U, 盈亏=0.34%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.05, 价值=4.62U, 盈亏=0.10%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.586, 价值=46.62U, 盈亏=0.42%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2974, 价值=0.47U, 盈亏=-0.53%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.311, 价值=30.75U, 盈亏=0.30%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07287, 价值=3.13U, 盈亏=1.15%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.474, 价值=30.95U, 盈亏=-0.34%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.89, 价值=31.56U, 盈亏=0.97%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.586, 价值=32.27U, 盈亏=-0.42%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.05, 价值=3.15U, 盈亏=-0.10%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2974, 价值=0.31U, 盈亏=0.53%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 309 次检查 - 2026-02-28 13:11:58
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2819, 价值=43.69U, 盈亏=-0.91%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.311, 价值=44.88U, 盈亏=0.30%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07289, 价值=4.52U, 盈亏=1.18%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.94, 价值=45.00U, 盈亏=1.04%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.474, 价值=44.22U, 盈亏=-0.41%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0502, 价值=4.41U, 盈亏=-0.06%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.587, 价值=46.63U, 盈亏=-0.44%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.2983, 价值=0.45U, 盈亏=0.59%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2819, 价值=44.82U, 盈亏=0.91%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.311, 价值=45.71U, 盈亏=-0.30%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07289, 价值=4.59U, 盈亏=-1.18%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.94, 价值=45.79U, 盈亏=-1.04%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.474, 价值=45.69U, 盈亏=0.34%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0501, 价值=4.62U, 盈亏=0.09%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.587, 价值=46.63U, 盈亏=0.39%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.2983, 价值=0.47U, 盈亏=-0.60%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.311, 价值=30.75U, 盈亏=0.30%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07289, 价值=3.13U, 盈亏=1.18%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.474, 价值=30.95U, 盈亏=-0.34%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.94, 价值=31.58U, 盈亏=1.04%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.587, 价值=32.28U, 盈亏=-0.39%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0501, 价值=3.15U, 盈亏=-0.09%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.2983, 价值=0.31U, 盈亏=0.60%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 310 次检查 - 2026-02-28 13:13:00
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2818, 价值=43.68U, 盈亏=-0.95%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.315, 价值=44.90U, 盈亏=0.35%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.0729, 价值=4.52U, 盈亏=1.19%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.94, 价值=45.00U, 盈亏=1.04%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.476, 价值=44.28U, 盈亏=-0.27%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0507, 价值=4.41U, 盈亏=-0.01%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.585, 价值=46.60U, 盈亏=-0.50%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.3002, 价值=0.46U, 盈亏=0.74%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2818, 价值=44.81U, 盈亏=0.95%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.315, 价值=45.73U, 盈亏=-0.35%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.0729, 价值=4.59U, 盈亏=-1.19%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.94, 价值=45.79U, 盈亏=-1.04%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.476, 价值=45.76U, 盈亏=0.20%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0507, 价值=4.62U, 盈亏=0.03%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.585, 价值=46.60U, 盈亏=0.44%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.3003, 价值=0.47U, 盈亏=-0.76%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.315, 价值=30.77U, 盈亏=0.35%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.0729, 价值=3.13U, 盈亏=1.19%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.476, 价值=31.00U, 盈亏=-0.20%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.94, 价值=31.58U, 盈亏=1.04%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.585, 价值=32.27U, 盈亏=-0.44%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0507, 价值=3.15U, 盈亏=-0.03%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.3002, 价值=0.31U, 盈亏=0.75%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
+
+============================================================
+第 311 次检查 - 2026-02-28 13:14:01
+============================================================
+
+[account_main] 📊 当前持仓数: 8
+[account_main] 📊 LDO-USDT-SWAP long: 开仓=0.2845, 当前=0.2824, 价值=43.77U, 盈亏=-0.74%
+[account_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.319, 价值=44.92U, 盈亏=0.40%
+[account_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07291, 价值=4.52U, 盈亏=1.21%
+[account_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.97, 价值=45.01U, 盈亏=1.08%
+[account_main] 📊 DOT-USDT-SWAP long: 开仓=1.48, 当前=1.476, 价值=44.28U, 盈亏=-0.27%
+[account_main] 📊 NEAR-USDT-SWAP long: 开仓=1.0508, 当前=1.0511, 价值=4.41U, 盈亏=0.03%
+[account_main] 📊 UNI-USDT-SWAP long: 开仓=3.603, 当前=3.591, 价值=46.68U, 盈亏=-0.33%
+[account_main] 📊 XRP-USDT-SWAP long: 开仓=1.2906742857142859, 当前=1.3014, 价值=0.46U, 盈亏=0.83%
+[account_poit] ⚠️  获取持仓失败: Request header OK-ACCESS-KEY can not be empty.
+[account_poit] ℹ️  当前无持仓
+[account_fangfang12] 📊 当前持仓数: 8
+[account_fangfang12] 📊 LDO-USDT-SWAP net: 开仓=0.2845, 当前=0.2824, 价值=44.90U, 盈亏=0.74%
+[account_fangfang12] 📊 LINK-USDT-SWAP net: 开仓=8.286, 当前=8.319, 价值=45.75U, 盈亏=-0.40%
+[account_fangfang12] 📊 CRO-USDT-SWAP net: 开仓=0.07204, 当前=0.07291, 价值=4.59U, 盈亏=-1.21%
+[account_fangfang12] 📊 SOL-USDT-SWAP net: 开仓=78.13, 当前=78.97, 价值=45.80U, 盈亏=-1.08%
+[account_fangfang12] 📊 DOT-USDT-SWAP net: 开仓=1.479, 当前=1.476, 价值=45.76U, 盈亏=0.20%
+[account_fangfang12] 📊 NEAR-USDT-SWAP net: 开仓=1.051, 当前=1.0511, 价值=4.62U, 盈亏=-0.01%
+[account_fangfang12] 📊 UNI-USDT-SWAP net: 开仓=3.601, 当前=3.591, 价值=46.68U, 盈亏=0.28%
+[account_fangfang12] 📊 XRP-USDT-SWAP net: 开仓=1.2905, 当前=1.3014, 价值=0.47U, 盈亏=-0.84%
+[account_poit_main] 📊 当前持仓数: 7
+[account_poit_main] 📊 LINK-USDT-SWAP long: 开仓=8.286, 当前=8.319, 价值=30.78U, 盈亏=0.40%
+[account_poit_main] 📊 CRO-USDT-SWAP long: 开仓=0.07204, 当前=0.07291, 价值=3.14U, 盈亏=1.21%
+[account_poit_main] 📊 DOT-USDT-SWAP long: 开仓=1.479, 当前=1.476, 价值=31.00U, 盈亏=-0.20%
+[account_poit_main] 📊 SOL-USDT-SWAP long: 开仓=78.13, 当前=78.97, 价值=31.59U, 盈亏=1.08%
+[account_poit_main] 📊 UNI-USDT-SWAP long: 开仓=3.601, 当前=3.591, 价值=32.32U, 盈亏=-0.28%
+[account_poit_main] 📊 NEAR-USDT-SWAP long: 开仓=1.051, 当前=1.0511, 价值=3.15U, 盈亏=0.01%
+[account_poit_main] 📊 XRP-USDT-SWAP long: 开仓=1.2905, 当前=1.3014, 价值=0.31U, 盈亏=0.84%
+[account_poit_main_top] ℹ️  未找到配置文件
+[account_main_top] ℹ️  未找到配置文件
+[account_fangfang12_top] ℹ️  未找到配置文件
+
+============================================================
+等待 60 秒后继续...
+============================================================
