@@ -21,7 +21,7 @@ test_cases = [
         "expected_signal": "做空"
     },
     {
-        "name": "情况3.1: 红色+空白占比<25% → 诱空试盘抄底",
+        "name": "情况3: 红色+空白占比<25% → 做空（已修改）",
         "color_counts": {
             "green": 0,
             "red": 10,
@@ -29,7 +29,7 @@ test_cases = [
             "blank": 2,
             "blank_ratio": 16.67  # 2/12 * 100 = 16.67%
         },
-        "expected_signal": "诱空试盘抄底"
+        "expected_signal": "做空"
     },
     {
         "name": "情况3: 红色+空白占比>=25% → 做空",
