@@ -66,3 +66,28 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.12/site-packages/requests/adapters.py", line 677, in send
     raise ConnectionError(e, request=request)
 requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=9002): Max retries exceeded with url: /api/sar-slope/bias-ratios (Caused by NewConnectionError("HTTPConnection(host='localhost', port=9002): Failed to establish a new connection: [Errno 111] Connection refused"))
+Traceback (most recent call last):
+  File "/home/user/webapp/source_code/sar_bias_stats_collector.py", line 132, in main
+    next_time = next_time.replace(hour=next_time.hour+1, minute=0)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: hour must be in 0..23
+Traceback (most recent call last):
+  File "/home/user/webapp/source_code/sar_bias_stats_collector.py", line 132, in main
+    next_time = next_time.replace(hour=next_time.hour+1, minute=0)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: hour must be in 0..23
+Traceback (most recent call last):
+  File "/home/user/webapp/source_code/sar_bias_stats_collector.py", line 132, in main
+    next_time = next_time.replace(hour=next_time.hour+1, minute=0)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: hour must be in 0..23
+Traceback (most recent call last):
+  File "/home/user/webapp/source_code/sar_bias_stats_collector.py", line 132, in main
+    next_time = next_time.replace(hour=next_time.hour+1, minute=0)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: hour must be in 0..23
+Traceback (most recent call last):
+  File "/home/user/webapp/source_code/sar_bias_stats_collector.py", line 132, in main
+    next_time = next_time.replace(hour=next_time.hour+1, minute=0)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: hour must be in 0..23
