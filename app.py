@@ -25882,6 +25882,13 @@ def api_sar_bias_stats():
             time_range['start'] = all_data[0]['timestamp']
             time_range['end'] = all_data[-1]['timestamp']
         
+        # 计算当天统计总计（仅第1页）
+        daily_stats = {'total_bullish': 0, 'total_bearish': 0}
+        if page == 1:  # 只在第1页计算
+            for record in all_data:
+                daily_stats['total_bullish'] += record['bullish_count']
+                daily_stats['total_bearish'] += record['bearish_count']
+        
         response = jsonify({
             'success': True,
             'data': all_data,
@@ -25891,7 +25898,8 @@ def api_sar_bias_stats():
             'date': display_date.strftime('%Y-%m-%d'),
             'time_range': time_range,
             'has_prev': page < total_pages,  # 修复：有更早的数据（可以点"前一天"）
-            'has_next': page > 1              # 修复：有更新的数据（可以点"后一天"）
+            'has_next': page > 1,              # 修复：有更新的数据（可以点"后一天"）
+            'daily_stats': daily_stats  # 新增：当天统计总计
         })
         # 禁用缓存
         response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
