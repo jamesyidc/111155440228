@@ -2045,3 +2045,69 @@ SAR JSONL 数据采集器启动
 [成功] BNB: bullish Q1 持续3分钟 斜率0.1219
 [成功] BTC: bullish Q1 持续3分钟 斜率3.5812
 [成功] CFX: bullish Q1 持续3分钟 斜率0.0000
+[成功] CRO: bullish Q1 持续1分钟 斜率0.0000
+[成功] CRV: bullish Q1 持续3分钟 斜率0.0000
+[成功] DOGE: bullish Q1 持续2分钟 斜率0.0000
+[成功] DOT: bearish Q3 持续1分钟 斜率0.0017
+[成功] ETC: bearish Q3 持续2分钟 斜率-0.0003
+[成功] ETH: bullish Q1 持续1分钟 斜率-0.8854
+[成功] FIL: bearish Q3 持续1分钟 斜率0.0011
+[成功] HBAR: bullish Q1 持续2分钟 斜率0.0000
+[成功] LDO: bearish Q3 持续1分钟 斜率-0.0000
+[成功] LINK: bearish Q3 持续4分钟 斜率-0.0005
+[成功] LTC: bullish Q1 持续2分钟 斜率0.0089
+[成功] NEAR: bearish Q3 持续2分钟 斜率-0.0004
+[成功] OKB: bullish Q1 持续1分钟 斜率-0.0408
+[成功] SOL: bullish Q1 持续2分钟 斜率0.0036
+[成功] STX: bullish Q1 持续3分钟 斜率0.0001
+[成功] SUI: bearish Q3 持续4分钟 斜率-0.0001
+[成功] TAO: bullish Q1 持续1分钟 斜率-0.1589
+[成功] TON: bullish Q1 持续3分钟 斜率0.0001
+[成功] TRX: bullish Q1 持续4分钟 斜率0.0000
+[成功] UNI: bullish Q1 持续6分钟 斜率0.0017
+[成功] XLM: bullish Q1 持续3分钟 斜率0.0000
+[成功] XRP: bearish Q3 持续3分钟 斜率-0.0001
+[成功] ADA: bearish Q3 持续1分钟 斜率-0.0000
+
+[统计] 成功: 29/29
+[多空] 多头: 17, 空头: 12
+[已采集] 56 次
+
+[等待] 下次采集时间: 20:44:51 (300秒后)
+
+[2026-02-28 20:49:03] 开始第 57 次采集...
+[成功] AAVE: bearish Q3 持续3分钟 斜率-0.0355
+[成功] APT: bearish Q3 持续2分钟 斜率-0.0003
+[成功] BCH: bearish Q3 持续5分钟 斜率-0.1197
+[成功] BNB: bearish Q3 持续1分钟 斜率0.2859
+[成功] BTC: bearish Q3 持续1分钟 斜率11.4854
+[成功] CFX: bearish Q3 持续1分钟 斜率0.0000
+[成功] CRO: bearish Q3 持续1分钟 斜率0.0000
+[成功] CRV: bearish Q3 持续1分钟 斜率0.0001
+[成功] DOGE: bearish Q3 持续1分钟 斜率0.0001
+[成功] DOT: bearish Q3 持续2分钟 斜率-0.0009
+[成功] ETC: bearish Q3 持续3分钟 斜率0.0017
+[成功] ETH: bearish Q3 持续1分钟 斜率0.4604
+[成功] FIL: bearish Q3 持续2分钟 斜率-0.0004
+[成功] HBAR: bearish Q3 持续1分钟 斜率0.0000
+[成功] LDO: bearish Q3 持续2分钟 斜率-0.0001
+[成功] LINK: bearish Q3 持续5分钟 斜率-0.0013
+[成功] LTC: bearish Q3 持续1分钟 斜率0.0541
+[成功] NEAR: bearish Q3 持续3分钟 斜率-0.0012
+[成功] OKB: bearish Q3 持续1分钟 斜率0.0456
+[成功] SOL: bearish Q3 持续1分钟 斜率0.0235
+[成功] STX: bearish Q3 持续1分钟 斜率0.0002
+[成功] SUI: bearish Q3 持续5分钟 斜率-0.0002
+[成功] TAO: bearish Q3 持续1分钟 斜率0.0661
+[成功] TON: bearish Q3 持续1分钟 斜率0.0011
+[成功] TRX: bearish Q3 持续1分钟 斜率0.0000
+[成功] UNI: bearish Q3 持续1分钟 斜率0.0018
+[成功] XLM: bearish Q3 持续1分钟 斜率-0.0000
+[成功] XRP: bearish Q3 持续4分钟 斜率-0.0001
+[成功] ADA: bearish Q3 持续2分钟 斜率-0.0001
+
+[统计] 成功: 29/29
+[多空] 多头: 0, 空头: 29
+[已采集] 57 次
+
+[等待] 下次采集时间: 20:50:03 (300秒后)
