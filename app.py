@@ -23654,9 +23654,13 @@ def get_daily_prediction():
 def get_similar_predictions():
     """查找与当天预判相似的历史日期
     
-    匹配规则：
-    1. 历史日期必须包含当天所有存在的颜色（绿/红/黄/空白）
-    2. 按差值排序：|历史绿-当天绿| + |历史红-当天红| + |历史黄-当天黄| + |历史空白-当天空白|
+    匹配规则（严格模式）：
+    1. 颜色存在性匹配：
+       - 当天有绿色（>0），历史也必须有绿色（>0）
+       - 当天没有绿色（=0），历史也必须没有绿色（=0）
+       - 红色、黄色同理
+       - 空白不作为严格匹配条件，但参与差值计算
+    2. 差值排序：|历史绿-当天绿| + |历史红-当天红| + |历史黄-当天黄| + |历史空白-当天空白|
     3. 返回差值最小的前N个历史日期
     
     Query params:
@@ -23713,19 +23717,9 @@ def get_similar_predictions():
         current_yellow = current_colors.get('yellow', 0)
         current_blank = current_colors.get('blank', 0)
         
-        # 确定需要匹配的颜色（只匹配非零的颜色，空白不作为必须条件）
-        required_colors = []
-        if current_green > 0:
-            required_colors.append('green')
-        if current_red > 0:
-            required_colors.append('red')
-        if current_yellow > 0:
-            required_colors.append('yellow')
-        # 注意：空白柱子参与差值计算，但不作为必须匹配条件
-        
         print(f"🔍 查找与 {query_date} 相似的日期")
         print(f"   当天颜色: 绿{current_green} 红{current_red} 黄{current_yellow} 空白{current_blank}")
-        print(f"   必须包含: {', '.join(required_colors)}")
+        print(f"   匹配规则: 严格颜色存在性匹配（当天有的颜色历史也必须有，当天没有的颜色历史也必须没有）")
         
         # 读取所有历史预判文件
         prediction_files = glob.glob('data/daily_predictions/prediction_2026-*.json')
@@ -23749,20 +23743,32 @@ def get_similar_predictions():
                 hist_yellow = hist_colors.get('yellow', 0)
                 hist_blank = hist_colors.get('blank', 0)
                 
-                # 检查是否包含所有必需的颜色（不包括空白）
-                has_all_colors = True
-                for color in required_colors:
-                    if color == 'green' and hist_green == 0:
-                        has_all_colors = False
-                        break
-                    if color == 'red' and hist_red == 0:
-                        has_all_colors = False
-                        break
-                    if color == 'yellow' and hist_yellow == 0:
-                        has_all_colors = False
-                        break
+                # 检查颜色匹配（严格模式）
+                # 规则1：当天有的颜色，历史也必须有
+                # 规则2：当天没有的颜色，历史也必须没有
+                color_match = True
                 
-                if not has_all_colors:
+                # 检查绿色
+                if current_green > 0 and hist_green == 0:
+                    color_match = False  # 当天有绿，历史没绿 → 不匹配
+                if current_green == 0 and hist_green > 0:
+                    color_match = False  # 当天没绿，历史有绿 → 不匹配
+                
+                # 检查红色
+                if current_red > 0 and hist_red == 0:
+                    color_match = False  # 当天有红，历史没红 → 不匹配
+                if current_red == 0 and hist_red > 0:
+                    color_match = False  # 当天没红，历史有红 → 不匹配
+                
+                # 检查黄色
+                if current_yellow > 0 and hist_yellow == 0:
+                    color_match = False  # 当天有黄，历史没黄 → 不匹配
+                if current_yellow == 0 and hist_yellow > 0:
+                    color_match = False  # 当天没黄，历史有黄 → 不匹配
+                
+                # 空白不作为严格匹配条件（参与差值计算即可）
+                
+                if not color_match:
                     continue
                 
                 # 计算差值（包含4种颜色）
