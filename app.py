@@ -23655,8 +23655,8 @@ def get_similar_predictions():
     """查找与当天预判相似的历史日期
     
     匹配规则：
-    1. 历史日期必须包含当天所有存在的颜色（绿/红/黄）
-    2. 按差值排序：|历史绿-当天绿| + |历史红-当天红| + |历史黄-当天黄|
+    1. 历史日期必须包含当天所有存在的颜色（绿/红/黄/空白）
+    2. 按差值排序：|历史绿-当天绿| + |历史红-当天红| + |历史黄-当天黄| + |历史空白-当天空白|
     3. 返回差值最小的前N个历史日期
     
     Query params:
@@ -23711,8 +23711,9 @@ def get_similar_predictions():
         current_green = current_colors.get('green', 0)
         current_red = current_colors.get('red', 0)
         current_yellow = current_colors.get('yellow', 0)
+        current_blank = current_colors.get('blank', 0)
         
-        # 确定需要匹配的颜色（只匹配非零的颜色）
+        # 确定需要匹配的颜色（只匹配非零的颜色，空白不作为必须条件）
         required_colors = []
         if current_green > 0:
             required_colors.append('green')
@@ -23720,9 +23721,10 @@ def get_similar_predictions():
             required_colors.append('red')
         if current_yellow > 0:
             required_colors.append('yellow')
+        # 注意：空白柱子参与差值计算，但不作为必须匹配条件
         
         print(f"🔍 查找与 {query_date} 相似的日期")
-        print(f"   当天颜色: 绿{current_green} 红{current_red} 黄{current_yellow}")
+        print(f"   当天颜色: 绿{current_green} 红{current_red} 黄{current_yellow} 空白{current_blank}")
         print(f"   必须包含: {', '.join(required_colors)}")
         
         # 读取所有历史预判文件
@@ -23745,8 +23747,9 @@ def get_similar_predictions():
                 hist_green = hist_colors.get('green', 0)
                 hist_red = hist_colors.get('red', 0)
                 hist_yellow = hist_colors.get('yellow', 0)
+                hist_blank = hist_colors.get('blank', 0)
                 
-                # 检查是否包含所有必需的颜色
+                # 检查是否包含所有必需的颜色（不包括空白）
                 has_all_colors = True
                 for color in required_colors:
                     if color == 'green' and hist_green == 0:
@@ -23762,10 +23765,11 @@ def get_similar_predictions():
                 if not has_all_colors:
                     continue
                 
-                # 计算差值
+                # 计算差值（包含4种颜色）
                 difference = abs(hist_green - current_green) + \
                            abs(hist_red - current_red) + \
-                           abs(hist_yellow - current_yellow)
+                           abs(hist_yellow - current_yellow) + \
+                           abs(hist_blank - current_blank)
                 
                 # 读取当日统计数据（最低点、最高点、最大涨幅）
                 daily_stats = None
