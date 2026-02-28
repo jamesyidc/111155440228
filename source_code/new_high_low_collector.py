@@ -293,6 +293,24 @@ def main():
     if state:
         display_state_summary(state)
     
+    # 🔥 冷启动优化：立即执行首次采集（不等待3分钟）
+    print(f"\n{'='*80}")
+    print("⚡ 冷启动优化：立即执行首次采集...")
+    print(f"{'='*80}")
+    try:
+        new_events = process_latest_data(state)
+        if new_events > 0:
+            save_state(state)
+            print(f"✅ 冷启动采集完成，检测到 {new_events} 个新事件")
+        else:
+            print("ℹ️  冷启动采集完成，未检测到新事件")
+        print(f"   追踪币种: {len(state)} 个")
+    except Exception as e:
+        print(f"⚠️  冷启动采集失败: {e}")
+        import traceback
+        traceback.print_exc()
+    print(f"{'='*80}\n")
+    
     iteration = 0
     
     while True:
