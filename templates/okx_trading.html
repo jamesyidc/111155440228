@@ -4070,26 +4070,66 @@ data/
                             </div>
                         </div>
                         
-                        <!-- 可收缩的说明区域 -->
+                        <!-- 可收缩的监控状态和说明 -->
                         <details style="margin-top: 8px;">
                             <summary style="cursor: pointer; padding: 6px; background: rgba(99, 102, 241, 0.1); border-radius: 4px; font-size: 11px; color: #4338ca; font-weight: 600; list-style: none; display: flex; align-items: center; gap: 4px;">
                                 <span style="transition: transform 0.2s;">▶</span>
-                                💡 说明
+                                📡 监控状态 & 说明
                             </summary>
-                            <div style="margin-top: 6px; padding: 8px; background: white; border-radius: 4px; font-size: 10px; color: #4b5563; line-height: 1.6;">
-                                <div style="margin-bottom: 6px;">
-                                    <strong style="color: #374151;">📊 工作原理：</strong>
+                            <div style="margin-top: 6px; padding: 8px; background: white; border-radius: 4px; font-size: 10px; color: #4b5563;">
+                                <!-- 执行统计 -->
+                                <div style="margin-bottom: 10px;">
+                                    <div style="display: flex; align-items: center; justify-content: between; margin-bottom: 6px;">
+                                        <strong style="color: #374151; font-size: 11px;">📊 执行统计</strong>
+                                        <button onclick="loadPercentTpslStatus()" style="margin-left: auto; padding: 2px 6px; background: #6366f1; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 10px;">
+                                            🔄 刷新
+                                        </button>
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 6px;">
+                                        <div style="padding: 6px; background: rgba(243, 244, 246, 0.5); border-radius: 4px; border: 1px solid #e5e7eb;">
+                                            <div style="color: #6b7280; margin-bottom: 2px; font-size: 9px;">总执行次数</div>
+                                            <div style="font-weight: 600; font-size: 14px; color: #1f2937;" id="percentTotalExecutions">--</div>
+                                        </div>
+                                        <div style="padding: 6px; background: rgba(243, 244, 246, 0.5); border-radius: 4px; border: 1px solid #e5e7eb;">
+                                            <div style="color: #6b7280; margin-bottom: 2px; font-size: 9px;">成功/失败</div>
+                                            <div style="font-weight: 600; font-size: 14px;">
+                                                <span style="color: #10b981;" id="percentSuccessCount">--</span> / 
+                                                <span style="color: #ef4444;" id="percentFailedCount">--</span>
+                                            </div>
+                                        </div>
+                                        <div style="padding: 6px; background: rgba(34, 197, 94, 0.1); border-radius: 4px; border: 1px solid #22c55e;">
+                                            <div style="color: #166534; margin-bottom: 2px; font-size: 9px;">📈 止盈触发</div>
+                                            <div style="font-weight: 600; font-size: 14px; color: #166534;" id="percentTakeProfitCount">--</div>
+                                        </div>
+                                        <div style="padding: 6px; background: rgba(239, 68, 68, 0.1); border-radius: 4px; border: 1px solid #ef4444;">
+                                            <div style="color: #991b1b; margin-bottom: 2px; font-size: 9px;">📉 止损触发</div>
+                                            <div style="font-weight: 600; font-size: 14px; color: #991b1b;" id="percentStopLossCount">--</div>
+                                        </div>
+                                    </div>
+                                    <div style="padding: 6px; background: rgba(243, 244, 246, 0.5); border-radius: 4px; border: 1px solid #e5e7eb;">
+                                        <div style="color: #6b7280; margin-bottom: 4px; font-size: 9px;">最近执行记录</div>
+                                        <div id="percentRecentExecutions" style="max-height: 80px; overflow-y: auto; font-size: 9px;">
+                                            暂无记录
+                                        </div>
+                                    </div>
                                 </div>
-                                <ul style="margin: 0; padding-left: 20px; list-style: disc;">
-                                    <li>监控器每10秒检查一次持仓</li>
-                                    <li>计算公式：止盈 = 总保证金 × 百分比%</li>
-                                    <li>触发条件时自动平掉所有持仓</li>
-                                    <li>每个持仓只执行一次止盈或止损</li>
-                                    <li>执行记录保存到JSONL文件</li>
-                                    <li>完成后发送Telegram通知</li>
-                                </ul>
-                                <div style="margin-top: 8px; padding: 6px; background: rgba(251, 191, 36, 0.1); border-left: 2px solid #f59e0b; border-radius: 2px;">
-                                    <strong style="color: #92400e;">⚠️ 注意：</strong> 百分比止盈止损基于总保证金计算，与固定金额止盈止损独立运行
+                                
+                                <!-- 工作原理说明 -->
+                                <div style="border-top: 1px solid #e5e7eb; padding-top: 8px;">
+                                    <div style="margin-bottom: 6px;">
+                                        <strong style="color: #374151;">📊 工作原理：</strong>
+                                    </div>
+                                    <ul style="margin: 0; padding-left: 20px; list-style: disc; line-height: 1.6;">
+                                        <li>监控器每10秒检查一次持仓</li>
+                                        <li>计算公式：止盈 = 总保证金 × 百分比%</li>
+                                        <li>触发条件时自动平掉所有持仓</li>
+                                        <li>每个持仓只执行一次止盈或止损</li>
+                                        <li>执行记录保存到JSONL文件</li>
+                                        <li>完成后发送Telegram通知</li>
+                                    </ul>
+                                    <div style="margin-top: 8px; padding: 6px; background: rgba(251, 191, 36, 0.1); border-left: 2px solid #f59e0b; border-radius: 2px;">
+                                        <strong style="color: #92400e;">⚠️ 注意：</strong> 百分比止盈止损基于总保证金计算，与固定金额止盈止损独立运行
+                                    </div>
                                 </div>
                             </div>
                         </details>
@@ -4139,45 +4179,6 @@ data/
                             </div>
                             <div style="font-size: 11px; color: #991b1b; margin-top: 6px;">
                                 当前计算值: <span id="percentStopLossDisplay" style="font-weight: 600;">--</span> USDT (输入大约)
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 百分比止盈止损监控状态 -->
-                    <div id="percentTpslStatusSection" style="margin-top: 10px; padding: 10px; background: rgba(156, 163, 175, 0.1); border-radius: 8px; border: 1px solid #9ca3af; display: none;">
-                        <div style="font-weight: 600; font-size: 13px; color: #374151; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-                            📡 监控状态
-                            <button onclick="loadPercentTpslStatus()" style="margin-left: auto; padding: 2px 8px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
-                                🔄 刷新
-                            </button>
-                        </div>
-                        <div id="percentTpslStatusContent" style="font-size: 11px; color: #4b5563;">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
-                                <div style="padding: 6px; background: white; border-radius: 4px; border: 1px solid #e5e7eb;">
-                                    <div style="color: #6b7280; margin-bottom: 2px;">总执行次数</div>
-                                    <div style="font-weight: 600; font-size: 16px; color: #1f2937;" id="percentTotalExecutions">--</div>
-                                </div>
-                                <div style="padding: 6px; background: white; border-radius: 4px; border: 1px solid #e5e7eb;">
-                                    <div style="color: #6b7280; margin-bottom: 2px;">成功/失败</div>
-                                    <div style="font-weight: 600; font-size: 16px;">
-                                        <span style="color: #10b981;" id="percentSuccessCount">--</span> / 
-                                        <span style="color: #ef4444;" id="percentFailedCount">--</span>
-                                    </div>
-                                </div>
-                                <div style="padding: 6px; background: rgba(34, 197, 94, 0.1); border-radius: 4px; border: 1px solid #22c55e;">
-                                    <div style="color: #166534; margin-bottom: 2px;">📈 止盈触发</div>
-                                    <div style="font-weight: 600; font-size: 16px; color: #166534;" id="percentTakeProfitCount">--</div>
-                                </div>
-                                <div style="padding: 6px; background: rgba(239, 68, 68, 0.1); border-radius: 4px; border: 1px solid #ef4444;">
-                                    <div style="color: #991b1b; margin-bottom: 2px;">📉 止损触发</div>
-                                    <div style="font-weight: 600; font-size: 16px; color: #991b1b;" id="percentStopLossCount">--</div>
-                                </div>
-                            </div>
-                            <div style="padding: 6px; background: white; border-radius: 4px; border: 1px solid #e5e7eb;">
-                                <div style="color: #6b7280; margin-bottom: 4px;">最近执行记录</div>
-                                <div id="percentRecentExecutions" style="max-height: 100px; overflow-y: auto; font-size: 10px;">
-                                    暂无记录
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -8948,10 +8949,7 @@ ${data.sMsg || result.message || ''}`);
                     document.getElementById('percentSlStatusEnabled').style.color = config.percentStopLossEnabled ? '#ef4444' : '#9ca3af';
                     document.getElementById('percentSlStatusThreshold').textContent = config.percentStopLossThreshold ? `${config.percentStopLossThreshold}%` : '--';
                     
-                    // 显示执行统计区域
-                    document.getElementById('percentTpslStatusSection').style.display = 'block';
-                    
-                    // 更新统计数据
+                    // 更新统计数据（在details内部）
                     document.getElementById('percentTotalExecutions').textContent = result.statistics.totalExecutions;
                     document.getElementById('percentSuccessCount').textContent = result.statistics.successCount;
                     document.getElementById('percentFailedCount').textContent = result.statistics.failedCount;
@@ -8985,7 +8983,6 @@ ${data.sMsg || result.message || ''}`);
                 } else {
                     // 隐藏状态区域或显示错误
                     document.getElementById('percentTpslConfigStatus').style.display = 'none';
-                    document.getElementById('percentTpslStatusSection').style.display = 'none';
                     console.log('[百分比止盈止损状态] ⚠️ 加载失败:', result.error);
                 }
             } catch (e) {
