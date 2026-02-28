@@ -2259,3 +2259,40 @@ SAR JSONL 数据采集器启动
 [已采集] 61 次
 
 [等待] 下次采集时间: 21:10:54 (300秒后)
+
+[2026-02-28 21:15:07] 开始第 62 次采集...
+[成功] AAVE: bullish Q1 持续1分钟 斜率0.0239
+[成功] APT: bearish Q3 持续3分钟 斜率-0.0002
+[成功] BCH: bullish Q1 持续2分钟 斜率0.0280
+[成功] BNB: bullish Q1 持续1分钟 斜率-0.4342
+[成功] BTC: bullish Q1 持续1分钟 斜率-39.2219
+[成功] CFX: bullish Q1 持续1分钟 斜率-0.0000
+[成功] CRO: bullish Q1 持续4分钟 斜率0.0000
+[成功] CRV: bullish Q1 持续4分钟 斜率0.0000
+[成功] DOGE: bullish Q1 持续3分钟 斜率0.0000
+[成功] DOT: bearish Q3 持续3分钟 斜率-0.0002
+[成功] ETC: bullish Q1 持续1分钟 斜率-0.0076
+[成功] ETH: bullish Q1 持续4分钟 斜率0.3834
+[成功] FIL: bearish Q3 持续3分钟 斜率-0.0002
+[成功] HBAR: bearish Q3 持续1分钟 斜率0.0001
+[成功] LDO: bullish Q1 持续1分钟 斜率-0.0003
+[成功] LINK: bullish Q1 持续1分钟 斜率-0.0084
+[成功] LTC: bullish Q1 持续4分钟 斜率0.0158
+[成功] NEAR: bullish Q1 持续1分钟 斜率-0.0008
+[成功] OKB: bullish Q1 持续4分钟 斜率0.0085
+[成功] SOL: bullish Q1 持续1分钟 斜率-0.0810
+[成功] STX: bullish Q1 持续4分钟 斜率0.0001
+[成功] SUI: bullish Q1 持续1分钟 斜率-0.0012
+[成功] TAO: bullish Q1 持续1分钟 斜率-0.2350
+[成功] TON: bullish Q1 持续3分钟 斜率-0.0001
+[成功] TRX: bearish Q3 持续1分钟 斜率-0.0000
+[成功] UNI: bullish Q1 持续2分钟 斜率0.0007
+[成功] XLM: bullish Q1 持续3分钟 斜率0.0000
+[成功] XRP: bullish Q1 持续1分钟 斜率-0.0008
+[成功] ADA: bullish Q1 持续4分钟 斜率0.0000
+
+[统计] 成功: 29/29
+[多空] 多头: 24, 空头: 5
+[已采集] 62 次
+
+[等待] 下次采集时间: 21:16:07 (300秒后)
