@@ -169,6 +169,17 @@ module.exports = {
       error_file: '/home/user/webapp/logs/coin-change-tracker-error.log',
       out_file: '/home/user/webapp/logs/coin-change-tracker-out.log'
     },
+    {
+      name: 'coin-price-tracker',
+      script: 'source_code/coin_price_tracker_collector.py',
+      interpreter: 'python3',
+      cwd: '/home/user/webapp',
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '300M',
+      error_file: '/home/user/webapp/logs/coin-price-tracker-error.log',
+      out_file: '/home/user/webapp/logs/coin-price-tracker-out.log'
+    },
     
     // Monitoring & Management
     {
