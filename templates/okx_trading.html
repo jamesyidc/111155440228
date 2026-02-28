@@ -6320,6 +6320,12 @@ data/
                 
                 renderAccountTabs();
                 
+                // 🔥 加载当前账户的止盈止损设置和百分比状态
+                if (currentAccount) {
+                    loadTakeProfitStopLossSettings();
+                    loadPercentTpslStatus();
+                }
+                
                 // 步骤2: 加载常用币列表（优先级高，影响其他数据）
                 setLoadingStep('step-favorites');
                 await loadFavoriteSymbols();
