@@ -4018,6 +4018,48 @@ data/
                         </div>
                     </div>
                     
+                    <!-- 百分比止盈止损配置状态 -->
+                    <div id="percentTpslConfigStatus" style="margin-top: 10px; padding: 10px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%); border-radius: 8px; border: 1px solid #6366f1; display: none;">
+                        <div style="font-weight: 600; font-size: 13px; color: #4338ca; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                            ⚙️ 当前配置
+                            <button onclick="loadPercentTpslStatus()" style="margin-left: auto; padding: 2px 8px; background: #6366f1; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+                                🔄 刷新
+                            </button>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px;">
+                            <!-- 百分比止盈状态 -->
+                            <div style="padding: 8px; background: white; border-radius: 6px; border-left: 3px solid #22c55e;">
+                                <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 4px;">
+                                    <span style="font-size: 14px;">📈</span>
+                                    <span style="font-weight: 600; color: #166534;">百分比止盈</span>
+                                </div>
+                                <div style="color: #6b7280; margin-bottom: 2px;">
+                                    状态: <span id="percentTpStatusEnabled" style="font-weight: 600;">--</span>
+                                </div>
+                                <div style="color: #6b7280;">
+                                    阈值: <span id="percentTpStatusThreshold" style="font-weight: 600; color: #166534;">--</span>
+                                </div>
+                            </div>
+                            
+                            <!-- 百分比止损状态 -->
+                            <div style="padding: 8px; background: white; border-radius: 6px; border-left: 3px solid #ef4444;">
+                                <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 4px;">
+                                    <span style="font-size: 14px;">📉</span>
+                                    <span style="font-weight: 600; color: #991b1b;">百分比止损</span>
+                                </div>
+                                <div style="color: #6b7280; margin-bottom: 2px;">
+                                    状态: <span id="percentSlStatusEnabled" style="font-weight: 600;">--</span>
+                                </div>
+                                <div style="color: #6b7280;">
+                                    阈值: <span id="percentSlStatusThreshold" style="font-weight: 600; color: #991b1b;">--</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 8px; padding: 6px; background: rgba(99, 102, 241, 0.1); border-radius: 4px; font-size: 10px; color: #4338ca;">
+                            💡 监控器每10秒检查一次持仓，触发条件时自动平仓
+                        </div>
+                    </div>
+                    
                     <!-- 百分比止盈止损设置 -->
                     <div style="margin-top: 10px; padding: 10px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%); border-radius: 8px; border: 1px solid #3b82f6;">
                         <div style="font-weight: 600; font-size: 14px; color: #1e40af; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
@@ -8824,6 +8866,11 @@ ${data.sMsg || result.message || ''}`);
                     
                     // 更新服务器阈值显示
                     updateServerThresholdDisplay(settings);
+                    
+                    // 🔥 刷新百分比止盈止损状态
+                    setTimeout(() => {
+                        loadPercentTpslStatus();
+                    }, 500);
                 } else {
                     if (!silent) alert(`❌ 保存失败：${result.error}`);
                     console.error('❌ 保存止盈止损设置失败:', result.error);
@@ -8847,7 +8894,20 @@ ${data.sMsg || result.message || ''}`);
                 const result = await response.json();
                 
                 if (result.success) {
-                    // 显示状态区域
+                    // 显示配置状态区域
+                    document.getElementById('percentTpslConfigStatus').style.display = 'block';
+                    
+                    // 更新配置状态
+                    const config = result.config || {};
+                    document.getElementById('percentTpStatusEnabled').textContent = config.percentTakeProfitEnabled ? '✅ 已启用' : '⭕ 未启用';
+                    document.getElementById('percentTpStatusEnabled').style.color = config.percentTakeProfitEnabled ? '#10b981' : '#9ca3af';
+                    document.getElementById('percentTpStatusThreshold').textContent = config.percentTakeProfitThreshold ? `${config.percentTakeProfitThreshold}%` : '--';
+                    
+                    document.getElementById('percentSlStatusEnabled').textContent = config.percentStopLossEnabled ? '✅ 已启用' : '⭕ 未启用';
+                    document.getElementById('percentSlStatusEnabled').style.color = config.percentStopLossEnabled ? '#ef4444' : '#9ca3af';
+                    document.getElementById('percentSlStatusThreshold').textContent = config.percentStopLossThreshold ? `${config.percentStopLossThreshold}%` : '--';
+                    
+                    // 显示执行统计区域
                     document.getElementById('percentTpslStatusSection').style.display = 'block';
                     
                     // 更新统计数据
@@ -8883,6 +8943,7 @@ ${data.sMsg || result.message || ''}`);
                     console.log('[百分比止盈止损状态] ✅ 状态加载成功', result);
                 } else {
                     // 隐藏状态区域或显示错误
+                    document.getElementById('percentTpslConfigStatus').style.display = 'none';
                     document.getElementById('percentTpslStatusSection').style.display = 'none';
                     console.log('[百分比止盈止损状态] ⚠️ 加载失败:', result.error);
                 }
