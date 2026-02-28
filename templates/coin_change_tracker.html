@@ -5903,7 +5903,8 @@ pm2 status                                                # 查看所有进程�
                         <span class="ml-2">
                             🟢 绿色: ${currentColors.green || 0} 根 |
                             🔴 红色: ${currentColors.red || 0} 根 |
-                            🟡 黄色: ${currentColors.yellow || 0} 根
+                            🟡 黄色: ${currentColors.yellow || 0} 根 |
+                            ⚪ 空白: ${currentColors.blank || 0} 根
                         </span>
                     </div>
                 </div>
@@ -5932,7 +5933,7 @@ pm2 status                                                # 查看所有进程�
                         </div>
                         
                         <!-- 颜色统计 -->
-                        <div class="p-4 grid grid-cols-3 gap-3">
+                        <div class="p-4 grid grid-cols-2 md:grid-cols-4 gap-3">
                             <div class="text-center bg-green-50 rounded-lg p-2 border border-green-200">
                                 <div class="text-xs text-gray-600 mb-1">🟢 绿色</div>
                                 <div class="text-xl font-bold text-green-600">${colors.green || 0}</div>
@@ -5947,6 +5948,11 @@ pm2 status                                                # 查看所有进程�
                                 <div class="text-xs text-gray-600 mb-1">🟡 黄色</div>
                                 <div class="text-xl font-bold text-yellow-600">${colors.yellow || 0}</div>
                                 <div class="text-xs text-gray-500">${colors.yellow > currentColors.yellow ? '↑' : colors.yellow < currentColors.yellow ? '↓' : '='} ${Math.abs((colors.yellow || 0) - (currentColors.yellow || 0))}</div>
+                            </div>
+                            <div class="text-center bg-gray-50 rounded-lg p-2 border border-gray-300">
+                                <div class="text-xs text-gray-600 mb-1">⚪ 空白</div>
+                                <div class="text-xl font-bold text-gray-600">${colors.blank || 0}</div>
+                                <div class="text-xs text-gray-500">${colors.blank > currentColors.blank ? '↑' : colors.blank < currentColors.blank ? '↓' : '='} ${Math.abs((colors.blank || 0) - (currentColors.blank || 0))}</div>
                             </div>
                         </div>
                 `;
