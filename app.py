@@ -15086,51 +15086,51 @@ def cache_clear():
             'error': str(e)
         })
 
-# ========== 锚点系统(OKEx持仓监控) - 前端页面已禁用 ==========
+# ========== 锚点系统(OKEx持仓监控) ==========
 
-# @app.route('/warning-test')
-# def warning_test():
-#     """预警模块测试页面"""
-#     return render_template('warning_test.html')
+@app.route('/warning-test')
+def warning_test():
+    """预警模块测试页面"""
+    return render_template('warning_test.html')
 
-# @app.route('/anchor-system')
-# def anchor_system():
-#     """锚点系统主页 - 重定向到实盘"""
-#     return redirect('/anchor-system-real')
+@app.route('/anchor-system')
+def anchor_system():
+    """锚点系统主页 - 重定向到实盘"""
+    return redirect('/anchor-system-real')
 
-# @app.route('/anchor-test')
-# def anchor_test():
-#     """Anchor System 诊断页面"""
-#     from flask import send_file
-#     return send_file('/home/user/webapp/anchor_test.html')
+@app.route('/anchor-test')
+def anchor_test():
+    """Anchor System 诊断页面"""
+    from flask import send_file
+    return send_file('/home/user/webapp/anchor_test.html')
 
-# @app.route('/test-anchor-chart')
-# def test_anchor_chart():
-#     """锚点图表测试页面"""
-#     response = make_response(render_template('test_anchor_chart.html'))
-#     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
-#     return response
+@app.route('/test-anchor-chart')
+def test_anchor_chart():
+    """锚点图表测试页面"""
+    response = make_response(render_template('test_anchor_chart.html'))
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    return response
 
-# @app.route('/test-anchor-markpoint')
-# def test_anchor_markpoint():
-#     """锚点图表标记点测试页面"""
-#     response = make_response(render_template('test_anchor_markpoint.html'))
-#     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
-#     return response
+@app.route('/test-anchor-markpoint')
+def test_anchor_markpoint():
+    """锚点图表标记点测试页面"""
+    response = make_response(render_template('test_anchor_markpoint.html'))
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    return response
 
-# @app.route('/anchor-system-real')
-# def anchor_system_real():
-#     """实盘锚点系统"""
-#     import time
-#     version = int(time.time())  # 使用时间戳作为版本号强制刷新
-#     response = make_response(render_template('anchor_system_real.html', cache_bust=version))
-#     # 禁用所有缓存
-#     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
-#     response.headers['Pragma'] = 'no-cache'
-#     response.headers['Expires'] = '-1'
-#     response.headers['ETag'] = f'"{version}"'  # 添加ETag
-#     response.headers['Last-Modified'] = time.strftime('%a, %d %b %Y %H:%M:%S GMT', time.gmtime())
-#     return response
+@app.route('/anchor-system-real')
+def anchor_system_real():
+    """实盘锚点系统"""
+    import time
+    version = int(time.time())  # 使用时间戳作为版本号强制刷新
+    response = make_response(render_template('anchor_system_real.html', cache_bust=version))
+    # 禁用所有缓存
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '-1'
+    response.headers['ETag'] = f'"{version}"'  # 添加ETag
+    response.headers['Last-Modified'] = time.strftime('%a, %d %b %Y %H:%M:%S GMT', time.gmtime())
+    return response
 
 
 @app.route('/okx-trading')
@@ -15289,25 +15289,25 @@ def aligned_data_view():
     return response
 
 
-# @app.route('/anchor-system-paper')
-# def anchor_system_paper():
-#     """模拟盘锚点系统"""
-#     response = make_response(render_template('anchor_system_paper.html'))
-#     # 禁用所有缓存
-#     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
-#     response.headers['Pragma'] = 'no-cache'
-#     response.headers['Expires'] = '-1'
-#     return response
+@app.route('/anchor-system-paper')
+def anchor_system_paper():
+    """模拟盘锚点系统"""
+    response = make_response(render_template('anchor_system_paper.html'))
+    # 禁用所有缓存
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '-1'
+    return response
 
 
-# @app.route('/anchor-system-v2')
-# def anchor_system_v2():
-#     """锚点系统主页 v2 (新URL避免缓存)"""
-#     response = make_response(render_template('anchor_system.html'))
-#     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
-#     response.headers['Pragma'] = 'no-cache'
-#     response.headers['Expires'] = '-1'
-#     return response
+@app.route('/anchor-system-v2')
+def anchor_system_v2():
+    """锚点系统主页 v2 (新URL避免缓存)"""
+    response = make_response(render_template('anchor_system.html'))
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '-1'
+    return response
 
 
 @app.route('/api/anchor-system/monitors')
