@@ -890,8 +890,8 @@
             closeModal();
         }
         
-        // 保存标记到localStorage
-        function saveMarksToStorage() {
+        // 保存标记到localStorage和服务器
+        async function saveMarksToStorage() {
             const marks = chartData
                 .map((item, index) => ({
                     time: item.time,
@@ -899,11 +899,61 @@
                 }))
                 .filter(m => m.markType);
             
+            // 保存到localStorage（本地备份）
             localStorage.setItem('liquidation_marks', JSON.stringify(marks));
+            
+            // 保存到服务器（永久保存）
+            try {
+                const response = await fetch('/api/liquidation/marks', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        marks: marks
+                    })
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    console.log(`✅ 已保存 ${marks.length} 个标记到服务器`);
+                } else {
+                    console.error('❌ 保存到服务器失败:', result.error);
+                }
+            } catch (error) {
+                console.error('❌ 保存到服务器异常:', error);
+            }
         }
         
-        // 从localStorage加载标记
-        function loadMarksFromStorage() {
+        // 从服务器和localStorage加载标记
+        async function loadMarksFromStorage() {
+            try {
+                // 优先从服务器加载
+                const response = await fetch('/api/liquidation/marks');
+                const result = await response.json();
+                
+                if (result.success && result.marks) {
+                    let marks = result.marks;
+                    
+                    // 如果服务器返回的是带时间戳的格式
+                    if (marks.marks) {
+                        marks = marks.marks;
+                    }
+                    
+                    marks.forEach(mark => {
+                        const item = chartData.find(d => d.time === mark.time);
+                        if (item) {
+                            item.markType = mark.markType;
+                        }
+                    });
+                    console.log(`✅ 从服务器加载了 ${marks.length} 个标记`);
+                    return;
+                }
+            } catch (error) {
+                console.warn('⚠️ 从服务器加载标记失败，尝试从本地加载:', error);
+            }
+            
+            // 如果服务器加载失败，从localStorage加载
             try {
                 const saved = localStorage.getItem('liquidation_marks');
                 if (saved) {
@@ -914,10 +964,10 @@
                             item.markType = mark.markType;
                         }
                     });
-                    console.log(`✅ 从缓存加载了 ${marks.length} 个标记`);
+                    console.log(`✅ 从本地缓存加载了 ${marks.length} 个标记`);
                 }
             } catch (e) {
-                console.error('加载标记失败:', e);
+                console.error('❌ 加载标记失败:', e);
             }
         }
         

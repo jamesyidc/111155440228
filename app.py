@@ -28124,6 +28124,81 @@ def get_all_intraday_pattern_detections(date):
             'traceback': traceback.format_exc()
         }), 500
 
+@app.route('/api/liquidation/marks', methods=['GET'])
+def api_liquidation_marks_get():
+    """获取爆仓月线图的所有标记"""
+    try:
+        import json
+        from pathlib import Path
+        
+        marks_file = Path('/home/user/webapp/data/liquidation_marks.json')
+        
+        if marks_file.exists():
+            with open(marks_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                # 如果数据是新格式（包含marks, last_updated等），提取marks数组
+                if isinstance(data, dict) and 'marks' in data:
+                    marks = data['marks']
+                else:
+                    marks = data
+        else:
+            marks = []
+        
+        return jsonify({
+            'success': True,
+            'marks': marks,
+            'count': len(marks)
+        })
+    
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        })
+
+@app.route('/api/liquidation/marks', methods=['POST'])
+def api_liquidation_marks_save():
+    """保存爆仓月线图的标记"""
+    try:
+        import json
+        from pathlib import Path
+        from datetime import datetime
+        
+        # 获取请求数据
+        data = request.get_json()
+        marks = data.get('marks', [])
+        
+        # 创建数据目录
+        marks_file = Path('/home/user/webapp/data/liquidation_marks.json')
+        marks_file.parent.mkdir(parents=True, exist_ok=True)
+        
+        # 添加保存时间戳
+        save_data = {
+            'marks': marks,
+            'last_updated': datetime.now().isoformat(),
+            'count': len(marks)
+        }
+        
+        # 保存到文件
+        with open(marks_file, 'w', encoding='utf-8') as f:
+            json.dump(save_data, f, ensure_ascii=False, indent=2)
+        
+        return jsonify({
+            'success': True,
+            'message': f'已保存 {len(marks)} 个标记',
+            'count': len(marks)
+        })
+    
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        })
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=9002, debug=False)
