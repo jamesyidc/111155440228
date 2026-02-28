@@ -99,26 +99,25 @@ def analyze_date(date_str):
         if blank > 0 and green == 0 and red == 0 and yellow == 0:
             signal = "空头强控盘"
             description = "⚪⚪⚪ 0点-2点全部为空白，空头强控盘，建议观望。操作提示：不参与"
-        # 情况5: 红色+空白且空白占比>=25%（诱空）
-        elif blank > 0 and blank_ratio >= 25 and green == 0:
-            if yellow > 0:
-                signal = "诱空试盘抄底"
-                description = f"⚪🔴🟡 红色+空白+黄色且空白占比{blank_ratio:.1f}%>=25%，诱空行情，可以试盘抄底。操作提示：低点做多"
-            else:
-                signal = "诱空试盘抄底"
-                description = f"⚪🔴 红色+空白且空白占比{blank_ratio:.1f}%>=25%，诱空行情，可以试盘抄底。操作提示：低点做多"
+        # 情况5: 红色+空白且空白占比<25%（诱空）- 修改
+        elif blank > 0 and blank_ratio < 25 and green == 0 and red > 0 and yellow == 0:
+            signal = "诱空试盘抄底"
+            description = f"⚪🔴 红色+空白且空白占比{blank_ratio:.1f}%<25%，诱空行情，可以试盘抄底。操作提示：低点做多"
         # 情况4: 全部绿色（诱多）
         elif green > 0 and red == 0 and yellow == 0 and blank == 0:
             signal = "诱多不参与"
             description = "🟢 全部绿色柱子，单边诱多行情，不参与操作。操作提示：不参与"
-        # 情况3: 只有红色或红色+少量空白（做空）
-        elif red > 0 and green == 0 and yellow == 0 and blank_ratio < 25:
+        # 情况3: 只有红色或红色+空白（做空）- 修改：包括>=25%空白
+        elif red > 0 and green == 0 and yellow == 0:
             if blank == 0:
                 signal = "做空"
                 description = "🔴 只有红色柱子，预判下跌行情，建议做空。操作提示：相对高点做空"
+            elif blank_ratio >= 25:
+                signal = "做空"
+                description = f"🔴⚪ 红色+空白（空白占比{blank_ratio:.1f}%>=25%），预判下跌行情，建议做空。操作提示：相对高点做空"
             else:
                 signal = "做空"
-                description = f"🔴⚪ 红色+少量空白（空白占比{blank_ratio:.1f}%<25%），预判下跌行情，建议做空。操作提示：相对高点做空"
+                description = f"🔴⚪ 红色+空白（空白占比{blank_ratio:.1f}%<25%），预判下跌行情，建议做空。操作提示：相对高点做空"
         # 情况2: 有绿+有红+有黄，且（红+黄）>= 3根（>=25%）→ 等待新低
         elif green > 0 and red > 0 and yellow > 0 and (red + yellow) >= 3:
             signal = "等待新低"
