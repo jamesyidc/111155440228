@@ -529,35 +529,35 @@
             <div class="doc-panel-content hidden p-6 bg-gray-50" id="docPanelContent">
                 <div class="space-y-6">
                     
-                    <!-- 最新修复 V3.5 (2026-02-28) -->
-                    <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-6 shadow-md border-2 border-purple-400">
-                        <h3 class="text-lg font-bold text-purple-800 mb-4 border-b-2 border-purple-500 pb-2">
-                            <i class="fas fa-magic text-purple-600 mr-2"></i>
-                            ✨ V3.5 预判逻辑优化 - 诱空判断合并 (2026-02-28 21:10)
+                    <!-- 最新修复 V3.6 (2026-02-28) -->
+                    <div class="bg-gradient-to-r from-red-50 to-orange-50 rounded-lg p-6 shadow-md border-2 border-red-400">
+                        <h3 class="text-lg font-bold text-red-800 mb-4 border-b-2 border-red-500 pb-2">
+                            <i class="fas fa-chart-line text-red-600 mr-2"></i>
+                            🔥 V3.6 预判逻辑优化 - 简化做空判断 (2026-02-28 22:15)
                         </h3>
                         <div class="space-y-4 text-sm text-gray-700">
                             
                             <!-- 修改前后对比 -->
-                            <div class="bg-white p-4 rounded-lg border-l-4 border-purple-500">
-                                <h4 class="font-bold text-purple-800 mb-2">
+                            <div class="bg-white p-4 rounded-lg border-l-4 border-red-500">
+                                <h4 class="font-bold text-red-800 mb-2">
                                     <i class="fas fa-code-branch mr-2"></i>
-                                    🔄 核心修改：诱空判断合并到做空分支
+                                    🔄 核心修改：红色+空白统一判断为做空
                                 </h4>
                                 <div class="grid grid-cols-2 gap-4 mt-3">
-                                    <div class="bg-red-50 p-3 rounded border border-red-200">
-                                        <p class="font-bold text-red-700 mb-2">❌ 修改前逻辑</p>
-                                        <ul class="list-disc list-inside space-y-1 text-xs">
-                                            <li><strong>情况3：</strong>纯红色 或 红色+空白<25% → 做空</li>
-                                            <li><strong>情况5：</strong>红色+空白>=25% → 诱空试盘抄底</li>
-                                            <li><strong>问题：</strong>空白占比<25%时也判断为做空，不合理</li>
-                                        </ul>
-                                    </div>
-                                    <div class="bg-green-50 p-3 rounded border border-green-200">
-                                        <p class="font-bold text-green-700 mb-2">✅ 修改后逻辑</p>
+                                    <div class="bg-gray-50 p-3 rounded border border-gray-300">
+                                        <p class="font-bold text-gray-700 mb-2">❌ V3.5 逻辑（已废弃）</p>
                                         <ul class="list-disc list-inside space-y-1 text-xs">
                                             <li><strong>情况3：</strong>纯红色 或 红色+空白>=25% → 做空</li>
                                             <li><strong>情况3.1：</strong>红色+空白<25% → 诱空试盘抄底</li>
-                                            <li><strong>优势：</strong>空白占比<25%时识别为诱空，更精准</li>
+                                            <li><strong>问题：</strong>区分空白占比导致判断复杂</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-red-50 p-3 rounded border border-red-200">
+                                        <p class="font-bold text-red-700 mb-2">✅ V3.6 逻辑（当前版本）</p>
+                                        <ul class="list-disc list-inside space-y-1 text-xs">
+                                            <li><strong>情况3：</strong>纯红色 或 红色+空白（任何占比） → 做空</li>
+                                            <li><strong>优势：</strong>简化逻辑，只要有红色就做空</li>
+                                            <li><strong>原则：</strong>0-2点红色占主导 = 下跌信号明确</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -579,26 +579,30 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr class="bg-red-50">
                                             <td class="border px-2 py-1">🔴 纯红色（无空白）</td>
                                             <td class="border px-2 py-1">0%</td>
-                                            <td class="border px-2 py-1 bg-red-100">做空</td>
+                                            <td class="border px-2 py-1 bg-red-200 font-bold">做空</td>
                                             <td class="border px-2 py-1">相对高点做空</td>
                                         </tr>
-                                        <tr class="bg-green-50">
+                                        <tr class="bg-red-50">
                                             <td class="border px-2 py-1">🔴⚪ 红色+少量空白</td>
                                             <td class="border px-2 py-1">&lt;25%</td>
-                                            <td class="border px-2 py-1 bg-green-100">诱空试盘抄底</td>
-                                            <td class="border px-2 py-1 font-bold">低点做多</td>
+                                            <td class="border px-2 py-1 bg-red-200 font-bold">做空</td>
+                                            <td class="border px-2 py-1">相对高点做空</td>
                                         </tr>
-                                        <tr>
+                                        <tr class="bg-red-50">
                                             <td class="border px-2 py-1">🔴⚪ 红色+较多空白</td>
                                             <td class="border px-2 py-1">≥25%</td>
-                                            <td class="border px-2 py-1 bg-red-100">做空</td>
+                                            <td class="border px-2 py-1 bg-red-200 font-bold">做空</td>
                                             <td class="border px-2 py-1">相对高点做空</td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                <p class="mt-2 text-xs text-gray-600">
+                                    <i class="fas fa-exclamation-circle mr-1"></i>
+                                    <strong>核心原则：</strong>只要0-2点期间红色柱子占主导（无绿色、无黄色），就判断为做空信号，不再区分空白占比。
+                                </p>
                             </div>
 
                             <!-- 测试验证 -->
@@ -608,10 +612,10 @@
                                     ✅ 测试验证结果
                                 </h4>
                                 <div class="space-y-2">
-                                    <p class="font-semibold">7个测试场景全部通过：</p>
+                                    <p class="font-semibold">所有测试场景通过：</p>
                                     <ul class="list-disc list-inside space-y-1 ml-4">
                                         <li>纯红色（12根红） → <span class="text-red-600 font-bold">做空</span> ✅</li>
-                                        <li>红色+空白16.67% → <span class="text-green-600 font-bold">诱空试盘抄底</span> ✅</li>
+                                        <li>红色+空白16.67% → <span class="text-red-600 font-bold">做空</span> ✅（已修改）</li>
                                         <li>红色+空白33.33% → <span class="text-red-600 font-bold">做空</span> ✅</li>
                                         <li>其他情况（有绿+有红、全部绿色、全部空白等）均正常 ✅</li>
                                     </ul>
@@ -622,7 +626,7 @@
                             <div class="bg-blue-50 p-3 rounded-lg">
                                 <p class="text-xs text-blue-800">
                                     <i class="fas fa-info-circle mr-1"></i>
-                                    <strong>影响范围：</strong>monitors/coin_change_prediction_monitor.py | Telegram消息规则已同步更新 | 监控时段：每天0:10-2:00
+                                    <strong>影响范围：</strong>monitors/coin_change_prediction_monitor.py | Telegram消息规则已同步更新 | 监控时段：每天0:10-2:00 | 删除了情况3.1（诱空试盘抄底）
                                 </p>
                             </div>
                         </div>

@@ -384,6 +384,39 @@
             <a href="/sar-slope" class="back-btn">← 返回列表</a>
         </div>
         
+        <!-- 当天统计面板 -->
+        <div style="
+            background: linear-gradient(135deg, rgba(59, 125, 255, 0.15) 0%, rgba(0, 212, 255, 0.15) 100%);
+            border: 2px solid rgba(0, 212, 255, 0.4);
+            border-radius: 12px;
+            padding: 20px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        ">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="flex: 1;">
+                    <div style="font-size: 16px; color: #00d4ff; font-weight: bold; margin-bottom: 12px;">
+                        📊 当天统计信息
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                        <div style="background: rgba(76, 175, 80, 0.2); padding: 15px; border-radius: 8px; border: 1px solid rgba(76, 175, 80, 0.4);">
+                            <div style="font-size: 14px; color: #a8dadc; margin-bottom: 5px;">看多点数（绿色上涨 >80%）</div>
+                            <div style="font-size: 32px; font-weight: bold; color: #4caf50;" id="totalBullishPoints">-</div>
+                            <div style="font-size: 12px; color: #888; margin-top: 5px;" id="bullishDetails">-</div>
+                        </div>
+                        <div style="background: rgba(244, 67, 54, 0.2); padding: 15px; border-radius: 8px; border: 1px solid rgba(244, 67, 54, 0.4);">
+                            <div style="font-size: 14px; color: #a8dadc; margin-bottom: 5px;">看空点数（红色下跌 >80%）</div>
+                            <div style="font-size: 32px; font-weight: bold; color: #f44336;" id="totalBearishPoints">-</div>
+                            <div style="font-size: 12px; color: #888; margin-top: 5px;" id="bearishDetails">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="font-size: 12px; color: #888; margin-top: 15px; text-align: center;">
+                <i>💡 统计说明：统计当天所有5分钟时间点中，看多（偏多>80%）和看空（偏空>80%）的币种数量×时间点数量</i>
+            </div>
+        </div>
+        
         <!-- 系统说明面板 -->
         <div style="margin: 20px 0;">
             <button onclick="toggleSystemDocs()" style="
@@ -1101,6 +1134,31 @@ curl localhost:5000/api/sar-slope/bias-ratios
                             beijingTime.toISOString().substring(0, 19).replace('T', ' ');
                         
                         console.log(`✅ 趋势数据已更新: 第${currentPage}页, ${data.data.length} 个数据点`);
+                        
+                        // 计算并更新当天统计（只在第1页显示）
+                        if (page === 1) {
+                            const totalBullish = bullishData.reduce((sum, val) => sum + val, 0);
+                            const totalBearish = bearishData.reduce((sum, val) => sum + val, 0);
+                            
+                            document.getElementById('totalBullishPoints').textContent = totalBullish;
+                            document.getElementById('totalBearishPoints').textContent = totalBearish;
+                            
+                            // 计算详情（币种数×时间点数）
+                            const timePoints = data.data.length;
+                            const avgBullish = (totalBullish / timePoints).toFixed(1);
+                            const avgBearish = (totalBearish / timePoints).toFixed(1);
+                            
+                            document.getElementById('bullishDetails').textContent = 
+                                `平均每个时间点 ${avgBullish} 个看多币种，共 ${timePoints} 个时间点`;
+                            document.getElementById('bearishDetails').textContent = 
+                                `平均每个时间点 ${avgBearish} 个看空币种，共 ${timePoints} 个时间点`;
+                        } else {
+                            // 历史页面：显示N/A
+                            document.getElementById('totalBullishPoints').textContent = 'N/A';
+                            document.getElementById('totalBearishPoints').textContent = 'N/A';
+                            document.getElementById('bullishDetails').textContent = '仅第1页（今天）显示统计信息';
+                            document.getElementById('bearishDetails').textContent = '仅第1页（今天）显示统计信息';
+                        }
                     } else {
                         console.log('⚠️  本页暂无数据');
                         // 清空图表
@@ -1108,6 +1166,12 @@ curl localhost:5000/api/sar-slope/bias-ratios
                             xAxis: { data: [] },
                             series: [{ data: [] }, { data: [] }]
                         });
+                        
+                        // 清空统计显示
+                        document.getElementById('totalBullishPoints').textContent = '0';
+                        document.getElementById('totalBearishPoints').textContent = '0';
+                        document.getElementById('bullishDetails').textContent = '暂无数据';
+                        document.getElementById('bearishDetails').textContent = '暂无数据';
                     }
                     
                     // 如果是第1页（今天），加载当前的偏多/偏空 >80% 统计
