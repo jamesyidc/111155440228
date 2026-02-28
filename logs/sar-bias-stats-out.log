@@ -1,0 +1,15 @@
+============================================================
+SAR偏多偏空统计历史记录采集器
+============================================================
+数据目录: /home/user/webapp/data/sar_bias_stats
+采集间隔: 5分钟
+============================================================
+
+
+【第 1 轮采集】 2026-02-28 15:56:46
+------------------------------------------------------------
+❌ 采集失败: HTTPConnectionPool(host='localhost', port=9002): Max retries exceeded with url: /api/sar-slope/bias-ratios (Caused by NewConnectionError("HTTPConnection(host='localhost', port=9002): Failed to establish a new connection: [Errno 111] Connection refused"))
+❌ 采集失败
+
+下次采集: 16:00:00 (等待 193 秒)
+============================================================

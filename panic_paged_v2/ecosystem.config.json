@@ -1,0 +1,40 @@
+{
+  "apps": [
+    {
+      "name": "panic-paged-v2-collector-24h",
+      "script": "/home/user/webapp/panic_paged_v2/collector_24h.py",
+      "interpreter": "python3",
+      "cwd": "/home/user/webapp/panic_paged_v2",
+      "instances": 1,
+      "exec_mode": "fork",
+      "autorestart": true,
+      "watch": false,
+      "max_memory_restart": "200M",
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      },
+      "error_file": "/home/user/webapp/logs/panic-paged-v2-24h-error.log",
+      "out_file": "/home/user/webapp/logs/panic-paged-v2-24h-out.log",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss",
+      "merge_logs": true
+    },
+    {
+      "name": "panic-paged-v2-collector-1h",
+      "script": "/home/user/webapp/panic_paged_v2/collector_1h.py",
+      "interpreter": "python3",
+      "cwd": "/home/user/webapp/panic_paged_v2",
+      "instances": 1,
+      "exec_mode": "fork",
+      "autorestart": true,
+      "watch": false,
+      "max_memory_restart": "200M",
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      },
+      "error_file": "/home/user/webapp/logs/panic-paged-v2-1h-error.log",
+      "out_file": "/home/user/webapp/logs/panic-paged-v2-1h-out.log",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss",
+      "merge_logs": true
+    }
+  ]
+}

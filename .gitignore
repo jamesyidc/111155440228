@@ -1,0 +1,15 @@
+
+# Large JSONL data files (> 100MB)
+data/anchor_unified/anchor_unified_data.jsonl
+data/price_speed_jsonl/price_speed_history.jsonl
+data/sar_slope_jsonl/sar_slope_data.jsonl
+data/v1v2_jsonl/v1v2_history.jsonl
+data/support_resistance_jsonl/support_resistance_levels.jsonl
+data/anchor_profit_stats/anchor_profit_stats.jsonl
+
+# All large history JSONL files
+**/*_history.jsonl
+**/*_unified_data.jsonl
+**/sar_slope_data.jsonl
+**/support_resistance_levels.jsonl
+**/anchor_profit_stats.jsonl

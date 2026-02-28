@@ -1,0 +1,33 @@
+{
+  "accounts": [
+    {
+      "id": "account_main",
+      "name": "主账户",
+      "apiKey": "b0c18f2d-e014-4ae8-9c3c-cb02161de4db",
+      "apiSecret": "92F864C599B2CE2EC5186AD14C8B4110",
+      "passphrase": "Tencent@123"
+    },
+    {
+      "id": "account_fangfang12",
+      "name": "Fangfang12",
+      "apiKey": "e5867a9a-93b7-476f-81ce-093c3aacae0d",
+      "apiSecret": "4624EE63A9BF3F84250AC71C9A37F47D",
+      "passphrase": "Tencent@123"
+    },
+    {
+      "id": "account_anchor",
+      "name": "锚点账号",
+      "apiKey": "0b05a729-40eb-4809-b3eb-eb2de75b7e9e",
+      "apiSecret": "4E4DA8BE3B18D01AA07185A006BF9F8E",
+      "passphrase": "Tencent@123"
+    },
+    {
+      "id": "account_poit",
+      "name": "POIT",
+      "apiKey": "8650e46c-059b-431d-93cf-55f8c79babdb",
+      "apiSecret": "4C2BD2AC6A08615EA7F36A6251857FCE",
+      "passphrase": "Wu666666."
+    }
+  ],
+  "default_account": "account_main"
+}

@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加密货币数据分析系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            font-weight: 300;
+        }
+        
+        /* 主副系统切换开关 */
+        .system-switch-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 25px;
+            gap: 15px;
+        }
+        
+        .settings-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .settings-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: rotate(90deg);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        }
+        
+        .system-label {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+            font-weight: 500;
+        }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 80px;
+            height: 40px;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: 0.4s;
+            border-radius: 40px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 32px;
+            width: 32px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        input:checked + .slider {
+            background: linear-gradient(135deg, #ea6666 0%, #a24b76 100%);
+            box-shadow: 0 4px 15px rgba(234, 102, 102, 0.4);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(40px);
+        }
+        
+        .system-text {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            pointer-events: none;
+        }
+        
+        .system-text-left {
+            left: 8px;
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+        
+        .system-text-right {
+            right: 8px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        input:checked ~ .system-text-left {
+            opacity: 0;
+        }
+        
+        input:checked ~ .system-text-right {
+            opacity: 1;
+        }
+        
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+        
+        .module-card {
+            background: rgba(42, 45, 71, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #00d4ff, #0099ff);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .module-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .module-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .module-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        
+        .module-card:hover .module-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .module-card h2 {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+        
+        .module-card p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .module-stats {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .module-stats-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+        
+        .module-stats-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .stats-label {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .stats-value {
+            color: #00d4ff;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        .module-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099ff 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .module-btn:hover {
+            background: linear-gradient(135deg, #0099ff 0%, #00d4ff 100%);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-value {
+                font-size: 1.8rem;
+            }
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 加密货币数据分析系统</h1>
+            <p>实时监控 · 历史回看 · 趋势分析</p>
+            
+            <!-- 主副系统切换开关 -->
+            <div class="system-switch-container">
+                <span class="system-label" id="systemLabel">当前系统: <strong id="currentSystem">主系统</strong></span>
+                <label class="switch">
+                    <input type="checkbox" id="systemToggle" onchange="toggleSystem()">
+                    <span class="slider">
+                        <span class="system-text system-text-left">主</span>
+                        <span class="system-text system-text-right">副</span>
+                    </span>
+                </label>
+                <a href="/system-config" class="settings-link" title="系统配置管理">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M12 1v6m0 6v6m8-6h-6m-4 0H4m15.5 8.5l-4-4M7.5 7.5l-4-4M16.5 7.5l4-4M7.5 16.5l-4 4"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        
+        <div class="modules-grid">
+            <!-- SAR Slope System - Featured -->
+            <div class="module-card" onclick="location.href='/sar-slope'" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%); border: 2px solid #667eea;">
+                <div class="module-icon">📈</div>
+                <h2>SAR斜率系统</h2>
+                <p>5分钟周期SAR数据监测，标注多空位置及持续时间，保留7天数据</p>
+                <div class="module-stats">
+                    <div class="module-stats-row">
+                        <span class="stats-label">监测币种:</span>
+                        <span class="stats-value">27个</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">采集周期:</span>
+                        <span class="stats-value">5分钟</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">数据保留:</span>
+                        <span class="stats-value">近7天</span>
+                    </div>
+                </div>
+                <a href="/sar-slope" class="module-btn" style="background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);">进入系统 🆕</a>
+            </div>
+            
+            <!-- 锚点系统 - OKEx Position Monitor -->
+            <div class="module-card" onclick="location.href='/anchor-system-real'" style="background: linear-gradient(135deg, rgba(234, 102, 102, 0.95) 0%, rgba(162, 75, 118, 0.95) 100%); border: 2px solid #ea6666;">
+                <div class="module-icon">🎯</div>
+                <h2>锚点系统（实盘）</h2>
+                <p>OKEx实盘持仓监控，做空收益率告警，Telegram实时提醒</p>
+                <div class="module-stats">
+                    <div class="module-stats-row">
+                        <span class="stats-label">盈利目标:</span>
+                        <span class="stats-value">≥40%</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">止损警戒:</span>
+                        <span class="stats-value">≤-10%</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">检测间隔:</span>
+                        <span class="stats-value">60秒</span>
+                    </div>
+                </div>
+                <a href="/anchor-system-real" class="module-btn" style="background: linear-gradient(135deg, #a24b76 0%, #ea6666 100%);">进入实盘 🔴</a>
+            </div>
+            
+            <!-- OKX实盘交易系统 -->
+            <div class="module-card" onclick="location.href='/okx-trading'" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(5, 150, 105, 0.95) 100%); border: 2px solid #10b981;">
+                <div class="module-icon">💹</div>
+                <h2>OKX实盘交易</h2>
+                <p>永续合约实盘交易，支持做多做空，10倍杠杆，实时下单</p>
+                <div class="module-stats">
+                    <div class="module-stats-row">
+                        <span class="stats-label">交易对:</span>
+                        <span class="stats-value">27个币种</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">杠杆倍数:</span>
+                        <span class="stats-value">3x-20x</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">交易模式:</span>
+                        <span class="stats-value" style="color: #ef4444;">实盘交易</span>
+                    </div>
+                </div>
+                <a href="/okx-trading" class="module-btn" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">立即交易 💹</a>
+            </div>
+            
+            <!-- OKX日涨跌幅标记 -->
+            <div class="module-card" onclick="location.href='/okx-trading-marks'" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.95) 0%, rgba(37, 99, 235, 0.95) 100%); border: 2px solid #3b82f6;">
+                <div class="module-icon">📊</div>
+                <h2>OKX日涨跌幅标记 🆕</h2>
+                <p>实时监控27个币种的24小时涨跌幅，自动标记和数据采集</p>
+                <div class="module-stats">
+                    <div class="module-stats-row">
+                        <span class="stats-label">监控币种:</span>
+                        <span class="stats-value">27个</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">采集周期:</span>
+                        <span class="stats-value" style="color: #fbbf24;">5分钟</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">数据源:</span>
+                        <span class="stats-value">OKX API</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">采集状态:</span>
+                        <span class="stats-value" style="color: #10b981;">运行中 ✓</span>
+                    </div>
+                </div>
+                <a href="/okx-trading-marks" class="module-btn" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);">查看数据 📈</a>
+            </div>
+            
+            <!-- OKX利润分析系统 -->
+            <div class="module-card" onclick="location.href='/okx-profit-analysis'" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%); border: 2px solid #667eea;">
+                <div class="module-icon">📊</div>
+                <h2>OKX利润分析</h2>
+                <p>每日利润统计分析，收益率曲线图，交易备注记录，实时数据刷新</p>
+                <div class="module-stats">
+                    <div class="module-stats-row">
+                        <span class="stats-label">功能:</span>
+                        <span class="stats-value">收益率分析</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">数据:</span>
+                        <span class="stats-value">实时刷新</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">备注:</span>
+                        <span class="stats-value" style="color: #fbbf24;">交易日记</span>
+                    </div>
+                </div>
+                <a href="/okx-profit-analysis" class="module-btn" style="background: linear-gradient(135deg, #5a67d8 0%, #667eea 100%);">查看分析 📈</a>
+            </div>
+            
+            <!-- 数据管理与备份 -->
+            <div class="module-card" onclick="location.href='/data-management'" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.95) 0%, rgba(217, 119, 6, 0.95) 100%); border: 2px solid #f59e0b;">
+                <div class="module-icon">🗄️</div>
+                <h2>数据管理与备份</h2>
+                <p>统计管理350个JSONL文件、392万条记录、2.8GB数据，支持完整备份和增量备份</p>
+                <div class="module-stats">
+                    <div class="module-stats-row">
+                        <span class="stats-label">文件数:</span>
+                        <span class="stats-value">350 个</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">记录数:</span>
+                        <span class="stats-value" style="color: #fbbf24;">392万条</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">总大小:</span>
+                        <span class="stats-value">2.8 GB</span>
+                    </div>
+                </div>
+                <a href="/data-management" class="module-btn" style="background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);">管理数据 💾</a>
+            </div>
+            
+            <!-- 恐慌清洗指数 -->
+            <div class="module-card" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.95) 0%, rgba(220, 38, 38, 0.95) 100%);" onclick="location.href='/panic'">
+                <div class="module-icon">⚡</div>
+                <h2>恐慌清洗指数</h2>
+                <p>比特币市场恐慌时的爆仓监控，0-100分数，综合爆仓率和持仓量数据</p>
+                <div class="module-stats">
+                    <div class="module-stats-row">
+                        <span class="stats-label">恐慌指数:</span>
+                        <span class="stats-value" id="panic-index-value" style="font-size: 1.3em; font-weight: bold;">-</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">24h爆仓:</span>
+                        <span class="stats-value" id="panic-liquidation">-</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">全网持仓:</span>
+                        <span class="stats-value" id="panic-position">-</span>
+                    </div>
+                </div>
+                <a href="/panic" class="module-btn" style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);">查看详情 🔥</a>
+            </div>
+            
+            <!-- 1小时爆仓金额月线图 -->
+            <div class="module-card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.95) 0%, rgba(79, 70, 229, 0.95) 100%);" onclick="location.href='/liquidation-monthly'">
+                <div class="module-icon">📊</div>
+                <h2>1H爆仓月线图</h2>
+                <p>1小时爆仓金额月线趋势，30分钟K线，标记≥1.5亿高点（每小时最高）</p>
+                <div class="module-stats">
+                    <div class="module-stats-row">
+                        <span class="stats-label">数据周期:</span>
+                        <span class="stats-value">30分钟/点</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">展示范围:</span>
+                        <span class="stats-value">最近30天</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">标记规则:</span>
+                        <span class="stats-value">≥1.5亿/小时</span>
+                    </div>
+                </div>
+                <a href="/liquidation-monthly" class="module-btn" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">查看月线图 📈</a>
+            </div>
+            
+            
+            <!-- 数据采集健康监控 -->
+            <div class="module-card" onclick="location.href='/data-health-monitor'" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(5, 150, 105, 0.95) 100%); border: 2px solid #10b981;">
+                <div class="module-icon">📊</div>
+                <h2>数据采集健康监控</h2>
+                <p>实时监控各数据采集器状态，自动检测数据中断并修复，确保数据持续更新</p>
+                <div class="module-stats">
+                    <div class="module-stats-row">
+                        <span class="stats-label">监控服务:</span>
+                        <span class="stats-value" id="health-monitor-total">-</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">健康服务:</span>
+                        <span class="stats-value" id="health-monitor-healthy" style="color: #10b981;">-</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">异常服务:</span>
+                        <span class="stats-value" id="health-monitor-unhealthy" style="color: #ef4444;">-</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">今日重启:</span>
+                        <span class="stats-value" style="color: #f59e0b;" id="health-monitor-restarts">-</span>
+                    </div>
+                </div>
+                <a href="/data-health-monitor" class="module-btn" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">查看监控 📊</a>
+            </div>
+            
+            <!-- 交易管理系统已移除 (2026-01-14) -->
+            
+            <!-- 逃顶信号系统已删除 (2026-02-12) -->
+            
+            <!-- 27币涨跌幅追踪器已删除 (2026-02-12) -->
+            
+            <!-- 27币涨跌幅追踪系统（1分钟实时）NEW -->
+            <div class="module-card" onclick="location.href='/coin-change-tracker'" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(5, 150, 105, 0.95) 100%); border: 2px solid #10b981;">
+                <div class="module-icon">📈</div>
+                <h2>27币涨跌幅追踪系统 🆕</h2>
+                <p>1分钟精细粒度实时追踪，使用日线开盘价作为0点基准，标记最高/最低价</p>
+                <div class="module-stats">
+                    <div class="module-stats-row">
+                        <span class="stats-label">监控币种:</span>
+                        <span class="stats-value">27个</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">采集周期:</span>
+                        <span class="stats-value" style="color: #fbbf24;">1分钟</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">基准价:</span>
+                        <span class="stats-value">日线开盘价（0点）</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">实时涨跌幅:</span>
+                        <span class="stats-value" id="coin-change-latest" style="color: #10b981;">-</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">更新时间:</span>
+                        <span class="stats-value" id="coin-change-time">-</span>
+                    </div>
+                </div>
+                <a href="/coin-change-tracker" class="module-btn" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">实时追踪 🔥</a>
+            </div>
+            
+            <!-- 历史数据查询系统已删除 (2026-02-12) -->
+            
+            <!-- 交易信号监控已删除 (2026-01-16) -->
+            
+            <!-- 恐惧贪婪指数已删除 (2026-01-16) -->
+            
+            <!-- 比价系统已删除 (2026-02-12) -->
+            
+            <!-- 资金监控系统已删除 (2026-02-03) -->
+            
+            <!-- 星星系统已删除 (2026-01-16) -->
+            
+            <!-- 币种池系统已删除 (2026-01-16) -->
+
+            <!-- 开仓逻辑系统（实时市场原始数据）已删除 (2026-01-16) -->
+
+            
+            <!-- 统一监控系统已删除 (2026-01-16) -->
+            
+            <!-- 深度图得分系统已删除 (2026-02-01) -->
+            
+            <!-- 深度图可视化系统已删除 (2026-01-16) -->
+            
+            <!-- 平均分系统已删除 (2026-01-16) -->
+            
+            <!-- OKEX加密指数系统已删除 (2026-02-01) -->
+            
+            <!-- 位置系统已删除 (2026-01-16) -->
+            
+            <div class="module-card" onclick="location.href='/support-resistance'">
+                <div class="module-icon">📈</div>
+                <h2>支撑压力线系统</h2>
+                <p>27币种永续合约支撑压力线，7天/48小时双周期监控</p>
+                <div class="module-stats">
+                    <div class="module-stats-row">
+                        <span class="stats-label">监控币种:</span>
+                        <span class="stats-value" id="sr-count">27</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">最后更新:</span>
+                        <span class="stats-value" id="sr-time">-</span>
+                    </div>
+                </div>
+                
+                <!-- 4种预警情况 -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0;">
+                    <!-- 情况1: 支撑2→压力1 (<=5%) -->
+                    <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; padding: 12px;">
+                        <div style="color: #10b981; font-size: 0.85rem; font-weight: bold; margin-bottom: 5px;">情况1: 接近支撑2</div>
+                        <div style="color: rgba(255,255,255,0.6); font-size: 0.75rem; margin-bottom: 8px;">支撑2→压力1 (≤5%)</div>
+                        <div id="sr-scenario-1" style="color: #fff; font-size: 0.9rem; min-height: 20px;">-</div>
+                    </div>
+                    
+                    <!-- 情况2: 支撑1→压力2 (<=5%) -->
+                    <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; padding: 12px;">
+                        <div style="color: #10b981; font-size: 0.85rem; font-weight: bold; margin-bottom: 5px;">情况2: 接近支撑1</div>
+                        <div style="color: rgba(255,255,255,0.6); font-size: 0.75rem; margin-bottom: 8px;">支撑1→压力2 (≤5%)</div>
+                        <div id="sr-scenario-2" style="color: #fff; font-size: 0.9rem; min-height: 20px;">-</div>
+                    </div>
+                    
+                    <!-- 情况3: 支撑1→压力2 (>=95%) -->
+                    <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px; padding: 12px;">
+                        <div style="color: #ef4444; font-size: 0.85rem; font-weight: bold; margin-bottom: 5px;">情况3: 接近压力2</div>
+                        <div style="color: rgba(255,255,255,0.6); font-size: 0.75rem; margin-bottom: 8px;">支撑1→压力2 (≥95%)</div>
+                        <div id="sr-scenario-3" style="color: #fff; font-size: 0.9rem; min-height: 20px;">-</div>
+                    </div>
+                    
+                    <!-- 情况4: 支撑1→压力1 (>=95%) -->
+                    <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px; padding: 12px;">
+                        <div style="color: #ef4444; font-size: 0.85rem; font-weight: bold; margin-bottom: 5px;">情况4: 接近压力1</div>
+                        <div style="color: rgba(255,255,255,0.6); font-size: 0.75rem; margin-bottom: 8px;">支撑1→压力1 (≥95%)</div>
+                        <div id="sr-scenario-4" style="color: #fff; font-size: 0.9rem; min-height: 20px;">-</div>
+                    </div>
+                </div>
+                
+                <a href="/support-resistance" class="module-btn">查看详情</a>
+            </div>
+            
+            <!-- 决策-交易信号系统已删除 (2026-01-16) -->
+            
+            <!-- 决策-K线指标系统已删除 (2026-01-16) -->
+            
+            <!-- V1V2成交系统已删除 (2026-02-12) -->
+            
+            <!-- 1分钟涨跌速系统已删除 (2026-02-03) -->
+            
+            <!-- Google Drive监控已删除 (2026-02-12) -->
+            
+            <!-- TG消息推送系统 -->
+            <div class="module-card" id="tg-card" style="background: linear-gradient(135deg, rgba(34, 139, 230, 0.95) 0%, rgba(29, 78, 216, 0.95) 100%); cursor: pointer;">
+                <div class="module-icon">📱</div>
+                <h2>TG消息推送</h2>
+                <p>实时推送交易信号到Telegram群组，60秒检测一次</p>
+                <div class="module-stats">
+                    <div class="module-stats-row">
+                        <span class="stats-label">运行状态:</span>
+                        <span class="stats-value" id="tg-status" style="color: #10b981;">检测中...</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">已推送:</span>
+                        <span class="stats-value" id="tg-total-sent" style="color: #60a5fa;">-</span>
+                        <span class="stats-label" style="margin-left: 5px;">条</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">最近消息:</span>
+                        <span class="stats-value" id="tg-last-message" style="font-size: 0.8em; color: #fbbf24;">-</span>
+                    </div>
+                    <div class="module-stats-row">
+                        <span class="stats-label">最后更新:</span>
+                        <span class="stats-value" id="tg-last-update" style="font-size: 0.8em;">-</span>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; position: relative; z-index: 10;">
+                    <a href="/telegram-notification-settings" class="module-btn" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 10px 15px; margin: 0;">⚙️ 通知设置</a>
+                    <a href="/telegram-dashboard" class="module-btn" style="background: linear-gradient(135deg, #228be6 0%, #1d4ed8 100%); padding: 10px 15px; margin: 0;">📊 推送历史</a>
+                </div>
+            </div>
+            
+            <!-- 极值追踪系统已删除 (2026-02-01) -->
+        </div>
+        
+        
+        <!-- API接口展示区 -->
+        <div class="api-section" style="background: rgba(42, 45, 71, 0.95); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 40px 30px; margin-top: 40px; animation: fadeInUp 0.8s ease 0.6s both;">
+            <h2 style="text-align: center; color: #00d4ff; font-size: 2rem; margin-bottom: 30px;">
+                🔌 API 接口文档
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px;">
+                <!-- 支撑压力线API -->
+                <div style="background: rgba(0, 0, 0, 0.2); border-radius: 12px; padding: 25px; border-left: 4px solid #00d4ff;">
+                    <h3 style="color: #00d4ff; font-size: 1.3rem; margin-bottom: 15px;">📈 支撑压力线系统</h3>
+                    <div style="margin-bottom: 15px;">
+                        <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 8px;">GET 最新数据</div>
+                        <code style="display: block; background: rgba(0,0,0,0.4); padding: 10px; border-radius: 6px; color: #4ade80; font-size: 0.85rem; overflow-x: auto;">
+                            /api/support-resistance/latest
+                        </code>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 8px;">GET 历史数据</div>
+                        <code style="display: block; background: rgba(0,0,0,0.4); padding: 10px; border-radius: 6px; color: #4ade80; font-size: 0.85rem; overflow-x: auto;">
+                            /api/support-resistance/history/&lt;symbol&gt;?hours=24
+                        </code>
+                    </div>
+                    <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem; line-height: 1.5;">
+                        返回27个币种的支撑线和压力线数据，包括7天和48小时的支撑/压力位置
+                    </div>
+                    <a href="/support-resistance" style="display: inline-block; margin-top: 15px; padding: 8px 16px; background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%); color: white; text-decoration: none; border-radius: 6px; font-size: 0.9rem; transition: transform 0.2s;">
+                        查看详情 →
+                    </a>
+                </div>
+                
+                <!-- 交易信号系统 -->
+                <div style="background: rgba(0, 0, 0, 0.2); border-radius: 12px; padding: 25px; border-left: 4px solid #a855f7;">
+                    <h3 style="color: #a855f7; font-size: 1.3rem; margin-bottom: 15px;">🎯 决策-交易信号系统</h3>
+                    <div style="margin-bottom: 15px;">
+                        <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 8px;">GET 信号分析</div>
+                        <code style="display: block; background: rgba(0,0,0,0.4); padding: 10px; border-radius: 6px; color: #4ade80; font-size: 0.85rem; overflow-x: auto;">
+                            /api/trading-signals/analyze
+                        </code>
+                    </div>
+                    <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem; line-height: 1.5;">
+                        基于支撑线、创新低、计次得分、急涨急跌等多维度分析，自动识别做多买点1和买点2信号
+                    </div>
+                    <a href="/trading-signals" style="display: inline-block; margin-top: 15px; padding: 8px 16px; background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); color: white; text-decoration: none; border-radius: 6px; font-size: 0.9rem; transition: transform 0.2s;">
+                        查看信号 →
+                    </a>
+                </div>
+                
+                <!-- 位置系统API -->
+                <div style="background: rgba(0, 0, 0, 0.2); border-radius: 12px; padding: 25px; border-left: 4px solid #f59e0b;">
+                    <h3 style="color: #f59e0b; font-size: 1.3rem; margin-bottom: 15px;">📍 位置系统</h3>
+                    <div style="margin-bottom: 15px;">
+                        <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 8px;">GET 最新数据</div>
+                        <code style="display: block; background: rgba(0,0,0,0.4); padding: 10px; border-radius: 6px; color: #4ade80; font-size: 0.85rem; overflow-x: auto;">
+                            /api/position/latest
+                        </code>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 8px;">GET 统计摘要</div>
+                        <code style="display: block; background: rgba(0,0,0,0.4); padding: 10px; border-radius: 6px; color: #4ade80; font-size: 0.85rem; overflow-x: auto;">
+                            /api/position/summary
+                        </code>
+                    </div>
+                    <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem; line-height: 1.5;">
+                        返回币种在4h/12h/24h/48h周期的价格位置百分比
+                    </div>
+                </div>
+                
+                <!-- 统计数据API -->
+                <div style="background: rgba(0, 0, 0, 0.2); border-radius: 12px; padding: 25px; border-left: 4px solid #10b981;">
+                    <h3 style="color: #10b981; font-size: 1.3rem; margin-bottom: 15px;">📊 统计数据</h3>
+                    <div style="margin-bottom: 15px;">
+                        <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 8px;">GET 首页统计</div>
+                        <code style="display: block; background: rgba(0,0,0,0.4); padding: 10px; border-radius: 6px; color: #4ade80; font-size: 0.85rem; overflow-x: auto;">
+                            /api/stats
+                        </code>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 8px;">GET 模块统计</div>
+                        <code style="display: block; background: rgba(0,0,0,0.4); padding: 10px; border-radius: 6px; color: #4ade80; font-size: 0.85rem; overflow-x: auto;">
+                            /api/modules/stats
+                        </code>
+                    </div>
+                    <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem; line-height: 1.5;">
+                        获取系统统计数据，包括急涨急跌、恐慌指数等
+                    </div>
+                </div>
+                
+                <!-- V1V2成交系统API已删除 (2026-02-12) -->
+                
+                <!-- 1分钟涨跌速系统已删除 (2026-02-03) -->
+                
+                <!-- Google Drive监控API已删除 (2026-02-12) -->
+                
+                <!-- 极值追踪系统API已删除 (2026-02-01) -->
+            </div>
+            
+            <div style="margin-top: 30px; padding: 20px; background: rgba(0, 212, 255, 0.1); border-radius: 10px; border: 1px solid rgba(0, 212, 255, 0.3);">
+                <h4 style="color: #00d4ff; font-size: 1.1rem; margin-bottom: 12px;">💡 使用说明</h4>
+                <ul style="color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.8; padding-left: 25px;">
+                    <li>所有API返回JSON格式数据</li>
+                    <li>成功响应包含 <code style="color: #4ade80; background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 3px;">success: true</code></li>
+                    <li>时间格式：YYYY-MM-DD HH:MM:SS（北京时间 UTC+8）</li>
+                    <li>更多API接口请访问各模块页面查看详细文档</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>💡 数据每10分钟自动采集 · 每天00:10自动重置计数器</p>
+            <p>Powered by GenSpark AI Developer · 2025</p>
+        </div>
+    </div>
+    
+    <script>
+        // 格式化时间显示（只显示时:分）
+        function formatTime(timeString) {
+            if (!timeString) return '-';
+            const parts = timeString.split(' ');
+            if (parts.length >= 2) {
+                return parts[1].substring(0, 5);  // HH:MM
+            }
+            return timeString;
+        }
+        
+        // 历史数据查询、比价系统数据加载已删除 (2026-02-12)
+        
+        // 恐慌清洗指数数据加载已删除 (2026-01-16)
+        
+        // 比价系统数据加载已删除 (2026-02-12)
+        
+        // 加载TG推送系统状态（带超时控制）
+        function loadTelegramStatus() {
+            // 创建超时控制器
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒超时（增加到10秒）
+            
+            fetch('/api/telegram/status', { 
+                signal: controller.signal,
+                cache: 'no-cache' // 禁用缓存，获取最新数据
+            })
+                .then(res => {
+                    clearTimeout(timeoutId);
+                    if (!res.ok) throw new Error('HTTP error ' + res.status);
+                    return res.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        // 更新运行状态
+                        const statusEl = document.getElementById('tg-status');
+                        if (data.is_running) {
+                            statusEl.textContent = '✅ ' + data.status;
+                            statusEl.style.color = '#10b981';
+                        } else {
+                            statusEl.textContent = '❌ ' + data.status;
+                            statusEl.style.color = '#ef4444';
+                        }
+                        
+                        // 更新已推送数量
+                        document.getElementById('tg-total-sent').textContent = data.total_sent || 0;
+                        
+                        // 更新最近消息类型
+                        const lastMessageEl = document.getElementById('tg-last-message');
+                        if (data.last_messages && data.last_messages.length > 0) {
+                            lastMessageEl.textContent = data.last_messages[0];
+                        } else {
+                            lastMessageEl.textContent = '暂无';
+                        }
+                        
+                        // 更新最后更新时间
+                        const lastUpdateEl = document.getElementById('tg-last-update');
+                        if (data.last_update && data.last_update !== '未知') {
+                            lastUpdateEl.textContent = formatTime(data.last_update);
+                        } else {
+                            lastUpdateEl.textContent = '-';
+                        }
+                    }
+                })
+                .catch(err => {
+                    clearTimeout(timeoutId);
+                    if (err.name === 'AbortError') {
+                        console.warn('TG状态请求超时（10秒）');
+                        document.getElementById('tg-status').textContent = '⏱️ 加载中...';
+                    } else {
+                        console.error('获取TG推送状态失败:', err);
+                        document.getElementById('tg-status').textContent = '⚠️ 网络异常';
+                    }
+                    document.getElementById('tg-status').style.color = '#f59e0b';
+                });
+        }
+        
+        // 初始加载TG状态
+        loadTelegramStatus();
+        
+        // 每30秒刷新TG状态
+        setInterval(loadTelegramStatus, 30000);
+        
+        // 添加TG卡片点击事件监听器
+        const tgCard = document.getElementById('tg-card');
+        
+        if (tgCard) {
+            tgCard.addEventListener('click', function(e) {
+                // 如果点击的是按钮或按钮内部元素，则不跳转
+                if (e.target.tagName === 'A' || e.target.closest('a')) {
+                    return;
+                }
+                // 否则跳转到通知设置页面
+                window.location.href = '/telegram-notification-settings';
+            });
+        }
+        
+        // 币种池数据加载已删除 (星星系统和币种池已删除 2026-01-16)
+        
+        // V1V2成交系统数据加载已删除 (2026-02-12)
+        
+        // 加载1分钟涨跌速数据
+        fetch('/api/price-speed/latest')
+            .then(res => res.json())
+            .then(response => {
+                if (response.success && response.data) {
+                    const data = response.data;
+                    const upCount = data.filter(coin => 
+                        coin.alert_level && coin.alert_level.includes('up') && coin.alert_level !== 'normal'
+                    ).length;
+                    const downCount = data.filter(coin => 
+                        coin.alert_level && coin.alert_level.includes('down') && coin.alert_level !== 'normal'
+                    ).length;
+                    
+                    document.getElementById('price-speed-up-count').textContent = upCount + ' 个';
+                    document.getElementById('price-speed-down-count').textContent = downCount + ' 个';
+                    document.getElementById('price-speed-time').textContent = formatTime(response.update_time || '-');
+                }
+            })
+            .catch(err => {
+                console.error('获取涨跌速数据失败:', err);
+            });
+        
+        // 监控系统数据加载已删除 (2026-01-16)
+        
+        // 深度得分数据加载已删除 (2026-02-01)
+        
+        // 平均分系统数据加载已删除 (2026-01-16)
+        
+        // OKEX加密指数数据加载已删除 (2026-02-01)
+        
+        // 加载恐慌清洗指数数据
+        fetch('/api/panic/latest')
+            .then(res => res.json())
+            .then(data => {
+                if (data.success && data.data) {
+                    const panicData = data.data;
+                    
+                    // 计算恐慌指数（百分比）
+                    const panicIndex = panicData.panic_index * 100;
+                    
+                    // 更新恐慌指数值
+                    const panicIndexEl = document.getElementById('panic-index-value');
+                    if (panicIndexEl) {
+                        panicIndexEl.textContent = panicIndex.toFixed(2) + '%';
+                        
+                        // 根据恐慌指数设置颜色
+                        if (panicIndex < 5) {
+                            panicIndexEl.style.color = '#10b981';  // 绿色 - 低恐慌
+                        } else if (panicIndex < 10) {
+                            panicIndexEl.style.color = '#f59e0b';  // 橙色 - 中等恐慌
+                        } else if (panicIndex < 15) {
+                            panicIndexEl.style.color = '#ef4444';  // 红色 - 高恐慌
+                        } else {
+                            panicIndexEl.style.color = '#dc2626';  // 深红色 - 极度恐慌
+                        }
+                    }
+                    
+                    // 更新24h爆仓金额
+                    const liquidationEl = document.getElementById('panic-liquidation');
+                    if (liquidationEl) {
+                        const amount = panicData.hour_24_amount || 0;
+                        liquidationEl.textContent = amount.toFixed(2) + ' 万$';
+                    }
+                    
+                    // 更新全网持仓
+                    const positionEl = document.getElementById('panic-position');
+                    if (positionEl) {
+                        const position = panicData.total_position || 0;
+                        positionEl.textContent = position.toFixed(2) + ' 亿$';
+                    }
+                }
+            })
+            .catch(err => {
+                console.error('获取恐慌清洗指数数据失败:', err);
+            });
+        
+        // 恐惧贪婪指数数据加载已删除 (2026-01-16)
+        
+        // 金融指数数据加载已删除 (2026-02-12)
+        
+        // 逃顶信号系统数据加载已删除 (2026-02-12)
+        
+        // 空单盈亏数据加载已删除 (2026-02-12)
+        
+        // 27币涨跌幅追踪器数据加载已删除 (2026-02-12)
+        
+        // 加载27币涨跌幅追踪系统数据（1分钟实时）
+        fetch('/api/coin-change-tracker/latest')
+            .then(res => res.json())
+            .then(response => {
+                if (response.success && response.data) {
+                    const data = response.data;
+                    
+                    // 更新实时涨跌幅
+                    const latestEl = document.getElementById('coin-change-latest');
+                    const totalChange = data.total_change || 0;
+                    latestEl.textContent = (totalChange > 0 ? '+' : '') + totalChange.toFixed(2) + '%';
+                    
+                    // 根据涨跌设置颜色
+                    if (totalChange > 0) {
+                        latestEl.style.color = '#10b981';
+                    } else if (totalChange < 0) {
+                        latestEl.style.color = '#ef4444';
+                    } else {
+                        latestEl.style.color = '#fbbf24';
+                    }
+                    
+                    // 更新时间
+                    document.getElementById('coin-change-time').textContent = formatTime(data.time || '-');
+                }
+            })
+            .catch(err => {
+                console.error('获取27币追踪系统数据失败:', err);
+            });
+        
+        // 加载重大事件监控系统数据
+        
+        // 加载数据采集健康监控数据
+        fetch('/api/data-health-monitor/status')
+            .then(res => res.json())
+            .then(response => {
+                if (response.stats) {
+                    const stats = response.stats;
+                    
+                    // 更新监控服务总数
+                    const totalEl = document.getElementById('health-monitor-total');
+                    if (totalEl) {
+                        totalEl.textContent = stats.total + ' 个';
+                    }
+                    
+                    // 更新健康服务数
+                    const healthyEl = document.getElementById('health-monitor-healthy');
+                    if (healthyEl) {
+                        healthyEl.textContent = stats.healthy + ' 个';
+                    }
+                    
+                    // 更新异常服务数
+                    const unhealthyEl = document.getElementById('health-monitor-unhealthy');
+                    if (unhealthyEl) {
+                        unhealthyEl.textContent = stats.unhealthy + ' 个';
+                        // 根据异常服务数设置颜色
+                        if (stats.unhealthy > 0) {
+                            unhealthyEl.style.color = '#ef4444';  // 红色
+                        } else {
+                            unhealthyEl.style.color = '#10b981';  // 绿色
+                        }
+                    }
+                    
+                    // 更新今日重启次数
+                    const restartsEl = document.getElementById('health-monitor-restarts');
+                    if (restartsEl) {
+                        restartsEl.textContent = stats.today_restarts + ' 次';
+                    }
+                }
+            })
+            .catch(err => {
+                console.error('获取数据健康监控数据失败:', err);
+            });
+        
+        // Google Drive检测器数据加载已删除 (2026-02-12)
+        
+        // Google Drive最新文件加载已删除 (2026-02-12)
+        
+        // 极值追踪系统数据加载已删除 (2026-02-01)
+        
+        // Google Drive最新文件加载已删除 (2026-02-12)
+        
+        // 每60秒刷新一次（优化：从30秒改为60秒，减少服务器压力和前端计算）
+        setInterval(() => {
+            // 刷新模块统计数据
+            fetch('/api/modules/stats')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('query-total').textContent = data.query_module.total_records;
+                        document.getElementById('query-days').textContent = data.query_module.data_days + ' 天';
+                        document.getElementById('query-time').textContent = data.query_module.last_update;
+                        
+                        document.getElementById('signal-total').textContent = data.signal_module.total_records;
+                        document.getElementById('signal-days').textContent = data.signal_module.data_days + ' 天';
+                        document.getElementById('signal-time').textContent = data.signal_module.last_update;
+                        
+                        // 比价系统、得分系统更新时间
+                        document.getElementById('price-time').textContent = formatTime(data.query_module.last_update);
+                        document.getElementById('depth-time').textContent = formatTime(data.query_module.last_update);
+                        document.getElementById('chart-time').textContent = formatTime(data.query_module.last_update);
+                        document.getElementById('overview-time').textContent = formatTime(data.query_module.last_update);
+                    }
+                })
+                .catch(err => console.error('刷新模块统计数据失败:', err));
+            
+            // 刷新监控状态数据
+            fetch('/api/monitor/status')
+                .then(res => res.json())
+                .then(response => {
+                    if (response.success && response.status) {
+                        const status = response.status;
+                        
+                        const statusEl = document.getElementById('monitor-status');
+                        if (status.need_collection) {
+                            statusEl.textContent = '⚠️ 异常';
+                            statusEl.style.color = '#ef4444';
+                        } else {
+                            statusEl.textContent = '✅ 正常';
+                            statusEl.style.color = '#10b981';
+                        }
+                        
+                        const timeEl = document.getElementById('monitor-time');
+                        if (status.latest_snapshot) {
+                            const time = status.latest_snapshot.split(' ')[1];
+                            timeEl.textContent = time;
+                        } else {
+                            timeEl.textContent = '-';
+                        }
+                        
+                        const rateEl = document.getElementById('monitor-rate');
+                        if (status.minutes_since_last !== null) {
+                            const interval = status.minutes_since_last;
+                            let rate;
+                            if (interval <= 10) {
+                                rate = '100%';
+                                rateEl.style.color = '#10b981';
+                            } else if (interval <= 12) {
+                                rate = '90%';
+                                rateEl.style.color = '#f59e0b';
+                            } else {
+                                rate = Math.max(0, 100 - (interval - 10) * 10).toFixed(0) + '%';
+                                rateEl.style.color = '#ef4444';
+                            }
+                            rateEl.textContent = rate;
+                        } else {
+                            rateEl.textContent = '-';
+                        }
+                    }
+                })
+                .catch(err => console.error('刷新监控状态失败:', err));
+            
+            // 深度得分数据刷新已删除 (2026-02-01)
+            
+            // 刷新市场平均得分数据（优化：使用后端计算的top10_avg，避免前端reduce）
+            fetch('/api/market-average-score?timeframe=24')
+                .then(res => res.json())
+                .then(response => {
+                    if (response.success && response.data) {
+                        const data = response.data;
+                        const avgEl = document.getElementById('market-avg');
+                        const depthEl = document.getElementById('market-depth');
+                        if (avgEl) avgEl.textContent = data.average_score.toFixed(2);
+                        if (depthEl) depthEl.textContent = data.market_depth_level;
+                        // 直接使用后端计算的top10平均分
+                        const top10El = document.getElementById('market-top10');
+                        if (top10El && data.top_10_avg !== undefined) {
+                            top10El.textContent = data.top_10_avg.toFixed(2);
+                        }
+                    }
+                })
+                .catch(err => console.error('刷新市场平均得分数据失败:', err));
+            
+            // OKEX加密指数数据刷新已删除 (2026-02-01)
+            
+            // 位置系统数据加载已删除 (2026-01-16)
+            
+            // 刷新支撑压力线系统数据
+            fetch('/api/support-resistance/latest')
+                .then(res => res.json())
+                .then(response => {
+                    if (response.success && response.data) {
+                        const data = response.data;
+                        
+                        // 使用服务器端预计算的告警场景（避免前端filter计算）
+                        const alerts = response.alerts_summary || {};
+                        const scenario1Coins = alerts.scenario_1?.coins || [];
+                        const scenario2Coins = alerts.scenario_2?.coins || [];
+                        const scenario3Coins = alerts.scenario_3?.coins || [];
+                        const scenario4Coins = alerts.scenario_4?.coins || [];
+                        
+                        // 更新基本统计
+                        document.getElementById('sr-count').textContent = data.length;
+                        document.getElementById('sr-time').textContent = formatTime(response.update_time || '-');
+                        
+                        // 格式化币种显示（使用预筛选的数据）
+                        const formatCoinWithPosition = (coinInfo) => {
+                            const symbol = coinInfo.symbol.replace('-USDT-SWAP', '');
+                            const position = coinInfo.position || 0;
+                            return `<span style="display: inline-block; background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 4px; margin: 2px;">${symbol} <span style="opacity: 0.7;">${position.toFixed(1)}%</span></span>`;
+                        };
+                        
+                        const formatCoins = (coins) => {
+                            if (coins.length === 0) return '<span style="color: rgba(255,255,255,0.3);">暂无预警</span>';
+                            return coins.map(c => formatCoinWithPosition(c)).join(' ');
+                        };
+                        
+                        document.getElementById('sr-scenario-1').innerHTML = formatCoins(scenario1Coins);
+                        document.getElementById('sr-scenario-2').innerHTML = formatCoins(scenario2Coins);
+                        document.getElementById('sr-scenario-3').innerHTML = formatCoins(scenario3Coins);
+                        document.getElementById('sr-scenario-4').innerHTML = formatCoins(scenario4Coins);
+                    }
+                })
+                .catch(err => console.error('刷新支撑压力线数据失败:', err));
+            
+            // 刷新V1V2成交系统数据已删除 (2026-02-12)
+            
+            // 交易信号系统数据加载已删除 (2026-01-16)
+            
+            // 刷新1分钟涨跌速数据（优化：使用后端计算的up_count和down_count，避免前端filter）
+            fetch('/api/price-speed/latest')
+                .then(res => res.json())
+                .then(response => {
+                    if (response.success && response.data) {
+                        // 直接使用后端计算的结果，无需前端filter
+                        document.getElementById('price-speed-up-count').textContent = response.up_count + ' 个';
+                        document.getElementById('price-speed-down-count').textContent = response.down_count + ' 个';
+                        document.getElementById('price-speed-time').textContent = formatTime(response.update_time || '-');
+                    }
+                })
+                .catch(err => console.error('刷新涨跌速数据失败:', err));
+            
+            // 刷新Google Drive检测器数据已删除 (2026-02-12)
+            
+            // Google Drive最新文件刷新已删除 (2026-02-12)
+        }, 60000); // 优化：从30秒改为60秒，减少请求频率
+
+        // 开仓逻辑系统数据加载已删除 (2026-01-16)
+        
+        // K线指标系统数据加载已删除 (2026-01-16)
+        
+        // 加载交易管理统计
+        fetch('/api/trading/positions/opens')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const positions = data.data || [];
+                    const anchorPositions = positions.filter(p => p.is_anchor === 1);
+                    const normalPositions = positions.filter(p => p.is_anchor !== 1);
+                    
+                    // 更新统计数据
+                    document.getElementById('trading-anchors-count').textContent = anchorPositions.length;
+                    document.getElementById('trading-positions-count').textContent = normalPositions.length;
+                    
+                    // 计算总价值
+                    let totalValue = 0;
+                    positions.forEach(p => {
+                        const currentPrice = p.current_price || 0;
+                        const openSize = p.open_size || 0;
+                        totalValue += currentPrice * openSize;
+                    });
+                    document.getElementById('trading-total-value').textContent = totalValue.toFixed(2);
+                }
+            })
+            .catch(err => {
+                console.error('获取交易管理统计失败:', err);
+            });
+    
+    // 主副系统切换功能
+    function toggleSystem() {
+        const toggle = document.getElementById('systemToggle');
+        const currentSystemText = document.getElementById('currentSystem');
+        const isSubSystem = toggle.checked;
+        
+        if (isSubSystem) {
+            currentSystemText.textContent = '副系统';
+            // 保存到localStorage
+            localStorage.setItem('currentSystem', 'sub');
+            console.log('✅ 已切换到副系统');
+        } else {
+            currentSystemText.textContent = '主系统';
+            // 保存到localStorage
+            localStorage.setItem('currentSystem', 'main');
+            console.log('✅ 已切换到主系统');
+        }
+        
+        // 可以在这里添加更多的系统切换逻辑
+        // 例如：重新加载数据、更改API端点等
+    }
+    
+    // 页面加载时恢复系统状态
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedSystem = localStorage.getItem('currentSystem') || 'main';
+        const toggle = document.getElementById('systemToggle');
+        const currentSystemText = document.getElementById('currentSystem');
+        
+        if (savedSystem === 'sub') {
+            toggle.checked = true;
+            currentSystemText.textContent = '副系统';
+        } else {
+            toggle.checked = false;
+            currentSystemText.textContent = '主系统';
+        }
+        
+        console.log(`🔄 当前系统: ${savedSystem === 'sub' ? '副系统' : '主系统'}`);
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "apps": [{
+    "name": "okx-trade-collector",
+    "script": "collectors/okx_trade_history_collector.py",
+    "interpreter": "python3",
+    "cwd": "/home/user/webapp",
+    "instances": 1,
+    "autorestart": true,
+    "watch": false,
+    "max_memory_restart": "200M",
+    "cron_restart": "*/30 * * * *",
+    "error_file": "logs/okx-trade-collector-error.log",
+    "out_file": "logs/okx-trade-collector-out.log",
+    "log_date_format": "YYYY-MM-DD HH:mm:ss"
+  }]
+}

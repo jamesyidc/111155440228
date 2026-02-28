@@ -1,0 +1,2 @@
+/home/user/webapp/source_code/okx_trade_history_collector.py:49: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  timestamp = datetime.utcnow().isoformat(timespec='milliseconds') + 'Z'

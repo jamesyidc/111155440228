@@ -1,0 +1,50 @@
+{
+  "current_role": "primary",
+  "telegram_enabled": true,
+  "primary_system": {
+    "url": "",
+    "name": "主系统",
+    "enabled": true,
+    "last_check": null,
+    "last_success": null,
+    "consecutive_failures": 0,
+    "status": "unknown"
+  },
+  "secondary_systems": [
+    {
+      "url": "",
+      "name": "副系统1",
+      "enabled": false,
+      "last_check": null,
+      "last_success": null,
+      "consecutive_failures": 0,
+      "status": "unknown"
+    },
+    {
+      "url": "",
+      "name": "副系统2",
+      "enabled": false,
+      "last_check": null,
+      "last_success": null,
+      "consecutive_failures": 0,
+      "status": "unknown"
+    },
+    {
+      "url": "",
+      "name": "副系统3",
+      "enabled": false,
+      "last_check": null,
+      "last_success": null,
+      "consecutive_failures": 0,
+      "status": "unknown"
+    }
+  ],
+  "health_check": {
+    "interval_seconds": 180,
+    "timeout_seconds": 30,
+    "failure_threshold": 2,
+    "notify_on_failure": true
+  },
+  "last_update": null,
+  "last_notification": null
+}

@@ -1,0 +1,33 @@
+2026-02-28 07:56:46 +00:00: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2026-02-28 07:56:46 +00:00:  * Running on all addresses (0.0.0.0)
+2026-02-28 07:56:46 +00:00:  * Running on http://127.0.0.1:9002
+2026-02-28 07:56:46 +00:00:  * Running on http://169.254.0.21:9002
+2026-02-28 07:56:46 +00:00: [33mPress CTRL+C to quit[0m
+2026-02-28 07:57:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:57:00] "GET /api/coin-change-tracker/latest HTTP/1.1" 200 -
+2026-02-28 07:57:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:57:00] "GET /api/okx-accounts/list-with-credentials HTTP/1.1" 200 -
+2026-02-28 07:57:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:57:00] "GET /api/okx-trading/tpsl-settings/account_main HTTP/1.1" 200 -
+2026-02-28 07:57:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:57:00] "GET /api/okx-trading/check-allowed-takeprofit/account_main?posSide=long HTTP/1.1" 200 -
+2026-02-28 07:57:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:57:00] "GET /api/okx-trading/check-allowed-takeprofit/account_main?posSide=short HTTP/1.1" 200 -
+2026-02-28 07:57:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:57:00] "GET /api/okx-trading/tpsl-settings/account_fangfang12 HTTP/1.1" 200 -
+2026-02-28 07:57:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:57:00] "GET /api/okx-trading/check-allowed-takeprofit/account_fangfang12?posSide=long HTTP/1.1" 200 -
+2026-02-28 07:57:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:57:00] "GET /api/okx-trading/check-allowed-takeprofit/account_fangfang12?posSide=short HTTP/1.1" 200 -
+2026-02-28 07:57:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:57:00] "GET /api/okx-trading/tpsl-settings/account_anchor HTTP/1.1" 200 -
+2026-02-28 07:57:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:57:00] "GET /api/okx-trading/tpsl-settings/account_poit_main HTTP/1.1" 200 -
+2026-02-28 07:57:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:57:00] "GET /api/okx-trading/check-allowed-takeprofit/account_poit_main?posSide=long HTTP/1.1" 200 -
+2026-02-28 07:57:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:57:00] "GET /api/okx-trading/check-allowed-takeprofit/account_poit_main?posSide=short HTTP/1.1" 200 -
+2026-02-28 07:57:22 +00:00: 127.0.0.1 - - [28/Feb/2026 07:57:22] "GET / HTTP/1.1" 200 -
+2026-02-28 07:57:36 +00:00: 127.0.0.1 - - [28/Feb/2026 07:57:36] "[33mGET /api/dashboard/data HTTP/1.1[0m" 404 -
+2026-02-28 07:57:36 +00:00: 127.0.0.1 - - [28/Feb/2026 07:57:36] "GET /api/coin-change-tracker/latest HTTP/1.1" 200 -
+2026-02-28 07:57:46 +00:00: 127.0.0.1 - - [28/Feb/2026 07:57:46] "GET /api/okx-accounts/list-with-credentials HTTP/1.1" 200 -
+2026-02-28 07:58:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:58:00] "GET /api/coin-change-tracker/latest HTTP/1.1" 200 -
+2026-02-28 07:58:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:58:00] "GET /api/okx-accounts/list-with-credentials HTTP/1.1" 200 -
+2026-02-28 07:58:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:58:00] "GET /api/okx-trading/tpsl-settings/account_main HTTP/1.1" 200 -
+2026-02-28 07:58:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:58:00] "GET /api/okx-trading/check-allowed-takeprofit/account_main?posSide=long HTTP/1.1" 200 -
+2026-02-28 07:58:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:58:00] "GET /api/okx-trading/check-allowed-takeprofit/account_main?posSide=short HTTP/1.1" 200 -
+2026-02-28 07:58:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:58:00] "GET /api/okx-trading/tpsl-settings/account_fangfang12 HTTP/1.1" 200 -
+2026-02-28 07:58:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:58:00] "GET /api/okx-trading/check-allowed-takeprofit/account_fangfang12?posSide=long HTTP/1.1" 200 -
+2026-02-28 07:58:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:58:00] "GET /api/okx-trading/check-allowed-takeprofit/account_fangfang12?posSide=short HTTP/1.1" 200 -
+2026-02-28 07:58:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:58:00] "GET /api/okx-trading/tpsl-settings/account_anchor HTTP/1.1" 200 -
+2026-02-28 07:58:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:58:00] "GET /api/okx-trading/tpsl-settings/account_poit_main HTTP/1.1" 200 -
+2026-02-28 07:58:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:58:00] "GET /api/okx-trading/check-allowed-takeprofit/account_poit_main?posSide=long HTTP/1.1" 200 -
+2026-02-28 07:58:00 +00:00: 127.0.0.1 - - [28/Feb/2026 07:58:00] "GET /api/okx-trading/check-allowed-takeprofit/account_poit_main?posSide=short HTTP/1.1" 200 -
