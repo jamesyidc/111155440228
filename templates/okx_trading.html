@@ -1799,6 +1799,20 @@
             transition: .4s;
             border-radius: 50%;
         }
+        
+        /* 百分比止盈止损说明区域样式 */
+        details[open] summary span:first-child {
+            transform: rotate(90deg);
+        }
+        
+        details summary span:first-child {
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+        
+        details summary:hover {
+            background: rgba(99, 102, 241, 0.15);
+        }
     </style>
 </head>
 <body>
@@ -4055,9 +4069,30 @@ data/
                                 </div>
                             </div>
                         </div>
-                        <div style="margin-top: 8px; padding: 6px; background: rgba(99, 102, 241, 0.1); border-radius: 4px; font-size: 10px; color: #4338ca;">
-                            💡 监控器每10秒检查一次持仓，触发条件时自动平仓
-                        </div>
+                        
+                        <!-- 可收缩的说明区域 -->
+                        <details style="margin-top: 8px;">
+                            <summary style="cursor: pointer; padding: 6px; background: rgba(99, 102, 241, 0.1); border-radius: 4px; font-size: 11px; color: #4338ca; font-weight: 600; list-style: none; display: flex; align-items: center; gap: 4px;">
+                                <span style="transition: transform 0.2s;">▶</span>
+                                💡 说明
+                            </summary>
+                            <div style="margin-top: 6px; padding: 8px; background: white; border-radius: 4px; font-size: 10px; color: #4b5563; line-height: 1.6;">
+                                <div style="margin-bottom: 6px;">
+                                    <strong style="color: #374151;">📊 工作原理：</strong>
+                                </div>
+                                <ul style="margin: 0; padding-left: 20px; list-style: disc;">
+                                    <li>监控器每10秒检查一次持仓</li>
+                                    <li>计算公式：止盈 = 总保证金 × 百分比%</li>
+                                    <li>触发条件时自动平掉所有持仓</li>
+                                    <li>每个持仓只执行一次止盈或止损</li>
+                                    <li>执行记录保存到JSONL文件</li>
+                                    <li>完成后发送Telegram通知</li>
+                                </ul>
+                                <div style="margin-top: 8px; padding: 6px; background: rgba(251, 191, 36, 0.1); border-left: 2px solid #f59e0b; border-radius: 2px;">
+                                    <strong style="color: #92400e;">⚠️ 注意：</strong> 百分比止盈止损基于总保证金计算，与固定金额止盈止损独立运行
+                                </div>
+                            </div>
+                        </details>
                     </div>
                     
                     <!-- 百分比止盈止损设置 -->
