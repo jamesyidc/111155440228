@@ -318,6 +318,20 @@ module.exports = {
       error_file: '/home/user/webapp/logs/coin-change-predictor-error.log',
       out_file: '/home/user/webapp/logs/coin-change-predictor-out.log',
       log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
+    },
+    
+    // New High/Low Statistics Collector - 创新高创新低统计采集器
+    {
+      name: 'new-high-low-collector',
+      script: 'source_code/new_high_low_collector.py',
+      interpreter: 'python3',
+      cwd: '/home/user/webapp',
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '300M',
+      error_file: '/home/user/webapp/logs/new-high-low-error.log',
+      out_file: '/home/user/webapp/logs/new-high-low-out.log',
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
     }
   ]
 };

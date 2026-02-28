@@ -1,0 +1,13 @@
+{"time": "2026-02-28 20:47:43", "timestamp": 1772282863.0, "symbol": "BTC", "event_type": "new_low", "price": 63916.5, "previous_low": 64313.6, "previous_time": "2026-02-23 10:00:28"}
+{"time": "2026-02-28 20:47:43", "timestamp": 1772282863.0, "symbol": "XRP", "event_type": "new_low", "price": 1.2963, "previous_low": 1.3328, "previous_time": "2026-02-23 10:24:29"}
+{"time": "2026-02-28 20:47:43", "timestamp": 1772282863.0, "symbol": "DOGE", "event_type": "new_low", "price": 0.08869, "previous_low": 0.09165, "previous_time": "2026-02-23 09:22:49"}
+{"time": "2026-02-28 20:47:43", "timestamp": 1772282863.0, "symbol": "TRX", "event_type": "new_low", "price": 0.27915, "previous_low": 0.28011, "previous_time": "2026-02-17 21:53:18"}
+{"time": "2026-02-28 20:47:43", "timestamp": 1772282863.0, "symbol": "DOT", "event_type": "new_high", "price": 1.482, "previous_high": 1.395, "previous_time": "2026-02-21 17:21:49"}
+{"time": "2026-02-28 20:47:43", "timestamp": 1772282863.0, "symbol": "BCH", "event_type": "new_low", "price": 445.2, "previous_low": 538.6, "previous_time": "2026-02-23 12:38:02"}
+{"time": "2026-02-28 20:47:43", "timestamp": 1772282863.0, "symbol": "AAVE", "event_type": "new_low", "price": 106.27, "previous_low": 111.3, "previous_time": "2026-02-23 11:29:23"}
+{"time": "2026-02-28 20:47:43", "timestamp": 1772282863.0, "symbol": "LDO", "event_type": "new_low", "price": 0.2811, "previous_low": 0.2912, "previous_time": "2026-02-23 09:26:14"}
+{"time": "2026-02-28 20:47:43", "timestamp": 1772282863.0, "symbol": "OKB", "event_type": "new_low", "price": 73.71, "previous_low": 74.52, "previous_time": "2026-02-23 09:46:47"}
+{"time": "2026-02-28 20:47:43", "timestamp": 1772282863.0, "symbol": "CRO", "event_type": "new_low", "price": 0.07275, "previous_low": 0.07299, "previous_time": "2026-02-23 09:53:37"}
+{"time": "2026-02-28 20:47:43", "timestamp": 1772282863.0, "symbol": "TON", "event_type": "new_low", "price": 1.234, "previous_low": 1.305, "previous_time": "2026-02-23 09:46:47"}
+{"time": "2026-02-28 20:47:43", "timestamp": 1772282863.0, "symbol": "SUI", "event_type": "new_low", "price": 0.8341, "previous_low": 0.8621, "previous_time": "2026-02-23 10:00:28"}
+{"time": "2026-02-28 20:47:43", "timestamp": 1772282863.0, "symbol": "XLM", "event_type": "new_low", "price": 0.14902, "previous_low": 0.14928, "previous_time": "2026-02-23 09:29:39"}
