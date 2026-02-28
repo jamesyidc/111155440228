@@ -160,7 +160,7 @@ module.exports = {
     },
     {
       name: 'coin-change-tracker',
-      script: 'source_code/coin_change_tracker.py',
+      script: 'source_code/coin_change_tracker_collector.py',
       interpreter: 'python3',
       cwd: '/home/user/webapp',
       autorestart: true,
