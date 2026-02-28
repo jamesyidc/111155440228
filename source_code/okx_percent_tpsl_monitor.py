@@ -361,7 +361,9 @@ def main():
     while True:
         try:
             # 查找所有百分比止盈止损配置文件
+            print(f"🔍 扫描配置目录: {SETTINGS_DIR}")
             config_files = list(SETTINGS_DIR.glob('*_percent_tpsl.jsonl'))
+            print(f"📁 找到 {len(config_files)} 个配置文件")
             
             if not config_files:
                 print("⏳ 暂无百分比止盈止损配置，等待30秒...")
