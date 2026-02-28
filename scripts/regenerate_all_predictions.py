@@ -103,9 +103,10 @@ def analyze_date(date_str):
         elif green > 0 and red == 0 and yellow == 0 and blank == 0:
             signal = "诱多不参与"
             description = "🟢 全部绿色柱子，单边诱多行情，不参与操作。操作提示：不参与"
-        # 情况5: 只有红色+空白（无绿无黄）且空白占比<25%（诱空）- 允许做多不允许做空
-        # 判断：green=0且yellow=0且red>0且blank_ratio<25%
-        elif green == 0 and yellow == 0 and red > 0 and blank_ratio < 25:
+        # 情况5: 只有红色+空白（无绿无黄）且 blank>0 且空白占比<25%（诱空）- 允许做多不允许做空
+        # 判断：green=0且yellow=0且red>0且blank>0且blank_ratio<25%
+        # ⭐ 关键：必须有空白（blank>0），纯红色不算诱空
+        elif green == 0 and yellow == 0 and red > 0 and blank > 0 and blank_ratio < 25:
             signal = "诱空试盘抄底"
             description = f"⚪🔴 只有红色和空白（空白占比{blank_ratio:.1f}%<25%），诱空行情，可以试盘抄底。操作提示：低点做多"
         # 情况3: 只有红色或红色+空白且空白>=25%（做空）- 允许做空不允许做多

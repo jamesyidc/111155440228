@@ -778,3 +778,47 @@
 [2026-02-28 09:25:23] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
 [2026-02-28 09:25:25] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
 [2026-02-28 09:25:27] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 09:26:27] 🔍 开始检查见底信号...
+[2026-02-28 09:26:27] ✅ 获取账户列表成功: 4 个账户
+[2026-02-28 09:26:27] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 09:26:29] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:26:31] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 09:26:33] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:26:35] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:26:37] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:26:39] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 09:26:41] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:26:43] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 09:27:43] 🔍 开始检查见底信号...
+[2026-02-28 09:27:43] ✅ 获取账户列表成功: 4 个账户
+[2026-02-28 09:27:43] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 09:27:45] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:27:47] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 09:27:49] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:27:51] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:27:53] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:27:55] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 09:27:57] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:27:59] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 09:28:59] 🔍 开始检查见底信号...
+[2026-02-28 09:28:59] ✅ 获取账户列表成功: 4 个账户
+[2026-02-28 09:28:59] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 09:29:01] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:29:03] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 09:29:05] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:29:07] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:29:09] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:29:11] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 09:29:13] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:29:15] ⏳ 等待 60秒 后下次检查...
+[2026-02-28 09:30:15] 🔍 开始检查见底信号...
+[2026-02-28 09:30:15] ✅ 获取账户列表成功: 4 个账户
+[2026-02-28 09:30:15] ✅ [account_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 09:30:17] ✅ [account_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:30:19] ✅ [account_fangfang12/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 09:30:21] ✅ [account_fangfang12/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:30:23] ✅ [account_anchor/top8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:30:25] ✅ [account_anchor/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:30:27] ✅ [account_poit_main/top8_long] 加载配置成功: RSI<500, 限额5.0U
+[2026-02-28 09:30:29] ✅ [account_poit_main/bottom8_long] 加载配置成功: RSI<800, 限额5.0U
+[2026-02-28 09:30:31] ⏳ 等待 60秒 后下次检查...
