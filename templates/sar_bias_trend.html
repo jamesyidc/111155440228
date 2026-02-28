@@ -852,7 +852,7 @@ curl localhost:5000/api/sar-slope/bias-ratios
         
         <div class="update-info">
             最后更新: <span id="lastUpdate">-</span> (北京时间) | 
-            数据每5分钟自动更新，每页显示24小时（一天）数据
+            <span id="autoRefreshText">数据每5分钟自动更新，每页显示24小时（一天）数据</span>
         </div>
     </div>
     
@@ -861,6 +861,8 @@ curl localhost:5000/api/sar-slope/bias-ratios
         let currentPage = 1;
         let totalPages = 1;
         let updateInterval = null;
+        let countdownInterval = null;
+        let nextUpdateTime = null;
         
         // 初始化图表
         function initChart() {
@@ -1005,6 +1007,44 @@ curl localhost:5000/api/sar-slope/bias-ratios
         }
         
         // 加载当前偏多/偏空 >80% 的统计（后端已计算，前端直接使用）
+        
+        // 更新倒计时显示
+        function updateCountdown() {
+            if (!nextUpdateTime || currentPage !== 1) {
+                document.getElementById('autoRefreshText').textContent = '数据每5分钟自动更新，每页显示24小时（一天）数据';
+                return;
+            }
+            
+            const now = Date.now();
+            const remaining = Math.max(0, Math.floor((nextUpdateTime - now) / 1000));
+            
+            if (remaining === 0) {
+                document.getElementById('autoRefreshText').textContent = '正在刷新数据...';
+            } else {
+                const minutes = Math.floor(remaining / 60);
+                const seconds = remaining % 60;
+                document.getElementById('autoRefreshText').textContent = 
+                    `下次自动刷新: ${minutes}分${seconds}秒 | 数据每5分钟自动更新`;
+            }
+        }
+        
+        // 启动倒计时
+        function startCountdown() {
+            // 清除旧的倒计时
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+            }
+            
+            // 设置下次更新时间（5分钟后）
+            nextUpdateTime = Date.now() + 300000;
+            
+            // 立即更新一次
+            updateCountdown();
+            
+            // 每秒更新倒计时
+            countdownInterval = setInterval(updateCountdown, 1000);
+        }
+        
         async function loadCurrentBiasStats() {
             try {
                 // 调用批量API获取所有币种的2小时周期占比（后端已筛选 >80%）
@@ -1129,6 +1169,11 @@ curl localhost:5000/api/sar-slope/bias-ratios
                         
                         console.log(`✅ 趋势数据已更新: 第${currentPage}页, ${data.data.length} 个数据点`);
                         
+                        // 启动倒计时（仅第1页）
+                        if (page === 1) {
+                            startCountdown();
+                        }
+                        
                         // 更新当天统计（从API返回的daily_stats字段）
                         if (data.daily_stats) {
                             document.getElementById('totalBullishPoints').textContent = data.daily_stats.total_bullish;
@@ -1213,10 +1258,14 @@ curl localhost:5000/api/sar-slope/bias-ratios
         // 上一页 (更早的数据)
         function previousPage() {
             if (currentPage < totalPages) {
-                // 停止自动更新
+                // 停止自动更新和倒计时
                 if (updateInterval) {
                     clearInterval(updateInterval);
                     updateInterval = null;
+                }
+                if (countdownInterval) {
+                    clearInterval(countdownInterval);
+                    countdownInterval = null;
                 }
                 loadTrendData(currentPage + 1);
             }
@@ -1341,6 +1390,9 @@ curl localhost:5000/api/sar-slope/bias-ratios
         window.addEventListener('beforeunload', () => {
             if (updateInterval) {
                 clearInterval(updateInterval);
+            }
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
             }
             if (chart) {
                 chart.dispose();
