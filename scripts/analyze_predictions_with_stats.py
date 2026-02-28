@@ -71,8 +71,16 @@ def analyze_predictions_with_stats():
     # 按信号分组
     signal_groups = defaultdict(list)
     
-    # 遍历2月份的所有预判文件
-    for day in range(1, 25):  # 2月1日-24日
+    # 遍历2月份的所有预判文件（动态获取到今天）
+    from datetime import date
+    today = date.today()
+    # 如果是2月份，统计到今天；否则统计到2月29日
+    if today.month == 2 and today.year == 2026:
+        last_day = today.day
+    else:
+        last_day = 29  # 2026年2月有29天（闰年）
+    
+    for day in range(1, last_day + 1):  # 2月1日到最后一天
         date_str = f"2026-02-{day:02d}"
         prediction_file = PREDICTIONS_DIR / f"prediction_{date_str}.json"
         
@@ -181,9 +189,12 @@ def analyze_predictions_with_stats():
     # 保存统计结果
     output_file = PREDICTIONS_DIR / "predictions_with_stats.json"
     
+    # 动态计算period（使用实际统计到的最后一天）
+    period_end = f"2026-02-{last_day:02d}"
+    
     summary = {
         'analysis_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-        'period': '2026-02-01 to 2026-02-24',
+        'period': f'2026-02-01 to {period_end}',
         'total_days': total_days,
         'signal_groups': {
             signal: [
