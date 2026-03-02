@@ -4669,49 +4669,55 @@ data/
                     </h3>
                     
                     <!-- 当前27币数据 -->
-                    <div style="padding: 10px; background: rgba(251, 191, 36, 0.15); border-radius: 8px; border: 1px solid #f59e0b; margin-bottom: 10px;">
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                            <span style="color: #92400e; font-weight: 600; font-size: 13px;">📊 27币涨跌幅之和</span>
-                            <span style="font-size: 18px; font-weight: 700;" id="coinChangeTotalDisplay">--</span>
-                        </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-top: 8px;">
-                            <div style="padding: 6px; background: rgba(16, 185, 129, 0.1); border-radius: 4px; border-left: 2px solid #10b981;">
-                                <div style="font-size: 9px; color: #065f46; margin-bottom: 2px;">📈 上涨币种</div>
-                                <div id="coinChangeUpCount" style="font-size: 14px; font-weight: 700; color: #059669;">--</div>
-                            </div>
-                            <div style="padding: 6px; background: rgba(239, 68, 68, 0.1); border-radius: 4px; border-left: 2px solid #ef4444;">
-                                <div style="font-size: 9px; color: #991b1b; margin-bottom: 2px;">📉 下跌币种</div>
-                                <div id="coinChangeDownCount" style="font-size: 14px; font-weight: 700; color: #dc2626;">--</div>
-                            </div>
-                            <div style="padding: 6px; background: rgba(59, 130, 246, 0.1); border-radius: 4px; border-left: 2px solid #3b82f6;">
-                                <div style="font-size: 9px; color: #1e3a8a; margin-bottom: 2px;">⏰ 更新时间</div>
-                                <div id="coinChangeUpdateTime" style="font-size: 10px; font-weight: 600; color: #1e40af;">--</div>
+                    <div style="padding: 12px; background: rgba(251, 191, 36, 0.15); border-radius: 8px; border: 1px solid #f59e0b; margin-bottom: 12px;">
+                        <!-- 涨跌幅之和 - 大号显示 -->
+                        <div style="text-align: center; padding: 12px; background: rgba(255, 255, 255, 0.7); border-radius: 6px; margin-bottom: 10px;">
+                            <div style="color: #92400e; font-size: 11px; font-weight: 600; margin-bottom: 4px;">📊 27币涨跌幅之和</div>
+                            <div style="font-size: 28px; font-weight: 700; font-family: 'Courier New', monospace;" id="coinChangeTotalDisplay">--</div>
+                            <div style="margin-top: 8px; font-size: 11px; color: #92400e; opacity: 0.8;">
+                                <span>📈 <span id="coinChangeUpCount" style="font-weight: 700; color: #059669;">--</span></span>
+                                <span style="margin: 0 8px;">|</span>
+                                <span>📉 <span id="coinChangeDownCount" style="font-weight: 700; color: #dc2626;">--</span></span>
+                                <span style="margin: 0 8px;">|</span>
+                                <span>⏰ <span id="coinChangeUpdateTime" style="font-weight: 600;">--</span></span>
                             </div>
                         </div>
                         
-                        <!-- 止盈配置状态总览 -->
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px;">
-                            <!-- 空单止盈状态 -->
-                            <div style="padding: 8px; background: rgba(220, 38, 38, 0.08); border-radius: 6px; border: 1px solid rgba(220, 38, 38, 0.2);">
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                                    <span style="font-size: 10px; color: #991b1b; font-weight: 600;">📉 空单止盈</span>
-                                    <span id="coinChangeShortTpStatusBadge" style="font-size: 9px; padding: 2px 6px; border-radius: 3px; background: rgba(156, 163, 175, 0.2); color: #6b7280; font-weight: 600;">⭕ 未启用</span>
+                        <!-- 止盈配置状态总览 - 大卡片样式 -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <!-- 空单止盈状态 - 放大版 -->
+                            <div style="padding: 12px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.1) 100%); border-radius: 8px; border: 2px solid rgba(220, 38, 38, 0.3); position: relative;">
+                                <div style="position: absolute; top: 8px; right: 8px;">
+                                    <span id="coinChangeShortTpStatusBadge" style="font-size: 10px; padding: 3px 8px; border-radius: 4px; background: rgba(156, 163, 175, 0.3); color: #6b7280; font-weight: 700;">⭕ 未启用</span>
                                 </div>
-                                <div style="display: flex; align-items: center; justify-content: space-between;">
-                                    <span style="font-size: 9px; color: #991b1b;">目标值：</span>
-                                    <span id="coinChangeShortTpTargetDisplay" style="font-size: 13px; font-weight: 700; color: #dc2626;">--</span>
+                                <div style="margin-bottom: 8px;">
+                                    <div style="font-size: 14px; color: #991b1b; font-weight: 700; display: flex; align-items: center; gap: 4px;">
+                                        <span style="font-size: 20px;">🩸</span>
+                                        <span>做空止盈</span>
+                                    </div>
+                                    <div style="font-size: 10px; color: #991b1b; opacity: 0.7; margin-top: 2px;">跌破阈值自动平空单</div>
+                                </div>
+                                <div style="background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 6px; border-left: 3px solid #dc2626;">
+                                    <div style="font-size: 10px; color: #991b1b; margin-bottom: 4px;">触发阈值</div>
+                                    <div style="font-size: 24px; font-weight: 700; color: #dc2626; font-family: 'Courier New', monospace;" id="coinChangeShortTpTargetDisplay">--</div>
                                 </div>
                             </div>
                             
-                            <!-- 多单止盈状态 -->
-                            <div style="padding: 8px; background: rgba(16, 185, 129, 0.08); border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.2);">
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                                    <span style="font-size: 10px; color: #065f46; font-weight: 600;">📈 多单止盈</span>
-                                    <span id="coinChangeLongTpStatusBadge" style="font-size: 9px; padding: 2px 6px; border-radius: 3px; background: rgba(156, 163, 175, 0.2); color: #6b7280; font-weight: 600;">⭕ 未启用</span>
+                            <!-- 多单止盈状态 - 放大版 -->
+                            <div style="padding: 12px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.1) 100%); border-radius: 8px; border: 2px solid rgba(16, 185, 129, 0.3); position: relative;">
+                                <div style="position: absolute; top: 8px; right: 8px;">
+                                    <span id="coinChangeLongTpStatusBadge" style="font-size: 10px; padding: 3px 8px; border-radius: 4px; background: rgba(156, 163, 175, 0.3); color: #6b7280; font-weight: 700;">⭕ 未启用</span>
                                 </div>
-                                <div style="display: flex; align-items: center; justify-content: space-between;">
-                                    <span style="font-size: 9px; color: #065f46;">目标值：</span>
-                                    <span id="coinChangeLongTpTargetDisplay" style="font-size: 13px; font-weight: 700; color: #10b981;">--</span>
+                                <div style="margin-bottom: 8px;">
+                                    <div style="font-size: 14px; color: #065f46; font-weight: 700; display: flex; align-items: center; gap: 4px;">
+                                        <span style="font-size: 20px;">🚀</span>
+                                        <span>做多止盈</span>
+                                    </div>
+                                    <div style="font-size: 10px; color: #065f46; opacity: 0.7; margin-top: 2px;">突破阈值自动平多单</div>
+                                </div>
+                                <div style="background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 6px; border-left: 3px solid #10b981;">
+                                    <div style="font-size: 10px; color: #065f46; margin-bottom: 4px;">触发阈值</div>
+                                    <div style="font-size: 24px; font-weight: 700; color: #10b981; font-family: 'Courier New', monospace;" id="coinChangeLongTpTargetDisplay">--</div>
                                 </div>
                             </div>
                         </div>
