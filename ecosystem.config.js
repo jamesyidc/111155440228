@@ -430,6 +430,23 @@ module.exports = {
       error_file: '/home/user/webapp/logs/new-high-low-error.log',
       out_file: '/home/user/webapp/logs/new-high-low-out.log',
       log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
+    },
+    
+    // Coin Change Conditional Order Monitor - 27币涨跌幅条件单监控器
+    {
+      name: 'coin-change-conditional-order-monitor',
+      script: 'monitors/coin_change_conditional_order_monitor.py',
+      interpreter: 'python3',
+      cwd: '/home/user/webapp',
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '300M',
+      env: {
+        PYTHONPATH: '/home/user/webapp'
+      },
+      error_file: '/home/user/webapp/logs/coin-change-conditional-order-error.log',
+      out_file: '/home/user/webapp/logs/coin-change-conditional-order-out.log',
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
     }
   ]
 };

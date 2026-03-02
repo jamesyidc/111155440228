@@ -7,10 +7,50 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <title>27币涨跌幅追踪系统 v3.6.1</title>
+    <!-- 🔥 强制版本更新 2026-03-02 -->
+    <meta name="version" content="3.6.3-20260302-cache-fix">
+    <meta http-equiv="last-modified" content="2026-03-02T16:30:00+08:00">
+    <title>27币涨跌幅追踪系统 v3.6.3</title>
+    
+    <!-- 🔥 立即清除所有缓存和Service Worker -->
+    <script>
+    (function() {
+        // 1. 清除localStorage和sessionStorage
+        try {
+            localStorage.clear();
+            sessionStorage.clear();
+            console.log('✅ 已清除localStorage和sessionStorage');
+        } catch(e) {
+            console.warn('⚠️ 清除storage失败:', e);
+        }
+        
+        // 2. 注销所有Service Workers
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                    console.log('✅ 已注销Service Worker:', registration.scope);
+                }
+            }).catch(function(err) {
+                console.warn('⚠️ 注销Service Worker失败:', err);
+            });
+        }
+        
+        // 3. 清除所有缓存
+        if ('caches' in window) {
+            caches.keys().then(function(names) {
+                for(let name of names) {
+                    caches.delete(name);
+                    console.log('✅ 已清除缓存:', name);
+                }
+            }).catch(function(err) {
+                console.warn('⚠️ 清除缓存失败:', err);
+            });
+        }
+        
+        console.log('🔥 缓存清理脚本已执行 - v3.6.3');
+    })();
+    </script>
     <!-- 
     ============================================================
     版本: 2026-02-28 v3.6.1 (修复27币涨跌幅之和线条显示问题 + 优化8种情况预判逻辑)
@@ -471,6 +511,13 @@
         }
     </style>
     
+    <!-- 🔥 版本信息横幅 - 帮助用户确认是否加载了最新版本 -->
+    <div id="versionBanner" style="position: fixed; top: 0; left: 0; right: 0; background: linear-gradient(90deg, #10b981 0%, #059669 100%); color: white; text-align: center; padding: 8px; z-index: 10000; font-size: 14px; font-weight: bold; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+        ✅ 已加载最新版本 v3.6.3 (缓存已清除) - 2026-03-02
+        <button onclick="this.parentElement.style.display='none'" style="float: right; background: rgba(255,255,255,0.2); border: none; color: white; padding: 2px 10px; border-radius: 4px; cursor: pointer; margin-right: 20px; font-size: 12px;">关闭</button>
+    </div>
+    <div style="height: 40px;"></div> <!-- Spacer for fixed banner -->
+    
     <!-- 导航栏 -->
     <nav class="bg-white shadow-lg mb-6">
         <div class="container mx-auto px-4 py-4">
@@ -493,6 +540,10 @@
                         <button onclick="forceRefreshData()" class="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-500 to-green-600 text-white text-sm rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 shadow-md hover:shadow-lg" title="刷新数据，保留页面状态">
                             <i class="fas fa-sync-alt mr-1"></i>
                             刷新数据
+                        </button>
+                        <button onclick="clearCacheAndReload()" class="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-sm rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 shadow-md hover:shadow-lg" title="清除所有缓存并重新加载">
+                            <i class="fas fa-trash-alt mr-1"></i>
+                            清除缓存
                         </button>
                     </div>
                 </div>
@@ -3237,6 +3288,42 @@ pm2 status                                                # 查看所有进程�
                 </div>
             </div>
             
+            <!-- 二级触发信息 (仅当信号为低吸且有二级触发数据时显示) -->
+            <div id="secondTriggerSection" class="mt-4 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg p-4 shadow-md border-2 border-orange-300" style="display: none;">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-sm font-bold text-orange-800 flex items-center">
+                        <i class="fas fa-bolt text-orange-600 mr-2"></i>
+                        🔔 二级触发 (2点后分析)
+                    </h3>
+                    <span id="secondTriggerStatus" class="px-2 py-1 rounded-full text-xs font-semibold">--</span>
+                </div>
+                
+                <!-- 触发状态 -->
+                <div id="secondTriggerTriggered" class="mb-3" style="display: none;">
+                    <div class="flex items-center space-x-2 mb-2">
+                        <span class="text-xs text-gray-600">✅ 已触发</span>
+                        <span id="secondTriggerAction" class="px-3 py-1 rounded-lg text-sm font-bold">--</span>
+                    </div>
+                    <div class="bg-white rounded-lg p-3 border-l-4 border-orange-400">
+                        <div class="text-xs text-gray-600 mb-1">📊 2点后前三根柱子：</div>
+                        <div id="secondTriggerBars" class="text-sm font-semibold text-gray-800 mb-2">--</div>
+                        <div id="secondTriggerDescription" class="text-xs text-gray-700">--</div>
+                    </div>
+                </div>
+                
+                <!-- 未触发状态 -->
+                <div id="secondTriggerNotTriggered" class="text-xs text-gray-600" style="display: none;">
+                    <i class="fas fa-info-circle text-blue-600 mr-1"></i>
+                    <span id="secondTriggerNotTriggeredReason">--</span>
+                </div>
+                
+                <!-- 等待检查 -->
+                <div id="secondTriggerPending" class="text-xs text-gray-600" style="display: none;">
+                    <i class="fas fa-clock text-orange-600 mr-1"></i>
+                    将在2:30后检查2点后三根柱子，判断立即做多或等跌后做多
+                </div>
+            </div>
+            
             <!-- 相似历史日期 -->
             <div id="similarDaysSection" class="mt-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border-2 border-green-200 overflow-hidden">
                 <button onclick="toggleSimilarDays()" class="w-full px-4 py-3 flex items-center justify-between hover:bg-green-100 transition-all duration-200">
@@ -5318,6 +5405,15 @@ pm2 status                                                # 查看所有进程�
             document.getElementById('predictionSignal').textContent = signal;
             document.getElementById('predictionTime').textContent = `分析时间: ${timestamp}`;
             
+            // 🔥 添加日志确认信号更新
+            console.log('🎯 预测卡片更新:', {
+                date: date,
+                signal: signal,
+                green: colorCounts.green,
+                red: colorCounts.red,
+                yellow: colorCounts.yellow
+            });
+            
             // 更新计算过程显示
             const greenCount = colorCounts.green || 0;
             const redCount = colorCounts.red || 0;
@@ -5352,7 +5448,78 @@ pm2 status                                                # 查看所有进程�
             }
             document.getElementById('predictionPattern').textContent = pattern;
             
+            // 🔔 显示二级触发信息（如果有）
+            displaySecondTriggerInfo(predictionData);
+            
             console.log('✅ 预判数据更新完成:', signal, '已保存到window.dailyPredictionData');
+        }
+        
+        // 🔔 显示二级触发信息
+        function displaySecondTriggerInfo(predictionData) {
+            const signal = predictionData.signal || '';
+            const secondTrigger = predictionData.second_trigger;
+            const secondTriggerSection = document.getElementById('secondTriggerSection');
+            
+            // 如果不是低吸信号，隐藏二级触发区域
+            if (signal !== '低吸') {
+                secondTriggerSection.style.display = 'none';
+                return;
+            }
+            
+            // 显示二级触发区域
+            secondTriggerSection.style.display = 'block';
+            
+            // 如果没有二级触发数据，显示等待检查
+            if (!secondTrigger) {
+                document.getElementById('secondTriggerPending').style.display = 'block';
+                document.getElementById('secondTriggerTriggered').style.display = 'none';
+                document.getElementById('secondTriggerNotTriggered').style.display = 'none';
+                document.getElementById('secondTriggerStatus').textContent = '⏳ 待检查';
+                document.getElementById('secondTriggerStatus').className = 'px-2 py-1 rounded-full text-xs font-semibold bg-gray-200 text-gray-700';
+                return;
+            }
+            
+            // 有二级触发数据
+            document.getElementById('secondTriggerPending').style.display = 'none';
+            
+            if (secondTrigger.triggered) {
+                // 已触发
+                document.getElementById('secondTriggerTriggered').style.display = 'block';
+                document.getElementById('secondTriggerNotTriggered').style.display = 'none';
+                document.getElementById('secondTriggerStatus').textContent = '✅ 已触发';
+                document.getElementById('secondTriggerStatus').className = 'px-2 py-1 rounded-full text-xs font-semibold bg-green-200 text-green-800';
+                
+                // 操作建议
+                const actionEl = document.getElementById('secondTriggerAction');
+                if (secondTrigger.action === 'immediate_long') {
+                    actionEl.textContent = '🚀 立即做多';
+                    actionEl.className = 'px-3 py-1 rounded-lg text-sm font-bold bg-green-500 text-white';
+                } else if (secondTrigger.action === 'wait_dip_then_long') {
+                    actionEl.textContent = '⏳ 等跌后做多';
+                    actionEl.className = 'px-3 py-1 rounded-lg text-sm font-bold bg-orange-500 text-white';
+                }
+                
+                // 柱子颜色
+                const bars = secondTrigger.bars || [];
+                const barEmojis = bars.map(color => {
+                    if (color === 'green') return '🟢';
+                    if (color === 'red') return '🔴';
+                    if (color === 'yellow') return '🟡';
+                    if (color === 'blank') return '⚪';
+                    return '⚫';
+                }).join(' ');
+                document.getElementById('secondTriggerBars').textContent = barEmojis + ' ' + bars.join('/');
+                
+                // 描述
+                document.getElementById('secondTriggerDescription').textContent = secondTrigger.description || '';
+            } else {
+                // 未触发
+                document.getElementById('secondTriggerTriggered').style.display = 'none';
+                document.getElementById('secondTriggerNotTriggered').style.display = 'block';
+                document.getElementById('secondTriggerStatus').textContent = '⭕ 未触发';
+                document.getElementById('secondTriggerStatus').className = 'px-2 py-1 rounded-full text-xs font-semibold bg-gray-200 text-gray-700';
+                document.getElementById('secondTriggerNotTriggeredReason').textContent = secondTrigger.description || '2点后柱子组合不满足触发条件';
+            }
         }
         
         // 分析预判数据
@@ -6539,6 +6706,9 @@ pm2 status                                                # 查看所有进程�
         // 更新历史趋势（支持指定日期）
         async function updateHistoryData(date = null) {
             try {
+                // 🔥 在函数开始处声明日期变量，确保整个函数作用域可用
+                const currentDate = date ? formatDate(date) : new Date().toISOString().split('T')[0];
+                
                 // 如果指定了日期，则查询特定日期的数据
                 let url = '/api/coin-change-tracker/history?limit=1440';
                 if (date) {
@@ -6567,7 +6737,6 @@ pm2 status                                                # 查看所有进程�
                 
                 if (result.success && result.data && result.data.length > 0) {
                     // 🔥 过滤数据：只保留当天0点之后的数据，排除前一天的数据
-                    const currentDate = date ? formatDate(date) : new Date().toISOString().split('T')[0];
                     const rawData = result.data;
                     
                     historyData = rawData.filter(item => {
@@ -6945,6 +7114,16 @@ pm2 status                                                # 查看所有进程�
                     
                     try {
                         trendChart.setOption({
+                        title: {
+                            text: currentDate ? `日期: ${currentDate}` : '',
+                            left: 'left',
+                            top: 5,
+                            textStyle: {
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                color: '#1F2937'
+                            }
+                        },
                         tooltip: {
                             trigger: 'axis',
                             axisPointer: {
@@ -8427,7 +8606,7 @@ pm2 status                                                # 查看所有进程�
                     updateWavePeakDetails(wavePeaksData, currentState);
                     
                     // 更新10分钟上涨占比柱状图
-                    update10MinUpRatioBarChart(historyData);
+                    update10MinUpRatioBarChart(historyData, currentDate);
                 } else {
                     console.warn('历史数据为空或加载失败');
                     console.warn('Result:', result);
@@ -8507,10 +8686,16 @@ pm2 status                                                # 查看所有进程�
         }
         
         // 更新10分钟上涨占比柱状图
-        function update10MinUpRatioBarChart(data) {
+        function update10MinUpRatioBarChart(data, displayDate) {
             if (!upRatioBarChart || !data || data.length === 0) {
                 console.warn('柱状图实例不存在或数据为空');
                 return;
+            }
+            
+            // 格式化日期显示
+            let dateStr = '';
+            if (displayDate) {
+                dateStr = typeof displayDate === 'string' ? displayDate : formatDate(displayDate);
             }
             
             console.log(`📊 原始数据总数: ${data.length} 条`);
@@ -8651,6 +8836,14 @@ pm2 status                                                # 查看所有进程�
                 const signal = window.dailyPredictionData.signal || '';
                 const description = window.dailyPredictionData.description || '';
                 
+                // 🔥 添加详细日志，帮助调试
+                console.log('🎯 柱状图标注数据:', {
+                    date: window.dailyPredictionData.date,
+                    signal: signal,
+                    description: description,
+                    dateParam: dateStr
+                });
+                
                 // 根据信号设置颜色
                 let signalColor = '#6B7280';
                 if (signal === '诱空试盘抄底') signalColor = '#10B981';
@@ -8722,6 +8915,16 @@ pm2 status                                                # 查看所有进程�
             
             // 更新柱状图
             const chartOption = {
+                title: {
+                    text: dateStr ? `日期: ${dateStr}` : '',
+                    left: 'left',
+                    top: 5,
+                    textStyle: {
+                        fontSize: 14,
+                        fontWeight: 'bold',
+                        color: '#1F2937'
+                    }
+                },
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {
@@ -8770,7 +8973,7 @@ pm2 status                                                # 查看所有进程�
                     left: '3%',
                     right: '4%',
                     bottom: '10%',
-                    top: predictionAnnotation ? '20%' : '10%',  // 如果有预判标注，增加顶部空间
+                    top: predictionAnnotation ? '25%' : (dateStr ? '15%' : '10%'),  // 为标题和预判标注留出空间
                     containLabel: true
                 },
                 xAxis: {
@@ -8915,6 +9118,77 @@ pm2 status                                                # 查看所有进程�
                     btn.innerHTML = '<i class="fas fa-sync-alt mr-1"></i>刷新数据';
                     btn.classList.remove('from-red-500', 'to-red-600');
                     btn.classList.add('from-green-500', 'to-green-600');
+                    icon.classList.remove('fa-spin');
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                }, 2000);
+            }
+        }
+        
+        // 清除所有缓存并重新加载
+        async function clearCacheAndReload() {
+            const btn = event.currentTarget;
+            const icon = btn.querySelector('i');
+            
+            // 显示加载动画
+            icon.classList.add('fa-spin');
+            btn.disabled = true;
+            btn.classList.add('opacity-75', 'cursor-not-allowed');
+            
+            console.log('🗑️ 用户请求清除所有缓存...');
+            
+            try {
+                let clearedCount = 0;
+                
+                // 清除 Service Worker 缓存
+                if ('caches' in window) {
+                    const cacheNames = await caches.keys();
+                    console.log(`找到 ${cacheNames.length} 个缓存`);
+                    for (const name of cacheNames) {
+                        await caches.delete(name);
+                        console.log(`已删除缓存: ${name}`);
+                        clearedCount++;
+                    }
+                }
+                
+                // 清除 localStorage
+                localStorage.clear();
+                console.log('已清除 localStorage');
+                
+                // 清除 sessionStorage
+                sessionStorage.clear();
+                console.log('已清除 sessionStorage');
+                
+                // 清除全局预判数据
+                window.dailyPredictionData = null;
+                console.log('已清除全局预判数据');
+                
+                console.log(`✅ 已清除 ${clearedCount} 个缓存！`);
+                
+                // 显示成功提示
+                btn.innerHTML = '<i class="fas fa-check mr-1"></i>已清除';
+                btn.classList.remove('from-orange-500', 'to-orange-600');
+                btn.classList.add('from-emerald-500', 'to-emerald-600');
+                
+                // 1秒后强制刷新页面
+                setTimeout(() => {
+                    console.log('🔄 正在强制刷新页面...');
+                    window.location.reload(true);  // 强制从服务器重新加载
+                }, 1000);
+                
+            } catch (error) {
+                console.error('❌ 清除缓存失败:', error);
+                
+                // 显示错误提示
+                btn.innerHTML = '<i class="fas fa-times mr-1"></i>清除失败';
+                btn.classList.remove('from-orange-500', 'to-orange-600');
+                btn.classList.add('from-red-500', 'to-red-600');
+                
+                // 2秒后恢复按钮状态
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-trash-alt mr-1"></i>清除缓存';
+                    btn.classList.remove('from-red-500', 'to-red-600');
+                    btn.classList.add('from-orange-500', 'to-orange-600');
                     icon.classList.remove('fa-spin');
                     btn.disabled = false;
                     btn.classList.remove('opacity-75', 'cursor-not-allowed');
@@ -10040,14 +10314,18 @@ pm2 status                                                # 查看所有进程�
         }
         
         // 切换到前一天
-        function goToPrevDay() {
+        async function goToPrevDay() {
             currentDate.setDate(currentDate.getDate() - 1);
+            console.log(`🔄 切换到前一天: ${formatDate(currentDate)}`);
             updateDateSelector();
-            updateHistoryData(currentDate);
+            await updateHistoryData(currentDate);
+            
+            // 延迟加载非关键数据
+            setTimeout(() => loadSentimentHistory(), 500);
         }
         
         // 切换到后一天
-        function goToNextDay() {
+        async function goToNextDay() {
             const today = new Date();
             const nextDay = new Date(currentDate);
             nextDay.setDate(nextDay.getDate() + 1);
@@ -10055,17 +10333,31 @@ pm2 status                                                # 查看所有进程�
             // 不能超过今天
             if (formatDate(nextDay) <= formatDate(today)) {
                 currentDate = nextDay;
+                console.log(`🔄 切换到后一天: ${formatDate(currentDate)}`);
                 updateDateSelector();
-                updateHistoryData(currentDate);
+                await updateHistoryData(currentDate);
+                
+                // 延迟加载非关键数据
+                setTimeout(() => loadSentimentHistory(), 500);
             }
         }
         
         // 切换到今天
-        function goToToday() {
-            currentDate = new Date();
+        async function goToToday() {
+            const today = new Date();
+            currentDate = today;
+            console.log(`🔄 切换到今天: ${formatDate(currentDate)}`);
             updateDateSelector();
-            updateLatestData();
-            updateHistoryData();
+            
+            // 先更新实时数据
+            await updateLatestData();
+            
+            // 再更新历史数据，明确传递今天的日期
+            await updateHistoryData(today);
+            
+            // 延迟加载非关键数据
+            setTimeout(() => loadMarketSentiment(), 500);
+            setTimeout(() => loadSentimentHistory(), 1000);
         }
         
         // 手动选择日期
@@ -10077,16 +10369,25 @@ pm2 status                                                # 查看所有进程�
             if (selectedDate <= today) {
                 currentDate = selectedDate;
                 updateDateSelector();
+                
+                // 🔥 优化：只立即加载核心数据（历史图表）
                 updateHistoryData(currentDate);
                 
-                // 🆕 同时刷新市场情绪历史数据
-                loadSentimentHistory();
+                // 🔥 优化：延迟加载非关键数据，避免阻塞
+                setTimeout(() => {
+                    // 🆕 刷新市场情绪历史数据（延迟500ms）
+                    loadSentimentHistory().catch(err => {
+                        console.warn('⚠️ 市场情绪加载失败（非关键数据）:', err);
+                    });
+                }, 500);
                 
-                // 🆕 刷新相似历史日期
-                const dateStr = formatDate(currentDate);
-                loadSimilarDays(dateStr).catch(err => {
-                    console.warn('⚠️ 相似日期加载失败（非关键数据）:', err);
-                });
+                setTimeout(() => {
+                    // 🆕 刷新相似历史日期（延迟1000ms）
+                    const dateStr = formatDate(currentDate);
+                    loadSimilarDays(dateStr).catch(err => {
+                        console.warn('⚠️ 相似日期加载失败（非关键数据）:', err);
+                    });
+                }, 1000);
             } else {
                 // 恢复为今天
                 e.target.value = formatDate(currentDate);
@@ -10941,12 +11242,16 @@ pm2 status                                                # 查看所有进程�
                 console.log('🚀 启动自动刷新，间隔: 30秒');
                 // 每30秒更新一次
                 autoRefreshInterval = setInterval(async () => {
-                    const isToday = formatDate(currentDate) === formatDate(new Date());
+                    const today = formatDate(new Date());
+                    const current = formatDate(currentDate);
+                    const isToday = current === today;
+                    
                     if (isToday) {
                         refreshCounter++;
                         const now = new Date();
                         const timeStr = now.toLocaleTimeString('zh-CN', {hour12: false});
                         console.log(`⏰ 自动刷新 #${refreshCounter} (${timeStr}): 开始更新所有数据...`);
+                        console.log(`📅 当前日期: ${current}, 今天: ${today}, 匹配: ${isToday}`);
                         
                         try {
                             // 每30秒全量刷新所有数据
@@ -10956,8 +11261,8 @@ pm2 status                                                # 查看所有进程�
                             console.log('📊 刷新市场情绪数据...');
                             await loadMarketSentiment();
                             
-                            console.log('📊 刷新历史数据...');
-                            await updateHistoryData(currentDate);
+                            console.log('📊 刷新历史数据（今天）...');
+                            await updateHistoryData(new Date()); // 明确传递今天的日期对象
                             
                             console.log(`✅ 自动刷新 #${refreshCounter} 完成 (${timeStr})`);
                             
@@ -10968,7 +11273,7 @@ pm2 status                                                # 查看所有进程�
                             showRefreshErrorNotification();
                         }
                     } else {
-                        console.log('⚠️ 当前日期不是今天，跳过更新');
+                        console.log(`⚠️ 当前日期 ${current} 不是今天 ${today}，跳过自动刷新`);
                     }
                 }, 30000); // 30秒 = 30000毫秒
             }

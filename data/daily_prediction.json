@@ -1,16 +1,16 @@
 {
-  "timestamp": "2026-02-28 02:00:00",
-  "date": "2026-02-28",
+  "timestamp": "2026-03-02 02:00:00",
+  "date": "2026-03-02",
   "analysis_time": "02:00:00",
   "color_counts": {
-    "green": 0,
-    "red": 8,
+    "green": 5,
+    "red": 0,
     "yellow": 0,
-    "blank": 4,
-    "blank_ratio": 33.33333333333333
+    "blank": 7,
+    "blank_ratio": 58.333333333333336
   },
-  "signal": "诱空试盘抄底",
-  "description": "⚪🔴 红色+空白且空白占比33.3%>=25%，诱空行情，可以试盘抄底。操作提示：低点做多",
+  "signal": "低吸",
+  "description": "🟢⚪ 绿色5根+空白7根，绿色柱子>=3根为主导，空白区间为低吸机会。操作提示：低点做多",
   "is_temp": false,
   "is_final": true
 }

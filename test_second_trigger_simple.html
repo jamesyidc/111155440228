@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>二级触发显示测试</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-8">二级触发显示测试</h1>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-4">
+            <h2 class="text-xl font-bold mb-4">🔮 当日预判信号</h2>
+            <div id="signal-display" class="text-2xl font-bold text-blue-600 mb-4">加载中...</div>
+            <div id="description-display" class="text-gray-600 mb-4">加载中...</div>
+        </div>
+        
+        <!-- 二级触发显示区域 -->
+        <div id="secondTriggerSection" class="hidden bg-white rounded-lg shadow-lg p-6">
+            <!-- 这里会动态插入二级触发内容 -->
+        </div>
+        
+        <div class="mt-4">
+            <button onclick="loadData()" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded">
+                刷新数据
+            </button>
+        </div>
+        
+        <div class="mt-8 bg-gray-50 rounded-lg p-4">
+            <h3 class="font-bold mb-2">原始数据:</h3>
+            <pre id="raw-data" class="text-xs overflow-auto max-h-96 bg-white p-4 rounded">加载中...</pre>
+        </div>
+    </div>
+
+    <script>
+    function displaySecondTriggerInfo(secondTrigger) {
+        const section = document.getElementById('secondTriggerSection');
+        
+        if (!secondTrigger) {
+            section.classList.add('hidden');
+            return;
+        }
+        
+        section.classList.remove('hidden');
+        
+        // 状态标签
+        let statusBadge = '';
+        let statusClass = '';
+        let actionButton = '';
+        
+        if (secondTrigger.triggered) {
+            if (secondTrigger.action === 'immediate_long') {
+                statusBadge = '<span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">✅ 已触发</span>';
+                statusClass = 'bg-gradient-to-r from-green-50 to-yellow-50';
+                actionButton = '<div class="mt-3"><span class="inline-block bg-green-500 text-white px-4 py-2 rounded-lg font-bold">🚀 立即做多</span></div>';
+            } else if (secondTrigger.action === 'wait_dip_then_long') {
+                statusBadge = '<span class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold">✅ 已触发</span>';
+                statusClass = 'bg-gradient-to-r from-orange-50 to-yellow-50';
+                actionButton = '<div class="mt-3"><span class="inline-block bg-orange-500 text-white px-4 py-2 rounded-lg font-bold">⏳ 等待大跌后做多</span></div>';
+            }
+        } else {
+            statusBadge = '<span class="bg-gray-400 text-white px-3 py-1 rounded-full text-sm font-bold">⭕ 未触发</span>';
+            statusClass = 'bg-gradient-to-r from-gray-50 to-slate-50';
+        }
+        
+        // 柱子显示
+        const barEmojis = {
+            'green': '🟢',
+            'red': '🔴',
+            'yellow': '🟡',
+            'blank': '⚪'
+        };
+        
+        let barsHtml = '<div class="flex gap-4 mt-3">';
+        if (secondTrigger.bar_details && secondTrigger.bar_details.length > 0) {
+            secondTrigger.bar_details.forEach((bar, index) => {
+                const emoji = barEmojis[bar.color] || '⚪';
+                barsHtml += `
+                    <div class="flex-1 text-center p-3 bg-gray-50 rounded">
+                        <div class="text-3xl mb-1">${emoji}</div>
+                        <div class="text-xs text-gray-500">${bar.time}</div>
+                        <div class="text-sm font-semibold">${bar.up_ratio.toFixed(1)}%</div>
+                        <div class="text-xs text-gray-600">${bar.color}</div>
+                    </div>
+                `;
+            });
+        } else if (secondTrigger.bars && secondTrigger.bars.length > 0) {
+            secondTrigger.bars.forEach((color, index) => {
+                const emoji = barEmojis[color] || '⚪';
+                barsHtml += `
+                    <div class="flex-1 text-center p-3 bg-gray-50 rounded">
+                        <div class="text-3xl mb-1">${emoji}</div>
+                        <div class="text-xs text-gray-600">${color}</div>
+                    </div>
+                `;
+            });
+        }
+        barsHtml += '</div>';
+        
+        // 组装HTML
+        section.innerHTML = `
+            <div class="${statusClass} rounded-lg p-4">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-lg font-bold">🔔 二级触发信息</h3>
+                    ${statusBadge}
+                </div>
+                
+                <div class="text-sm text-gray-500 mb-2">
+                    检查时间: ${secondTrigger.checked_at || '未知'}
+                </div>
+                
+                <div class="text-base font-semibold mb-2">
+                    ${secondTrigger.description || '无描述'}
+                </div>
+                
+                ${secondTrigger.detail ? `<div class="text-sm text-gray-600 mb-3">${secondTrigger.detail}</div>` : ''}
+                
+                ${actionButton}
+                
+                ${barsHtml}
+            </div>
+        `;
+    }
+    
+    async function loadData() {
+        try {
+            const response = await fetch('/api/coin-change-tracker/daily-prediction?_t=' + Date.now());
+            const result = await response.json();
+            
+            if (result.success && result.data) {
+                const data = result.data;
+                
+                // 显示基本信息
+                document.getElementById('signal-display').textContent = data.signal || '无信号';
+                document.getElementById('description-display').textContent = data.description || '无描述';
+                
+                // 显示二级触发
+                displaySecondTriggerInfo(data.second_trigger);
+                
+                // 显示原始数据
+                document.getElementById('raw-data').textContent = JSON.stringify(result, null, 2);
+            } else {
+                document.getElementById('signal-display').textContent = '加载失败';
+                document.getElementById('raw-data').textContent = JSON.stringify(result, null, 2);
+            }
+        } catch (error) {
+            console.error('加载失败:', error);
+            document.getElementById('signal-display').textContent = '加载错误: ' + error.message;
+        }
+    }
+    
+    // 页面加载时自动加载数据
+    loadData();
+    </script>
+</body>
+</html>
