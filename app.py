@@ -17893,31 +17893,33 @@ def get_available_strategies(account_id):
     try:
         order_type = request.args.get('order_type', '')
         
-        # 这里返回模拟数据，实际应该从策略配置文件读取
+        # 策略定义：基于27币涨跌幅排序
+        # 涨幅前8名 = 涨幅最高的8个（正数最大）
+        # 涨幅后8名 = 涨幅最低的8个（负数最大或正数最小）
         strategies = [
             {
                 'code': 'STG_SHORT_TOP8',
                 'name': '涨幅前8名做空',
                 'type': 'open_short',
-                'description': '对27币中涨幅前8名开空单'
+                'description': '对27币中涨幅前8名（涨幅最高）开空单'
             },
             {
                 'code': 'STG_SHORT_BOTTOM8',
-                'name': '跌幅后8名做空',
+                'name': '涨幅后8名做空',
                 'type': 'open_short',
-                'description': '对27币中跌幅后8名（涨幅最小）开空单'
+                'description': '对27币中涨幅后8名（涨幅最低）开空单'
             },
             {
                 'code': 'STG_LONG_TOP8',
                 'name': '涨幅前8名做多',
                 'type': 'open_long',
-                'description': '对27币中涨幅前8名开多单'
+                'description': '对27币中涨幅前8名（涨幅最高）开多单'
             },
             {
                 'code': 'STG_LONG_BOTTOM8',
-                'name': '跌幅后8名做多',
+                'name': '涨幅后8名做多',
                 'type': 'open_long',
-                'description': '对27币中跌幅后8名（涨幅最小）开多单'
+                'description': '对27币中涨幅后8名（涨幅最低）开多单（抄底）'
             }
         ]
         
