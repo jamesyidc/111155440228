@@ -18147,6 +18147,106 @@ def api_reset_stoploss_reverse_trigger(account_id, config_id):
             'traceback': traceback.format_exc()
         }), 500
 
+@app.route('/api/okx-trading/frontend-notifications/<account_id>', methods=['GET'])
+def api_get_frontend_notifications(account_id):
+    """获取前端通知（未读的）"""
+    try:
+        import json
+        import os
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        notifications_dir = os.path.join(current_dir, 'data', 'frontend_notifications')
+        
+        if not os.path.exists(notifications_dir):
+            os.makedirs(notifications_dir, exist_ok=True)
+        
+        notification_file = os.path.join(notifications_dir, f'{account_id}_notifications.jsonl')
+        
+        # 读取所有未读通知
+        unread_notifications = []
+        if os.path.exists(notification_file):
+            with open(notification_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        notification = json.loads(line)
+                        if not notification.get('read', False):
+                            unread_notifications.append(notification)
+        
+        return jsonify({
+            'success': True,
+            'notifications': unread_notifications,
+            'count': len(unread_notifications),
+            'account_id': account_id,
+            'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+@app.route('/api/okx-trading/frontend-notifications/<account_id>/<notification_id>/mark-read', methods=['POST'])
+def api_mark_notification_read(account_id, notification_id):
+    """标记通知为已读"""
+    try:
+        import json
+        import os
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        notifications_dir = os.path.join(current_dir, 'data', 'frontend_notifications')
+        notification_file = os.path.join(notifications_dir, f'{account_id}_notifications.jsonl')
+        
+        if not os.path.exists(notification_file):
+            return jsonify({
+                'success': False,
+                'error': '通知文件不存在'
+            }), 404
+        
+        # 读取所有通知
+        notifications = []
+        with open(notification_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    notifications.append(json.loads(line))
+        
+        # 标记指定通知为已读
+        notification_found = False
+        for notification in notifications:
+            if notification['id'] == notification_id:
+                notification['read'] = True
+                notification['read_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                notification_found = True
+                break
+        
+        if not notification_found:
+            return jsonify({
+                'success': False,
+                'error': f'未找到通知ID: {notification_id}'
+            }), 404
+        
+        # 写回文件
+        with open(notification_file, 'w', encoding='utf-8') as f:
+            for notification in notifications:
+                f.write(json.dumps(notification, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'message': f'通知 {notification_id} 已标记为已读'
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
 @app.route('/api/okx-trading/confirm-structure-alerts/<account_id>', methods=['GET'])
 def get_confirm_structure_alerts(account_id):
     """获取确认结构提醒记录"""

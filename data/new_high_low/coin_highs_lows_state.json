@@ -1,7 +1,7 @@
 {
   "BTC": {
-    "highest_price": 69139.3,
-    "highest_time": "2026-02-17 10:12:57",
+    "highest_price": 69286.0,
+    "highest_time": "2026-03-02 23:41:12",
     "lowest_price": 63867.5,
     "lowest_time": "2026-02-28 20:54:32"
   },
@@ -18,8 +18,8 @@
     "lowest_time": "2026-02-23 12:41:28"
   },
   "BNB": {
-    "highest_price": 646.0,
-    "highest_time": "2026-03-02 23:13:53",
+    "highest_price": 647.2,
+    "highest_time": "2026-03-02 23:41:12",
     "lowest_price": 584.9,
     "lowest_time": "2026-02-23 10:00:28"
   },
