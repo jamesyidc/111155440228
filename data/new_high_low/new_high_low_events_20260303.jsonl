@@ -1,0 +1,3 @@
+{"time": "2026-03-03 00:01:42", "timestamp": 1772467302.0, "symbol": "SOL", "event_type": "new_high", "price": 88.93, "previous_high": 88.79, "previous_time": "2026-03-02 23:51:28"}
+{"time": "2026-03-03 00:01:42", "timestamp": 1772467302.0, "symbol": "BNB", "event_type": "new_high", "price": 649.2, "previous_high": 648.8, "previous_time": "2026-03-02 23:44:37"}
+{"time": "2026-03-03 00:01:42", "timestamp": 1772467302.0, "symbol": "CRV", "event_type": "new_high", "price": 0.2599, "previous_high": 0.2592, "previous_time": "2026-03-02 23:51:28"}
