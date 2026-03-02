@@ -1,9 +1,93 @@
 # OKX 止盈止损自动监控系统
 
+## ✅ 止盈止损后台自动执行 - 无需浏览器打开 (v3.0 - 2026-02-28)
+
+### 【问题】止盈止损需要浏览器保持打开，关闭后无法执行
+
+### 【修复】后台自动监控服务 - 7×24小时运行
+
+### 🟢 后台监控进程：okx-tpsl-monitor
+
+- ✅ PM2守护进程管理，崩溃自动重启
+- ✅ 每60秒自动检查所有账户的持仓盈亏
+- ✅ 触发止盈/止损条件时立即执行平仓
+- ✅ 完全不依赖浏览器，关闭浏览器也能执行
+- ✅ 支持普通止盈止损 + 市场情绪紧急止盈
+
+### 📊 监控账户（5个）：
+
+- account_main（主账户）
+- account_fangfang12
+- account_poit_main（POIT子账户）
+- account_anchor（锚点账户）
+- account_dadanini（新增）
+
+### 🎯 工作流程：
+
+1. 每60秒扫描所有账户
+2. 读取止盈止损配置（data/okx_tpsl_settings/）
+3. 获取当前持仓并计算盈亏百分比
+4. 检查是否触发：
+   - 市场情绪止盈（优先）：检测到极端信号立即平仓
+   - 普通止盈：盈亏% ≥ 止盈阈值
+   - 普通止损：盈亏% ≤ 止损阈值
+5. 执行平仓（调用OKX API设置条件单）
+6. 记录执行结果（防止重复执行）
+7. 发送Telegram通知
+
+### 🔒 安全机制：
+
+- ✅ 防重复执行：每个持仓的止盈/止损只执行一次
+- ✅ 执行记录：保存到 {account_id}_tpsl_execution.jsonl
+- ✅ 自动重启：PM2确保进程崩溃后自动恢复
+- ✅ 日志记录：详细记录每次检查和执行过程
+- ✅ 实时通知：Telegram推送执行结果
+
+### 📋 配置文件：
+
+- 止盈止损设置：data/okx_tpsl_settings/{account_id}_tpsl.jsonl
+- 账户API凭证：data/okx_auto_strategy/{account_id}.json
+- 执行记录：data/okx_tpsl_settings/{account_id}_tpsl_execution.jsonl
+
+### 🔍 查看运行状态：
+
+```bash
+# 查看监控进程
+pm2 list | grep okx-tpsl-monitor
+
+# 查看实时日志
+pm2 logs okx-tpsl-monitor --lines 50
+
+# 日志示例：
+[account_main] 📊 DOT-USDT-SWAP long: 盈亏=0.41%
+[account_main] 📊 UNI-USDT-SWAP long: 盈亏=-0.75%
+[account_main] 🎯 触发止盈: 12.5% >= 12.0%
+[account_main] ✅ 止盈设置成功
+等待 60 秒后继续...
+```
+
+### 💡 重要提示：
+
+1. 监控进程已经在后台运行，无需手动启动
+2. 浏览器中的止盈止损开关只控制前端页面的弹窗提示
+3. 后台监控服务读取JSONL配置文件，不受前端开关影响
+4. 修改止盈止损阈值后，后台会在下次检查时自动读取新配置
+5. 如需临时禁用监控，修改JSONL文件中的 enabled 字段为 false
+
+### ⚠️ 注意事项：
+
+1. 确保账户API凭证配置正确（apiKey、apiSecret、passphrase）
+2. 确保账户有足够的持仓才会触发止盈止损
+3. 监控进程每60秒检查一次，不是实时的（已够快）
+4. 市场剧烈波动时可能存在滑点，建议设置合理的止盈止损阈值
+5. 详细文档：FIX_BACKEND_AUTOMATION_2026-02-28.md
+
+---
+
 ## 📋 系统概述
 
 **创建时间：** 2026-02-17  
-**版本：** V1.0  
+**版本：** V3.0 (2026-02-28 更新)
 **目的：** 按交易账户分开管理止盈止损，通过JSONL配置文件控制，防止重复执行
 
 ---
@@ -49,9 +133,13 @@ data/okx_tpsl_settings/
 ├── account_poit_main_tpsl_execution.jsonl
 ├── account_poit_main_history.jsonl
 │
-└── account_poit_tpsl.jsonl
-    account_poit_tpsl_execution.jsonl
-    account_poit_history.jsonl
+├── account_anchor_tpsl.jsonl
+├── account_anchor_tpsl_execution.jsonl
+├── account_anchor_history.jsonl
+│
+└── account_dadanini_tpsl.jsonl
+    account_dadanini_tpsl_execution.jsonl
+    account_dadanini_history.jsonl
 
 source_code/
 └── okx_tpsl_monitor.py                  # 后台监控脚本

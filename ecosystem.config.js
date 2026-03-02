@@ -265,6 +265,82 @@ module.exports = {
       error_file: '/home/user/webapp/logs/okx-percent-tpsl-monitor-error.log',
       out_file: '/home/user/webapp/logs/okx-percent-tpsl-monitor-out.log'
     },
+    // 27币涨跌幅止盈监控 - 各账户独立监控
+    {
+      name: 'okx-coin-change-tpsl-main',
+      script: 'source_code/okx_coin_change_tpsl_monitor.py',
+      args: 'account_main',
+      interpreter: 'python3',
+      cwd: '/home/user/webapp',
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '300M',
+      error_file: '/home/user/webapp/logs/okx-coin-change-tpsl-main-error.log',
+      out_file: '/home/user/webapp/logs/okx-coin-change-tpsl-main-out.log'
+    },
+    {
+      name: 'okx-coin-change-tpsl-fangfang12',
+      script: 'source_code/okx_coin_change_tpsl_monitor.py',
+      args: 'account_fangfang12',
+      interpreter: 'python3',
+      cwd: '/home/user/webapp',
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '300M',
+      error_file: '/home/user/webapp/logs/okx-coin-change-tpsl-fangfang12-error.log',
+      out_file: '/home/user/webapp/logs/okx-coin-change-tpsl-fangfang12-out.log'
+    },
+    {
+      name: 'okx-coin-change-tpsl-poit',
+      script: 'source_code/okx_coin_change_tpsl_monitor.py',
+      args: 'account_poit',
+      interpreter: 'python3',
+      cwd: '/home/user/webapp',
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '300M',
+      error_file: '/home/user/webapp/logs/okx-coin-change-tpsl-poit-error.log',
+      out_file: '/home/user/webapp/logs/okx-coin-change-tpsl-poit-out.log'
+    },
+    {
+      name: 'okx-coin-change-tpsl-poit-main',
+      script: 'source_code/okx_coin_change_tpsl_monitor.py',
+      args: 'account_poit_main',
+      interpreter: 'python3',
+      cwd: '/home/user/webapp',
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '300M',
+      error_file: '/home/user/webapp/logs/okx-coin-change-tpsl-poit-main-error.log',
+      out_file: '/home/user/webapp/logs/okx-coin-change-tpsl-poit-main-out.log'
+    },
+    {
+      name: 'okx-coin-change-tpsl-anchor',
+      script: 'source_code/okx_coin_change_tpsl_monitor.py',
+      args: 'account_anchor',
+      interpreter: 'python3',
+      cwd: '/home/user/webapp',
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '300M',
+      error_file: '/home/user/webapp/logs/okx-coin-change-tpsl-anchor-error.log',
+      out_file: '/home/user/webapp/logs/okx-coin-change-tpsl-anchor-out.log'
+    },
+    {
+      name: 'okx-crash-warning-stop-loss',
+      script: 'monitors/okx_crash_warning_stop_loss_monitor.py',
+      interpreter: 'python3',
+      cwd: '/home/user/webapp',
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '300M',
+      env: {
+        PYTHONPATH: '/home/user/webapp'
+      },
+      error_file: '/home/user/webapp/logs/okx-crash-warning-stop-loss-error.log',
+      out_file: '/home/user/webapp/logs/okx-crash-warning-stop-loss-out.log',
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
+    },
     {
       name: 'okx-trade-history',
       script: 'source_code/okx_trade_history_collector.py',

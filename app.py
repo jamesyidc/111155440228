@@ -5464,6 +5464,11 @@ def test_refresh():
     """测试刷新页面 - 用于验证缓存问题"""
     return render_template('test_refresh.html')
 
+@app.route('/test-prediction-data')
+def test_prediction_data():
+    """测试预测数据 - 验证API返回"""
+    return render_template('test_prediction_data.html')
+
 @app.route('/test-btc-eth')
 def test_btc_eth():
     """测试BTC和ETH数据显示"""
@@ -15153,6 +15158,16 @@ def okx_trading_fangfang12():
     response.headers['Expires'] = '-1'
     return response
 
+@app.route('/okx-coin-change-tpsl')
+def okx_coin_change_tpsl():
+    """27币涨跌幅止盈配置页面"""
+    response = make_response(render_template('okx_coin_change_tpsl.html'))
+    # 禁用所有缓存
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '-1'
+    return response
+
 @app.route('/okx-accounts-diagnostic')
 def okx_accounts_diagnostic():
     """OKX账户配置诊断工具"""
@@ -15891,13 +15906,19 @@ def get_okx_positions():
                 pos_size = float(pos.get('pos', 0))
                 if pos_size != 0:  # 只返回有持仓的
                     inst_id = pos.get('instId', '')
-                    pos_side = pos.get('posSide', '')
+                    pos_side_raw = pos.get('posSide', '')  # 保存OKX返回的原始posSide
                     
-                    # 🔧 修复:单向持仓模式下,posSide为空字符串
-                    # 根据pos字段的正负判断方向:正数=多单(long),负数=空单(short)
-                    if not pos_side:
-                        pos_side = 'long' if pos_size > 0 else 'short'
-                        print(f"[持仓查询] 单向持仓模式 - {inst_id}: pos={pos_size}, 判断为 {pos_side}")
+                    # 🔧 修复:单向持仓模式下,posSide为空字符串或'net'
+                    # 根据pos字段的正负判断显示方向:正数=多单(long),负数=空单(short)
+                    if not pos_side_raw or pos_side_raw == 'net':
+                        pos_side_display = 'long' if pos_size > 0 else 'short'
+                        pos_side_for_close = 'net'  # 平仓时使用'net'
+                        print(f"[持仓查询] 单向持仓模式 - {inst_id}: pos={pos_size}, 显示为 {pos_side_display}, 平仓用 net")
+                    else:
+                        # 双向持仓模式,直接使用OKX返回的posSide
+                        pos_side_display = pos_side_raw
+                        pos_side_for_close = pos_side_raw
+                        print(f"[持仓查询] 双向持仓模式 - {inst_id}: posSide={pos_side_raw}")
                     
                     leverage = float(pos.get('lever', 0))
                     avg_price = float(pos.get('avgPx', 0))
@@ -15911,7 +15932,8 @@ def get_okx_positions():
                     
                     positions.append({
                         'instId': inst_id,
-                        'posSide': pos_side,
+                        'posSide': pos_side_display,  # 前端显示用
+                        'posSideForClose': pos_side_for_close,  # 平仓时使用
                         'posSize': abs(pos_size),
                         'leverage': leverage,
                         'avgPrice': avg_price,
@@ -16818,12 +16840,18 @@ def get_okx_tpsl_settings(account_id):
                                 settings['percentStopLossThreshold'] = percent_settings.get('percentStopLossThreshold', 7.0)
                                 settings['percentTakeProfitEnabled'] = percent_settings.get('percentTakeProfitEnabled', False)
                                 settings['percentStopLossEnabled'] = percent_settings.get('percentStopLossEnabled', False)
+                                # 🔔 读取确认结构配置
+                                settings['confirmStructureEnabled'] = percent_settings.get('confirmStructureEnabled', False)
+                                settings['confirmStructureThreshold'] = percent_settings.get('confirmStructureThreshold', 10.0)
                     else:
                         # 默认值
                         settings['percentTakeProfitThreshold'] = 5.0
                         settings['percentStopLossThreshold'] = 7.0
                         settings['percentTakeProfitEnabled'] = False
                         settings['percentStopLossEnabled'] = False
+                        # 🔔 确认结构默认值
+                        settings['confirmStructureEnabled'] = False
+                        settings['confirmStructureThreshold'] = 10.0
                     
                     return jsonify({
                         'success': True,
@@ -16851,6 +16879,8 @@ def get_okx_tpsl_settings(account_id):
             'percentStopLossThreshold': 7.0,
             'percentTakeProfitEnabled': False,
             'percentStopLossEnabled': False,
+            'confirmStructureEnabled': False,  # 🔔 确认结构
+            'confirmStructureThreshold': 10.0,  # 🔔 确认结构阈值
             'rsiTakeProfitThreshold': 1900,
             'rsiTakeProfitEnabled': False,
             'rsiShortTakeProfitThreshold': 810,
@@ -16918,8 +16948,10 @@ def save_okx_tpsl_settings(account_id):
             'percentTakeProfitThreshold': float(data.get('percentTakeProfitThreshold', 5.0)),
             'percentStopLossEnabled': bool(data.get('percentStopLossEnabled', False)),
             'percentStopLossThreshold': float(data.get('percentStopLossThreshold', 7.0)),
+            'confirmStructureEnabled': bool(data.get('confirmStructureEnabled', False)),  # 🔔 确认结构
+            'confirmStructureThreshold': float(data.get('confirmStructureThreshold', 10.0)),  # 涨幅百分比
             'last_updated': last_updated,
-            'comment': '百分比止盈止损配置 - 基于总保证金百分比计算'
+            'comment': '百分比止盈止损配置 - 基于总保证金百分比计算 + 确认结构提醒'
         }
         
         # 保存百分比止盈止损到独立JSONL文件
@@ -16956,6 +16988,8 @@ def save_okx_tpsl_settings(account_id):
             'percentStopLossThreshold': percent_tpsl_settings['percentStopLossThreshold'],
             'percentTakeProfitEnabled': percent_tpsl_settings['percentTakeProfitEnabled'],
             'percentStopLossEnabled': percent_tpsl_settings['percentStopLossEnabled'],
+            'confirmStructureEnabled': percent_tpsl_settings['confirmStructureEnabled'],  # 🔔 确认结构
+            'confirmStructureThreshold': percent_tpsl_settings['confirmStructureThreshold'],  # 涨幅百分比
             'rsiTakeProfitThreshold': jsonl_settings['rsi_take_profit_threshold'],
             'rsiTakeProfitEnabled': jsonl_settings['rsi_take_profit_enabled'],
             'rsiShortTakeProfitThreshold': jsonl_settings['rsi_short_take_profit_threshold'],
@@ -17091,6 +17125,8 @@ def get_percent_tpsl_status(account_id):
                 'percentTakeProfitThreshold': config.get('percentTakeProfitThreshold', 5.0),
                 'percentStopLossEnabled': config.get('percentStopLossEnabled', False),
                 'percentStopLossThreshold': config.get('percentStopLossThreshold', 7.0),
+                'confirmStructureEnabled': config.get('confirmStructureEnabled', False),  # 🔔 确认结构
+                'confirmStructureThreshold': config.get('confirmStructureThreshold', 10.0),  # 涨幅百分比
                 'lastUpdated': config.get('last_updated', '')
             },
             'statistics': {
@@ -17101,6 +17137,363 @@ def get_percent_tpsl_status(account_id):
                 'failedCount': failed_count
             },
             'recentExecutions': recent_executions
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        })
+
+@app.route('/api/okx-trading/percent-tpsl-pending/<account_id>', methods=['GET'])
+def get_percent_tpsl_pending(account_id):
+    """检查是否有待确认的百分比止盈止损"""
+    try:
+        import json
+        import os
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        settings_dir = os.path.join(current_dir, 'data', 'okx_tpsl_settings')
+        
+        # 读取待确认文件
+        pending_file = os.path.join(settings_dir, f'{account_id}_percent_tpsl_pending.jsonl')
+        if not os.path.exists(pending_file):
+            return jsonify({
+                'success': True,
+                'pending': False
+            })
+        
+        with open(pending_file, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+            if not lines:
+                return jsonify({
+                    'success': True,
+                    'pending': False
+                })
+            
+            # 读取最后一条记录
+            last_line = lines[-1].strip()
+            if last_line:
+                data = json.loads(last_line)
+                # 检查状态
+                if data.get('status') == 'pending':
+                    return jsonify({
+                        'success': True,
+                        'pending': True,
+                        'data': data
+                    })
+        
+        return jsonify({
+            'success': True,
+            'pending': False
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        })
+
+@app.route('/api/okx-trading/percent-tpsl-confirm/<account_id>', methods=['POST'])
+def confirm_percent_tpsl(account_id):
+    """确认或取消百分比止盈止损执行"""
+    try:
+        import json
+        import os
+        from datetime import datetime
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        settings_dir = os.path.join(current_dir, 'data', 'okx_tpsl_settings')
+        
+        data = request.get_json()
+        action = data.get('action')  # 'confirm' or 'cancel'
+        
+        # 读取待确认文件
+        pending_file = os.path.join(settings_dir, f'{account_id}_percent_tpsl_pending.jsonl')
+        if not os.path.exists(pending_file):
+            return jsonify({
+                'success': False,
+                'error': '未找到待确认的止盈止损'
+            })
+        
+        # 更新状态
+        with open(pending_file, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+        
+        if not lines:
+            return jsonify({
+                'success': False,
+                'error': '未找到待确认的止盈止损'
+            })
+        
+        # 更新最后一条记录的状态
+        last_data = json.loads(lines[-1].strip())
+        last_data['status'] = 'confirmed' if action == 'confirm' else 'cancelled'
+        last_data['action_time'] = datetime.now().isoformat()
+        
+        # 写回文件
+        lines[-1] = json.dumps(last_data, ensure_ascii=False) + '\n'
+        with open(pending_file, 'w', encoding='utf-8') as f:
+            f.writelines(lines)
+        
+        message = '已确认执行百分比止盈止损' if action == 'confirm' else '已取消执行百分比止盈止损'
+        
+        return jsonify({
+            'success': True,
+            'message': message
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        })
+
+@app.route('/api/okx-trading/coin-change-tpsl-settings/<account_id>', methods=['GET'])
+def get_coin_change_tpsl_settings(account_id):
+    """获取27币涨跌幅止盈配置"""
+    try:
+        import json
+        import os
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        settings_dir = os.path.join(current_dir, 'data', 'okx_tpsl_settings')
+        
+        # 读取配置文件（JSONL抬头）
+        settings_file = os.path.join(settings_dir, f'{account_id}_coin_change_tpsl.jsonl')
+        
+        if not os.path.exists(settings_file):
+            # 返回默认配置
+            return jsonify({
+                'success': True,
+                'exists': False,
+                'settings': {
+                    'account_id': account_id,
+                    'shortTakeProfitEnabled': False,
+                    'shortTakeProfitThreshold': 10.0,
+                    'longTakeProfitEnabled': False,
+                    'longTakeProfitThreshold': 10.0,
+                    'last_updated': None,
+                    'comment': '27币涨跌幅止盈配置 - 空单跌破止盈/多单突破止盈'
+                }
+            })
+        
+        # 读取JSONL抬头
+        with open(settings_file, 'r', encoding='utf-8') as f:
+            first_line = f.readline().strip()
+            if first_line:
+                settings = json.loads(first_line)
+            else:
+                settings = {}
+        
+        return jsonify({
+            'success': True,
+            'exists': True,
+            'settings': settings
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        })
+
+@app.route('/api/okx-trading/coin-change-tpsl-settings/<account_id>', methods=['POST'])
+def update_coin_change_tpsl_settings(account_id):
+    """更新27币涨跌幅止盈配置"""
+    try:
+        import json
+        import os
+        from datetime import datetime
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        settings_dir = os.path.join(current_dir, 'data', 'okx_tpsl_settings')
+        os.makedirs(settings_dir, exist_ok=True)
+        
+        data = request.get_json()
+        
+        # 构建配置
+        settings = {
+            'account_id': account_id,
+            'shortTakeProfitEnabled': data.get('shortTakeProfitEnabled', False),
+            'shortTakeProfitThreshold': float(data.get('shortTakeProfitThreshold', 10.0)),
+            'longTakeProfitEnabled': data.get('longTakeProfitEnabled', False),
+            'longTakeProfitThreshold': float(data.get('longTakeProfitThreshold', 10.0)),
+            'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'comment': '27币涨跌幅止盈配置 - 空单跌破止盈/多单突破止盈'
+        }
+        
+        # 保存配置（JSONL抬头）
+        settings_file = os.path.join(settings_dir, f'{account_id}_coin_change_tpsl.jsonl')
+        with open(settings_file, 'w', encoding='utf-8') as f:
+            f.write(json.dumps(settings, ensure_ascii=False) + '\n')
+        
+        # 如果有历史记录，追加历史配置
+        if os.path.exists(settings_file):
+            with open(settings_file, 'a', encoding='utf-8') as f:
+                history_entry = settings.copy()
+                history_entry['history_timestamp'] = datetime.now().isoformat()
+                f.write(json.dumps(history_entry, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'message': '27币涨跌幅止盈配置已更新',
+            'settings': {
+                'shortTakeProfitEnabled': settings['shortTakeProfitEnabled'],
+                'shortTakeProfitThreshold': settings['shortTakeProfitThreshold'],
+                'longTakeProfitEnabled': settings['longTakeProfitEnabled'],
+                'longTakeProfitThreshold': settings['longTakeProfitThreshold']
+            }
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        })
+
+@app.route('/api/okx-trading/coin-change-tpsl-status/<account_id>', methods=['GET'])
+def get_coin_change_tpsl_status(account_id):
+    """获取27币涨跌幅止盈状态和执行记录"""
+    try:
+        import json
+        import os
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        settings_dir = os.path.join(current_dir, 'data', 'okx_tpsl_settings')
+        
+        # 读取配置
+        config_file = os.path.join(settings_dir, f'{account_id}_coin_change_tpsl.jsonl')
+        config = {}
+        if os.path.exists(config_file):
+            with open(config_file, 'r', encoding='utf-8') as f:
+                first_line = f.readline().strip()
+                if first_line:
+                    config = json.loads(first_line)
+        
+        # 读取执行记录
+        execution_file = os.path.join(settings_dir, f'{account_id}_coin_change_tpsl_execution.jsonl')
+        executions = []
+        if os.path.exists(execution_file):
+            with open(execution_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    if line.strip():
+                        executions.append(json.loads(line))
+        
+        # 获取最近执行记录
+        recent_executions = executions[-20:] if executions else []
+        
+        # 统计
+        total_executions = len(executions)
+        successful_executions = sum(1 for e in executions if e.get('success'))
+        short_tp_count = sum(1 for e in executions if e.get('triggerType') == 'short_take_profit')
+        long_tp_count = sum(1 for e in executions if e.get('triggerType') == 'long_take_profit')
+        
+        return jsonify({
+            'success': True,
+            'config': config,
+            'executions': recent_executions,
+            'statistics': {
+                'total': total_executions,
+                'successful': successful_executions,
+                'short_take_profit': short_tp_count,
+                'long_take_profit': long_tp_count
+            }
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        })
+
+@app.route('/api/okx-trading/coin-change-current', methods=['GET'])
+def get_coin_change_current():
+    """获取当前27币涨跌幅之和"""
+    try:
+        import json
+        import os
+        from datetime import datetime, timezone, timedelta
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        coin_change_dir = os.path.join(current_dir, 'data', 'coin_change_tracker')
+        
+        # 获取今天日期（北京时间）
+        beijing_tz = timezone(timedelta(hours=8))
+        beijing_date = datetime.now(timezone.utc).astimezone(beijing_tz).strftime('%Y%m%d')
+        coin_change_file = os.path.join(coin_change_dir, f'coin_change_{beijing_date}.jsonl')
+        
+        if not os.path.exists(coin_change_file):
+            return jsonify({
+                'success': False,
+                'error': f'今日币种涨跌数据文件不存在: {beijing_date}'
+            })
+        
+        # 读取最后一行
+        with open(coin_change_file, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+            if lines:
+                last_line = lines[-1].strip()
+                if last_line:
+                    data = json.loads(last_line)
+                    return jsonify({
+                        'success': True,
+                        'data': {
+                            'total_change': data.get('total_change', 0),
+                            'beijing_time': data.get('beijing_time', ''),
+                            'up_coins': data.get('up_coins', 0),
+                            'down_coins': data.get('down_coins', 0),
+                            'up_ratio': data.get('up_ratio', 0)
+                        }
+                    })
+        
+        return jsonify({
+            'success': False,
+            'error': '无法读取币种涨跌数据'
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        })
+
+@app.route('/api/okx-trading/confirm-structure-alerts/<account_id>', methods=['GET'])
+def get_confirm_structure_alerts(account_id):
+    """获取确认结构提醒记录"""
+    try:
+        import json
+        import os
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        settings_dir = os.path.join(current_dir, 'data', 'okx_tpsl_settings')
+        
+        # 读取提醒记录
+        alerts_file = os.path.join(settings_dir, f'{account_id}_confirm_structure_alerts.jsonl')
+        alerts = []
+        if os.path.exists(alerts_file):
+            with open(alerts_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    if line.strip():
+                        alerts.append(json.loads(line))
+        
+        # 获取最近的提醒记录（最多20条）
+        recent_alerts = alerts[-20:] if alerts else []
+        
+        # 统计
+        total_alerts = len(alerts)
+        total_positions_alerted = sum(a.get('positionCount', 0) for a in alerts)
+        avg_portfolio_gain = sum(a.get('portfolioGain', 0) for a in alerts) / len(alerts) if alerts else 0
+        
+        return jsonify({
+            'success': True,
+            'statistics': {
+                'totalAlerts': total_alerts,
+                'totalPositionsAlerted': total_positions_alerted,
+                'avgPortfolioGain': round(avg_portfolio_gain, 2)
+            },
+            'recentAlerts': recent_alerts
         })
     
     except Exception as e:
@@ -23643,13 +24036,114 @@ def get_crash_warning_events():
             'traceback': traceback.format_exc()
         })
 
+@app.route('/api/coin-change-tracker/has-crash-warning-today', methods=['GET'])
+def has_crash_warning_today():
+    """检查今天是否有暴跌预警
+    
+    参数:
+        date: 可选，指定日期 (YYYY-MM-DD 或 YYYYMMDD)，不指定则为今天
+    
+    返回:
+        {
+            'success': bool,
+            'has_warning': bool,  # 是否有预警
+            'date': str,          # 查询日期
+            'warning_count': int, # 预警次数
+            'latest_warning': dict # 最新的预警信息
+        }
+    """
+    try:
+        from pathlib import Path
+        from datetime import datetime, timedelta, timezone
+        import json
+        
+        # 获取日期参数
+        date_param = request.args.get('date', '')
+        
+        # 使用北京时间（UTC+8）
+        now_utc = datetime.now(timezone.utc)
+        now_beijing = now_utc + timedelta(hours=8)
+        
+        if date_param:
+            # 使用指定日期
+            if len(date_param) == 8:  # YYYYMMDD
+                today = date_param
+                today_display = f"{date_param[0:4]}-{date_param[4:6]}-{date_param[6:8]}"
+            else:  # YYYY-MM-DD
+                today_display = date_param
+                today = date_param.replace('-', '')
+        else:
+            # 使用今天日期
+            today = now_beijing.strftime('%Y%m%d')  # 20260301
+            today_display = now_beijing.strftime('%Y-%m-%d')  # 2026-03-01
+        
+        events_dir = Path('/home/user/webapp/data/crash_warning_events')
+        event_file = events_dir / f'crash_warning_{today}.jsonl'
+        
+        if not event_file.exists():
+            return jsonify({
+                'success': True,
+                'has_warning': False,
+                'date': today_display,
+                'warning_count': 0,
+                'message': f'今天（{today_display}）暂无暴跌预警'
+            })
+        
+        # 读取今天的所有预警事件
+        warnings = []
+        with open(event_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    try:
+                        event = json.loads(line)
+                        warnings.append(event)
+                    except json.JSONDecodeError:
+                        continue
+        
+        if not warnings:
+            return jsonify({
+                'success': True,
+                'has_warning': False,
+                'date': today_display,
+                'warning_count': 0,
+                'message': f'今天（{today_display}）暂无暴跌预警'
+            })
+        
+        # 获取最新的预警（最后一条）
+        latest_warning = warnings[-1]
+        
+        return jsonify({
+            'success': True,
+            'has_warning': True,
+            'date': today_display,
+            'warning_count': len(warnings),
+            'latest_warning': latest_warning,
+            'trading_restriction': latest_warning.get('trading_restriction', {
+                'allow_long': False,
+                'allow_short': True
+            })
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        })
+
 @app.route('/api/coin-change-tracker/daily-prediction', methods=['GET'])
 def get_daily_prediction():
-    """获取当日行情预判数据
+    """获取行情预判数据
+    
+    查询参数:
+    - date: 可选，格式 YYYY-MM-DD，不传则返回今天的数据
     
     逻辑：
-    1. 优先读取临时JSONL文件（0-2点之间的实时统计）
-    2. 如果没有临时文件或已过期，读取正式JSON文件（2点后的最终预判）
+    1. 如果指定了历史日期，直接读取对应日期的JSONL文件
+    2. 如果是今天且在0-2点之间，优先读取临时JSONL文件（实时统计）
+    3. 其他情况读取正式JSONL文件（2点后的最终预判）
     """
     try:
         from datetime import datetime, timedelta, timezone
@@ -23658,7 +24152,58 @@ def get_daily_prediction():
         now_beijing = now_utc + timedelta(hours=8)
         today = now_beijing.strftime('%Y-%m-%d')
         
-        # 🔥 修复：凌晨2点后优先使用正式数据，2点前使用临时数据
+        # 🔥 获取日期参数，如果不传则使用今天
+        query_date = request.args.get('date', today)
+        # 🔥 获取日期参数，如果不传则使用今天
+        query_date = request.args.get('date', today)
+        
+        # 🔥 如果查询的是历史日期（不是今天），直接读取对应日期的JSONL文件
+        if query_date != today:
+            query_date_short = query_date.replace('-', '')  # YYYYMMDD
+            prediction_file = Path(f'data/daily_predictions/prediction_{query_date_short}.jsonl')
+            
+            if not prediction_file.exists():
+                return jsonify({
+                    'success': False,
+                    'error': f'未找到 {query_date} 的预判数据',
+                    'message': f'文件不存在: {prediction_file}'
+                })
+            
+            # 读取JSONL文件（取最后一条 is_final=true 的记录）
+            with open(prediction_file, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
+                if lines:
+                    prediction_data = None
+                    # 查找最后一条 is_final=true 的记录
+                    for line in reversed(lines):
+                        line = line.strip()
+                        if line:
+                            data = json.loads(line)
+                            if data.get('is_final', False):
+                                prediction_data = data
+                                break
+                    
+                    # 如果没有找到 is_final=true，使用最后一条
+                    if prediction_data is None:
+                        prediction_data = json.loads(lines[-1].strip())
+                    
+                    response = make_response(jsonify({
+                        'success': True,
+                        'data': prediction_data,
+                        'source': 'history'  # 标记数据来源为历史数据
+                    }))
+                    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate'
+                    response.headers['Pragma'] = 'no-cache'
+                    response.headers['Expires'] = '0'
+                    return response
+                else:
+                    return jsonify({
+                        'success': False,
+                        'error': 'JSONL文件为空'
+                    })
+        
+        # 🔥 以下是查询今天数据的逻辑
+        # 修复：凌晨2点后优先使用正式数据，2点前使用临时数据
         current_hour = now_beijing.hour
         use_temp_data = current_hour < 2  # 0点和1点使用临时数据
         
@@ -23739,16 +24284,13 @@ def get_daily_prediction():
             with open(prediction_file, 'r', encoding='utf-8') as f:
                 prediction_data = json.load(f)
         
-        # 检查数据是否是今天的
+        # 检查数据是否是今天的（对于今天的数据查询）
         data_date = prediction_data.get('date', '')
         
+        # 🔥 对于今天的查询，检查数据日期是否匹配
         if data_date != today:
-            return jsonify({
-                'success': False,
-                'error': '预判数据已过期',
-                'message': f'数据日期: {data_date}，今日: {today}',
-                'old_data': prediction_data
-            })
+            print(f"⚠️ 警告：数据日期({data_date})与今天({today})不匹配")
+            # 但仍然返回数据，因为可能是凌晨数据延迟
         
         response = make_response(jsonify({
             'success': True,
@@ -23769,6 +24311,279 @@ def get_daily_prediction():
         })
 
 
+@app.route('/api/coin-change-tracker/prediction-accuracy', methods=['GET'])
+def get_prediction_accuracy():
+    """分析过去N天的预判准确率
+    
+    Query params:
+        - days: 分析天数（默认60天）
+        - min_confidence: 最小置信度阈值（默认0，返回所有）
+    
+    返回:
+        - total_days: 总天数
+        - analyzed_days: 有预判数据的天数
+        - accuracy_by_signal: 按预判信号分组的准确率统计
+        - daily_results: 每日详细结果
+    """
+    try:
+        from datetime import datetime, timedelta, timezone
+        import os
+        
+        # 获取参数
+        days = int(request.args.get('days', 60))
+        min_confidence = float(request.args.get('min_confidence', 0))
+        
+        # 使用北京时间
+        now_utc = datetime.now(timezone.utc)
+        now_beijing = now_utc + timedelta(hours=8)
+        
+        # 初始化统计
+        daily_results = []
+        signal_stats = {}
+        
+        # 遍历过去N天
+        for i in range(days, 0, -1):
+            target_date = (now_beijing - timedelta(days=i)).strftime('%Y-%m-%d')
+            target_date_short = target_date.replace('-', '')  # 20260301
+            
+            # 查找预判文件（优先JSONL）
+            prediction_file = Path(f'data/daily_predictions/prediction_{target_date_short}.jsonl')
+            if not prediction_file.exists():
+                prediction_file = Path(f'data/daily_predictions/prediction_{target_date}.json')
+            
+            if not prediction_file.exists():
+                continue
+            
+            # 读取预判数据
+            try:
+                if prediction_file.suffix == '.jsonl':
+                    with open(prediction_file, 'r', encoding='utf-8') as f:
+                        lines = f.readlines()
+                        if not lines:
+                            continue
+                        # 找最后一条is_final=true的记录
+                        prediction_data = None
+                        for line in reversed(lines):
+                            line = line.strip()
+                            if line:
+                                data = json.loads(line)
+                                if data.get('is_final'):
+                                    prediction_data = data
+                                    break
+                        if not prediction_data:
+                            prediction_data = json.loads(lines[-1].strip())
+                else:
+                    with open(prediction_file, 'r', encoding='utf-8') as f:
+                        prediction_data = json.load(f)
+                
+                if not prediction_data:
+                    continue
+                
+                signal = prediction_data.get('signal', '未知')
+                color_counts = prediction_data.get('color_counts', {})
+                
+                # 获取实际行情数据（查看当天的最低点、最高点）
+                # 使用coin_change_tracker目录下的coin_change文件
+                history_file = Path(f'data/coin_change_tracker/coin_change_{target_date_short}.jsonl')
+                
+                if not history_file.exists():
+                    continue
+                
+                # 分析当天行情
+                with open(history_file, 'r', encoding='utf-8') as f:
+                    lines = f.readlines()
+                    if not lines:
+                        continue
+                    
+                    # 解析所有时间点的涨跌数据
+                    all_changes = []
+                    for line in lines:
+                        line = line.strip()
+                        if line:
+                            data = json.loads(line)
+                            changes = data.get('changes', {})
+                            # 计算平均涨跌
+                            if changes:
+                                avg_change = sum(c.get('change_pct', 0) for c in changes.values()) / len(changes)
+                                all_changes.append({
+                                    'time': data.get('beijing_time', data.get('time', '')),
+                                    'avg_change': avg_change
+                                })
+                    
+                    if not all_changes:
+                        continue
+                    
+                    # 找最低点和最高点
+                    min_change = min(c['avg_change'] for c in all_changes)
+                    max_change = max(c['avg_change'] for c in all_changes)
+                    
+                    # 判断预判是否正确
+                    correct = False
+                    actual_trend = '未知'
+                    
+                    if signal == '低吸':
+                        # 预期：市场会反弹
+                        correct = max_change > 0.5  # 后续有明显反弹
+                        actual_trend = '反弹' if correct else '继续下跌'
+                    elif signal == '做空':
+                        # 预期：市场会下跌
+                        correct = min_change < -0.5  # 后续有明显下跌
+                        actual_trend = '下跌' if correct else '上涨/横盘'
+                    elif signal == '等待新低':
+                        # 预期：可能还有新低
+                        correct = min_change < -0.3  # 有小幅下跌
+                        actual_trend = '新低' if correct else '企稳'
+                    elif signal == '观望':
+                        # 预期：横盘或不确定
+                        correct = abs(max_change) < 1.0 and abs(min_change) < 1.0
+                        actual_trend = '横盘' if correct else '大幅波动'
+                    elif signal == '诱空试盘抄底':
+                        # 预期：探底回升
+                        correct = min_change < -0.5 and max_change > 0.5
+                        actual_trend = '探底回升' if correct else '其他'
+                    elif signal == '诱多不参与':
+                        # 预期：假突破后下跌
+                        correct = min_change < -0.5
+                        actual_trend = '下跌' if correct else '上涨/横盘'
+                    else:
+                        actual_trend = f'未定义信号: {signal}'
+                    
+                    # 记录结果
+                    daily_result = {
+                        'date': target_date,
+                        'signal': signal,
+                        'color_counts': color_counts,
+                        'correct': correct,
+                        'actual_trend': actual_trend,
+                        'min_change': round(min_change, 2),
+                        'max_change': round(max_change, 2)
+                    }
+                    daily_results.append(daily_result)
+                    
+                    # 更新信号统计
+                    if signal not in signal_stats:
+                        signal_stats[signal] = {
+                            'total': 0,
+                            'correct': 0,
+                            'accuracy': 0.0
+                        }
+                    signal_stats[signal]['total'] += 1
+                    if correct:
+                        signal_stats[signal]['correct'] += 1
+                
+            except Exception as e:
+                print(f"⚠️ 处理日期 {target_date} 失败: {e}")
+                continue
+        
+        # 计算准确率
+        for signal in signal_stats:
+            if signal_stats[signal]['total'] > 0:
+                signal_stats[signal]['accuracy'] = round(
+                    signal_stats[signal]['correct'] / signal_stats[signal]['total'] * 100,
+                    2
+                )
+        
+        # 计算总体准确率
+        total_predictions = len(daily_results)
+        correct_predictions = sum(1 for r in daily_results if r['correct'])
+        overall_accuracy = round(correct_predictions / total_predictions * 100, 2) if total_predictions > 0 else 0
+        
+        return jsonify({
+            'success': True,
+            'period': f'过去{days}天',
+            'total_days': days,
+            'analyzed_days': len(daily_results),
+            'overall_accuracy': overall_accuracy,
+            'correct_predictions': correct_predictions,
+            'total_predictions': total_predictions,
+            'accuracy_by_signal': signal_stats,
+            'daily_results': daily_results[-30:] if len(daily_results) > 30 else daily_results  # 只返回最近30天详情
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        })
+
+
+def determine_market_signal_v2(color_counts):
+    """
+    根据颜色分布判断市场信号（最新逻辑，包含情况1c）
+    用于重新计算历史预判数据的信号
+    
+    情况1: 有绿+有红+无黄 OR 有绿+有红+有黄但黄柱子只有1根 → 低吸
+    情况1c（新增）: 有绿色柱子 + (有红色或有空白) + 绿色>=3根 → 低吸
+    情况2: 有绿+有红+有黄 且黄柱子>=2根（大于1根） → 等待新低
+    情况3: 只有红色 或 红色+空白（任何占比） → 做空
+    情况4: 全部绿色 → 诱多不参与
+    情况5: 全部为空白 → 空头强控盘，建议观望
+    情况6: 红色+黄色（无绿色） → 观望
+    情况7: 只有绿色+黄色（无红色），黄色>=2根 → 等待新低
+    情况7b: 只有绿色+黄色（无红色），黄色只有1根 → 低吸
+    """
+    if not color_counts:
+        return "观望", "无数据"
+    
+    green = color_counts.get('green', 0)
+    red = color_counts.get('red', 0)
+    yellow = color_counts.get('yellow', 0)
+    blank = color_counts.get('blank', 0)
+    blank_ratio = color_counts.get('blank_ratio', 0)
+    
+    # 情况5: 全部为空白（空头强控盘）
+    if blank > 0 and green == 0 and red == 0 and yellow == 0:
+        return "空头强控盘", "⚪⚪⚪ 0点-2点全部为空白，空头强控盘，建议观望。操作提示：不参与"
+    
+    # 情况4: 全部绿色（诱多）
+    if green > 0 and red == 0 and yellow == 0 and blank == 0:
+        return "诱多不参与", "🟢 全部绿色柱子，单边诱多行情，不参与操作。操作提示：不参与"
+    
+    # 情况3: 只有红色（或红色+空白）的判断（无绿色、无黄色） → 全部做空
+    if red > 0 and green == 0 and yellow == 0:
+        if blank == 0:
+            return "做空", "🔴 只有红色柱子，预判下跌行情，建议做空。操作提示：相对高点做空"
+        else:
+            return "做空", f"🔴⚪ 红色+空白且空白占比{blank_ratio:.1f}%，预判下跌行情，建议做空。操作提示：相对高点做空"
+    
+    # 情况1: 有绿+有红+无黄 → 低吸（原始情况）
+    if green > 0 and red > 0 and yellow == 0:
+        return "低吸", "🟢🔴 有绿有红无黄，红色区间为低吸机会。操作提示：低点做多"
+    
+    # 情况2优先: 有绿+有红+有黄，且黄柱子 >= 2根（大于1根）→ 等待新低
+    if green > 0 and red > 0 and yellow >= 2:
+        return "等待新低", f"🟢🔴🟡 有绿有红有黄（黄色{yellow}根>=2根），可能还有新低，建议等待。操作提示：高点做空"
+    
+    # 情况1扩展: 有绿+有红+有黄，但(红+黄) < 3根 OR 黄柱子只有1根 → 低吸
+    if green > 0 and red > 0 and yellow > 0:
+        if (red + yellow) < 3 or yellow == 1:
+            return "低吸", f"🟢🔴🟡 有绿有红有黄（红{red}+黄{yellow}共{red+yellow}根），红色区间为低吸机会。操作提示：低点做多"
+    
+    # 情况1c（新增）: 有绿色柱子 + (有红色或有空白) + 绿色>=3根 → 低吸
+    if green >= 3 and (red > 0 or blank > 0):
+        if red > 0 and blank > 0:
+            return "低吸", f"🟢🔴⚪ 绿色{green}根+红色{red}根+空白{blank}根，绿色柱子>=3根为主导，红色区间为低吸机会。操作提示：低点做多"
+        elif red > 0:
+            return "低吸", f"🟢🔴 绿色{green}根+红色{red}根，绿色柱子>=3根为主导，红色区间为低吸机会。操作提示：低点做多"
+        else:  # blank > 0
+            return "低吸", f"🟢⚪ 绿色{green}根+空白{blank}根，绿色柱子>=3根为主导，空白区间为低吸机会。操作提示：低点做多"
+    
+    # 情况7: 红色+黄色（无绿色）→ 观望
+    if red > 0 and yellow > 0 and green == 0:
+        return "观望", "🔴🟡 红色柱子+黄色柱子，没有绿色柱子，多空博弈方向不明。操作提示：无，不参与"
+    
+    # 情况8: 只有绿色+黄色（无红色）→ 根据绿色数量判断
+    if green > 0 and yellow > 0 and red == 0:
+        if green >= 3:
+            return "低吸", f"🟢🟡 绿色{green}根+黄色{yellow}根，绿色柱子>=3根为主导，黄色区间为低吸机会。操作提示：低点做多"
+        return "观望", f"🟢🟡 只有绿色{green}根和黄色{yellow}根，绿色不足3根，无法判断低吸或新低。操作提示：观望"
+    
+    # 其他情况
+    return "观望", "⚪ 柱状图混合分布，建议观望"
+
+
 @app.route('/api/coin-change-tracker/similar-predictions', methods=['GET'])
 def get_similar_predictions():
     """查找与当天预判相似的历史日期
@@ -23781,6 +24596,7 @@ def get_similar_predictions():
        - 空白不作为严格匹配条件，但参与差值计算
     2. 差值排序：|历史绿-当天绿| + |历史红-当天红| + |历史黄-当天黄| + |历史空白-当天空白|
     3. 返回差值最小的前N个历史日期
+    4. 使用最新逻辑重新计算历史信号（包含情况1c）
     
     Query params:
         - date: 查询日期（可选，默认今天）
@@ -23794,7 +24610,7 @@ def get_similar_predictions():
                 {
                     'date': str,
                     'color_counts': dict,
-                    'signal': str,
+                    'signal': str,  # 使用最新逻辑重新计算
                     'difference': int,  # 差值
                     'daily_stats': {
                         'lowest': float,
@@ -23819,16 +24635,32 @@ def get_similar_predictions():
             now_beijing = now_utc + timedelta(hours=8)
             query_date = now_beijing.strftime('%Y-%m-%d')
         
-        # 读取当天预判数据
-        current_file = Path(f'data/daily_predictions/prediction_{query_date}.json')
-        if not current_file.exists():
+        # 读取当天预判数据（支持两种格式）
+        # 1. 新格式：prediction_YYYYMMDD.jsonl
+        date_no_dash = query_date.replace('-', '')
+        current_file_jsonl = Path(f'data/daily_predictions/prediction_{date_no_dash}.jsonl')
+        # 2. 旧格式：prediction_YYYY-MM-DD.json
+        current_file_json = Path(f'data/daily_predictions/prediction_{query_date}.json')
+        
+        current_prediction = None
+        
+        # 优先读取JSONL格式
+        if current_file_jsonl.exists():
+            with open(current_file_jsonl, 'r', encoding='utf-8') as f:
+                # JSONL格式：读取最后一行（最新数据）
+                lines = f.readlines()
+                if lines:
+                    current_prediction = json.loads(lines[-1].strip())
+        elif current_file_json.exists():
+            # 兼容旧JSON格式
+            with open(current_file_json, 'r', encoding='utf-8') as f:
+                current_prediction = json.load(f)
+        
+        if not current_prediction:
             return jsonify({
                 'success': False,
                 'error': f'未找到{query_date}的预判数据'
             })
-        
-        with open(current_file, 'r', encoding='utf-8') as f:
-            current_prediction = json.load(f)
         
         current_colors = current_prediction['color_counts']
         current_green = current_colors.get('green', 0)
@@ -23836,25 +24668,60 @@ def get_similar_predictions():
         current_yellow = current_colors.get('yellow', 0)
         current_blank = current_colors.get('blank', 0)
         
+        # 🔧 重新计算当天信号，确保使用最新逻辑
+        current_signal, current_description = determine_market_signal_v2(current_colors)
+        current_prediction['signal'] = current_signal
+        current_prediction['description'] = current_description
+        
         print(f"🔍 查找与 {query_date} 相似的日期")
         print(f"   当天颜色: 绿{current_green} 红{current_red} 黄{current_yellow} 空白{current_blank}")
+        print(f"   当天信号（重新计算）: {current_signal}")
         print(f"   匹配规则: 严格颜色存在性匹配（当天有的颜色历史也必须有，当天没有的颜色历史也必须没有）")
         
-        # 读取所有历史预判文件
-        prediction_files = glob.glob('data/daily_predictions/prediction_2026-*.json')
+        # 读取所有历史预判文件（支持两种格式）
+        # 1. 旧格式：prediction_2026-*.json
+        prediction_files_json = glob.glob('data/daily_predictions/prediction_2026-*.json')
+        # 2. 新格式：prediction_2026*.jsonl
+        prediction_files_jsonl = glob.glob('data/daily_predictions/prediction_2026*.jsonl')
+        
+        # 合并两种格式的文件
+        prediction_files = prediction_files_json + prediction_files_jsonl
         similar_days = []
         
         for pred_file in prediction_files:
             filename = Path(pred_file).name
-            hist_date = filename.replace('prediction_', '').replace('.json', '')
+            is_jsonl = pred_file.endswith('.jsonl')
+            
+            # 提取日期
+            if is_jsonl:
+                # 新格式：prediction_YYYYMMDD.jsonl
+                date_str = filename.replace('prediction_', '').replace('.jsonl', '')
+                # 转换为 YYYY-MM-DD 格式
+                if len(date_str) == 8:
+                    hist_date = f"{date_str[:4]}-{date_str[4:6]}-{date_str[6:8]}"
+                else:
+                    continue
+            else:
+                # 旧格式：prediction_YYYY-MM-DD.json
+                hist_date = filename.replace('prediction_', '').replace('.json', '')
             
             # 跳过当天
             if hist_date == query_date:
                 continue
             
             try:
-                with open(pred_file, 'r', encoding='utf-8') as f:
-                    hist_prediction = json.load(f)
+                # 根据文件格式读取数据
+                if is_jsonl:
+                    # JSONL格式：读取最后一行（最新数据）
+                    with open(pred_file, 'r', encoding='utf-8') as f:
+                        lines = f.readlines()
+                        if not lines:
+                            continue
+                        hist_prediction = json.loads(lines[-1].strip())
+                else:
+                    # JSON格式
+                    with open(pred_file, 'r', encoding='utf-8') as f:
+                        hist_prediction = json.load(f)
                 
                 hist_colors = hist_prediction['color_counts']
                 hist_green = hist_colors.get('green', 0)
@@ -23923,11 +24790,14 @@ def get_similar_predictions():
                     except Exception as e:
                         print(f"⚠️ 读取{hist_date}统计数据失败: {e}")
                 
+                # 🔧 使用最新逻辑重新计算信号（解决历史数据用旧逻辑的问题）
+                recalc_signal, recalc_description = determine_market_signal_v2(hist_colors)
+                
                 similar_days.append({
                     'date': hist_date,
                     'color_counts': hist_colors,
-                    'signal': hist_prediction.get('signal', ''),
-                    'description': hist_prediction.get('description', ''),
+                    'signal': recalc_signal,  # 使用重新计算的信号
+                    'description': recalc_description,  # 使用重新计算的描述
                     'difference': difference,
                     'daily_stats': daily_stats
                 })
@@ -25092,12 +25962,23 @@ def api_new_high_low_stats():
             with open(state_file, 'r', encoding='utf-8') as f:
                 coin_states = json.load(f)
         
-        # 计算时间范围
+        # 计算时间范围（使用北京时间自然日，而不是过去24小时）
+        # 今天0点（北京时间）
+        today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+        # 昨天0点
+        yesterday_start = today_start - timedelta(days=1)
+        # 前天0点
+        day_before_yesterday_start = today_start - timedelta(days=2)
+        # 3天前0点
+        three_days_ago_start = today_start - timedelta(days=3)
+        # 7天前0点
+        seven_days_ago_start = today_start - timedelta(days=7)
+        
         time_ranges = {
-            'today': (now - timedelta(days=1), now),
-            'yesterday': (now - timedelta(days=2), now - timedelta(days=1)),
-            '3days': (now - timedelta(days=3), now),
-            '7days': (now - timedelta(days=7), now)
+            'today': (today_start, now),  # 今天0点 到 现在
+            'yesterday': (yesterday_start, today_start),  # 昨天0点 到 今天0点
+            '3days': (three_days_ago_start, now),  # 3天前0点 到 现在
+            '7days': (seven_days_ago_start, now)  # 7天前0点 到 现在
         }
         
         # 需要读取的文件日期
@@ -28356,6 +29237,11 @@ def api_liquidation_marks_save():
             'error': str(e),
             'traceback': traceback.format_exc()
         })
+
+
+@app.route('/test_prediction_display.html')
+def test_prediction_display():
+    return render_template('test_prediction_display.html')
 
 
 if __name__ == '__main__':
