@@ -5048,6 +5048,177 @@ data/
                     </div>
                 </div>
 
+                <!-- 🔄 止损反手开单 -->
+                <div class="info-card" style="margin-top: 16px; background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); border: 2px solid #ec4899;">
+                    <h3 style="color: #831843; margin-bottom: 16px; display: flex; align-items: center; gap: 6px; font-size: 16px;">
+                        🔄 止损反手开单
+                        <span style="font-size: 11px; color: #78716c; font-weight: 400; margin-left: 8px;">止损后自动反向开仓</span>
+                    </h3>
+                    
+                    <!-- 两个反手配置卡片 - 上下布局 -->
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        
+                        <!-- 多单止损反手开空卡片 -->
+                        <div id="longStoplossReverseCard" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(220, 38, 38, 0.03)); border: 2px solid #ef4444; border-radius: 12px; padding: 14px; position: relative;">
+                            <!-- 状态徽章 -->
+                            <div style="position: absolute; top: 10px; right: 10px;">
+                                <span id="longReverseStatusBadge" style="padding: 3px 10px; border-radius: 12px; font-size: 10px; font-weight: 700; background: #9ca3af; color: white;">⚪ 未启用</span>
+                            </div>
+                            
+                            <!-- 标题 -->
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                                <span style="font-size: 24px;">🔻</span>
+                                <div>
+                                    <div style="color: #dc2626; font-weight: 700; font-size: 16px;">多单止损反手开空</div>
+                                    <div style="color: #991b1b; font-size: 10px; margin-top: 2px;">多单触发止损时自动开空单</div>
+                                </div>
+                            </div>
+                            
+                            <!-- 启用开关 -->
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; background: rgba(255, 255, 255, 0.5); border-radius: 8px; margin-bottom: 10px;">
+                                <span style="color: #7c2d12; font-size: 12px; font-weight: 600;">🔴 启用反手开单</span>
+                                <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                    <input type="checkbox" id="longReverseEnabled" onchange="toggleLongReverse(this.checked)" style="opacity: 0; width: 0; height: 0;">
+                                    <span class="slider slider-long-reverse" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;">
+                                        <style>
+                                            #longReverseEnabled:checked + .slider-long-reverse { background-color: #ef4444; }
+                                            #longReverseEnabled:checked + .slider-long-reverse:before { transform: translateX(20px); }
+                                            .slider-long-reverse:before {
+                                                position: absolute;
+                                                content: "";
+                                                height: 18px;
+                                                width: 18px;
+                                                left: 3px;
+                                                bottom: 3px;
+                                                background-color: white;
+                                                transition: .4s;
+                                                border-radius: 50%;
+                                            }
+                                        </style>
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <!-- 触发条件说明 -->
+                            <div style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px; margin-bottom: 10px;">
+                                <div style="color: #7c2d12; font-size: 11px; font-weight: 600; margin-bottom: 8px;">📊 触发条件</div>
+                                <div style="color: #991b1b; font-size: 12px; line-height: 1.5;">
+                                    当多单仓位触发止损时，自动执行反手开空单策略
+                                </div>
+                            </div>
+                            
+                            <!-- 目标策略 -->
+                            <div style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px;">
+                                <div style="color: #7c2d12; font-size: 11px; font-weight: 600; margin-bottom: 8px;">🎯 反手开空策略</div>
+                                <select id="longReverseTargetStrategy" onchange="saveLongReverseSettings()" 
+                                        style="width: 100%; padding: 8px 10px; border: 1px solid #ef4444; border-radius: 6px; font-size: 12px; color: #dc2626; font-weight: 600; background: white;">
+                                    <option value="">-- 选择策略 --</option>
+                                    <option value="STG_SHORT_TOP8">涨幅前8名做空（涨势最强）</option>
+                                    <option value="STG_SHORT_BOTTOM8">涨幅后8名做空（跌势最强）</option>
+                                </select>
+                            </div>
+                            
+                            <!-- 触发权限显示 -->
+                            <div id="longReverseTriggerPermission" style="margin-top: 10px; padding: 8px; background: rgba(34, 197, 94, 0.1); border-radius: 6px; border-left: 3px solid #22c55e; display: none;">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="color: #166534; font-size: 11px; font-weight: 600;">🟢 触发权限：可触发</span>
+                                    <button onclick="resetLongReverseTrigger()" style="padding: 3px 8px; background: #f59e0b; color: white; border: none; border-radius: 4px; font-size: 10px; cursor: pointer;">🔄 重置</button>
+                                </div>
+                            </div>
+                            <div id="longReverseTriggeredInfo" style="margin-top: 10px; padding: 8px; background: rgba(239, 68, 68, 0.1); border-radius: 6px; border-left: 3px solid #dc2626; display: none;">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="color: #7f1d1d; font-size: 11px; font-weight: 600;">🔴 已触发，需重置</span>
+                                    <button onclick="resetLongReverseTrigger()" style="padding: 3px 8px; background: #f59e0b; color: white; border: none; border-radius: 4px; font-size: 10px; cursor: pointer; font-weight: 600;">🔄 重置</button>
+                                </div>
+                                <div id="longReverseLastTriggeredTime" style="color: #78716c; font-size: 10px; margin-top: 4px;"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- 空单止损反手开多卡片 -->
+                        <div id="shortStoplossReverseCard" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.03)); border: 2px solid #10b981; border-radius: 12px; padding: 14px; position: relative;">
+                            <!-- 状态徽章 -->
+                            <div style="position: absolute; top: 10px; right: 10px;">
+                                <span id="shortReverseStatusBadge" style="padding: 3px 10px; border-radius: 12px; font-size: 10px; font-weight: 700; background: #9ca3af; color: white;">⚪ 未启用</span>
+                            </div>
+                            
+                            <!-- 标题 -->
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                                <span style="font-size: 24px;">🔺</span>
+                                <div>
+                                    <div style="color: #059669; font-weight: 700; font-size: 16px;">空单止损反手开多</div>
+                                    <div style="color: #065f46; font-size: 10px; margin-top: 2px;">空单触发止损时自动开多单</div>
+                                </div>
+                            </div>
+                            
+                            <!-- 启用开关 -->
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; background: rgba(255, 255, 255, 0.5); border-radius: 8px; margin-bottom: 10px;">
+                                <span style="color: #065f46; font-size: 12px; font-weight: 600;">🟢 启用反手开单</span>
+                                <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                    <input type="checkbox" id="shortReverseEnabled" onchange="toggleShortReverse(this.checked)" style="opacity: 0; width: 0; height: 0;">
+                                    <span class="slider slider-short-reverse" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;">
+                                        <style>
+                                            #shortReverseEnabled:checked + .slider-short-reverse { background-color: #10b981; }
+                                            #shortReverseEnabled:checked + .slider-short-reverse:before { transform: translateX(20px); }
+                                            .slider-short-reverse:before {
+                                                position: absolute;
+                                                content: "";
+                                                height: 18px;
+                                                width: 18px;
+                                                left: 3px;
+                                                bottom: 3px;
+                                                background-color: white;
+                                                transition: .4s;
+                                                border-radius: 50%;
+                                            }
+                                        </style>
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <!-- 触发条件说明 -->
+                            <div style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px; margin-bottom: 10px;">
+                                <div style="color: #065f46; font-size: 11px; font-weight: 600; margin-bottom: 8px;">📊 触发条件</div>
+                                <div style="color: #047857; font-size: 12px; line-height: 1.5;">
+                                    当空单仓位触发止损时，自动执行反手开多单策略
+                                </div>
+                            </div>
+                            
+                            <!-- 目标策略 -->
+                            <div style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px;">
+                                <div style="color: #065f46; font-size: 11px; font-weight: 600; margin-bottom: 8px;">🎯 反手开多策略</div>
+                                <select id="shortReverseTargetStrategy" onchange="saveShortReverseSettings()" 
+                                        style="width: 100%; padding: 8px 10px; border: 1px solid #10b981; border-radius: 6px; font-size: 12px; color: #059669; font-weight: 600; background: white;">
+                                    <option value="">-- 选择策略 --</option>
+                                    <option value="STG_LONG_TOP8">涨幅前8名做多（涨势最强）</option>
+                                    <option value="STG_LONG_BOTTOM8">涨幅后8名做多（跌势最强，抄底）</option>
+                                </select>
+                            </div>
+                            
+                            <!-- 触发权限显示 -->
+                            <div id="shortReverseTriggerPermission" style="margin-top: 10px; padding: 8px; background: rgba(34, 197, 94, 0.1); border-radius: 6px; border-left: 3px solid #22c55e; display: none;">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="color: #166534; font-size: 11px; font-weight: 600;">🟢 触发权限：可触发</span>
+                                    <button onclick="resetShortReverseTrigger()" style="padding: 3px 8px; background: #f59e0b; color: white; border: none; border-radius: 4px; font-size: 10px; cursor: pointer;">🔄 重置</button>
+                                </div>
+                            </div>
+                            <div id="shortReverseTriggeredInfo" style="margin-top: 10px; padding: 8px; background: rgba(239, 68, 68, 0.1); border-radius: 6px; border-left: 3px solid #dc2626; display: none;">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="color: #7f1d1d; font-size: 11px; font-weight: 600;">🔴 已触发，需重置</span>
+                                    <button onclick="resetShortReverseTrigger()" style="padding: 3px 8px; background: #f59e0b; color: white; border: none; border-radius: 4px; font-size: 10px; cursor: pointer; font-weight: 600;">🔄 重置</button>
+                                </div>
+                                <div id="shortReverseLastTriggeredTime" style="color: #78716c; font-size: 10px; margin-top: 4px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 说明 -->
+                    <div style="margin-top: 12px; padding: 8px; background: rgba(236, 72, 153, 0.1); border-radius: 6px; border-left: 3px solid #ec4899;">
+                        <p style="color: #831843; font-size: 11px; margin: 0; line-height: 1.5;">
+                            💡 <strong>提示：</strong>系统监控所有止损事件。当检测到止损时自动执行反向开仓策略，触发后需手动重置才能再次触发。
+                        </p>
+                    </div>
+                </div>
+
                 <!-- 📉 涨幅后8名策略（抄底） -->
                 <div class="info-card" style="margin-top: 16px; background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%); border: 2px solid #8b5cf6;">
                     <h3 style="color: #5b21b6; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
@@ -7344,6 +7515,7 @@ data/
             loadCoinChangeTpslData();  // 📈 加载27币涨跌幅数据
             loadCoinChangeTpslSettings();  // 📈 加载27币涨跌幅止盈配置
             loadConditionalOrders();  // 🎯 加载27币涨跌幅条件单
+            loadStoplossReverseOrders();  // 🔄 加载止损反手开单配置
             loadCurrentMarketSentiment();  // 🔥 加载当前市场情绪
             loadAutoStrategySettings();  // 加载该账户的抄底策略设置
             loadAutoStrategySettingsTop();  // 🆕 加载该账户的追涨策略设置
@@ -13518,6 +13690,310 @@ ${data.sMsg || result.message || ''}`);
                 if (data.success) {
                     alert('✅ 做多条件单触发状态已重置');
                     await loadConditionalOrders();
+                } else {
+                    throw new Error(data.message || '重置失败');
+                }
+            } catch (error) {
+                console.error('❌ 重置触发状态失败:', error);
+                alert('重置失败: ' + error.message);
+            }
+        }
+
+        // ==================== 止损反手开单管理 ====================
+        
+        let longReverseData = null;  // 多单止损反手数据
+        let shortReverseData = null;  // 空单止损反手数据
+        
+        // 加载止损反手配置
+        async function loadStoplossReverseOrders() {
+            const accountId = getCurrentAccountId();
+            if (!accountId) {
+                console.warn('⚠️ 未选择账户，无法加载止损反手配置');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/okx-trading/stoploss-reverse-orders/${accountId}`);
+                const data = await response.json();
+                
+                if (data.success && data.configs) {
+                    console.log('✅ 加载止损反手配置:', data.configs);
+                    
+                    // 查找两个配置
+                    for (const config of data.configs) {
+                        if (config.type === 'long_stoploss_reverse') {
+                            longReverseData = config;
+                            displayLongReverseConfig(config);
+                        } else if (config.type === 'short_stoploss_reverse') {
+                            shortReverseData = config;
+                            displayShortReverseConfig(config);
+                        }
+                    }
+                } else {
+                    throw new Error(data.error || '加载失败');
+                }
+            } catch (error) {
+                console.error('❌ 加载止损反手配置失败:', error);
+            }
+        }
+        
+        // 显示多单止损反手配置
+        function displayLongReverseConfig(config) {
+            // 更新启用开关
+            document.getElementById('longReverseEnabled').checked = config.enabled;
+            
+            // 更新状态徽章
+            const statusBadge = document.getElementById('longReverseStatusBadge');
+            if (config.enabled) {
+                statusBadge.textContent = '✅ 已启用';
+                statusBadge.style.background = '#22c55e';
+            } else {
+                statusBadge.textContent = '⚪ 未启用';
+                statusBadge.style.background = '#9ca3af';
+            }
+            
+            // 更新目标策略
+            if (config.target_strategy_code) {
+                document.getElementById('longReverseTargetStrategy').value = config.target_strategy_code;
+            }
+            
+            // 更新触发权限显示
+            const permissionDiv = document.getElementById('longReverseTriggerPermission');
+            const triggeredDiv = document.getElementById('longReverseTriggeredInfo');
+            
+            if (config.allow_trigger) {
+                permissionDiv.style.display = 'block';
+                triggeredDiv.style.display = 'none';
+            } else {
+                permissionDiv.style.display = 'none';
+                triggeredDiv.style.display = 'block';
+                
+                // 显示最后触发时间
+                if (config.last_triggered_at) {
+                    document.getElementById('longReverseLastTriggeredTime').textContent = 
+                        `最后触发: ${config.last_triggered_at}`;
+                }
+            }
+        }
+        
+        // 显示空单止损反手配置
+        function displayShortReverseConfig(config) {
+            // 更新启用开关
+            document.getElementById('shortReverseEnabled').checked = config.enabled;
+            
+            // 更新状态徽章
+            const statusBadge = document.getElementById('shortReverseStatusBadge');
+            if (config.enabled) {
+                statusBadge.textContent = '✅ 已启用';
+                statusBadge.style.background = '#22c55e';
+            } else {
+                statusBadge.textContent = '⚪ 未启用';
+                statusBadge.style.background = '#9ca3af';
+            }
+            
+            // 更新目标策略
+            if (config.target_strategy_code) {
+                document.getElementById('shortReverseTargetStrategy').value = config.target_strategy_code;
+            }
+            
+            // 更新触发权限显示
+            const permissionDiv = document.getElementById('shortReverseTriggerPermission');
+            const triggeredDiv = document.getElementById('shortReverseTriggeredInfo');
+            
+            if (config.allow_trigger) {
+                permissionDiv.style.display = 'block';
+                triggeredDiv.style.display = 'none';
+            } else {
+                permissionDiv.style.display = 'none';
+                triggeredDiv.style.display = 'block';
+                
+                // 显示最后触发时间
+                if (config.last_triggered_at) {
+                    document.getElementById('shortReverseLastTriggeredTime').textContent = 
+                        `最后触发: ${config.last_triggered_at}`;
+                }
+            }
+        }
+        
+        // 切换多单止损反手
+        async function toggleLongReverse(enabled) {
+            const accountId = getCurrentAccountId();
+            if (!accountId) {
+                alert('⚠️ 请先选择账户');
+                document.getElementById('longReverseEnabled').checked = false;
+                return;
+            }
+            
+            if (!longReverseData) {
+                alert('⚠️ 配置数据未加载');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/okx-trading/stoploss-reverse-orders/${accountId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: longReverseData.id,
+                        enabled: enabled,
+                        target_strategy_code: document.getElementById('longReverseTargetStrategy').value
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log('✅ 多单止损反手配置已更新');
+                    await loadStoplossReverseOrders();
+                } else {
+                    throw new Error(data.error || '更新失败');
+                }
+            } catch (error) {
+                console.error('❌ 更新失败:', error);
+                alert('更新失败: ' + error.message);
+                document.getElementById('longReverseEnabled').checked = !enabled;
+            }
+        }
+        
+        // 切换空单止损反手
+        async function toggleShortReverse(enabled) {
+            const accountId = getCurrentAccountId();
+            if (!accountId) {
+                alert('⚠️ 请先选择账户');
+                document.getElementById('shortReverseEnabled').checked = false;
+                return;
+            }
+            
+            if (!shortReverseData) {
+                alert('⚠️ 配置数据未加载');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/okx-trading/stoploss-reverse-orders/${accountId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: shortReverseData.id,
+                        enabled: enabled,
+                        target_strategy_code: document.getElementById('shortReverseTargetStrategy').value
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log('✅ 空单止损反手配置已更新');
+                    await loadStoplossReverseOrders();
+                } else {
+                    throw new Error(data.error || '更新失败');
+                }
+            } catch (error) {
+                console.error('❌ 更新失败:', error);
+                alert('更新失败: ' + error.message);
+                document.getElementById('shortReverseEnabled').checked = !enabled;
+            }
+        }
+        
+        // 保存多单止损反手设置
+        async function saveLongReverseSettings() {
+            const accountId = getCurrentAccountId();
+            if (!accountId || !longReverseData) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/stoploss-reverse-orders/${accountId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: longReverseData.id,
+                        enabled: document.getElementById('longReverseEnabled').checked,
+                        target_strategy_code: document.getElementById('longReverseTargetStrategy').value
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log('✅ 多单止损反手设置已保存');
+                    await loadStoplossReverseOrders();
+                } else {
+                    throw new Error(data.error || '保存失败');
+                }
+            } catch (error) {
+                console.error('❌ 保存失败:', error);
+                alert('保存失败: ' + error.message);
+            }
+        }
+        
+        // 保存空单止损反手设置
+        async function saveShortReverseSettings() {
+            const accountId = getCurrentAccountId();
+            if (!accountId || !shortReverseData) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/stoploss-reverse-orders/${accountId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: shortReverseData.id,
+                        enabled: document.getElementById('shortReverseEnabled').checked,
+                        target_strategy_code: document.getElementById('shortReverseTargetStrategy').value
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log('✅ 空单止损反手设置已保存');
+                    await loadStoplossReverseOrders();
+                } else {
+                    throw new Error(data.error || '保存失败');
+                }
+            } catch (error) {
+                console.error('❌ 保存失败:', error);
+                alert('保存失败: ' + error.message);
+            }
+        }
+        
+        // 重置多单止损反手触发权限
+        async function resetLongReverseTrigger() {
+            const accountId = getCurrentAccountId();
+            if (!accountId || !longReverseData) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/stoploss-reverse-orders/${accountId}/${longReverseData.id}/reset-trigger`, {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('✅ 多单止损反手触发状态已重置');
+                    await loadStoplossReverseOrders();
+                } else {
+                    throw new Error(data.message || '重置失败');
+                }
+            } catch (error) {
+                console.error('❌ 重置触发状态失败:', error);
+                alert('重置失败: ' + error.message);
+            }
+        }
+        
+        // 重置空单止损反手触发权限
+        async function resetShortReverseTrigger() {
+            const accountId = getCurrentAccountId();
+            if (!accountId || !shortReverseData) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/stoploss-reverse-orders/${accountId}/${shortReverseData.id}/reset-trigger`, {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('✅ 空单止损反手触发状态已重置');
+                    await loadStoplossReverseOrders();
                 } else {
                     throw new Error(data.message || '重置失败');
                 }

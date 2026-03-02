@@ -17941,6 +17941,212 @@ def get_available_strategies(account_id):
             'traceback': traceback.format_exc()
         }), 500
 
+# ==================== 止损反手开单 API ====================
+
+@app.route('/api/okx-trading/stoploss-reverse-orders/<account_id>', methods=['GET'])
+def api_get_stoploss_reverse_orders(account_id):
+    """获取指定账户的止损反手配置"""
+    try:
+        import json
+        import os
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        settings_dir = os.path.join(current_dir, 'data', 'stoploss_reverse_orders')
+        os.makedirs(settings_dir, exist_ok=True)
+        
+        settings_file = os.path.join(settings_dir, f'{account_id}_stoploss_reverse.jsonl')
+        
+        # 读取配置（JSONL格式，每行一个配置）
+        configs = []
+        if os.path.exists(settings_file):
+            with open(settings_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        config = json.loads(line)
+                        configs.append(config)
+        
+        # 如果没有配置，返回默认配置
+        if not configs:
+            # 默认配置：多单止损反手和空单止损反手
+            default_configs = [
+                {
+                    'id': 'reverse_long_stoploss',
+                    'type': 'long_stoploss_reverse',  # 多单止损反手开空单
+                    'name': '多单止损反手开空',
+                    'description': '多单止损后自动反手开空单',
+                    'enabled': False,
+                    'allow_trigger': True,
+                    'target_strategy_code': None,  # 目标策略代码
+                    'triggered_count': 0,
+                    'last_triggered_at': None,
+                    'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                },
+                {
+                    'id': 'reverse_short_stoploss',
+                    'type': 'short_stoploss_reverse',  # 空单止损反手开多单
+                    'name': '空单止损反手开多',
+                    'description': '空单止损后自动反手开多单',
+                    'enabled': False,
+                    'allow_trigger': True,
+                    'target_strategy_code': None,
+                    'triggered_count': 0,
+                    'last_triggered_at': None,
+                    'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                }
+            ]
+            
+            # 写入默认配置
+            with open(settings_file, 'w', encoding='utf-8') as f:
+                for config in default_configs:
+                    f.write(json.dumps(config, ensure_ascii=False) + '\n')
+            
+            configs = default_configs
+        
+        return jsonify({
+            'success': True,
+            'configs': configs,
+            'account_id': account_id,
+            'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+@app.route('/api/okx-trading/stoploss-reverse-orders/<account_id>', methods=['POST'])
+def api_update_stoploss_reverse_order(account_id):
+    """更新止损反手配置"""
+    try:
+        import json
+        import os
+        from flask import request
+        
+        data = request.get_json()
+        config_id = data.get('id')
+        
+        if not config_id:
+            return jsonify({
+                'success': False,
+                'error': '缺少配置ID'
+            }), 400
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        settings_dir = os.path.join(current_dir, 'data', 'stoploss_reverse_orders')
+        os.makedirs(settings_dir, exist_ok=True)
+        
+        settings_file = os.path.join(settings_dir, f'{account_id}_stoploss_reverse.jsonl')
+        
+        # 读取所有配置
+        configs = []
+        if os.path.exists(settings_file):
+            with open(settings_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        configs.append(json.loads(line))
+        
+        # 查找并更新配置
+        config_found = False
+        for i, config in enumerate(configs):
+            if config['id'] == config_id:
+                # 更新配置
+                config['enabled'] = data.get('enabled', config['enabled'])
+                config['target_strategy_code'] = data.get('target_strategy_code', config['target_strategy_code'])
+                config['updated_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                config_found = True
+                break
+        
+        if not config_found:
+            return jsonify({
+                'success': False,
+                'error': f'未找到配置ID: {config_id}'
+            }), 404
+        
+        # 写回文件
+        with open(settings_file, 'w', encoding='utf-8') as f:
+            for config in configs:
+                f.write(json.dumps(config, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'message': '配置已更新',
+            'config': config,
+            'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+@app.route('/api/okx-trading/stoploss-reverse-orders/<account_id>/<config_id>/reset-trigger', methods=['POST'])
+def api_reset_stoploss_reverse_trigger(account_id, config_id):
+    """重置止损反手触发权限"""
+    try:
+        import json
+        import os
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        settings_dir = os.path.join(current_dir, 'data', 'stoploss_reverse_orders')
+        settings_file = os.path.join(settings_dir, f'{account_id}_stoploss_reverse.jsonl')
+        
+        if not os.path.exists(settings_file):
+            return jsonify({
+                'success': False,
+                'error': '配置文件不存在'
+            }), 404
+        
+        # 读取所有配置
+        configs = []
+        with open(settings_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    configs.append(json.loads(line))
+        
+        # 查找并重置触发权限
+        config_found = False
+        for config in configs:
+            if config['id'] == config_id:
+                config['allow_trigger'] = True
+                config['updated_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                config_found = True
+                break
+        
+        if not config_found:
+            return jsonify({
+                'success': False,
+                'error': f'未找到配置ID: {config_id}'
+            }), 404
+        
+        # 写回文件
+        with open(settings_file, 'w', encoding='utf-8') as f:
+            for config in configs:
+                f.write(json.dumps(config, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'message': f'配置 {config_id} 触发权限已重置'
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
 @app.route('/api/okx-trading/confirm-structure-alerts/<account_id>', methods=['GET'])
 def get_confirm_structure_alerts(account_id):
     """获取确认结构提醒记录"""

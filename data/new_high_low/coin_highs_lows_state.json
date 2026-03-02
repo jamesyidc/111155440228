@@ -18,8 +18,8 @@
     "lowest_time": "2026-02-23 12:41:28"
   },
   "BNB": {
-    "highest_price": 632.5,
-    "highest_time": "2026-03-02 22:53:23",
+    "highest_price": 646.0,
+    "highest_time": "2026-03-02 23:13:53",
     "lowest_price": 584.9,
     "lowest_time": "2026-02-23 10:00:28"
   },
@@ -72,8 +72,8 @@
     "lowest_time": "2026-02-23 12:44:53"
   },
   "UNI": {
-    "highest_price": 3.962,
-    "highest_time": "2026-03-01 10:14:27",
+    "highest_price": 3.984,
+    "highest_time": "2026-03-02 23:20:43",
     "lowest_price": 3.281,
     "lowest_time": "2026-02-23 10:00:28"
   },
@@ -102,14 +102,14 @@
     "lowest_time": "2026-02-23 09:26:14"
   },
   "NEAR": {
-    "highest_price": 1.2933,
-    "highest_time": "2026-03-02 22:56:48",
+    "highest_price": 1.3193,
+    "highest_time": "2026-03-02 23:13:53",
     "lowest_price": 0.9727,
     "lowest_time": "2026-02-23 10:00:28"
   },
   "APT": {
-    "highest_price": 0.9768,
-    "highest_time": "2026-03-01 10:07:38",
+    "highest_price": 0.9815,
+    "highest_time": "2026-03-02 23:20:43",
     "lowest_price": 0.7918,
     "lowest_time": "2026-02-23 09:26:14"
   },
