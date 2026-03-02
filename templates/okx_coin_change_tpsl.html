@@ -766,12 +766,19 @@
         // 加载配置
         async function loadSettings() {
             try {
+                console.log('[loadSettings] 开始加载配置，账户:', currentAccount);
+                
                 // 使用综合API获取配置和状态
                 const response = await fetch(`${API_BASE}/coin-change-tpsl-overview/${currentAccount}`);
                 const result = await response.json();
                 
-                if (result.success) {
+                console.log('[loadSettings] API返回结果:', result);
+                
+                // 检查是否有config字段（无论success是否为true）
+                if (result.config) {
                     const config = result.config;
+                    
+                    console.log('[loadSettings] 配置内容:', config);
                     
                     // 更新配置表单
                     document.getElementById('shortTpEnabled').checked = config.shortTakeProfitEnabled || false;
@@ -781,46 +788,75 @@
                     
                     // 更新状态总览
                     updateStatusOverview(result);
+                    
+                    console.log('[loadSettings] 配置加载完成');
+                } else {
+                    console.error('[loadSettings] API返回数据中没有config字段:', result);
+                    showAlert('配置数据格式错误', 'error');
                 }
             } catch (error) {
-                console.error('加载配置失败:', error);
+                console.error('[loadSettings] 加载配置失败:', error);
                 showAlert('加载配置失败: ' + error.message, 'error');
             }
         }
         
         // 更新状态总览
         function updateStatusOverview(result) {
+            console.log('[updateStatusOverview] 开始更新状态总览');
+            console.log('[updateStatusOverview] result:', result);
+            
             const config = result.config;
             const shortEnabled = config.shortTakeProfitEnabled;
             const longEnabled = config.longTakeProfitEnabled;
             const shortThreshold = config.shortTakeProfitThreshold;
             const longThreshold = config.longTakeProfitThreshold;
             
+            console.log('[updateStatusOverview] 空单启用:', shortEnabled, '阈值:', shortThreshold);
+            console.log('[updateStatusOverview] 多单启用:', longEnabled, '阈值:', longThreshold);
+            
             // 更新空单止盈状态
             const shortStatusText = document.getElementById('shortTpStatusText');
             const shortThresholdText = document.getElementById('shortTpThresholdText');
             
-            if (shortEnabled) {
-                shortStatusText.innerHTML = '<span style="color: #10b981;">✅ 已启用</span>';
-                // shortThreshold 本身就是负数，直接显示
-                shortThresholdText.textContent = `${shortThreshold.toFixed(1)}%`;
+            console.log('[updateStatusOverview] 找到元素 shortTpStatusText:', shortStatusText);
+            console.log('[updateStatusOverview] 找到元素 shortTpThresholdText:', shortThresholdText);
+            
+            if (shortStatusText && shortThresholdText) {
+                if (shortEnabled) {
+                    shortStatusText.innerHTML = '<span style="color: #10b981;">✅ 已启用</span>';
+                    // shortThreshold 本身就是负数，直接显示
+                    shortThresholdText.textContent = `${shortThreshold.toFixed(1)}%`;
+                } else {
+                    shortStatusText.innerHTML = '<span style="color: #9ca3af;">⭕ 未启用</span>';
+                    shortThresholdText.textContent = '--';
+                }
+                console.log('[updateStatusOverview] 空单状态已更新');
             } else {
-                shortStatusText.innerHTML = '<span style="color: #9ca3af;">⭕ 未启用</span>';
-                shortThresholdText.textContent = '--';
+                console.error('[updateStatusOverview] 找不到空单状态元素！');
             }
             
             // 更新多单止盈状态
             const longStatusText = document.getElementById('longTpStatusText');
             const longThresholdText = document.getElementById('longTpThresholdText');
             
-            if (longEnabled) {
-                longStatusText.innerHTML = '<span style="color: #10b981;">✅ 已启用</span>';
-                // longThreshold 是正数，加上+号
-                longThresholdText.textContent = `+${longThreshold.toFixed(1)}%`;
+            console.log('[updateStatusOverview] 找到元素 longTpStatusText:', longStatusText);
+            console.log('[updateStatusOverview] 找到元素 longTpThresholdText:', longThresholdText);
+            
+            if (longStatusText && longThresholdText) {
+                if (longEnabled) {
+                    longStatusText.innerHTML = '<span style="color: #10b981;">✅ 已启用</span>';
+                    // longThreshold 是正数，加上+号
+                    longThresholdText.textContent = `+${longThreshold.toFixed(1)}%`;
+                } else {
+                    longStatusText.innerHTML = '<span style="color: #9ca3af;">⭕ 未启用</span>';
+                    longThresholdText.textContent = '--';
+                }
+                console.log('[updateStatusOverview] 多单状态已更新');
             } else {
-                longStatusText.innerHTML = '<span style="color: #9ca3af;">⭕ 未启用</span>';
-                longThresholdText.textContent = '--';
+                console.error('[updateStatusOverview] 找不到多单状态元素！');
             }
+            
+            console.log('[updateStatusOverview] 状态总览更新完成');
         }
         
         // 保存配置
