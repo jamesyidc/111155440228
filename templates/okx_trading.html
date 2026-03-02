@@ -4861,6 +4861,97 @@ data/
                     </div>
                 </div>
 
+                <!-- 🎯 27币涨跌幅条件单管理 -->
+                <div class="info-card" style="margin-top: 16px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b;">
+                    <h3 style="color: #92400e; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+                        🎯 27币涨跌幅条件单
+                        <button onclick="showAddConditionalOrderForm()" style="margin-left: auto; padding: 6px 12px; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border: none; border-radius: 6px; font-size: 11px; cursor: pointer; font-weight: 600;">
+                            ➕ 新增条件单
+                        </button>
+                    </h3>
+                    
+                    <!-- 条件单列表 -->
+                    <div id="conditionalOrdersList" style="margin-top: 10px;">
+                        <div style="text-align: center; padding: 20px; color: #92400e; opacity: 0.6;">
+                            ⏳ 加载中...
+                        </div>
+                    </div>
+                    
+                    <!-- 新增/编辑条件单表单（默认隐藏） -->
+                    <div id="conditionalOrderForm" style="display: none; margin-top: 15px; padding: 15px; background: rgba(255, 255, 255, 0.8); border-radius: 12px; border: 2px solid #f59e0b;">
+                        <h4 style="color: #92400e; margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between;">
+                            <span id="formTitle">➕ 新增条件单</span>
+                            <button onclick="hideConditionalOrderForm()" style="background: none; border: none; font-size: 18px; cursor: pointer; color: #92400e;">✖</button>
+                        </h4>
+                        
+                        <input type="hidden" id="editingOrderId" value="">
+                        
+                        <!-- 是否启用 -->
+                        <div style="margin-bottom: 12px;">
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <input type="checkbox" id="orderEnabled" style="width: 18px; height: 18px;">
+                                <span style="color: #92400e; font-weight: 600; font-size: 13px;">✅ 启用此条件单</span>
+                            </label>
+                        </div>
+                        
+                        <!-- 条件单类型 -->
+                        <div style="margin-bottom: 12px;">
+                            <label style="color: #92400e; font-weight: 600; font-size: 12px; display: block; margin-bottom: 6px;">条件单类型</label>
+                            <div style="display: flex; gap: 12px;">
+                                <label style="flex: 1; padding: 10px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.05)); border: 2px solid #ef4444; border-radius: 8px; cursor: pointer; text-align: center;">
+                                    <input type="radio" name="orderType" value="open_short" style="display: none;" checked>
+                                    <div style="color: #dc2626; font-weight: 700; font-size: 14px;">🩸 开空单</div>
+                                    <div style="color: #991b1b; font-size: 10px; margin-top: 3px;">涨幅之和高于阈值时触发</div>
+                                </label>
+                                <label style="flex: 1; padding: 10px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05)); border: 2px solid #10b981; border-radius: 8px; cursor: pointer; text-align: center;">
+                                    <input type="radio" name="orderType" value="open_long" style="display: none;">
+                                    <div style="color: #059669; font-weight: 700; font-size: 14px;">🚀 开多单</div>
+                                    <div style="color: #065f46; font-size: 10px; margin-top: 3px;">涨幅之和低于阈值时触发</div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- 触发条件 -->
+                        <div style="margin-bottom: 12px;">
+                            <label style="color: #92400e; font-weight: 600; font-size: 12px; display: block; margin-bottom: 6px;">触发条件</label>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="color: #92400e; font-size: 12px;">27币涨跌幅之和</span>
+                                <select id="triggerCondition" style="padding: 6px 10px; border: 1px solid #f59e0b; border-radius: 6px; font-size: 12px; background: white;">
+                                    <option value="above">高于 ≥</option>
+                                    <option value="below">低于 ≤</option>
+                                </select>
+                                <input type="number" id="triggerValue" step="1" placeholder="50" style="flex: 1; padding: 6px 10px; border: 1px solid #f59e0b; border-radius: 6px; font-size: 13px;">
+                                <span style="color: #92400e; font-size: 13px; font-weight: 600;">%</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 目标策略选择 -->
+                        <div style="margin-bottom: 12px;">
+                            <label style="color: #92400e; font-weight: 600; font-size: 12px; display: block; margin-bottom: 6px;">目标策略</label>
+                            <select id="targetStrategy" style="width: 100%; padding: 8px 12px; border: 1px solid #f59e0b; border-radius: 6px; font-size: 12px; background: white;">
+                                <option value="">-- 请选择策略 --</option>
+                            </select>
+                        </div>
+                        
+                        <!-- 按钮 -->
+                        <div style="display: flex; gap: 10px; margin-top: 15px;">
+                            <button onclick="saveConditionalOrder()" style="flex: 1; padding: 10px; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px;">
+                                💾 保存条件单
+                            </button>
+                            <button onclick="hideConditionalOrderForm()" style="flex: 0 0 100px; padding: 10px; background: #6b7280; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px;">
+                                ❌ 取消
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 说明 -->
+                    <div style="margin-top: 10px; padding: 8px; background: rgba(34, 197, 94, 0.1); border-radius: 6px; border-left: 3px solid #22c55e;">
+                        <p style="color: #166534; font-size: 11px; margin: 0; line-height: 1.5;">
+                            💡 <strong>提示：</strong>条件单会自动监控27币涨跌幅之和，达到触发条件时执行指定策略开仓。触发后会自动禁止重复触发，需要手动重置才能再次触发。
+                        </p>
+                    </div>
+                </div>
+
                 <!-- 📉 涨幅后8名策略（抄底） -->
                 <div class="info-card" style="margin-top: 16px; background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%); border: 2px solid #8b5cf6;">
                     <h3 style="color: #5b21b6; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
@@ -7156,6 +7247,7 @@ data/
             loadPercentTpslStatus();  // 📊 加载百分比止盈止损监控状态
             loadCoinChangeTpslData();  // 📈 加载27币涨跌幅数据
             loadCoinChangeTpslSettings();  // 📈 加载27币涨跌幅止盈配置
+            loadConditionalOrders();  // 🎯 加载27币涨跌幅条件单
             loadCurrentMarketSentiment();  // 🔥 加载当前市场情绪
             loadAutoStrategySettings();  // 加载该账户的抄底策略设置
             loadAutoStrategySettingsTop();  // 🆕 加载该账户的追涨策略设置
@@ -13001,6 +13093,336 @@ ${data.sMsg || result.message || ''}`);
                 listDiv.innerHTML = '<div style="text-align: center; color: #ef4444; padding: 20px; font-size: 12px;">❌ 加载失败，请重试</div>';
             }
         }
+
+        // ========================================
+        // 27币涨跌幅条件单管理
+        // ========================================
+        
+        // 加载条件单列表
+        async function loadConditionalOrders() {
+            const accountId = getCurrentAccountId();
+            if (!accountId) {
+                document.getElementById('conditionalOrdersList').innerHTML = 
+                    '<div style="text-align: center; padding: 20px; color: #ef4444;">❌ 请先选择账户</div>';
+                return;
+            }
+            
+            try {
+                console.log('📊 加载条件单列表...');
+                const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayConditionalOrders(data.orders);
+                } else {
+                    throw new Error(data.message || '加载失败');
+                }
+            } catch (error) {
+                console.error('❌ 加载条件单失败:', error);
+                document.getElementById('conditionalOrdersList').innerHTML = 
+                    '<div style="text-align: center; padding: 20px; color: #ef4444;">❌ 加载失败，请重试</div>';
+            }
+        }
+        
+        // 显示条件单列表
+        function displayConditionalOrders(orders) {
+            const container = document.getElementById('conditionalOrdersList');
+            
+            if (!orders || orders.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 20px; color: #92400e; opacity: 0.6;">暂无条件单</div>';
+                return;
+            }
+            
+            let html = '';
+            orders.forEach((order, index) => {
+                const isShort = order.order_type === 'open_short';
+                const borderColor = isShort ? '#ef4444' : '#10b981';
+                const bgColor = isShort ? 'rgba(239, 68, 68, 0.05)' : 'rgba(16, 185, 129, 0.05)';
+                const iconColor = isShort ? '🩸' : '🚀';
+                const typeText = isShort ? '开空单' : '开多单';
+                const conditionSymbol = order.trigger_condition === 'above' ? '≥' : '≤';
+                const statusBadge = order.enabled ? 
+                    '<span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 600;">✅ 已启用</span>' :
+                    '<span style="background: #6b7280; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 600;">⚪ 未启用</span>';
+                const triggerStatusBadge = order.allow_trigger ?
+                    '<span style="background: #22c55e; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 600;">🟢 可触发</span>' :
+                    '<span style="background: #dc2626; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 600;">🔴 已触发</span>';
+                
+                html += `
+                    <div style="margin-bottom: 12px; padding: 12px; background: ${bgColor}; border: 2px solid ${borderColor}; border-radius: 10px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 16px;">${iconColor}</span>
+                                <span style="color: ${isShort ? '#dc2626' : '#059669'}; font-weight: 700; font-size: 13px;">${typeText}</span>
+                                ${statusBadge}
+                                ${triggerStatusBadge}
+                            </div>
+                            <div style="display: flex; gap: 6px;">
+                                <button onclick="editConditionalOrder('${order.id}')" style="padding: 4px 10px; background: #3b82f6; color: white; border: none; border-radius: 6px; font-size: 10px; cursor: pointer; font-weight: 600;">
+                                    ✏️ 编辑
+                                </button>
+                                ${!order.allow_trigger ? `
+                                <button onclick="resetConditionalOrderTrigger('${order.id}')" style="padding: 4px 10px; background: #f59e0b; color: white; border: none; border-radius: 6px; font-size: 10px; cursor: pointer; font-weight: 600;">
+                                    🔄 重置
+                                </button>
+                                ` : ''}
+                                <button onclick="deleteConditionalOrder('${order.id}')" style="padding: 4px 10px; background: #ef4444; color: white; border: none; border-radius: 6px; font-size: 10px; cursor: pointer; font-weight: 600;">
+                                    🗑️ 删除
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px; color: #92400e;">
+                            <div>
+                                <span style="opacity: 0.8;">触发条件:</span>
+                                <span style="font-weight: 700; font-family: 'Courier New', monospace; margin-left: 4px;">
+                                    27币涨跌幅之和 ${conditionSymbol} ${order.trigger_value}%
+                                </span>
+                            </div>
+                            <div>
+                                <span style="opacity: 0.8;">目标策略:</span>
+                                <span style="font-weight: 700; margin-left: 4px;">${order.target_strategy_code}</span>
+                            </div>
+                            ${order.last_triggered_time ? `
+                            <div style="grid-column: span 2;">
+                                <span style="opacity: 0.8;">最后触发:</span>
+                                <span style="font-weight: 600; margin-left: 4px;">${order.last_triggered_time}</span>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+            console.log(`✅ 已显示 ${orders.length} 个条件单`);
+        }
+        
+        // 显示新增条件单表单
+        async function showAddConditionalOrderForm() {
+            document.getElementById('formTitle').textContent = '➕ 新增条件单';
+            document.getElementById('editingOrderId').value = '';
+            document.getElementById('orderEnabled').checked = true;
+            document.querySelector('input[name="orderType"][value="open_short"]').checked = true;
+            document.getElementById('triggerCondition').value = 'above';
+            document.getElementById('triggerValue').value = '';
+            document.getElementById('targetStrategy').value = '';
+            
+            // 加载可用策略
+            await loadAvailableStrategies('open_short');
+            
+            document.getElementById('conditionalOrderForm').style.display = 'block';
+            
+            // 监听订单类型变化，自动更新触发条件和策略列表
+            document.querySelectorAll('input[name="orderType"]').forEach(radio => {
+                radio.addEventListener('change', async function() {
+                    const orderType = this.value;
+                    // 自动设置触发条件
+                    if (orderType === 'open_short') {
+                        document.getElementById('triggerCondition').value = 'above';
+                    } else {
+                        document.getElementById('triggerCondition').value = 'below';
+                    }
+                    // 重新加载策略列表
+                    await loadAvailableStrategies(orderType);
+                });
+            });
+        }
+        
+        // 隐藏表单
+        function hideConditionalOrderForm() {
+            document.getElementById('conditionalOrderForm').style.display = 'none';
+        }
+        
+        // 加载可用策略
+        async function loadAvailableStrategies(orderType) {
+            const accountId = getCurrentAccountId();
+            if (!accountId) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/available-strategies/${accountId}?order_type=${orderType}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const select = document.getElementById('targetStrategy');
+                    select.innerHTML = '<option value="">-- 请选择策略 --</option>';
+                    
+                    data.strategies.forEach(strategy => {
+                        const option = document.createElement('option');
+                        option.value = strategy.code;
+                        option.textContent = `${strategy.name} (${strategy.code})`;
+                        select.appendChild(option);
+                    });
+                } else {
+                    throw new Error(data.message || '加载策略失败');
+                }
+            } catch (error) {
+                console.error('❌ 加载可用策略失败:', error);
+                alert('加载策略列表失败，请重试');
+            }
+        }
+        
+        // 保存条件单
+        async function saveConditionalOrder() {
+            const accountId = getCurrentAccountId();
+            if (!accountId) {
+                alert('请先选择账户');
+                return;
+            }
+            
+            const orderId = document.getElementById('editingOrderId').value;
+            const enabled = document.getElementById('orderEnabled').checked;
+            const orderType = document.querySelector('input[name="orderType"]:checked').value;
+            const triggerCondition = document.getElementById('triggerCondition').value;
+            const triggerValue = parseFloat(document.getElementById('triggerValue').value);
+            const targetStrategyCode = document.getElementById('targetStrategy').value;
+            
+            // 验证输入
+            if (isNaN(triggerValue)) {
+                alert('请输入有效的触发值');
+                return;
+            }
+            
+            if (!targetStrategyCode) {
+                alert('请选择目标策略');
+                return;
+            }
+            
+            try {
+                const payload = {
+                    enabled: enabled,
+                    order_type: orderType,
+                    trigger_condition: triggerCondition,
+                    trigger_value: triggerValue,
+                    target_strategy_code: targetStrategyCode
+                };
+                
+                if (orderId) {
+                    payload.id = orderId;
+                }
+                
+                console.log('💾 保存条件单:', payload);
+                const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert(orderId ? '✅ 条件单已更新' : '✅ 条件单已创建');
+                    hideConditionalOrderForm();
+                    await loadConditionalOrders();
+                } else {
+                    throw new Error(data.message || '保存失败');
+                }
+            } catch (error) {
+                console.error('❌ 保存条件单失败:', error);
+                alert('保存失败: ' + error.message);
+            }
+        }
+        
+        // 编辑条件单
+        async function editConditionalOrder(orderId) {
+            const accountId = getCurrentAccountId();
+            if (!accountId) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const order = data.orders.find(o => o.id === orderId);
+                    if (!order) {
+                        alert('未找到该条件单');
+                        return;
+                    }
+                    
+                    // 填充表单
+                    document.getElementById('formTitle').textContent = '✏️ 编辑条件单';
+                    document.getElementById('editingOrderId').value = order.id;
+                    document.getElementById('orderEnabled').checked = order.enabled;
+                    document.querySelector(`input[name="orderType"][value="${order.order_type}"]`).checked = true;
+                    document.getElementById('triggerCondition').value = order.trigger_condition;
+                    document.getElementById('triggerValue').value = order.trigger_value;
+                    
+                    // 加载策略列表并选中当前策略
+                    await loadAvailableStrategies(order.order_type);
+                    document.getElementById('targetStrategy').value = order.target_strategy_code;
+                    
+                    document.getElementById('conditionalOrderForm').style.display = 'block';
+                } else {
+                    throw new Error(data.message || '加载失败');
+                }
+            } catch (error) {
+                console.error('❌ 加载条件单失败:', error);
+                alert('加载条件单失败: ' + error.message);
+            }
+        }
+        
+        // 删除条件单
+        async function deleteConditionalOrder(orderId) {
+            if (!confirm('确定要删除这个条件单吗？')) {
+                return;
+            }
+            
+            const accountId = getCurrentAccountId();
+            if (!accountId) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}/${orderId}`, {
+                    method: 'DELETE'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('✅ 条件单已删除');
+                    await loadConditionalOrders();
+                } else {
+                    throw new Error(data.message || '删除失败');
+                }
+            } catch (error) {
+                console.error('❌ 删除条件单失败:', error);
+                alert('删除失败: ' + error.message);
+            }
+        }
+        
+        // 重置条件单触发状态
+        async function resetConditionalOrderTrigger(orderId) {
+            if (!confirm('确定要重置触发状态吗？重置后该条件单将可以再次触发。')) {
+                return;
+            }
+            
+            const accountId = getCurrentAccountId();
+            if (!accountId) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}/${orderId}/reset-trigger`, {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('✅ 触发状态已重置');
+                    await loadConditionalOrders();
+                } else {
+                    throw new Error(data.message || '重置失败');
+                }
+            } catch (error) {
+                console.error('❌ 重置触发状态失败:', error);
+                alert('重置失败: ' + error.message);
+            }
+        }
+        
+        // 页面加载时自动加载条件单列表
+        document.addEventListener('DOMContentLoaded', function() {
+            loadConditionalOrders();
+        });
 
     </script>
 </body>
