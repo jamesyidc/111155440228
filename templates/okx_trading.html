@@ -1743,6 +1743,47 @@
             transform: translateX(20px);
         }
         
+        /* 27币涨跌幅止盈开关样式 */
+        .slider-coin-change-short-tp:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        #coinChangeShortTpSwitch:checked + .slider-coin-change-short-tp {
+            background-color: #ef4444 !important;
+        }
+        
+        #coinChangeShortTpSwitch:checked + .slider-coin-change-short-tp:before {
+            transform: translateX(20px);
+        }
+        
+        .slider-coin-change-long-tp:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        #coinChangeLongTpSwitch:checked + .slider-coin-change-long-tp {
+            background-color: #22c55e !important;
+        }
+        
+        #coinChangeLongTpSwitch:checked + .slider-coin-change-long-tp:before {
+            transform: translateX(20px);
+        }
+        
         /* 📊 百分比止盈止损开关样式 */
         .slider-percent-takeprofit:before {
             position: absolute;
@@ -1782,6 +1823,48 @@
         
         #percentStopLossSwitch:checked + .slider-percent-stoploss:before {
             transform: translateX(20px);
+        }
+        
+        /* 确认结构开关样式 */
+        .slider-confirm-structure:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        #confirmStructureSwitch:checked + .slider-confirm-structure {
+            background-color: #a855f7;
+        }
+        
+        #confirmStructureSwitch:checked + .slider-confirm-structure:before {
+            transform: translateX(20px);
+        }
+        
+        /* 警告动画 */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+        
+        /* Details arrow animation for百分比止盈止损设置 */
+        details[open] summary .details-arrow {
+            transform: rotate(90deg) !important;
+        }
+        
+        details summary:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(147, 51, 234, 0.15) 100%) !important;
         }
         
         .switch input:checked + .slider:before {
@@ -4068,6 +4151,39 @@ data/
                                     阈值: <span id="percentSlStatusThreshold" style="font-weight: 600; color: #991b1b;">--</span>
                                 </div>
                             </div>
+                            
+                            <!-- 确认结构状态 -->
+                            <div style="padding: 8px; background: white; border-radius: 6px; border-left: 3px solid #a855f7; grid-column: 1 / -1;">
+                                <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 4px;">
+                                    <span style="font-size: 14px;">🔔</span>
+                                    <span style="font-weight: 600; color: #7e22ce;">确认结构</span>
+                                    <span style="font-size: 9px; color: #6b7280; margin-left: auto;">(组合涨幅提醒)</span>
+                                </div>
+                                <div style="color: #6b7280; margin-bottom: 2px;">
+                                    状态: <span id="confirmStructureStatusEnabled" style="font-weight: 600;">--</span>
+                                </div>
+                                <div style="color: #6b7280;">
+                                    阈值: <span id="confirmStructureStatusThreshold" style="font-weight: 600; color: #7e22ce;">--</span>
+                                </div>
+                            </div>
+                            
+                            <!-- 暴跌预警止损状态 -->
+                            <div style="padding: 8px; background: white; border-radius: 6px; border-left: 3px solid #f59e0b; grid-column: 1 / -1;">
+                                <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 4px;">
+                                    <span style="font-size: 14px;">🚨</span>
+                                    <span style="font-weight: 600; color: #d97706;">暴跌预警止损</span>
+                                    <span style="font-size: 9px; color: #6b7280; margin-left: auto;">(自动平掉所有多单)</span>
+                                </div>
+                                <div style="color: #6b7280; margin-bottom: 2px;">
+                                    监控状态: <span id="crashWarningStopLossStatus" style="font-weight: 600;">--</span>
+                                </div>
+                                <div style="color: #6b7280; display: none;" id="crashWarningLastCheck">
+                                    最近检查: <span id="crashWarningLastCheckTime" style="font-weight: 600; color: #d97706;">--</span>
+                                </div>
+                                <div style="color: #6b7280; display: none;" id="crashWarningTodayStatus">
+                                    今日预警: <span id="crashWarningTodayWarning" style="font-weight: 600; color: #d97706;">--</span>
+                                </div>
+                            </div>
                         </div>
                         
                         <!-- 可收缩的监控状态和说明 -->
@@ -4135,50 +4251,192 @@ data/
                         </details>
                     </div>
                     
-                    <!-- 百分比止盈止损设置 -->
-                    <div style="margin-top: 10px; padding: 10px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%); border-radius: 8px; border: 1px solid #3b82f6;">
-                        <div style="font-weight: 600; font-size: 14px; color: #1e40af; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
-                            📊 百分比止盈止损
-                            <span style="font-size: 10px; color: #6b7280; font-weight: normal;">(根据持仓金额动态计算)</span>
+                    <!-- 暴跌预警止损状态 -->
+                    <div id="crashWarningStopLossStatus" style="margin-top: 10px; padding: 10px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(251, 146, 60, 0.1) 100%); border-radius: 8px; border: 1px solid #ef4444;">
+                        <div style="font-weight: 600; font-size: 13px; color: #991b1b; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                            🚨 暴跌预警止损
+                            <button onclick="loadCrashWarningStatus()" style="margin-left: auto; padding: 2px 8px; background: #ef4444; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+                                🔄 刷新
+                            </button>
                         </div>
                         
-                        <!-- 百分比止盈 -->
-                        <div style="padding: 10px; background: rgba(34, 197, 94, 0.1); border-radius: 6px; border: 1px solid #22c55e; margin-bottom: 8px;">
-                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                                <span style="color: #166534; font-weight: 600; font-size: 13px;">📈 百分比止盈</span>
-                                <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
-                                    <input type="checkbox" id="percentTakeProfitSwitch" style="opacity: 0; width: 0; height: 0;">
-                                    <span class="slider slider-percent-takeprofit" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;"></span>
-                                </label>
+                        <!-- 当日预警状态 -->
+                        <div style="padding: 8px; background: white; border-radius: 6px; border-left: 3px solid #ef4444; margin-bottom: 8px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <span style="font-size: 14px;">⚠️</span>
+                                    <span style="font-weight: 600; color: #991b1b;">当日预警状态</span>
+                                </div>
+                                <span id="crashWarningHasWarning" style="padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">--</span>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <input type="number" id="percentTakeProfitThreshold" value="5" step="0.5" min="0.5" max="100"
-                                       style="flex: 1; padding: 6px 10px; border: 1px solid #22c55e; border-radius: 6px; font-size: 13px;"
-                                       placeholder="百分比">
-                                <span style="color: #166534; font-size: 13px; font-weight: 600;">%</span>
-                            </div>
-                            <div style="font-size: 11px; color: #166534; margin-top: 6px;">
-                                当前计算值: <span id="percentTakeProfitDisplay" style="font-weight: 600;">--</span> USDT
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px; color: #6b7280;">
+                                <div>
+                                    日期: <span id="crashWarningDate" style="font-weight: 600; color: #374151;">--</span>
+                                </div>
+                                <div>
+                                    预警次数: <span id="crashWarningCount" style="font-weight: 600; color: #991b1b;">--</span>
+                                </div>
                             </div>
                         </div>
                         
-                        <!-- 百分比止损 -->
-                        <div style="padding: 10px; background: rgba(239, 68, 68, 0.1); border-radius: 6px; border: 1px solid #ef4444;">
-                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                                <span style="color: #991b1b; font-weight: 600; font-size: 13px;">📉 百分比止损</span>
-                                <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
-                                    <input type="checkbox" id="percentStopLossSwitch" style="opacity: 0; width: 0; height: 0;">
-                                    <span class="slider slider-percent-stoploss" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;"></span>
-                                </label>
+                        <!-- 止损执行状态 -->
+                        <div style="padding: 8px; background: white; border-radius: 6px; border-left: 3px solid #f59e0b; margin-bottom: 8px;">
+                            <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 4px;">
+                                <span style="font-size: 14px;">🛑</span>
+                                <span style="font-weight: 600; color: #92400e;">止损执行状态</span>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <input type="number" id="percentStopLossThreshold" value="7" step="0.5" min="0.5" max="100"
-                                       style="flex: 1; padding: 6px 10px; border: 1px solid #ef4444; border-radius: 6px; font-size: 13px;"
-                                       placeholder="百分比">
-                                <span style="color: #991b1b; font-size: 13px; font-weight: 600;">%</span>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px; color: #6b7280;">
+                                <div>
+                                    是否已执行: <span id="crashWarningStopLossExecuted" style="font-weight: 600;">--</span>
+                                </div>
+                                <div>
+                                    执行时间: <span id="crashWarningStopLossTime" style="font-weight: 600; color: #374151;">--</span>
+                                </div>
                             </div>
-                            <div style="font-size: 11px; color: #991b1b; margin-top: 6px;">
-                                当前计算值: <span id="percentStopLossDisplay" style="font-weight: 600;">--</span> USDT (输入大约)
+                        </div>
+                        
+                        <!-- 交易限制 -->
+                        <div id="crashWarningTradeRestriction" style="padding: 8px; background: white; border-radius: 6px; border-left: 3px solid #dc2626; display: none;">
+                            <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 4px;">
+                                <span style="font-size: 14px;">🚫</span>
+                                <span style="font-weight: 600; color: #991b1b;">交易限制</span>
+                            </div>
+                            <div style="font-size: 11px; color: #6b7280;">
+                                <div style="margin-bottom: 2px;">
+                                    允许做多: <span id="crashWarningAllowLong" style="font-weight: 600;">--</span>
+                                </div>
+                                <div>
+                                    允许做空: <span id="crashWarningAllowShort" style="font-weight: 600;">--</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 预警详情 -->
+                        <div id="crashWarningDetails" style="padding: 8px; background: rgba(254, 243, 199, 0.5); border-radius: 6px; border: 1px dashed #f59e0b; margin-top: 8px; display: none;">
+                            <div style="font-weight: 600; font-size: 11px; color: #92400e; margin-bottom: 4px;">
+                                📋 最新预警信息
+                            </div>
+                            <div style="font-size: 10px; color: #6b7280; line-height: 1.5;">
+                                <div style="margin-bottom: 2px;">
+                                    信号类型: <span id="crashWarningSignalType" style="font-weight: 600; color: #374151;">--</span>
+                                </div>
+                                <div style="margin-bottom: 2px;">
+                                    模式名称: <span id="crashWarningPatternName" style="font-weight: 600; color: #374151;">--</span>
+                                </div>
+                                <div>
+                                    连续波峰: <span id="crashWarningConsecutivePeaks" style="font-weight: 600; color: #374151;">--</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 工作原理说明 -->
+                        <div style="border-top: 1px solid #fca5a5; margin-top: 8px; padding-top: 8px;">
+                            <div style="margin-bottom: 6px;">
+                                <strong style="color: #991b1b; font-size: 11px;">📊 工作原理：</strong>
+                            </div>
+                            <ul style="margin: 0; padding-left: 20px; list-style: disc; line-height: 1.6; font-size: 10px; color: #6b7280;">
+                                <li>每60秒检查一次暴跌预警</li>
+                                <li>发现预警后自动平掉所有多单</li>
+                                <li>每日只执行一次（避免重复）</li>
+                                <li>执行记录保存到JSONL文件</li>
+                                <li>完成后发送Telegram通知</li>
+                            </ul>
+                            <div style="margin-top: 8px; padding: 6px; background: rgba(239, 68, 68, 0.1); border-left: 2px solid #ef4444; border-radius: 2px; font-size: 10px;">
+                                <strong style="color: #991b1b;">⚠️ 注意：</strong> <span style="color: #6b7280;">暴跌预警止损由后台监控自动触发，无需人工操作</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 百分比止盈止损设置 (可收缩) -->
+                    <details style="margin-top: 10px;" open>
+                        <summary style="cursor: pointer; padding: 10px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%); border-radius: 8px; border: 1px solid #3b82f6; list-style: none; transition: all 0.3s;">
+                            <div style="font-weight: 600; font-size: 14px; color: #1e40af; display: flex; align-items: center; gap: 6px;">
+                                <span class="details-arrow" style="display: inline-block; transition: transform 0.2s; transform: rotate(90deg);">▶</span>
+                                📊 百分比止盈止损
+                                <span style="font-size: 10px; color: #6b7280; font-weight: normal;">(根据持仓金额动态计算)</span>
+                            </div>
+                        </summary>
+                        
+                        <div style="margin-top: 8px; padding: 10px; background: rgba(255, 255, 255, 0.5); border-radius: 6px;">
+                            <!-- 百分比止盈 -->
+                            <div style="padding: 10px; background: rgba(34, 197, 94, 0.1); border-radius: 6px; border: 1px solid #22c55e; margin-bottom: 8px;">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="color: #166534; font-weight: 600; font-size: 13px;">📈 百分比止盈</span>
+                                    <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                        <input type="checkbox" id="percentTakeProfitSwitch" style="opacity: 0; width: 0; height: 0;">
+                                        <span class="slider slider-percent-takeprofit" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;"></span>
+                                    </label>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="number" id="percentTakeProfitThreshold" value="5" step="0.5" min="0.5" max="100"
+                                           style="flex: 1; padding: 6px 10px; border: 1px solid #22c55e; border-radius: 6px; font-size: 13px;"
+                                           placeholder="百分比">
+                                    <span style="color: #166534; font-size: 13px; font-weight: 600;">%</span>
+                                </div>
+                                <div style="font-size: 11px; color: #166534; margin-top: 6px;">
+                                    当前计算值: <span id="percentTakeProfitDisplay" style="font-weight: 600;">--</span> USDT
+                                </div>
+                            </div>
+                            
+                            <!-- 百分比止损 -->
+                            <div style="padding: 10px; background: rgba(239, 68, 68, 0.1); border-radius: 6px; border: 1px solid #ef4444; margin-bottom: 8px;">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="color: #991b1b; font-weight: 600; font-size: 13px;">📉 百分比止损</span>
+                                    <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                        <input type="checkbox" id="percentStopLossSwitch" style="opacity: 0; width: 0; height: 0;">
+                                        <span class="slider slider-percent-stoploss" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;"></span>
+                                    </label>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="number" id="percentStopLossThreshold" value="7" step="0.5" min="0.5" max="100"
+                                           style="flex: 1; padding: 6px 10px; border: 1px solid #ef4444; border-radius: 6px; font-size: 13px;"
+                                           placeholder="百分比">
+                                    <span style="color: #991b1b; font-size: 13px; font-weight: 600;">%</span>
+                                </div>
+                                <div style="font-size: 11px; color: #991b1b; margin-top: 6px;">
+                                    当前计算值: <span id="percentStopLossDisplay" style="font-weight: 600;">--</span> USDT (输入大约)
+                                </div>
+                            </div>
+                            
+                            <!-- 确认结构 -->
+                            <div style="padding: 10px; background: rgba(168, 85, 247, 0.1); border-radius: 6px; border: 1px solid #a855f7;">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="color: #7e22ce; font-weight: 600; font-size: 13px;">🔔 确认结构</span>
+                                    <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                        <input type="checkbox" id="confirmStructureSwitch" style="opacity: 0; width: 0; height: 0;">
+                                        <span class="slider slider-confirm-structure" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;"></span>
+                                    </label>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                                    <input type="number" id="confirmStructureThreshold" value="10" step="0.5" min="0.5" max="100"
+                                           style="flex: 1; padding: 6px 10px; border: 1px solid #a855f7; border-radius: 6px; font-size: 13px;"
+                                           placeholder="涨幅百分比">
+                                    <span style="color: #7e22ce; font-size: 13px; font-weight: 600;">%</span>
+                                </div>
+                                <div style="font-size: 10px; color: #6b21a8; line-height: 1.5;">
+                                    开启后，当持仓盈利达到设定的涨幅百分比时，弹窗提醒您考虑加仓
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    
+                    <!-- 待确认的止盈止损 -->
+                    <div id="percentPendingConfirmation" style="margin-top: 10px; display: none;">
+                        <div style="padding: 12px; background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.15) 100%); border-radius: 8px; border: 2px solid #f59e0b; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);">
+                            <div style="font-weight: 600; font-size: 14px; color: #92400e; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+                                <span style="font-size: 20px; animation: pulse 1.5s ease-in-out infinite;">⚠️</span>
+                                待确认：百分比止盈止损触发
+                            </div>
+                            <div id="percentPendingDetails" style="padding: 10px; background: white; border-radius: 6px; margin-bottom: 10px; font-size: 12px; color: #374151;">
+                                <!-- 详细信息将通过JS填充 -->
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button onclick="confirmPercentTpsl()" style="flex: 1; padding: 8px 16px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s;">
+                                    ✅ 确认执行
+                                </button>
+                                <button onclick="cancelPercentTpsl()" style="flex: 1; padding: 8px 16px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s;">
+                                    ❌ 取消
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -4223,6 +4481,90 @@ data/
                         </div>
                     </div>
                     
+                    <!-- 📊 27币涨跌幅之和止盈设置 -->
+                    <details style="margin-top: 10px;" open>
+                        <summary style="cursor: pointer; padding: 10px; background: linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%); border-radius: 8px; border: 1px solid #9333ea; list-style: none; transition: all 0.3s;">
+                            <div style="font-weight: 600; font-size: 14px; color: #6b21a8; display: flex; align-items: center; gap: 6px;">
+                                <span class="details-arrow" style="display: inline-block; transition: transform 0.2s; transform: rotate(90deg);">▶</span>
+                                📊 27币涨跌幅之和止盈
+                                <span style="font-size: 10px; color: #6b7280; font-weight: normal;">(基于主流币种涨跌幅)</span>
+                            </div>
+                        </summary>
+                        
+                        <div style="margin-top: 8px; padding: 10px; background: rgba(255, 255, 255, 0.5); border-radius: 6px;">
+                            <!-- 当前27币涨跌幅显示 -->
+                            <div style="margin-bottom: 10px; padding: 10px; background: rgba(147, 51, 234, 0.1); border-radius: 6px; border-left: 3px solid #9333ea;">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                    <span style="font-size: 11px; color: #6b21a8; font-weight: 600;">📈 当前27币涨跌幅之和：</span>
+                                    <button onclick="refreshCoinChangeData()" style="padding: 2px 8px; background: #9333ea; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 10px;">
+                                        🔄 刷新
+                                    </button>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <span id="current27CoinChangeDisplay" style="font-size: 20px; font-weight: 700; color: #6b21a8;">-- %</span>
+                                    <div style="flex: 1; display: flex; gap: 8px; font-size: 11px;">
+                                        <span style="color: #10b981;">▲ <span id="upCoinsCount">--</span></span>
+                                        <span style="color: #ef4444;">▼ <span id="downCoinsCount">--</span></span>
+                                        <span style="color: #6b7280; margin-left: auto; font-size: 10px;" id="coinChangeUpdateTime">--</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 空单止盈 -->
+                            <div style="padding: 10px; background: rgba(239, 68, 68, 0.1); border-radius: 6px; border: 1px solid #ef4444; margin-bottom: 8px;">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="color: #991b1b; font-weight: 600; font-size: 13px;">📉 27币涨跌幅之和 空单止盈</span>
+                                    <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                        <input type="checkbox" id="coinChangeShortTpSwitch" style="opacity: 0; width: 0; height: 0;">
+                                        <span class="slider slider-coin-change-short-tp" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;"></span>
+                                    </label>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="number" id="coinChangeShortTpThreshold" value="10" step="0.5" min="0" max="100"
+                                           style="flex: 1; padding: 6px 10px; border: 1px solid #ef4444; border-radius: 6px; font-size: 13px;"
+                                           placeholder="跌破阈值">
+                                    <span style="color: #991b1b; font-size: 13px; font-weight: 600;">%</span>
+                                </div>
+                                <div style="font-size: 11px; color: #991b1b; margin-top: 6px; line-height: 1.5;">
+                                    <strong>触发条件：</strong>27币涨跌幅之和跌破 <strong>-阈值</strong> 时，自动平掉所有空单<br>
+                                    <strong>示例：</strong>设置阈值为10%，当涨跌幅为-11%时触发空单止盈
+                                </div>
+                            </div>
+                            
+                            <!-- 多单止盈 -->
+                            <div style="padding: 10px; background: rgba(34, 197, 94, 0.1); border-radius: 6px; border: 1px solid #22c55e;">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="color: #166534; font-weight: 600; font-size: 13px;">📈 27币涨跌幅之和 多单止盈</span>
+                                    <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                        <input type="checkbox" id="coinChangeLongTpSwitch" style="opacity: 0; width: 0; height: 0;">
+                                        <span class="slider slider-coin-change-long-tp" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;"></span>
+                                    </label>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="number" id="coinChangeLongTpThreshold" value="15" step="0.5" min="0" max="100"
+                                           style="flex: 1; padding: 6px 10px; border: 1px solid #22c55e; border-radius: 6px; font-size: 13px;"
+                                           placeholder="突破阈值">
+                                    <span style="color: #166534; font-size: 13px; font-weight: 600;">%</span>
+                                </div>
+                                <div style="font-size: 11px; color: #166534; margin-top: 6px; line-height: 1.5;">
+                                    <strong>触发条件：</strong>27币涨跌幅之和突破 <strong>+阈值</strong> 时，自动平掉所有多单<br>
+                                    <strong>示例：</strong>设置阈值为15%，当涨跌幅为+16%时触发多单止盈
+                                </div>
+                            </div>
+                            
+                            <!-- 使用说明 -->
+                            <div style="margin-top: 8px; padding: 8px; background: rgba(59, 130, 246, 0.1); border-radius: 6px; border-left: 3px solid #3b82f6;">
+                                <div style="font-size: 10px; color: #1e40af; line-height: 1.6;">
+                                    <strong>💡 说明：</strong><br>
+                                    • 系统每30秒检查一次27个主流币种的涨跌幅之和<br>
+                                    • 空单和多单止盈可独立启用/禁用<br>
+                                    • 每个持仓只执行一次止盈，防止重复操作<br>
+                                    • 平仓成功后会发送Telegram通知<br>
+                                    • 配置更新后约30秒内生效，无需重启服务
+                                </div>
+                            </div>
+                        </div>
+                    </details>
                     
                     <!-- 🔥 市场情绪止盈设置 -->
                     <div style="margin-top: 10px; padding: 10px; background: rgba(239, 68, 68, 0.1); border-radius: 8px; border: 1px solid #ef4444;">
@@ -4316,6 +4658,132 @@ data/
                         </p>
                         <p style="color: #0369a1; font-size: 11px; margin: 0; line-height: 1.5; background: rgba(14, 165, 233, 0.1); padding: 6px; border-radius: 4px;">
                             📊 <strong>开仓金额限制：</strong>自动策略下单金额 = 总权益×1.5%，但不超过5 USDT。例如：总权益200U时下单3U✅；总权益500U时下单5U✅（不是7.5U）。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 📈 27币涨跌幅止盈配置 -->
+                <div class="info-card" style="margin-top: 16px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b;">
+                    <h3 style="color: #92400e; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+                        📈 27币涨跌幅止盈配置
+                    </h3>
+                    
+                    <!-- 当前27币数据 -->
+                    <div style="padding: 10px; background: rgba(251, 191, 36, 0.15); border-radius: 8px; border: 1px solid #f59e0b; margin-bottom: 10px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="color: #92400e; font-weight: 600; font-size: 13px;">📊 27币涨跌幅之和</span>
+                            <span style="font-size: 18px; font-weight: 700;" id="coinChangeTotalDisplay">--</span>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-top: 8px;">
+                            <div style="padding: 6px; background: rgba(16, 185, 129, 0.1); border-radius: 4px; border-left: 2px solid #10b981;">
+                                <div style="font-size: 9px; color: #065f46; margin-bottom: 2px;">📈 上涨币种</div>
+                                <div id="coinChangeUpCount" style="font-size: 14px; font-weight: 700; color: #059669;">--</div>
+                            </div>
+                            <div style="padding: 6px; background: rgba(239, 68, 68, 0.1); border-radius: 4px; border-left: 2px solid #ef4444;">
+                                <div style="font-size: 9px; color: #991b1b; margin-bottom: 2px;">📉 下跌币种</div>
+                                <div id="coinChangeDownCount" style="font-size: 14px; font-weight: 700; color: #dc2626;">--</div>
+                            </div>
+                            <div style="padding: 6px; background: rgba(59, 130, 246, 0.1); border-radius: 4px; border-left: 2px solid #3b82f6;">
+                                <div style="font-size: 9px; color: #1e3a8a; margin-bottom: 2px;">⏰ 更新时间</div>
+                                <div id="coinChangeUpdateTime" style="font-size: 10px; font-weight: 600; color: #1e40af;">--</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 空单止盈配置 -->
+                    <details style="margin-top: 10px; margin-bottom: 10px; background: #f8fafc; border-radius: 12px;">
+                        <summary style="cursor: pointer; padding: 12px; font-weight: 600; color: #dc2626; background: rgba(239, 68, 68, 0.1); border-radius: 12px; user-select: none; list-style: none; display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 16px;">📉</span>
+                            <span>空单止盈配置（跌破阈值触发）</span>
+                            <span style="margin-left: auto; font-size: 12px; opacity: 0.7;">▼</span>
+                        </summary>
+                        <div style="padding: 12px; background: #fff; border-radius: 0 0 12px 12px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                                <span style="color: #dc2626; font-weight: 600; font-size: 13px;">🚀 启用空单止盈</span>
+                                <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                    <input type="checkbox" id="coinChangeShortTpSwitch" style="opacity: 0; width: 0; height: 0;">
+                                    <span class="slider slider-coin-change-short-tp" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;">
+                                        <style>
+                                            #coinChangeShortTpSwitch:checked + .slider-coin-change-short-tp { background-color: #dc2626; }
+                                            #coinChangeShortTpSwitch:checked + .slider-coin-change-short-tp:before { transform: translateX(20px); }
+                                            .slider-coin-change-short-tp:before {
+                                                position: absolute;
+                                                content: "";
+                                                height: 18px;
+                                                width: 18px;
+                                                left: 3px;
+                                                bottom: 3px;
+                                                background-color: white;
+                                                transition: .4s;
+                                                border-radius: 50%;
+                                            }
+                                        </style>
+                                    </span>
+                                </label>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                                <span style="color: #92400e; font-size: 13px; font-weight: 600;">阈值：</span>
+                                <input type="number" id="coinChangeShortTpThreshold" value="10.0" step="0.5" min="0"
+                                       style="flex: 1; padding: 6px 10px; border: 1px solid #f59e0b; border-radius: 6px; font-size: 13px;"
+                                       placeholder="空单止盈阈值">
+                                <span style="color: #92400e; font-size: 13px; font-weight: 600;">%</span>
+                            </div>
+                            <div style="font-size: 11px; color: #92400e; background: rgba(251, 191, 36, 0.1); padding: 8px; border-radius: 6px; border-left: 3px solid #f59e0b;">
+                                💡 当27币涨跌幅之和 <strong>跌破 -阈值</strong> 时，自动平掉所有空单。<br>
+                                例如：阈值设置10%，当总和 ≤ -10% 时触发空单止盈。
+                            </div>
+                        </div>
+                    </details>
+                    
+                    <!-- 多单止盈配置 -->
+                    <details style="margin-top: 10px; margin-bottom: 10px; background: #f8fafc; border-radius: 12px;">
+                        <summary style="cursor: pointer; padding: 12px; font-weight: 600; color: #10b981; background: rgba(16, 185, 129, 0.1); border-radius: 12px; user-select: none; list-style: none; display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 16px;">📈</span>
+                            <span>多单止盈配置（突破阈值触发）</span>
+                            <span style="margin-left: auto; font-size: 12px; opacity: 0.7;">▼</span>
+                        </summary>
+                        <div style="padding: 12px; background: #fff; border-radius: 0 0 12px 12px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                                <span style="color: #10b981; font-weight: 600; font-size: 13px;">🚀 启用多单止盈</span>
+                                <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                    <input type="checkbox" id="coinChangeLongTpSwitch" style="opacity: 0; width: 0; height: 0;">
+                                    <span class="slider slider-coin-change-long-tp" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;">
+                                        <style>
+                                            #coinChangeLongTpSwitch:checked + .slider-coin-change-long-tp { background-color: #10b981; }
+                                            #coinChangeLongTpSwitch:checked + .slider-coin-change-long-tp:before { transform: translateX(20px); }
+                                            .slider-coin-change-long-tp:before {
+                                                position: absolute;
+                                                content: "";
+                                                height: 18px;
+                                                width: 18px;
+                                                left: 3px;
+                                                bottom: 3px;
+                                                background-color: white;
+                                                transition: .4s;
+                                                border-radius: 50%;
+                                            }
+                                        </style>
+                                    </span>
+                                </label>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                                <span style="color: #92400e; font-size: 13px; font-weight: 600;">阈值：</span>
+                                <input type="number" id="coinChangeLongTpThreshold" value="10.0" step="0.5" min="0"
+                                       style="flex: 1; padding: 6px 10px; border: 1px solid #f59e0b; border-radius: 6px; font-size: 13px;"
+                                       placeholder="多单止盈阈值">
+                                <span style="color: #92400e; font-size: 13px; font-weight: 600;">%</span>
+                            </div>
+                            <div style="font-size: 11px; color: #92400e; background: rgba(251, 191, 36, 0.1); padding: 8px; border-radius: 6px; border-left: 3px solid #f59e0b;">
+                                💡 当27币涨跌幅之和 <strong>突破 +阈值</strong> 时，自动平掉所有多单。<br>
+                                例如：阈值设置15%，当总和 ≥ +15% 时触发多单止盈。
+                            </div>
+                        </div>
+                    </details>
+                    
+                    <!-- 说明 -->
+                    <div style="margin-top: 10px; padding: 8px; background: rgba(34, 197, 94, 0.1); border-radius: 6px; border-left: 3px solid #22c55e;">
+                        <p style="color: #166534; font-size: 11px; margin: 0; line-height: 1.5;">
+                            💡 <strong>提示：</strong>27币涨跌幅止盈基于27个主流币种的24小时涨跌幅之和计算。监控服务每30秒检查一次，达到阈值时自动平仓并发送Telegram通知。每个账户的配置独立保存。
                         </p>
                     </div>
                 </div>
@@ -5375,13 +5843,15 @@ data/
                             const pnlSign = pos.unrealizedPnl >= 0 ? '+' : '';
                             const sideClass = pos.posSide === 'long' ? 'long' : 'short';
                             const sideName = pos.posSide === 'long' ? '做多' : '做空';
+                            // 使用posSideForClose用于平仓API调用（单向持仓='net'，双向持仓='long'/'short'）
+                            const posSideForClose = pos.posSideForClose || pos.posSide;
                             
                             return `
                                 <div class="position-item">
                                     <div class="position-header">
                                         <span class="position-symbol">${pos.instId}</span>
                                         <span class="position-side ${sideClass}">${sideName}</span>
-                                        <button class="close-position-btn" onclick="closePosition('${pos.instId}', '${pos.posSide}')">
+                                        <button class="close-position-btn" onclick="closePosition('${pos.instId}', '${posSideForClose}')">
                                             平仓
                                         </button>
                                     </div>
@@ -5600,6 +6070,8 @@ data/
         async function quickCheckStopLoss() {
             const stopLossSwitch = document.getElementById('stopLossSwitch');
             if (!stopLossSwitch || !stopLossSwitch.checked) {
+                // 即使止损未开启，也要检查确认结构
+                await checkConfirmStructure();
                 return;
             }
             
@@ -5624,9 +6096,121 @@ data/
                     const upl = result.data.unrealizedPnl;
                     // 调用检查函数
                     checkTakeProfitStopLoss(upl);
+                    // 检查确认结构
+                    await checkConfirmStructure();
                 }
             } catch (error) {
                 console.error('[quickCheckStopLoss] 检查失败:', error);
+            }
+        }
+        
+        // 🔔 检查确认结构（持仓组合涨幅提醒）
+        let lastConfirmStructureCheck = 0;
+        let lastConfirmStructureAlert = 0;
+        const CONFIRM_STRUCTURE_COOLDOWN = 300000; // 5分钟冷却时间，防止重复提醒
+        
+        async function checkConfirmStructure() {
+            const confirmSwitch = document.getElementById('confirmStructureSwitch');
+            if (!confirmSwitch || !confirmSwitch.checked) {
+                return;
+            }
+            
+            const threshold = parseFloat(document.getElementById('confirmStructureThreshold').value);
+            if (isNaN(threshold) || threshold <= 0) {
+                return;
+            }
+            
+            const account = accounts.find(acc => acc.id === currentAccount);
+            if (!account || !account.apiKey || !account.apiSecret || !account.passphrase) {
+                return;
+            }
+            
+            const now = Date.now();
+            if (now - lastConfirmStructureCheck < 10000) {
+                // 每10秒最多检查一次
+                return;
+            }
+            lastConfirmStructureCheck = now;
+            
+            try {
+                // 获取账户信息（包含总保证金和总盈亏）
+                const accountResponse = await fetch('/api/okx-trading/account-info', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        apiKey: account.apiKey,
+                        apiSecret: account.apiSecret,
+                        passphrase: account.passphrase
+                    })
+                });
+                
+                const accountResult = await accountResponse.json();
+                if (!accountResult.success || !accountResult.data) {
+                    return;
+                }
+                
+                const totalMargin = parseFloat(accountResult.data.totalMargin) || 0;
+                const totalUpl = parseFloat(accountResult.data.unrealizedPnl) || 0;
+                
+                if (totalMargin <= 0) {
+                    return;
+                }
+                
+                // 计算持仓组合的整体涨幅百分比
+                const portfolioRatio = (totalUpl / totalMargin) * 100;
+                
+                console.log(`🔔 [确认结构] 组合涨幅: ${portfolioRatio.toFixed(2)}%, 阈值: ${threshold}%`);
+                
+                // 检查是否达到阈值
+                if (portfolioRatio >= threshold) {
+                    // 检查冷却时间，避免频繁提醒
+                    if (now - lastConfirmStructureAlert < CONFIRM_STRUCTURE_COOLDOWN) {
+                        console.log(`🔔 [确认结构] 冷却中，距离上次提醒 ${((now - lastConfirmStructureAlert) / 1000).toFixed(0)}秒`);
+                        return;
+                    }
+                    
+                    lastConfirmStructureAlert = now;
+                    
+                    // 获取持仓详情用于显示
+                    const posResponse = await fetch('/api/okx-trading/positions', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            apiKey: account.apiKey,
+                            apiSecret: account.apiSecret,
+                            passphrase: account.passphrase
+                        })
+                    });
+                    
+                    const posResult = await posResponse.json();
+                    const posCount = posResult.success && posResult.positions ? posResult.positions.length : 0;
+                    
+                    // 弹窗提醒
+                    const message = `🔔 确认结构提醒\n\n` +
+                                  `账户: ${account.name}\n` +
+                                  `持仓组合涨幅: ${portfolioRatio.toFixed(2)}%\n` +
+                                  `总保证金: ${totalMargin.toFixed(2)} USDT\n` +
+                                  `总盈利: +${totalUpl.toFixed(2)} USDT\n` +
+                                  `持仓数量: ${posCount} 个\n\n` +
+                                  `已达到设定的 ${threshold}% 涨幅阈值！\n` +
+                                  `趋势确认，建议考虑加仓！`;
+                    
+                    alert(message);
+                    playAlertSound();
+                    
+                    // 发送浏览器通知
+                    if ('Notification' in window && Notification.permission === 'granted') {
+                        new Notification(`🔔 确认结构: ${account.name}`, {
+                            body: `组合涨幅 ${portfolioRatio.toFixed(2)}% 已达 ${threshold}% 阈值\n总盈利: +${totalUpl.toFixed(2)} USDT\n趋势确认，建议考虑加仓！`,
+                            icon: '/static/favicon.ico',
+                            requireInteraction: true
+                        });
+                    }
+                    
+                    console.log(`🔔 [确认结构] 提醒触发: 组合涨幅${portfolioRatio.toFixed(2)}% >= ${threshold}%，建议加仓`);
+                }
+            } catch (error) {
+                console.error('[checkConfirmStructure] 检查失败:', error);
             }
         }
 
@@ -6360,6 +6944,8 @@ data/
                 if (currentAccount) {
                     loadTakeProfitStopLossSettings();
                     loadPercentTpslStatus();
+                    loadCoinChangeTpslData();
+                    loadCoinChangeTpslSettings();
                 }
                 
                 // 步骤2: 加载常用币列表（优先级高，影响其他数据）
@@ -6423,6 +7009,7 @@ data/
                 checkAndExecuteUpRatio0Bottom8(); // 检查上涨占比0-涨幅后8名策略
                 checkRSITakeProfit(); // 检查RSI止盈
                 loadCurrentMarketSentiment(); // 🔥 刷新市场情绪
+                loadCoinChangeTpslData(); // 📈 刷新27币涨跌幅数据
                 
                 // 🆕 刷新策略状态显示（确保UI与后端同步）
                 loadAutoStrategySettings(); // 刷新抄底策略UI
@@ -6433,6 +7020,11 @@ data/
             setInterval(() => {
                 loadMarketTickers();
             }, 30000);
+            
+            // 🔔 每5秒检查待确认的百分比止盈止损
+            setInterval(() => {
+                checkPendingPercentTpsl();
+            }, 5000);
             
             // 添加最大持仓限制输入框的实时更新监听
             const maxPosInput = document.getElementById('maxPositionValueInput');
@@ -6489,6 +7081,8 @@ data/
             refreshAccountData();  // 刷新账户信息和持仓
             loadTakeProfitStopLossSettings();  // 加载该账户的止盈止损设置
             loadPercentTpslStatus();  // 📊 加载百分比止盈止损监控状态
+            loadCoinChangeTpslData();  // 📈 加载27币涨跌幅数据
+            loadCoinChangeTpslSettings();  // 📈 加载27币涨跌幅止盈配置
             loadCurrentMarketSentiment();  // 🔥 加载当前市场情绪
             loadAutoStrategySettings();  // 加载该账户的抄底策略设置
             loadAutoStrategySettingsTop();  // 🆕 加载该账户的追涨策略设置
@@ -7720,22 +8314,10 @@ data/
                 })));
                 
                 // 筛选出指定方向的持仓
-                // 支持两种持仓模式：
-                // 1. 双向持仓模式：posSide = 'long' 或 'short'
-                // 2. 单向持仓模式：posSide = 'net'，通过posSize正负判断方向
+                // posSide用于显示判断（'long'或'short'），实际平仓使用posSideForClose
                 const targetPositions = result.data.filter(pos => {
-                    if (pos.posSide === posSide) {
-                        // 双向持仓模式：直接匹配posSide
-                        return true;
-                    } else if (pos.posSide === 'net') {
-                        // 单向持仓模式：通过posSize正负判断
-                        if (posSide === 'long' && pos.posSize > 0) {
-                            return true;  // 多单：posSize > 0
-                        } else if (posSide === 'short' && pos.posSize < 0) {
-                            return true;  // 空单：posSize < 0
-                        }
-                    }
-                    return false;
+                    // 根据显示的posSide进行筛选
+                    return pos.posSide === posSide;
                 });
                 console.log(`[batchClosePositions] 筛选 posSide=${posSide} 后的持仓数量: ${targetPositions.length}`);
                 
@@ -7814,6 +8396,8 @@ data/
                         }
                         
                         // 调用平仓API
+                        // 使用posSideForClose（单向持仓='net'，双向持仓='long'/'short'）
+                        const posSideForClose = position.posSideForClose || position.posSide;
                         const closeResponse = await fetch('/api/okx-trading/close-position', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -7822,7 +8406,7 @@ data/
                                 apiSecret: account.apiSecret,
                                 passphrase: account.passphrase,
                                 instId: position.instId,
-                                posSide: position.posSide,
+                                posSide: posSideForClose,  // 使用正确的posSide
                                 closeSize: closeSize  // 指定平仓数量
                             })
                         });
@@ -8689,13 +9273,21 @@ ${data.sMsg || result.message || ''}`);
                     document.getElementById('takeProfitThreshold').value = settings.takeProfitThreshold || 50;
                     document.getElementById('stopLossThreshold').value = settings.stopLossThreshold || -30;
                     document.getElementById('takeProfitSwitch').checked = settings.takeProfitEnabled || false;
+                    
+                    // 🐛 调试止损开关
+                    console.log('🔍 [止损设置加载] stopLossEnabled:', settings.stopLossEnabled, 'stopLossThreshold:', settings.stopLossThreshold);
                     document.getElementById('stopLossSwitch').checked = settings.stopLossEnabled || false;
+                    console.log('🔍 [止损设置加载后] checkbox.checked:', document.getElementById('stopLossSwitch').checked);
                     
                     // 📊 加载百分比止盈止损设置
                     document.getElementById('percentTakeProfitThreshold').value = settings.percentTakeProfitThreshold || 5;
                     document.getElementById('percentStopLossThreshold').value = settings.percentStopLossThreshold || 7;
                     document.getElementById('percentTakeProfitSwitch').checked = settings.percentTakeProfitEnabled || false;
                     document.getElementById('percentStopLossSwitch').checked = settings.percentStopLossEnabled || false;
+                    
+                    // 🔔 加载确认结构设置
+                    document.getElementById('confirmStructureSwitch').checked = settings.confirmStructureEnabled || false;
+                    document.getElementById('confirmStructureThreshold').value = settings.confirmStructureThreshold || 10;
                     
                     // 加载RSI止盈设置
                     document.getElementById('rsiTakeProfitThreshold').value = settings.rsiTakeProfitThreshold || 1900;
@@ -8718,6 +9310,9 @@ ${data.sMsg || result.message || ''}`);
                     
                     // 🔥 加载市场情绪止盈设置
                     document.getElementById('sentimentTakeProfitSwitch').checked = settings.sentimentTakeProfitEnabled || false;
+                    
+                    // 📊 加载27币涨跌幅止盈设置
+                    await loadCoinChangeTpslSettings();
                     
                     // ⚠️ 加载见顶信号做空策略设置（从独立的execution.jsonl文件读取）
                     const topSignalTop8ShortSwitch = document.getElementById('topSignalTop8ShortSwitch');
@@ -8843,6 +9438,8 @@ ${data.sMsg || result.message || ''}`);
                 percentStopLossThreshold: parseFloat(document.getElementById('percentStopLossThreshold').value),
                 percentTakeProfitEnabled: document.getElementById('percentTakeProfitSwitch').checked,
                 percentStopLossEnabled: document.getElementById('percentStopLossSwitch').checked,
+                confirmStructureEnabled: document.getElementById('confirmStructureSwitch').checked,  // 🔔 确认结构
+                confirmStructureThreshold: parseFloat(document.getElementById('confirmStructureThreshold').value),  // 涨幅百分比
                 rsiTakeProfitThreshold: parseFloat(document.getElementById('rsiTakeProfitThreshold').value),
                 rsiTakeProfitEnabled: document.getElementById('rsiTakeProfitSwitch').checked,
                 rsiShortTakeProfitThreshold: parseFloat(document.getElementById('rsiShortTakeProfitThreshold').value),
@@ -8923,6 +9520,201 @@ ${data.sMsg || result.message || ''}`);
             }
         }
         
+        // 📊 加载27币涨跌幅止盈配置
+        async function loadCoinChangeTpslSettings() {
+            const account = accounts.find(acc => acc.id === currentAccount);
+            if (!account) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/coin-change-tpsl-settings/${account.id}`);
+                const result = await response.json();
+                
+                if (result.success && result.settings) {
+                    const settings = result.settings;
+                    document.getElementById('coinChangeShortTpThreshold').value = settings.shortTakeProfitThreshold || 10;
+                    document.getElementById('coinChangeShortTpSwitch').checked = settings.shortTakeProfitEnabled || false;
+                    document.getElementById('coinChangeLongTpThreshold').value = settings.longTakeProfitThreshold || 15;
+                    document.getElementById('coinChangeLongTpSwitch').checked = settings.longTakeProfitEnabled || false;
+                    console.log(`✅ [27币涨跌幅止盈] 已加载账户 ${account.name} 的配置`, settings);
+                } else {
+                    console.log(`ℹ️ [27币涨跌幅止盈] 账户 ${account.name} 暂无配置，使用默认值`);
+                }
+            } catch (e) {
+                console.error('❌ [27币涨跌幅止盈] 加载配置失败:', e);
+            }
+            
+            // 加载当前27币涨跌幅数据
+            refreshCoinChangeData();
+        }
+        
+        // 📊 保存27币涨跌幅止盈配置
+        async function saveCoinChangeTpslSettings() {
+            const account = accounts.find(acc => acc.id === currentAccount);
+            if (!account) {
+                alert('⚠️ 请先选择账户');
+                return;
+            }
+            
+            const settings = {
+                shortTakeProfitEnabled: document.getElementById('coinChangeShortTpSwitch').checked,
+                shortTakeProfitThreshold: parseFloat(document.getElementById('coinChangeShortTpThreshold').value),
+                longTakeProfitEnabled: document.getElementById('coinChangeLongTpSwitch').checked,
+                longTakeProfitThreshold: parseFloat(document.getElementById('coinChangeLongTpThreshold').value)
+            };
+            
+            try {
+                const response = await fetch(`/api/okx-trading/coin-change-tpsl-settings/${account.id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(settings)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    console.log(`✅ [27币涨跌幅止盈] 已保存账户 ${account.name} 的配置`, settings);
+                    // 自动保存，不弹窗提示
+                } else {
+                    console.error('❌ [27币涨跌幅止盈] 保存失败:', result.error);
+                }
+            } catch (e) {
+                console.error('❌ [27币涨跌幅止盈] 保存异常:', e);
+            }
+        }
+        
+        // 🔄 刷新27币涨跌幅数据
+        async function refreshCoinChangeData() {
+            try {
+                const response = await fetch('/api/coin-change-tracker/latest');
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    const data = result.data;
+                    const totalChange = data.total_change || 0;
+                    const displayEl = document.getElementById('current27CoinChangeDisplay');
+                    
+                    displayEl.textContent = `${totalChange >= 0 ? '+' : ''}${totalChange.toFixed(2)} %`;
+                    displayEl.style.color = totalChange >= 0 ? '#10b981' : '#ef4444';
+                    
+                    document.getElementById('upCoinsCount').textContent = data.up_coins || 0;
+                    document.getElementById('downCoinsCount').textContent = data.down_coins || 0;
+                    document.getElementById('coinChangeUpdateTime').textContent = data.beijing_time || '--';
+                    
+                    console.log(`✅ [27币涨跌幅] 数据已更新: ${totalChange.toFixed(2)}%`);
+                } else {
+                    console.warn('⚠️ [27币涨跌幅] 获取数据失败');
+                }
+            } catch (e) {
+                console.error('❌ [27币涨跌幅] 获取数据异常:', e);
+            }
+        }
+        
+        // 📈 加载27币涨跌幅止盈数据
+        async function loadCoinChangeTpslData() {
+            try {
+                const response = await fetch('/api/coin-change-tracker/latest');
+                const data = await response.json();
+                
+                if (data && data.total_change !== undefined) {
+                    const totalChange = data.total_change || 0;
+                    const displayEl = document.getElementById('coinChangeTotalDisplay');
+                    
+                    displayEl.textContent = `${totalChange >= 0 ? '+' : ''}${totalChange.toFixed(2)}%`;
+                    displayEl.style.color = totalChange >= 0 ? '#10b981' : '#ef4444';
+                    
+                    document.getElementById('coinChangeUpCount').textContent = data.up_coins || 0;
+                    document.getElementById('coinChangeDownCount').textContent = data.down_coins || 0;
+                    document.getElementById('coinChangeUpdateTime').textContent = data.beijing_time ? data.beijing_time.split(' ')[1] : '--';
+                    
+                    console.log(`✅ [27币涨跌幅止盈] 数据已更新: ${totalChange.toFixed(2)}%`);
+                } else {
+                    console.warn('⚠️ [27币涨跌幅止盈] 获取数据失败');
+                }
+            } catch (e) {
+                console.error('❌ [27币涨跌幅止盈] 获取数据异常:', e);
+            }
+        }
+        
+        // 📈 加载27币涨跌幅止盈配置
+        async function loadCoinChangeTpslSettings() {
+            const account = accounts.find(acc => acc.id === currentAccount);
+            if (!account) {
+                console.log('[27币涨跌幅止盈] 未选择账户');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/okx-trading/coin-change-tpsl-settings/${account.id}`);
+                const result = await response.json();
+                
+                if (result) {
+                    // 更新空单止盈配置
+                    const shortTpSwitch = document.getElementById('coinChangeShortTpSwitch');
+                    const shortTpThreshold = document.getElementById('coinChangeShortTpThreshold');
+                    if (shortTpSwitch && shortTpThreshold) {
+                        shortTpSwitch.checked = result.shortTakeProfitEnabled || false;
+                        shortTpThreshold.value = result.shortTakeProfitThreshold || 10.0;
+                    }
+                    
+                    // 更新多单止盈配置
+                    const longTpSwitch = document.getElementById('coinChangeLongTpSwitch');
+                    const longTpThreshold = document.getElementById('coinChangeLongTpThreshold');
+                    if (longTpSwitch && longTpThreshold) {
+                        longTpSwitch.checked = result.longTakeProfitEnabled || false;
+                        longTpThreshold.value = result.longTakeProfitThreshold || 10.0;
+                    }
+                    
+                    console.log(`✅ [27币涨跌幅止盈] 配置已加载: 空单${result.shortTakeProfitEnabled?'已启用':'未启用'}/${result.shortTakeProfitThreshold}%, 多单${result.longTakeProfitEnabled?'已启用':'未启用'}/${result.longTakeProfitThreshold}%`);
+                }
+            } catch (e) {
+                console.error('❌ [27币涨跌幅止盈] 加载配置异常:', e);
+            }
+        }
+        
+        // 📈 保存27币涨跌幅止盈配置
+        async function saveCoinChangeTpslSettings() {
+            const account = accounts.find(acc => acc.id === currentAccount);
+            if (!account) {
+                alert('请先选择账户');
+                return;
+            }
+            
+            const shortTpSwitch = document.getElementById('coinChangeShortTpSwitch');
+            const shortTpThreshold = document.getElementById('coinChangeShortTpThreshold');
+            const longTpSwitch = document.getElementById('coinChangeLongTpSwitch');
+            const longTpThreshold = document.getElementById('coinChangeLongTpThreshold');
+            
+            const settings = {
+                shortTakeProfitEnabled: shortTpSwitch.checked,
+                shortTakeProfitThreshold: parseFloat(shortTpThreshold.value) || 10.0,
+                longTakeProfitEnabled: longTpSwitch.checked,
+                longTakeProfitThreshold: parseFloat(longTpThreshold.value) || 10.0
+            };
+            
+            try {
+                const response = await fetch(`/api/okx-trading/coin-change-tpsl-settings/${account.id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(settings)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    console.log('✅ [27币涨跌幅止盈] 配置保存成功');
+                    // 不显示alert，只在控制台记录
+                } else {
+                    console.error('❌ [27币涨跌幅止盈] 配置保存失败:', result.message);
+                }
+            } catch (e) {
+                console.error('❌ [27币涨跌幅止盈] 保存配置异常:', e);
+            }
+        }
+        
         // 📊 加载百分比止盈止损监控状态
         async function loadPercentTpslStatus() {
             const account = accounts.find(acc => acc.id === currentAccount);
@@ -8948,6 +9740,26 @@ ${data.sMsg || result.message || ''}`);
                     document.getElementById('percentSlStatusEnabled').textContent = config.percentStopLossEnabled ? '✅ 已启用' : '⭕ 未启用';
                     document.getElementById('percentSlStatusEnabled').style.color = config.percentStopLossEnabled ? '#ef4444' : '#9ca3af';
                     document.getElementById('percentSlStatusThreshold').textContent = config.percentStopLossThreshold ? `${config.percentStopLossThreshold}%` : '--';
+                    
+                    // 🔔 更新确认结构状态
+                    document.getElementById('confirmStructureStatusEnabled').textContent = config.confirmStructureEnabled ? '✅ 已启用' : '⭕ 未启用';
+                    document.getElementById('confirmStructureStatusEnabled').style.color = config.confirmStructureEnabled ? '#a855f7' : '#9ca3af';
+                    document.getElementById('confirmStructureStatusThreshold').textContent = config.confirmStructureThreshold ? `${config.confirmStructureThreshold}%` : '--';
+                    
+                    // 🚨 加载暴跌预警止损状态
+                    loadCrashWarningStopLossStatus();
+                    
+                    // 🔄 同时更新输入字段（实现联动）
+                    const confirmSwitchInput = document.getElementById('confirmStructureSwitch');
+                    const confirmThresholdInput = document.getElementById('confirmStructureThreshold');
+                    if (confirmSwitchInput && confirmThresholdInput) {
+                        confirmSwitchInput.checked = config.confirmStructureEnabled || false;
+                        confirmThresholdInput.value = config.confirmStructureThreshold || 10.0;
+                        console.log('🔄 [确认结构联动] 已更新输入字段:', {
+                            enabled: confirmSwitchInput.checked,
+                            threshold: confirmThresholdInput.value
+                        });
+                    }
                     
                     // 更新统计数据（在details内部）
                     document.getElementById('percentTotalExecutions').textContent = result.statistics.totalExecutions;
@@ -8988,6 +9800,215 @@ ${data.sMsg || result.message || ''}`);
             } catch (e) {
                 console.error('[百分比止盈止损状态] ❌ 加载异常:', e);
             }
+        }
+        
+        // 🔔 确认百分比止盈止损执行
+        async function confirmPercentTpsl() {
+            const account = accounts.find(acc => acc.id === currentAccount);
+            if (!account) {
+                alert('⚠️ 请先选择账户');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/okx-trading/percent-tpsl-confirm/${account.id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ action: 'confirm' })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert(`✅ ${result.message}`);
+                    document.getElementById('percentPendingConfirmation').style.display = 'none';
+                    // 刷新状态
+                    loadPercentTpslStatus();
+                } else {
+                    alert(`❌ ${result.error || '确认失败'}`);
+                }
+            } catch (e) {
+                console.error('[确认执行] 异常:', e);
+                alert('❌ 确认失败: ' + e.message);
+            }
+        }
+        
+        // ❌ 取消百分比止盈止损执行
+        async function cancelPercentTpsl() {
+            const account = accounts.find(acc => acc.id === currentAccount);
+            if (!account) {
+                alert('⚠️ 请先选择账户');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/okx-trading/percent-tpsl-confirm/${account.id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ action: 'cancel' })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert(`✅ ${result.message}`);
+                    document.getElementById('percentPendingConfirmation').style.display = 'none';
+                } else {
+                    alert(`❌ ${result.error || '取消失败'}`);
+                }
+            } catch (e) {
+                console.error('[取消执行] 异常:', e);
+                alert('❌ 取消失败: ' + e.message);
+            }
+        }
+        
+        // 🔄 检查待确认的止盈止损
+        async function checkPendingPercentTpsl() {
+            const account = accounts.find(acc => acc.id === currentAccount);
+            if (!account) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/percent-tpsl-pending/${account.id}`);
+                const result = await response.json();
+                
+                if (result.success && result.pending) {
+                    // 显示待确认区域
+                    document.getElementById('percentPendingConfirmation').style.display = 'block';
+                    
+                    // 填充详细信息
+                    const details = result.data;
+                    const typeText = details.triggerType === 'percent_take_profit' ? '📈 百分比止盈' : '📉 百分比止损';
+                    const typeColor = details.triggerType === 'percent_take_profit' ? '#10b981' : '#ef4444';
+                    
+                    const html = `
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <div>
+                                <div style="color: #6b7280; font-size: 10px;">触发类型</div>
+                                <div style="color: ${typeColor}; font-weight: 600;">${typeText}</div>
+                            </div>
+                            <div>
+                                <div style="color: #6b7280; font-size: 10px;">阈值百分比</div>
+                                <div style="color: #1f2937; font-weight: 600;">${details.thresholdPercent}%</div>
+                            </div>
+                            <div>
+                                <div style="color: #6b7280; font-size: 10px;">总保证金</div>
+                                <div style="color: #1f2937; font-weight: 600;">${details.totalMargin.toFixed(2)} USDT</div>
+                            </div>
+                            <div>
+                                <div style="color: #6b7280; font-size: 10px;">当前盈亏</div>
+                                <div style="color: ${details.totalPnl >= 0 ? '#10b981' : '#ef4444'}; font-weight: 600;">${details.totalPnl >= 0 ? '+' : ''}${details.totalPnl.toFixed(2)} USDT</div>
+                            </div>
+                            <div>
+                                <div style="color: #6b7280; font-size: 10px;">待平仓数量</div>
+                                <div style="color: #1f2937; font-weight: 600;">${details.positionCount} 个持仓</div>
+                            </div>
+                            <div>
+                                <div style="color: #6b7280; font-size: 10px;">触发时间</div>
+                                <div style="color: #6b7280; font-size: 10px;">${new Date(details.timestamp).toLocaleString('zh-CN')}</div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    document.getElementById('percentPendingDetails').innerHTML = html;
+                } else {
+                    // 隐藏待确认区域
+                    document.getElementById('percentPendingConfirmation').style.display = 'none';
+                }
+            } catch (e) {
+                console.error('[检查待确认] 异常:', e);
+            }
+        }
+        
+        // 🚨 加载暴跌预警止损状态
+        async function loadCrashWarningStatus() {
+            try {
+                // 获取当日预警状态
+                const response = await fetch('/api/coin-change-tracker/has-crash-warning-today');
+                const result = await response.json();
+                
+                if (result.success) {
+                    // 更新日期
+                    document.getElementById('crashWarningDate').textContent = result.date || '--';
+                    
+                    // 更新预警状态
+                    const hasWarningEl = document.getElementById('crashWarningHasWarning');
+                    if (result.has_warning) {
+                        hasWarningEl.textContent = '⚠️ 有预警';
+                        hasWarningEl.style.background = '#fee2e2';
+                        hasWarningEl.style.color = '#991b1b';
+                    } else {
+                        hasWarningEl.textContent = '✅ 无预警';
+                        hasWarningEl.style.background = '#d1fae5';
+                        hasWarningEl.style.color = '#065f46';
+                    }
+                    
+                    // 更新预警次数
+                    document.getElementById('crashWarningCount').textContent = result.warning_count || 0;
+                    
+                    // 如果有预警，显示详情
+                    if (result.has_warning && result.latest_warning) {
+                        const latest = result.latest_warning;
+                        
+                        // 显示交易限制
+                        if (latest.trading_restriction) {
+                            document.getElementById('crashWarningTradeRestriction').style.display = 'block';
+                            
+                            const allowLongEl = document.getElementById('crashWarningAllowLong');
+                            const allowShortEl = document.getElementById('crashWarningAllowShort');
+                            
+                            allowLongEl.textContent = latest.trading_restriction.allow_long ? '✅ 允许' : '🚫 禁止';
+                            allowLongEl.style.color = latest.trading_restriction.allow_long ? '#10b981' : '#ef4444';
+                            
+                            allowShortEl.textContent = latest.trading_restriction.allow_short ? '✅ 允许' : '🚫 禁止';
+                            allowShortEl.style.color = latest.trading_restriction.allow_short ? '#10b981' : '#ef4444';
+                        }
+                        
+                        // 显示预警详情
+                        document.getElementById('crashWarningDetails').style.display = 'block';
+                        document.getElementById('crashWarningSignalType').textContent = latest.signal_type || '--';
+                        document.getElementById('crashWarningPatternName').textContent = latest.pattern_name || '--';
+                        document.getElementById('crashWarningConsecutivePeaks').textContent = latest.consecutive_peaks || '--';
+                    } else {
+                        // 无预警时隐藏详情
+                        document.getElementById('crashWarningTradeRestriction').style.display = 'none';
+                        document.getElementById('crashWarningDetails').style.display = 'none';
+                    }
+                    
+                    // 尝试加载止损执行状态（从JSONL文件）
+                    await loadCrashWarningStopLossExecutionStatus(result.date);
+                    
+                } else {
+                    console.error('[暴跌预警状态] 加载失败:', result.error);
+                }
+            } catch (e) {
+                console.error('[暴跌预警状态] 异常:', e);
+            }
+        }
+        
+        // 🛑 加载暴跌预警止损执行状态
+        async function loadCrashWarningStopLossExecutionStatus(date) {
+            try {
+                // 这里可以扩展一个API来读取JSONL文件并返回执行状态
+                // 暂时显示默认状态
+                document.getElementById('crashWarningStopLossExecuted').textContent = '待监控中...';
+                document.getElementById('crashWarningStopLossExecuted').style.color = '#6b7280';
+                document.getElementById('crashWarningStopLossTime').textContent = '-- : --';
+                
+                // TODO: 如果需要详细的执行记录，可以添加新的API endpoint
+                // 读取 data/crash_warning_stop_loss/crash_warning_stop_loss_YYYYMMDD.jsonl
+                console.log(`[暴跌预警止损] 等待为日期 ${date} 添加执行状态API`);
+            } catch (e) {
+                console.error('[止损执行状态] 异常:', e);
+            }
+        }
+        
+        // Alias for backward compatibility
+        async function loadCrashWarningStopLossStatus() {
+            await loadCrashWarningStatus();
         }
         
         // 加载自动交易策略设置（从服务器API，按账户独立存储）
@@ -10305,6 +11326,8 @@ ${data.sMsg || result.message || ''}`);
             // 加载止盈止损设置
             loadTakeProfitStopLossSettings();
             loadPercentTpslStatus();  // 📊 加载百分比止盈止损监控状态
+            loadCoinChangeTpslData();  // 📈 加载27币涨跌幅数据
+            loadCoinChangeTpslSettings();  // 📈 加载27币涨跌幅止盈配置
             
             // 加载自动交易策略设置
             loadAutoStrategySettings();
@@ -10353,6 +11376,21 @@ ${data.sMsg || result.message || ''}`);
                 const element = document.getElementById(id);
                 if (element) {
                     element.addEventListener('change', saveTakeProfitStopLossSettings);
+                }
+            });
+            
+            // 📈 添加27币涨跌幅止盈设置的事件监听器
+            ['coinChangeShortTpThreshold', 'coinChangeLongTpThreshold'].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('change', saveCoinChangeTpslSettings);
+                }
+            });
+            
+            ['coinChangeShortTpSwitch', 'coinChangeLongTpSwitch'].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('change', saveCoinChangeTpslSettings);
                 }
             });
             
