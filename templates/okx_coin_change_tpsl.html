@@ -499,29 +499,56 @@
                 </div>
             </div>
             
-            <!-- 止盈配置状态总览 -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; padding-top: 20px; border-top: 2px solid #e2e8f0;">
-                <!-- 空单止盈状态 -->
-                <div style="padding: 15px; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-radius: 12px; border: 2px solid #ef4444;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
-                        <span style="font-size: 14px; font-weight: 600; color: #991b1b;">🔴 空单止盈</span>
-                        <span id="shortTpStatusBadge" style="font-size: 11px; padding: 4px 8px; border-radius: 6px; background: rgba(156, 163, 175, 0.3); color: #6b7280; font-weight: 600;">⭕ 未启用</span>
-                    </div>
-                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
-                        <span style="font-size: 12px; color: #991b1b;">目标触发值：</span>
-                        <span id="shortTpTargetValue" style="font-size: 20px; font-weight: 700; color: #dc2626;">--</span>
-                    </div>
+            <!-- 止盈配置状态总览 - 清晰醒目样式 -->
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 3px solid #e2e8f0;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                    <span style="font-size: 20px;">⚙️</span>
+                    <span style="font-size: 20px; font-weight: 700; color: #1a202c;">当前止盈配置</span>
                 </div>
                 
-                <!-- 多单止盈状态 -->
-                <div style="padding: 15px; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-radius: 12px; border: 2px solid #10b981;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
-                        <span style="font-size: 14px; font-weight: 600; color: #065f46;">🟢 多单止盈</span>
-                        <span id="longTpStatusBadge" style="font-size: 11px; padding: 4px 8px; border-radius: 6px; background: rgba(156, 163, 175, 0.3); color: #6b7280; font-weight: 600;">⭕ 未启用</span>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <!-- 做空止盈 -->
+                    <div style="padding: 24px; background: linear-gradient(135deg, #fff5f5 0%, #fee2e2 100%); border: 3px solid #dc2626; border-radius: 16px; box-shadow: 0 4px 6px rgba(220, 38, 38, 0.15);">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 18px;">
+                            <span style="font-size: 24px;">🩸</span>
+                            <span style="font-size: 20px; font-weight: 700; color: #dc2626;">做空止盈</span>
+                        </div>
+                        
+                        <div style="background: white; border-radius: 10px; padding: 14px; margin-bottom: 12px; border-left: 4px solid #dc2626;">
+                            <div style="font-size: 13px; color: #6b7280; margin-bottom: 6px; font-weight: 500;">📍 是否已开启</div>
+                            <div id="shortTpStatusText" style="font-size: 18px; font-weight: 700; color: #dc2626;">
+                                ⏳ 加载中...
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; border-radius: 10px; padding: 14px; border-left: 4px solid #dc2626;">
+                            <div style="font-size: 13px; color: #6b7280; margin-bottom: 6px; font-weight: 500;">🎯 止盈触发值</div>
+                            <div id="shortTpThresholdText" style="font-size: 26px; font-weight: 700; color: #dc2626; font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Courier New', monospace;">
+                                --
+                            </div>
+                        </div>
                     </div>
-                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
-                        <span style="font-size: 12px; color: #065f46;">目标触发值：</span>
-                        <span id="longTpTargetValue" style="font-size: 20px; font-weight: 700; color: #10b981;">--</span>
+                    
+                    <!-- 做多止盈 -->
+                    <div style="padding: 24px; background: linear-gradient(135deg, #f0fdf4 0%, #d1fae5 100%); border: 3px solid #10b981; border-radius: 16px; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.15);">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 18px;">
+                            <span style="font-size: 24px;">🚀</span>
+                            <span style="font-size: 20px; font-weight: 700; color: #10b981;">做多止盈</span>
+                        </div>
+                        
+                        <div style="background: white; border-radius: 10px; padding: 14px; margin-bottom: 12px; border-left: 4px solid #10b981;">
+                            <div style="font-size: 13px; color: #6b7280; margin-bottom: 6px; font-weight: 500;">📍 是否已开启</div>
+                            <div id="longTpStatusText" style="font-size: 18px; font-weight: 700; color: #10b981;">
+                                ⏳ 加载中...
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; border-radius: 10px; padding: 14px; border-left: 4px solid #10b981;">
+                            <div style="font-size: 13px; color: #6b7280; margin-bottom: 6px; font-weight: 500;">🎯 止盈触发值</div>
+                            <div id="longTpThresholdText" style="font-size: 26px; font-weight: 700; color: #10b981; font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Courier New', monospace;">
+                                --
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -764,35 +791,27 @@
             const longThreshold = config.longTakeProfitThreshold;
             
             // 更新空单止盈状态
-            const shortStatusBadge = document.getElementById('shortTpStatusBadge');
-            const shortTargetValue = document.getElementById('shortTpTargetValue');
+            const shortStatusText = document.getElementById('shortTpStatusText');
+            const shortThresholdText = document.getElementById('shortTpThresholdText');
             
             if (shortEnabled) {
-                shortStatusBadge.textContent = '✅ 已启用';
-                shortStatusBadge.style.background = 'rgba(220, 38, 38, 0.2)';
-                shortStatusBadge.style.color = '#dc2626';
-                shortTargetValue.textContent = `-${shortThreshold.toFixed(1)}%`;
+                shortStatusText.innerHTML = '<span style="color: #10b981;">✅ 已启用</span>';
+                shortThresholdText.textContent = `-${shortThreshold.toFixed(1)}%`;
             } else {
-                shortStatusBadge.textContent = '⭕ 未启用';
-                shortStatusBadge.style.background = 'rgba(156, 163, 175, 0.3)';
-                shortStatusBadge.style.color = '#6b7280';
-                shortTargetValue.textContent = '--';
+                shortStatusText.innerHTML = '<span style="color: #9ca3af;">⭕ 未启用</span>';
+                shortThresholdText.textContent = '--';
             }
             
             // 更新多单止盈状态
-            const longStatusBadge = document.getElementById('longTpStatusBadge');
-            const longTargetValue = document.getElementById('longTpTargetValue');
+            const longStatusText = document.getElementById('longTpStatusText');
+            const longThresholdText = document.getElementById('longTpThresholdText');
             
             if (longEnabled) {
-                longStatusBadge.textContent = '✅ 已启用';
-                longStatusBadge.style.background = 'rgba(16, 185, 129, 0.2)';
-                longStatusBadge.style.color = '#10b981';
-                longTargetValue.textContent = `+${longThreshold.toFixed(1)}%`;
+                longStatusText.innerHTML = '<span style="color: #10b981;">✅ 已启用</span>';
+                longThresholdText.textContent = `+${longThreshold.toFixed(1)}%`;
             } else {
-                longStatusBadge.textContent = '⭕ 未启用';
-                longStatusBadge.style.background = 'rgba(156, 163, 175, 0.3)';
-                longStatusBadge.style.color = '#6b7280';
-                longTargetValue.textContent = '--';
+                longStatusText.innerHTML = '<span style="color: #9ca3af;">⭕ 未启用</span>';
+                longThresholdText.textContent = '--';
             }
         }
         
