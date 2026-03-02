@@ -9709,34 +9709,59 @@ ${data.sMsg || result.message || ''}`);
                     const shortThreshold = result.config.shortTakeProfitThreshold;
                     const longThreshold = result.config.longTakeProfitThreshold;
                     
+                    console.log('[coinChangeTpsl] 配置数据:', {
+                        shortEnabled, shortThreshold,
+                        longEnabled, longThreshold
+                    });
+                    
                     // 空单止盈状态总览
                     const shortStatusBadge = document.getElementById('coinChangeShortTpStatusBadge');
                     const shortTargetDisplay = document.getElementById('coinChangeShortTpTargetDisplay');
-                    if (shortEnabled) {
-                        shortStatusBadge.textContent = '✅ 已启用';
-                        shortStatusBadge.style.background = 'rgba(220, 38, 38, 0.15)';
-                        shortStatusBadge.style.color = '#dc2626';
-                        shortTargetDisplay.textContent = `-${shortThreshold.toFixed(1)}%`;
+                    
+                    console.log('[coinChangeTpsl] 找到元素:', {
+                        shortStatusBadge, shortTargetDisplay
+                    });
+                    
+                    if (shortStatusBadge && shortTargetDisplay) {
+                        if (shortEnabled) {
+                            shortStatusBadge.textContent = '✅ 已启用';
+                            shortStatusBadge.style.background = 'rgba(220, 38, 38, 0.15)';
+                            shortStatusBadge.style.color = '#dc2626';
+                            shortTargetDisplay.textContent = `-${shortThreshold.toFixed(1)}%`;
+                        } else {
+                            shortStatusBadge.textContent = '⭕ 未启用';
+                            shortStatusBadge.style.background = 'rgba(156, 163, 175, 0.2)';
+                            shortStatusBadge.style.color = '#6b7280';
+                            shortTargetDisplay.textContent = '--';
+                        }
+                        console.log('[coinChangeTpsl] 空单状态已更新');
                     } else {
-                        shortStatusBadge.textContent = '⭕ 未启用';
-                        shortStatusBadge.style.background = 'rgba(156, 163, 175, 0.2)';
-                        shortStatusBadge.style.color = '#6b7280';
-                        shortTargetDisplay.textContent = '--';
+                        console.error('[coinChangeTpsl] 找不到空单状态元素！');
                     }
                     
                     // 多单止盈状态总览
                     const longStatusBadge = document.getElementById('coinChangeLongTpStatusBadge');
                     const longTargetDisplay = document.getElementById('coinChangeLongTpTargetDisplay');
-                    if (longEnabled) {
-                        longStatusBadge.textContent = '✅ 已启用';
-                        longStatusBadge.style.background = 'rgba(16, 185, 129, 0.15)';
-                        longStatusBadge.style.color = '#10b981';
-                        longTargetDisplay.textContent = `+${longThreshold.toFixed(1)}%`;
+                    
+                    console.log('[coinChangeTpsl] 找到多单元素:', {
+                        longStatusBadge, longTargetDisplay
+                    });
+                    
+                    if (longStatusBadge && longTargetDisplay) {
+                        if (longEnabled) {
+                            longStatusBadge.textContent = '✅ 已启用';
+                            longStatusBadge.style.background = 'rgba(16, 185, 129, 0.15)';
+                            longStatusBadge.style.color = '#10b981';
+                            longTargetDisplay.textContent = `+${longThreshold.toFixed(1)}%`;
+                        } else {
+                            longStatusBadge.textContent = '⭕ 未启用';
+                            longStatusBadge.style.background = 'rgba(156, 163, 175, 0.2)';
+                            longStatusBadge.style.color = '#6b7280';
+                            longTargetDisplay.textContent = '--';
+                        }
+                        console.log('[coinChangeTpsl] 多单状态已更新');
                     } else {
-                        longStatusBadge.textContent = '⭕ 未启用';
-                        longStatusBadge.style.background = 'rgba(156, 163, 175, 0.2)';
-                        longStatusBadge.style.color = '#6b7280';
-                        longTargetDisplay.textContent = '--';
+                        console.error('[coinChangeTpsl] 找不到多单状态元素！');
                     }
                     
                     // 2. 更新配置（只在设置加载时更新，数据刷新时不改变用户输入）
