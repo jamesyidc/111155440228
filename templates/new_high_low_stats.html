@@ -860,6 +860,80 @@ cf6d1dd - feat: Add new high/new low statistics page</pre>
             </div>
         </div>
         
+        <!-- 🔥 峰值日详细数据统计框 -->
+        <div style="margin-bottom: 30px;">
+            <div class="stat-card" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.1)); border: 2px solid #667eea;">
+                <h2 style="color: #667eea; font-size: 1.6em; margin-bottom: 20px; text-align: center;">
+                    📊 历史峰值日数据对比
+                </h2>
+                
+                <!-- 峰值日数据对比 -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <!-- 创新高峰值日数据 -->
+                    <div style="background: rgba(16, 185, 129, 0.08); padding: 20px; border-radius: 12px; border: 2px solid rgba(16, 185, 129, 0.3);">
+                        <h3 style="color: #10b981; font-size: 1.3em; margin-bottom: 15px; text-align: center;">
+                            🏆 创新高峰值日
+                        </h3>
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <div style="font-size: 1.5em; font-weight: 700; color: #10b981;" id="peak-high-detail-date">--</div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div style="background: rgba(255, 255, 255, 0.5); padding: 12px; border-radius: 8px; text-align: center;">
+                                <div style="font-size: 0.85em; color: #065f46; margin-bottom: 5px;">创新高</div>
+                                <div style="font-size: 2em; font-weight: 700; color: #10b981; font-family: 'Courier New', monospace;" id="peak-high-detail-high">0</div>
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.5); padding: 12px; border-radius: 8px; text-align: center;">
+                                <div style="font-size: 0.85em; color: #991b1b; margin-bottom: 5px;">创新低</div>
+                                <div style="font-size: 2em; font-weight: 700; color: #ef4444; font-family: 'Courier New', monospace;" id="peak-high-detail-low">0</div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(255, 255, 255, 0.5); padding: 12px; border-radius: 8px; text-align: center; margin-top: 10px;">
+                            <div style="font-size: 0.85em; color: #1e40af; margin-bottom: 5px;">总事件</div>
+                            <div style="font-size: 2.5em; font-weight: 700; color: #667eea; font-family: 'Courier New', monospace;" id="peak-high-detail-total">0</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 创新低峰值日数据 -->
+                    <div style="background: rgba(239, 68, 68, 0.08); padding: 20px; border-radius: 12px; border: 2px solid rgba(239, 68, 68, 0.3);">
+                        <h3 style="color: #ef4444; font-size: 1.3em; margin-bottom: 15px; text-align: center;">
+                            🎯 创新低峰值日
+                        </h3>
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <div style="font-size: 1.5em; font-weight: 700; color: #ef4444;" id="peak-low-detail-date">--</div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div style="background: rgba(255, 255, 255, 0.5); padding: 12px; border-radius: 8px; text-align: center;">
+                                <div style="font-size: 0.85em; color: #065f46; margin-bottom: 5px;">创新高</div>
+                                <div style="font-size: 2em; font-weight: 700; color: #10b981; font-family: 'Courier New', monospace;" id="peak-low-detail-high">0</div>
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.5); padding: 12px; border-radius: 8px; text-align: center;">
+                                <div style="font-size: 0.85em; color: #991b1b; margin-bottom: 5px;">创新低</div>
+                                <div style="font-size: 2em; font-weight: 700; color: #ef4444; font-family: 'Courier New', monospace;" id="peak-low-detail-low">0</div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(255, 255, 255, 0.5); padding: 12px; border-radius: 8px; text-align: center; margin-top: 10px;">
+                            <div style="font-size: 0.85em; color: #1e40af; margin-bottom: 5px;">总事件</div>
+                            <div style="font-size: 2.5em; font-weight: 700; color: #667eea; font-family: 'Courier New', monospace;" id="peak-low-detail-total">0</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 数据说明 -->
+                <div style="margin-top: 20px; padding: 15px; background: rgba(102, 126, 234, 0.1); border-radius: 8px; border-left: 4px solid #667eea;">
+                    <div style="font-size: 0.9em; color: #a0a0a0; line-height: 1.8;">
+                        <strong style="color: #667eea;">💡 数据说明：</strong><br>
+                        • 创新高峰值日：历史上单日创新高次数最多的日期<br>
+                        • 创新低峰值日：历史上单日创新低次数最多的日期<br>
+                        • 数据已保存至：<code>peak_days_detail_record.jsonl</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <!-- 趋势对比图表 -->
         <div class="chart-container">
             <h2 style="color: #667eea; margin-bottom: 20px;">📊 事件趋势对比</h2>
@@ -1026,6 +1100,12 @@ cf6d1dd - feat: Add new high/new low statistics page</pre>
                 document.getElementById('peak-high-date').textContent = peakHigh.date || '--';
                 document.getElementById('peak-high-count').textContent = peakHigh.count || 0;
                 
+                // 更新创新高峰值日详细数据
+                document.getElementById('peak-high-detail-date').textContent = peakHigh.date || '--';
+                document.getElementById('peak-high-detail-high').textContent = peakHigh.count || 0;
+                document.getElementById('peak-high-detail-low').textContent = peakHigh.new_low_count || 0;
+                document.getElementById('peak-high-detail-total').textContent = peakHigh.total_count || 0;
+                
                 // 更新创新高详情
                 const highDetailsEl = document.getElementById('peak-high-details');
                 if (peakHigh.details && Object.keys(peakHigh.details).length > 0) {
@@ -1047,6 +1127,12 @@ cf6d1dd - feat: Add new high/new low statistics page</pre>
                 const peakLow = data.peak_new_low_day;
                 document.getElementById('peak-low-date').textContent = peakLow.date || '--';
                 document.getElementById('peak-low-count').textContent = peakLow.count || 0;
+                
+                // 更新创新低峰值日详细数据
+                document.getElementById('peak-low-detail-date').textContent = peakLow.date || '--';
+                document.getElementById('peak-low-detail-high').textContent = peakLow.new_high_count || 0;
+                document.getElementById('peak-low-detail-low').textContent = peakLow.count || 0;
+                document.getElementById('peak-low-detail-total').textContent = peakLow.total_count || 0;
                 
                 // 更新创新低详情
                 const lowDetailsEl = document.getElementById('peak-low-details');

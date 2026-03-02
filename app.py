@@ -26300,21 +26300,55 @@ def api_new_high_low_peak_days():
                 peak_low_date = date
                 peak_low_details = stats['details']
         
+        # 保存峰值日的详细数据情况到单独的JSONL文件
+        peak_days_detail_file = data_dir / 'peak_days_detail_record.jsonl'
+        with open(peak_days_detail_file, 'w', encoding='utf-8') as f:
+            # 创新高峰值日记录
+            if peak_high_date:
+                high_record = {
+                    'type': 'peak_new_high_day',
+                    'date': peak_high_date,
+                    'new_high_count': peak_high_count,
+                    'new_low_count': daily_stats[peak_high_date]['new_low'],
+                    'total_count': peak_high_count + daily_stats[peak_high_date]['new_low'],
+                    'details': peak_high_details,
+                    'recorded_at': datetime.now(pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
+                }
+                f.write(json.dumps(high_record, ensure_ascii=False) + '\n')
+            
+            # 创新低峰值日记录
+            if peak_low_date:
+                low_record = {
+                    'type': 'peak_new_low_day',
+                    'date': peak_low_date,
+                    'new_high_count': daily_stats[peak_low_date]['new_high'],
+                    'new_low_count': peak_low_count,
+                    'total_count': daily_stats[peak_low_date]['new_high'] + peak_low_count,
+                    'details': peak_low_details,
+                    'recorded_at': datetime.now(pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
+                }
+                f.write(json.dumps(low_record, ensure_ascii=False) + '\n')
+        
         return jsonify({
             'success': True,
             'timestamp': datetime.now(pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S'),
             'peak_new_high_day': {
                 'date': peak_high_date,
                 'count': peak_high_count,
+                'new_low_count': daily_stats[peak_high_date]['new_low'] if peak_high_date else 0,
+                'total_count': peak_high_count + (daily_stats[peak_high_date]['new_low'] if peak_high_date else 0),
                 'details': peak_high_details
             },
             'peak_new_low_day': {
                 'date': peak_low_date,
                 'count': peak_low_count,
+                'new_high_count': daily_stats[peak_low_date]['new_high'] if peak_low_date else 0,
+                'total_count': (daily_stats[peak_low_date]['new_high'] if peak_low_date else 0) + peak_low_count,
                 'details': peak_low_details
             },
             'total_days_analyzed': len(daily_stats),
-            'daily_stats_file': str(daily_stats_file)
+            'daily_stats_file': str(daily_stats_file),
+            'peak_days_detail_file': str(peak_days_detail_file)
         })
         
     except Exception as e:
