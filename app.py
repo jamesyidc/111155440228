@@ -17596,6 +17596,349 @@ def get_coin_change_tpsl_overview(account_id):
             'error': str(e)
         })
 
+# ========== 27币涨跌幅条件单系统 API ==========
+
+@app.route('/api/okx-trading/coin-change-conditional-orders/<account_id>', methods=['GET'])
+def get_coin_change_conditional_orders(account_id):
+    """
+    获取27币涨跌幅条件单配置
+    
+    返回:
+    {
+        "success": True,
+        "account_id": "account_main",
+        "orders": [
+            {
+                "id": "cond_order_001",
+                "enabled": True,
+                "order_type": "open_short",  // open_short | open_long
+                "trigger_condition": "above",  // above | below
+                "trigger_value": 50.0,  // 27币涨跌幅之和阈值
+                "target_strategy_code": "STG_SHORT_001",  // 目标策略唯一编码
+                "allow_trigger": True,  // 是否允许触发
+                "triggered_count": 0,  // 已触发次数
+                "last_triggered_at": null,
+                "created_at": "2026-03-02 22:30:00"
+            }
+        ]
+    }
+    """
+    try:
+        import json
+        from pathlib import Path
+        from datetime import datetime
+        import pytz
+        
+        data_dir = Path('/home/user/webapp/data/coin_change_conditional_orders')
+        data_dir.mkdir(parents=True, exist_ok=True)
+        
+        order_file = data_dir / f'{account_id}_conditional_orders.jsonl'
+        
+        orders = []
+        if order_file.exists():
+            with open(order_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        try:
+                            order = json.loads(line)
+                            orders.append(order)
+                        except json.JSONDecodeError:
+                            continue
+        
+        return jsonify({
+            'success': True,
+            'account_id': account_id,
+            'orders': orders,
+            'total_orders': len(orders),
+            'timestamp': datetime.now(pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+@app.route('/api/okx-trading/coin-change-conditional-orders/<account_id>', methods=['POST'])
+def save_coin_change_conditional_order(account_id):
+    """
+    保存/更新27币涨跌幅条件单
+    
+    请求体:
+    {
+        "id": "cond_order_001",  // 可选，不提供则自动生成
+        "enabled": True,
+        "order_type": "open_short",  // open_short | open_long
+        "trigger_condition": "above",  // above | below
+        "trigger_value": 50.0,
+        "target_strategy_code": "STG_SHORT_001",
+        "allow_trigger": True
+    }
+    """
+    try:
+        import json
+        from pathlib import Path
+        from datetime import datetime
+        import pytz
+        import uuid
+        
+        data = request.json
+        beijing_tz = pytz.timezone('Asia/Shanghai')
+        now = datetime.now(beijing_tz)
+        
+        data_dir = Path('/home/user/webapp/data/coin_change_conditional_orders')
+        data_dir.mkdir(parents=True, exist_ok=True)
+        
+        order_file = data_dir / f'{account_id}_conditional_orders.jsonl'
+        
+        # 读取现有订单
+        existing_orders = {}
+        if order_file.exists():
+            with open(order_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        try:
+                            order = json.loads(line)
+                            existing_orders[order['id']] = order
+                        except json.JSONDecodeError:
+                            continue
+        
+        # 生成或使用提供的ID
+        order_id = data.get('id') or f"cond_order_{uuid.uuid4().hex[:8]}"
+        
+        # 如果是更新现有订单，保留某些字段
+        if order_id in existing_orders:
+            old_order = existing_orders[order_id]
+            order = {
+                'id': order_id,
+                'enabled': data.get('enabled', old_order.get('enabled', False)),
+                'order_type': data.get('order_type', old_order.get('order_type')),
+                'trigger_condition': data.get('trigger_condition', old_order.get('trigger_condition')),
+                'trigger_value': float(data.get('trigger_value', old_order.get('trigger_value', 0))),
+                'target_strategy_code': data.get('target_strategy_code', old_order.get('target_strategy_code')),
+                'allow_trigger': data.get('allow_trigger', old_order.get('allow_trigger', True)),
+                'triggered_count': old_order.get('triggered_count', 0),
+                'last_triggered_at': old_order.get('last_triggered_at'),
+                'created_at': old_order.get('created_at', now.strftime('%Y-%m-%d %H:%M:%S')),
+                'updated_at': now.strftime('%Y-%m-%d %H:%M:%S')
+            }
+        else:
+            # 新建订单
+            order = {
+                'id': order_id,
+                'enabled': data.get('enabled', False),
+                'order_type': data.get('order_type', 'open_short'),
+                'trigger_condition': data.get('trigger_condition', 'above'),
+                'trigger_value': float(data.get('trigger_value', 0)),
+                'target_strategy_code': data.get('target_strategy_code', ''),
+                'allow_trigger': data.get('allow_trigger', True),
+                'triggered_count': 0,
+                'last_triggered_at': None,
+                'created_at': now.strftime('%Y-%m-%d %H:%M:%S'),
+                'updated_at': now.strftime('%Y-%m-%d %H:%M:%S')
+            }
+        
+        # 更新字典
+        existing_orders[order_id] = order
+        
+        # 写回文件
+        with open(order_file, 'w', encoding='utf-8') as f:
+            for ord_id, ord_data in existing_orders.items():
+                f.write(json.dumps(ord_data, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'message': '条件单保存成功',
+            'order': order
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+@app.route('/api/okx-trading/coin-change-conditional-orders/<account_id>/<order_id>', methods=['DELETE'])
+def delete_coin_change_conditional_order(account_id, order_id):
+    """删除条件单"""
+    try:
+        import json
+        from pathlib import Path
+        
+        data_dir = Path('/home/user/webapp/data/coin_change_conditional_orders')
+        order_file = data_dir / f'{account_id}_conditional_orders.jsonl'
+        
+        if not order_file.exists():
+            return jsonify({
+                'success': False,
+                'error': '条件单文件不存在'
+            }), 404
+        
+        # 读取并过滤
+        existing_orders = {}
+        with open(order_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    try:
+                        order = json.loads(line)
+                        if order['id'] != order_id:
+                            existing_orders[order['id']] = order
+                    except json.JSONDecodeError:
+                        continue
+        
+        # 写回文件
+        with open(order_file, 'w', encoding='utf-8') as f:
+            for ord_id, ord_data in existing_orders.items():
+                f.write(json.dumps(ord_data, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'message': f'条件单 {order_id} 已删除'
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+@app.route('/api/okx-trading/coin-change-conditional-orders/<account_id>/<order_id>/reset-trigger', methods=['POST'])
+def reset_conditional_order_trigger(account_id, order_id):
+    """重置条件单触发权限"""
+    try:
+        import json
+        from pathlib import Path
+        from datetime import datetime
+        import pytz
+        
+        data_dir = Path('/home/user/webapp/data/coin_change_conditional_orders')
+        order_file = data_dir / f'{account_id}_conditional_orders.jsonl'
+        
+        if not order_file.exists():
+            return jsonify({
+                'success': False,
+                'error': '条件单文件不存在'
+            }), 404
+        
+        # 读取并更新
+        existing_orders = {}
+        found = False
+        with open(order_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    try:
+                        order = json.loads(line)
+                        if order['id'] == order_id:
+                            order['allow_trigger'] = True
+                            found = True
+                        existing_orders[order['id']] = order
+                    except json.JSONDecodeError:
+                        continue
+        
+        if not found:
+            return jsonify({
+                'success': False,
+                'error': f'条件单 {order_id} 不存在'
+            }), 404
+        
+        # 写回文件
+        with open(order_file, 'w', encoding='utf-8') as f:
+            for ord_id, ord_data in existing_orders.items():
+                f.write(json.dumps(ord_data, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'message': f'条件单 {order_id} 触发权限已重置'
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+@app.route('/api/okx-trading/available-strategies/<account_id>', methods=['GET'])
+def get_available_strategies(account_id):
+    """
+    获取可用的策略列表（用于下拉选择）
+    
+    参数:
+    - order_type: open_short | open_long (query parameter)
+    
+    返回:
+    {
+        "success": True,
+        "strategies": [
+            {
+                "code": "STG_SHORT_001",
+                "name": "涨幅前8名做空",
+                "type": "open_short",
+                "description": "当价格上涨时，对涨幅前8名币种开空单"
+            }
+        ]
+    }
+    """
+    try:
+        order_type = request.args.get('order_type', '')
+        
+        # 这里返回模拟数据，实际应该从策略配置文件读取
+        strategies = [
+            {
+                'code': 'STG_SHORT_TOP8',
+                'name': '涨幅前8名做空',
+                'type': 'open_short',
+                'description': '对27币中涨幅前8名开空单'
+            },
+            {
+                'code': 'STG_SHORT_BOTTOM8',
+                'name': '跌幅后8名做空',
+                'type': 'open_short',
+                'description': '对27币中跌幅后8名（涨幅最小）开空单'
+            },
+            {
+                'code': 'STG_LONG_TOP8',
+                'name': '涨幅前8名做多',
+                'type': 'open_long',
+                'description': '对27币中涨幅前8名开多单'
+            },
+            {
+                'code': 'STG_LONG_BOTTOM8',
+                'name': '跌幅后8名做多',
+                'type': 'open_long',
+                'description': '对27币中跌幅后8名（涨幅最小）开多单'
+            }
+        ]
+        
+        # 根据order_type过滤
+        if order_type:
+            strategies = [s for s in strategies if s['type'] == order_type]
+        
+        return jsonify({
+            'success': True,
+            'strategies': strategies,
+            'account_id': account_id
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
 @app.route('/api/okx-trading/confirm-structure-alerts/<account_id>', methods=['GET'])
 def get_confirm_structure_alerts(account_id):
     """获取确认结构提醒记录"""
