@@ -26199,6 +26199,132 @@ def api_new_high_low_stats():
             'traceback': traceback.format_exc()
         }), 500
 
+@app.route('/api/price-position/new-high-low-peak-days', methods=['GET'])
+def api_new_high_low_peak_days():
+    """
+    统计历史上创新高和创新低次数最多的日期
+    
+    返回：
+    {
+        "success": True,
+        "peak_new_high_day": {
+            "date": "2026-02-25",
+            "count": 156,
+            "details": {...}
+        },
+        "peak_new_low_day": {
+            "date": "2026-03-01",
+            "count": 234,
+            "details": {...}
+        },
+        "daily_stats_file": "path/to/daily_stats.jsonl"
+    }
+    """
+    try:
+        from datetime import datetime
+        import pytz
+        import json
+        from pathlib import Path
+        from collections import defaultdict
+        
+        data_dir = Path('/home/user/webapp/data/new_high_low')
+        daily_stats_file = data_dir / 'daily_peak_stats.jsonl'
+        
+        # 扫描所有JSONL文件，按日期统计
+        daily_stats = defaultdict(lambda: {'new_high': 0, 'new_low': 0, 'details': {}})
+        
+        for file_path in sorted(data_dir.glob('new_high_low_events_*.jsonl')):
+            date_str = file_path.stem.replace('new_high_low_events_', '')
+            # 格式化为 YYYY-MM-DD
+            if len(date_str) == 8:
+                formatted_date = f"{date_str[:4]}-{date_str[4:6]}-{date_str[6:8]}"
+            else:
+                continue
+            
+            with open(file_path, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    
+                    try:
+                        event = json.loads(line)
+                        event_type = event.get('event_type', event.get('type', ''))
+                        symbol = event.get('symbol', '')
+                        
+                        if event_type == 'new_high':
+                            daily_stats[formatted_date]['new_high'] += 1
+                            if symbol not in daily_stats[formatted_date]['details']:
+                                daily_stats[formatted_date]['details'][symbol] = {'new_high': 0, 'new_low': 0}
+                            daily_stats[formatted_date]['details'][symbol]['new_high'] += 1
+                        elif event_type == 'new_low':
+                            daily_stats[formatted_date]['new_low'] += 1
+                            if symbol not in daily_stats[formatted_date]['details']:
+                                daily_stats[formatted_date]['details'][symbol] = {'new_high': 0, 'new_low': 0}
+                            daily_stats[formatted_date]['details'][symbol]['new_low'] += 1
+                    except json.JSONDecodeError:
+                        continue
+        
+        # 保存每日统计到JSONL
+        with open(daily_stats_file, 'w', encoding='utf-8') as f:
+            for date, stats in sorted(daily_stats.items()):
+                record = {
+                    'date': date,
+                    'new_high_count': stats['new_high'],
+                    'new_low_count': stats['new_low'],
+                    'total_count': stats['new_high'] + stats['new_low'],
+                    'details': stats['details'],
+                    'updated_at': datetime.now(pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
+                }
+                f.write(json.dumps(record, ensure_ascii=False) + '\n')
+        
+        # 找出创新高次数最多的日期
+        peak_high_date = None
+        peak_high_count = 0
+        peak_high_details = {}
+        
+        for date, stats in daily_stats.items():
+            if stats['new_high'] > peak_high_count:
+                peak_high_count = stats['new_high']
+                peak_high_date = date
+                peak_high_details = stats['details']
+        
+        # 找出创新低次数最多的日期
+        peak_low_date = None
+        peak_low_count = 0
+        peak_low_details = {}
+        
+        for date, stats in daily_stats.items():
+            if stats['new_low'] > peak_low_count:
+                peak_low_count = stats['new_low']
+                peak_low_date = date
+                peak_low_details = stats['details']
+        
+        return jsonify({
+            'success': True,
+            'timestamp': datetime.now(pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S'),
+            'peak_new_high_day': {
+                'date': peak_high_date,
+                'count': peak_high_count,
+                'details': peak_high_details
+            },
+            'peak_new_low_day': {
+                'date': peak_low_date,
+                'count': peak_low_count,
+                'details': peak_low_details
+            },
+            'total_days_analyzed': len(daily_stats),
+            'daily_stats_file': str(daily_stats_file)
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
 @app.route('/api/price-position/backup-new-high-low-data', methods=['POST'])
 def api_backup_new_high_low_data():
     """

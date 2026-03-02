@@ -756,6 +756,43 @@ cf6d1dd - feat: Add new high/new low statistics page</pre>
             </div>
         </div>
         
+        <!-- 🔥 历史峰值卡片 -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+            <!-- 创新高峰值日 -->
+            <div class="stat-card" style="border: 2px solid #10b981; background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.1));">
+                <h2 style="color: #10b981; font-size: 1.5em; margin-bottom: 20px;">
+                    🏆 历史创新高峰值日
+                </h2>
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="font-size: 0.9em; color: #a0a0a0; margin-bottom: 8px;">日期</div>
+                    <div style="font-size: 2em; font-weight: 700; color: #10b981; margin-bottom: 15px;" id="peak-high-date">--</div>
+                    <div style="font-size: 0.9em; color: #a0a0a0; margin-bottom: 8px;">创新高次数</div>
+                    <div style="font-size: 3em; font-weight: 700; color: #10b981; font-family: 'Courier New', monospace;" id="peak-high-count">0</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 8px; max-height: 200px; overflow-y: auto;">
+                    <div style="font-size: 0.85em; color: #a0a0a0; margin-bottom: 10px; font-weight: 600;">币种详情</div>
+                    <div id="peak-high-details" style="font-size: 0.85em; line-height: 1.8;">--</div>
+                </div>
+            </div>
+            
+            <!-- 创新低峰值日 -->
+            <div class="stat-card" style="border: 2px solid #ef4444; background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.1));">
+                <h2 style="color: #ef4444; font-size: 1.5em; margin-bottom: 20px;">
+                    🎯 历史创新低峰值日
+                </h2>
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="font-size: 0.9em; color: #a0a0a0; margin-bottom: 8px;">日期</div>
+                    <div style="font-size: 2em; font-weight: 700; color: #ef4444; margin-bottom: 15px;" id="peak-low-date">--</div>
+                    <div style="font-size: 0.9em; color: #a0a0a0; margin-bottom: 8px;">创新低次数</div>
+                    <div style="font-size: 3em; font-weight: 700; color: #ef4444; font-family: 'Courier New', monospace;" id="peak-low-count">0</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 8px; max-height: 200px; overflow-y: auto;">
+                    <div style="font-size: 0.85em; color: #a0a0a0; margin-bottom: 10px; font-weight: 600;">币种详情</div>
+                    <div id="peak-low-details" style="font-size: 0.85em; line-height: 1.8;">--</div>
+                </div>
+            </div>
+        </div>
+        
         <!-- 统计卡片 -->
         <div class="stats-grid">
             <div class="stat-card">
@@ -959,6 +996,84 @@ cf6d1dd - feat: Add new high/new low statistics page</pre>
             }
         }
         
+        // 加载历史峰值数据
+        async function loadPeakData() {
+            console.log('🔄 [Peak Days] 开始加载历史峰值数据...');
+            
+            try {
+                const url = `/api/price-position/new-high-low-peak-days?_t=${Date.now()}`;
+                const response = await fetch(url, {
+                    cache: 'no-store',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`API请求失败: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log('✅ [Peak Days] 峰值数据加载成功:', data);
+                
+                if (!data.success) {
+                    throw new Error(data.error || '峰值数据加载失败');
+                }
+                
+                // 更新创新高峰值日
+                const peakHigh = data.peak_new_high_day;
+                document.getElementById('peak-high-date').textContent = peakHigh.date || '--';
+                document.getElementById('peak-high-count').textContent = peakHigh.count || 0;
+                
+                // 更新创新高详情
+                const highDetailsEl = document.getElementById('peak-high-details');
+                if (peakHigh.details && Object.keys(peakHigh.details).length > 0) {
+                    const sortedHighDetails = Object.entries(peakHigh.details)
+                        .sort((a, b) => b[1].new_high - a[1].new_high)
+                        .slice(0, 10);  // 只显示前10个
+                    
+                    highDetailsEl.innerHTML = sortedHighDetails.map(([symbol, counts]) => 
+                        `<div style="display: flex; justify-content: space-between; padding: 3px 0;">
+                            <span style="color: #667eea; font-weight: 600;">${symbol}</span>
+                            <span style="color: #10b981; font-weight: 700;">${counts.new_high}次</span>
+                        </div>`
+                    ).join('');
+                } else {
+                    highDetailsEl.textContent = '暂无数据';
+                }
+                
+                // 更新创新低峰值日
+                const peakLow = data.peak_new_low_day;
+                document.getElementById('peak-low-date').textContent = peakLow.date || '--';
+                document.getElementById('peak-low-count').textContent = peakLow.count || 0;
+                
+                // 更新创新低详情
+                const lowDetailsEl = document.getElementById('peak-low-details');
+                if (peakLow.details && Object.keys(peakLow.details).length > 0) {
+                    const sortedLowDetails = Object.entries(peakLow.details)
+                        .sort((a, b) => b[1].new_low - a[1].new_low)
+                        .slice(0, 10);  // 只显示前10个
+                    
+                    lowDetailsEl.innerHTML = sortedLowDetails.map(([symbol, counts]) => 
+                        `<div style="display: flex; justify-content: space-between; padding: 3px 0;">
+                            <span style="color: #667eea; font-weight: 600;">${symbol}</span>
+                            <span style="color: #ef4444; font-weight: 700;">${counts.new_low}次</span>
+                        </div>`
+                    ).join('');
+                } else {
+                    lowDetailsEl.textContent = '暂无数据';
+                }
+                
+                console.log('✅ [Peak Days] 峰值数据更新完成');
+                
+            } catch (error) {
+                console.error('❌ [Peak Days] 加载峰值数据失败:', error);
+                document.getElementById('peak-high-date').textContent = '加载失败';
+                document.getElementById('peak-low-date').textContent = '加载失败';
+            }
+        }
+        
         // 加载数据
         async function loadData() {
             console.log('🔄 [New High/Low] 开始加载数据...', new Date().toLocaleString());
@@ -1020,6 +1135,9 @@ cf6d1dd - feat: Add new high/new low statistics page</pre>
                 updateEventsTable(data.today.events || []);
                 
                 console.log('✅ [New High/Low] 页面更新完成');
+                
+                // 🔥 加载历史峰值数据
+                await loadPeakData();
                 
             } catch (error) {
                 console.error('❌ [New High/Low] 加载数据失败:', error);
