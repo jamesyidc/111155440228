@@ -498,6 +498,33 @@
                     <div class="data-value" id="updateTime" style="font-size: 14px;">--</div>
                 </div>
             </div>
+            
+            <!-- 止盈配置状态总览 -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; padding-top: 20px; border-top: 2px solid #e2e8f0;">
+                <!-- 空单止盈状态 -->
+                <div style="padding: 15px; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-radius: 12px; border: 2px solid #ef4444;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                        <span style="font-size: 14px; font-weight: 600; color: #991b1b;">🔴 空单止盈</span>
+                        <span id="shortTpStatusBadge" style="font-size: 11px; padding: 4px 8px; border-radius: 6px; background: rgba(156, 163, 175, 0.3); color: #6b7280; font-weight: 600;">⭕ 未启用</span>
+                    </div>
+                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                        <span style="font-size: 12px; color: #991b1b;">目标触发值：</span>
+                        <span id="shortTpTargetValue" style="font-size: 20px; font-weight: 700; color: #dc2626;">--</span>
+                    </div>
+                </div>
+                
+                <!-- 多单止盈状态 -->
+                <div style="padding: 15px; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-radius: 12px; border: 2px solid #10b981;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                        <span style="font-size: 14px; font-weight: 600; color: #065f46;">🟢 多单止盈</span>
+                        <span id="longTpStatusBadge" style="font-size: 11px; padding: 4px 8px; border-radius: 6px; background: rgba(156, 163, 175, 0.3); color: #6b7280; font-weight: 600;">⭕ 未启用</span>
+                    </div>
+                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                        <span style="font-size: 12px; color: #065f46;">目标触发值：</span>
+                        <span id="longTpTargetValue" style="font-size: 20px; font-weight: 700; color: #10b981;">--</span>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <!-- 配置卡片 -->
@@ -706,19 +733,66 @@
         // 加载配置
         async function loadSettings() {
             try {
-                const response = await fetch(`${API_BASE}/coin-change-tpsl-settings/${currentAccount}`);
+                // 使用综合API获取配置和状态
+                const response = await fetch(`${API_BASE}/coin-change-tpsl-overview/${currentAccount}`);
                 const result = await response.json();
                 
-                if (result.success && result.settings) {
-                    const settings = result.settings;
-                    document.getElementById('shortTpEnabled').checked = settings.shortTakeProfitEnabled || false;
-                    document.getElementById('shortTpThreshold').value = settings.shortTakeProfitThreshold || 10.0;
-                    document.getElementById('longTpEnabled').checked = settings.longTakeProfitEnabled || false;
-                    document.getElementById('longTpThreshold').value = settings.longTakeProfitThreshold || 10.0;
+                if (result.success) {
+                    const config = result.config;
+                    
+                    // 更新配置表单
+                    document.getElementById('shortTpEnabled').checked = config.shortTakeProfitEnabled || false;
+                    document.getElementById('shortTpThreshold').value = config.shortTakeProfitThreshold || 10.0;
+                    document.getElementById('longTpEnabled').checked = config.longTakeProfitEnabled || false;
+                    document.getElementById('longTpThreshold').value = config.longTakeProfitThreshold || 10.0;
+                    
+                    // 更新状态总览
+                    updateStatusOverview(result);
                 }
             } catch (error) {
                 console.error('加载配置失败:', error);
                 showAlert('加载配置失败: ' + error.message, 'error');
+            }
+        }
+        
+        // 更新状态总览
+        function updateStatusOverview(result) {
+            const config = result.config;
+            const shortEnabled = config.shortTakeProfitEnabled;
+            const longEnabled = config.longTakeProfitEnabled;
+            const shortThreshold = config.shortTakeProfitThreshold;
+            const longThreshold = config.longTakeProfitThreshold;
+            
+            // 更新空单止盈状态
+            const shortStatusBadge = document.getElementById('shortTpStatusBadge');
+            const shortTargetValue = document.getElementById('shortTpTargetValue');
+            
+            if (shortEnabled) {
+                shortStatusBadge.textContent = '✅ 已启用';
+                shortStatusBadge.style.background = 'rgba(220, 38, 38, 0.2)';
+                shortStatusBadge.style.color = '#dc2626';
+                shortTargetValue.textContent = `-${shortThreshold.toFixed(1)}%`;
+            } else {
+                shortStatusBadge.textContent = '⭕ 未启用';
+                shortStatusBadge.style.background = 'rgba(156, 163, 175, 0.3)';
+                shortStatusBadge.style.color = '#6b7280';
+                shortTargetValue.textContent = '--';
+            }
+            
+            // 更新多单止盈状态
+            const longStatusBadge = document.getElementById('longTpStatusBadge');
+            const longTargetValue = document.getElementById('longTpTargetValue');
+            
+            if (longEnabled) {
+                longStatusBadge.textContent = '✅ 已启用';
+                longStatusBadge.style.background = 'rgba(16, 185, 129, 0.2)';
+                longStatusBadge.style.color = '#10b981';
+                longTargetValue.textContent = `+${longThreshold.toFixed(1)}%`;
+            } else {
+                longStatusBadge.textContent = '⭕ 未启用';
+                longStatusBadge.style.background = 'rgba(156, 163, 175, 0.3)';
+                longStatusBadge.style.color = '#6b7280';
+                longTargetValue.textContent = '--';
             }
         }
         
@@ -748,6 +822,7 @@
                 
                 if (result.success) {
                     showAlert('配置保存成功！', 'success');
+                    loadSettings();  // 重新加载配置和状态
                     loadStatus();
                 } else {
                     showAlert('保存失败: ' + result.error, 'error');
