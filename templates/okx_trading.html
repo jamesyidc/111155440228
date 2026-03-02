@@ -13202,206 +13202,180 @@ ${data.sMsg || result.message || ''}`);
         async function loadConditionalOrders() {
             const accountId = getCurrentAccountId();
             if (!accountId) {
-                document.getElementById('conditionalOrdersList').innerHTML = 
-                    '<div style="text-align: center; padding: 20px; color: #ef4444;">❌ 请先选择账户</div>';
+                console.log('❌ 未选择账户');
                 return;
             }
             
             try {
-                console.log('📊 加载条件单列表...');
+                console.log('📊 加载条件单数据...');
                 const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}`);
                 const data = await response.json();
                 
                 if (data.success) {
-                    displayConditionalOrders(data.orders);
+                    // 分离做空和做多条件单
+                    shortOrderData = data.orders.find(o => o.order_type === 'open_short');
+                    longOrderData = data.orders.find(o => o.order_type === 'open_long');
+                    
+                    // 更新UI
+                    updateShortOrderUI();
+                    updateLongOrderUI();
+                    
+                    console.log('✅ 条件单数据已加载');
                 } else {
-                    throw new Error(data.message || '加载失败');
+                    console.error('❌ 加载失败:', data.message);
                 }
             } catch (error) {
                 console.error('❌ 加载条件单失败:', error);
-                document.getElementById('conditionalOrdersList').innerHTML = 
-                    '<div style="text-align: center; padding: 20px; color: #ef4444;">❌ 加载失败，请重试</div>';
             }
         }
         
-        // 显示条件单列表
-        function displayConditionalOrders(orders) {
-            const container = document.getElementById('conditionalOrdersList');
+        // 更新做空条件单UI
+        function updateShortOrderUI() {
+            if (shortOrderData) {
+                document.getElementById('shortOrderEnabled').checked = shortOrderData.enabled;
+                document.getElementById('shortTriggerValue').value = shortOrderData.trigger_value || 50;
+                document.getElementById('shortTargetStrategy').value = shortOrderData.target_strategy_code || '';
+                
+                const statusBadge = document.getElementById('shortOrderStatusBadge');
+                if (shortOrderData.enabled) {
+                    statusBadge.textContent = '✅ 已启用';
+                    statusBadge.style.background = '#10b981';
+                } else {
+                    statusBadge.textContent = '⚪ 未启用';
+                    statusBadge.style.background = '#9ca3af';
+                }
+                
+                updateShortTriggerStatus();
+            } else {
+                document.getElementById('shortOrderEnabled').checked = false;
+                document.getElementById('shortTriggerValue').value = 50;
+                document.getElementById('shortTargetStrategy').value = '';
+                document.getElementById('shortOrderStatusBadge').textContent = '⚪ 未启用';
+                document.getElementById('shortOrderStatusBadge').style.background = '#9ca3af';
+            }
+        }
+        
+        // 更新做多条件单UI
+        function updateLongOrderUI() {
+            if (longOrderData) {
+                document.getElementById('longOrderEnabled').checked = longOrderData.enabled;
+                document.getElementById('longTriggerValue').value = longOrderData.trigger_value || -30;
+                document.getElementById('longTargetStrategy').value = longOrderData.target_strategy_code || '';
+                
+                const statusBadge = document.getElementById('longOrderStatusBadge');
+                if (longOrderData.enabled) {
+                    statusBadge.textContent = '✅ 已启用';
+                    statusBadge.style.background = '#10b981';
+                } else {
+                    statusBadge.textContent = '⚪ 未启用';
+                    statusBadge.style.background = '#9ca3af';
+                }
+                
+                updateLongTriggerStatus();
+            } else {
+                document.getElementById('longOrderEnabled').checked = false;
+                document.getElementById('longTriggerValue').value = -30;
+                document.getElementById('longTargetStrategy').value = '';
+                document.getElementById('longOrderStatusBadge').textContent = '⚪ 未启用';
+                document.getElementById('longOrderStatusBadge').style.background = '#9ca3af';
+            }
+        }
+        
+        // 更新做空触发状态
+        function updateShortTriggerStatus() {
+            const permissionDiv = document.getElementById('shortTriggerPermission');
+            const triggeredDiv = document.getElementById('shortTriggeredInfo');
+            const timeSpan = document.getElementById('shortLastTriggeredTime');
             
-            if (!orders || orders.length === 0) {
-                container.innerHTML = '<div style="text-align: center; padding: 20px; color: #92400e; opacity: 0.6;">暂无条件单</div>';
+            if (!shortOrderData) {
+                permissionDiv.style.display = 'none';
+                triggeredDiv.style.display = 'none';
                 return;
             }
             
-            let html = '';
-            orders.forEach((order, index) => {
-                const isShort = order.order_type === 'open_short';
-                const borderColor = isShort ? '#ef4444' : '#10b981';
-                const bgColor = isShort ? 'rgba(239, 68, 68, 0.05)' : 'rgba(16, 185, 129, 0.05)';
-                const iconColor = isShort ? '🩸' : '🚀';
-                const typeText = isShort ? '开空单' : '开多单';
-                const conditionSymbol = order.trigger_condition === 'above' ? '≥' : '≤';
-                const statusBadge = order.enabled ? 
-                    '<span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 600;">✅ 已启用</span>' :
-                    '<span style="background: #6b7280; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 600;">⚪ 未启用</span>';
-                const triggerStatusBadge = order.allow_trigger ?
-                    '<span style="background: #22c55e; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 600;">🟢 可触发</span>' :
-                    '<span style="background: #dc2626; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 600;">🔴 已触发</span>';
-                
-                html += `
-                    <div style="margin-bottom: 12px; padding: 12px; background: ${bgColor}; border: 2px solid ${borderColor}; border-radius: 10px;">
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <span style="font-size: 16px;">${iconColor}</span>
-                                <span style="color: ${isShort ? '#dc2626' : '#059669'}; font-weight: 700; font-size: 13px;">${typeText}</span>
-                                ${statusBadge}
-                                ${triggerStatusBadge}
-                            </div>
-                            <div style="display: flex; gap: 6px;">
-                                <button onclick="editConditionalOrder('${order.id}')" style="padding: 4px 10px; background: #3b82f6; color: white; border: none; border-radius: 6px; font-size: 10px; cursor: pointer; font-weight: 600;">
-                                    ✏️ 编辑
-                                </button>
-                                ${!order.allow_trigger ? `
-                                <button onclick="resetConditionalOrderTrigger('${order.id}')" style="padding: 4px 10px; background: #f59e0b; color: white; border: none; border-radius: 6px; font-size: 10px; cursor: pointer; font-weight: 600;">
-                                    🔄 重置
-                                </button>
-                                ` : ''}
-                                <button onclick="deleteConditionalOrder('${order.id}')" style="padding: 4px 10px; background: #ef4444; color: white; border: none; border-radius: 6px; font-size: 10px; cursor: pointer; font-weight: 600;">
-                                    🗑️ 删除
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px; color: #92400e;">
-                            <div>
-                                <span style="opacity: 0.8;">触发条件:</span>
-                                <span style="font-weight: 700; font-family: 'Courier New', monospace; margin-left: 4px;">
-                                    27币涨跌幅之和 ${conditionSymbol} ${order.trigger_value}%
-                                </span>
-                            </div>
-                            <div>
-                                <span style="opacity: 0.8;">目标策略:</span>
-                                <span style="font-weight: 700; margin-left: 4px;">${order.target_strategy_code}</span>
-                            </div>
-                            ${order.last_triggered_time ? `
-                            <div style="grid-column: span 2;">
-                                <span style="opacity: 0.8;">最后触发:</span>
-                                <span style="font-weight: 600; margin-left: 4px;">${order.last_triggered_time}</span>
-                            </div>
-                            ` : ''}
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-            console.log(`✅ 已显示 ${orders.length} 个条件单`);
-        }
-        
-        // 显示新增条件单表单
-        async function showAddConditionalOrderForm() {
-            document.getElementById('formTitle').textContent = '➕ 新增条件单';
-            document.getElementById('editingOrderId').value = '';
-            document.getElementById('orderEnabled').checked = true;
-            document.querySelector('input[name="orderType"][value="open_short"]').checked = true;
-            document.getElementById('triggerCondition').value = 'above';
-            document.getElementById('triggerValue').value = '';
-            document.getElementById('targetStrategy').value = '';
-            
-            // 加载可用策略
-            await loadAvailableStrategies('open_short');
-            
-            document.getElementById('conditionalOrderForm').style.display = 'block';
-            
-            // 监听订单类型变化，自动更新触发条件和策略列表
-            document.querySelectorAll('input[name="orderType"]').forEach(radio => {
-                radio.addEventListener('change', async function() {
-                    const orderType = this.value;
-                    // 自动设置触发条件
-                    if (orderType === 'open_short') {
-                        document.getElementById('triggerCondition').value = 'above';
-                    } else {
-                        document.getElementById('triggerCondition').value = 'below';
-                    }
-                    // 重新加载策略列表
-                    await loadAvailableStrategies(orderType);
-                });
-            });
-        }
-        
-        // 隐藏表单
-        function hideConditionalOrderForm() {
-            document.getElementById('conditionalOrderForm').style.display = 'none';
-        }
-        
-        // 加载可用策略
-        async function loadAvailableStrategies(orderType) {
-            const accountId = getCurrentAccountId();
-            if (!accountId) return;
-            
-            try {
-                const response = await fetch(`/api/okx-trading/available-strategies/${accountId}?order_type=${orderType}`);
-                const data = await response.json();
-                
-                if (data.success) {
-                    const select = document.getElementById('targetStrategy');
-                    select.innerHTML = '<option value="">-- 请选择策略 --</option>';
-                    
-                    data.strategies.forEach(strategy => {
-                        const option = document.createElement('option');
-                        option.value = strategy.code;
-                        option.textContent = `${strategy.name} (${strategy.code})`;
-                        select.appendChild(option);
-                    });
-                } else {
-                    throw new Error(data.message || '加载策略失败');
+            if (shortOrderData.allow_trigger) {
+                permissionDiv.style.display = 'block';
+                triggeredDiv.style.display = 'none';
+            } else {
+                permissionDiv.style.display = 'none';
+                triggeredDiv.style.display = 'block';
+                if (shortOrderData.last_triggered_at) {
+                    timeSpan.textContent = `最后触发: ${shortOrderData.last_triggered_at}`;
                 }
-            } catch (error) {
-                console.error('❌ 加载可用策略失败:', error);
-                alert('加载策略列表失败，请重试');
             }
         }
         
-        // 保存条件单
-        async function saveConditionalOrder() {
+        // 更新做多触发状态
+        function updateLongTriggerStatus() {
+            const permissionDiv = document.getElementById('longTriggerPermission');
+            const triggeredDiv = document.getElementById('longTriggeredInfo');
+            const timeSpan = document.getElementById('longLastTriggeredTime');
+            
+            if (!longOrderData) {
+                permissionDiv.style.display = 'none';
+                triggeredDiv.style.display = 'none';
+                return;
+            }
+            
+            if (longOrderData.allow_trigger) {
+                permissionDiv.style.display = 'block';
+                triggeredDiv.style.display = 'none';
+            } else {
+                permissionDiv.style.display = 'none';
+                triggeredDiv.style.display = 'block';
+                if (longOrderData.last_triggered_at) {
+                    timeSpan.textContent = `最后触发: ${longOrderData.last_triggered_at}`;
+                }
+            }
+        }
+        
+        // 切换做空条件单启用状态
+        async function toggleShortOrder(enabled) {
+            await saveShortOrderSettings();
+        }
+        
+        // 切换做多条件单启用状态
+        async function toggleLongOrder(enabled) {
+            await saveLongOrderSettings();
+        }
+        
+        // 保存做空条件单设置
+        async function saveShortOrderSettings() {
             const accountId = getCurrentAccountId();
             if (!accountId) {
                 alert('请先选择账户');
                 return;
             }
             
-            const orderId = document.getElementById('editingOrderId').value;
-            const enabled = document.getElementById('orderEnabled').checked;
-            const orderType = document.querySelector('input[name="orderType"]:checked').value;
-            const triggerCondition = document.getElementById('triggerCondition').value;
-            const triggerValue = parseFloat(document.getElementById('triggerValue').value);
-            const targetStrategyCode = document.getElementById('targetStrategy').value;
+            const enabled = document.getElementById('shortOrderEnabled').checked;
+            const triggerValue = parseFloat(document.getElementById('shortTriggerValue').value);
+            const targetStrategy = document.getElementById('shortTargetStrategy').value;
             
-            // 验证输入
             if (isNaN(triggerValue)) {
                 alert('请输入有效的触发值');
                 return;
             }
             
-            if (!targetStrategyCode) {
-                alert('请选择目标策略');
+            if (enabled && !targetStrategy) {
+                alert('启用条件单时必须选择目标策略');
+                document.getElementById('shortOrderEnabled').checked = false;
                 return;
             }
             
             try {
                 const payload = {
                     enabled: enabled,
-                    order_type: orderType,
-                    trigger_condition: triggerCondition,
+                    order_type: 'open_short',
+                    trigger_condition: 'above',
                     trigger_value: triggerValue,
-                    target_strategy_code: targetStrategyCode
+                    target_strategy_code: targetStrategy
                 };
                 
-                if (orderId) {
-                    payload.id = orderId;
+                if (shortOrderData && shortOrderData.id) {
+                    payload.id = shortOrderData.id;
                 }
                 
-                console.log('💾 保存条件单:', payload);
+                console.log('💾 保存做空条件单:', payload);
                 const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}`, {
                     method: 'POST',
                     headers: {
@@ -13413,87 +13387,88 @@ ${data.sMsg || result.message || ''}`);
                 const data = await response.json();
                 
                 if (data.success) {
-                    alert(orderId ? '✅ 条件单已更新' : '✅ 条件单已创建');
-                    hideConditionalOrderForm();
-                    await loadConditionalOrders();
+                    console.log('✅ 做空条件单已保存');
+                    shortOrderData = data.order;
+                    updateShortOrderUI();
                 } else {
                     throw new Error(data.message || '保存失败');
                 }
             } catch (error) {
-                console.error('❌ 保存条件单失败:', error);
+                console.error('❌ 保存做空条件单失败:', error);
                 alert('保存失败: ' + error.message);
+                updateShortOrderUI();
             }
         }
         
-        // 编辑条件单
-        async function editConditionalOrder(orderId) {
+        // 保存做多条件单设置
+        async function saveLongOrderSettings() {
             const accountId = getCurrentAccountId();
-            if (!accountId) return;
-            
-            try {
-                const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}`);
-                const data = await response.json();
-                
-                if (data.success) {
-                    const order = data.orders.find(o => o.id === orderId);
-                    if (!order) {
-                        alert('未找到该条件单');
-                        return;
-                    }
-                    
-                    // 填充表单
-                    document.getElementById('formTitle').textContent = '✏️ 编辑条件单';
-                    document.getElementById('editingOrderId').value = order.id;
-                    document.getElementById('orderEnabled').checked = order.enabled;
-                    document.querySelector(`input[name="orderType"][value="${order.order_type}"]`).checked = true;
-                    document.getElementById('triggerCondition').value = order.trigger_condition;
-                    document.getElementById('triggerValue').value = order.trigger_value;
-                    
-                    // 加载策略列表并选中当前策略
-                    await loadAvailableStrategies(order.order_type);
-                    document.getElementById('targetStrategy').value = order.target_strategy_code;
-                    
-                    document.getElementById('conditionalOrderForm').style.display = 'block';
-                } else {
-                    throw new Error(data.message || '加载失败');
-                }
-            } catch (error) {
-                console.error('❌ 加载条件单失败:', error);
-                alert('加载条件单失败: ' + error.message);
-            }
-        }
-        
-        // 删除条件单
-        async function deleteConditionalOrder(orderId) {
-            if (!confirm('确定要删除这个条件单吗？')) {
+            if (!accountId) {
+                alert('请先选择账户');
                 return;
             }
             
-            const accountId = getCurrentAccountId();
-            if (!accountId) return;
+            const enabled = document.getElementById('longOrderEnabled').checked;
+            const triggerValue = parseFloat(document.getElementById('longTriggerValue').value);
+            const targetStrategy = document.getElementById('longTargetStrategy').value;
+            
+            if (isNaN(triggerValue)) {
+                alert('请输入有效的触发值');
+                return;
+            }
+            
+            if (enabled && !targetStrategy) {
+                alert('启用条件单时必须选择目标策略');
+                document.getElementById('longOrderEnabled').checked = false;
+                return;
+            }
             
             try {
-                const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}/${orderId}`, {
-                    method: 'DELETE'
+                const payload = {
+                    enabled: enabled,
+                    order_type: 'open_long',
+                    trigger_condition: 'below',
+                    trigger_value: triggerValue,
+                    target_strategy_code: targetStrategy
+                };
+                
+                if (longOrderData && longOrderData.id) {
+                    payload.id = longOrderData.id;
+                }
+                
+                console.log('💾 保存做多条件单:', payload);
+                const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
                 });
                 
                 const data = await response.json();
                 
                 if (data.success) {
-                    alert('✅ 条件单已删除');
-                    await loadConditionalOrders();
+                    console.log('✅ 做多条件单已保存');
+                    longOrderData = data.order;
+                    updateLongOrderUI();
                 } else {
-                    throw new Error(data.message || '删除失败');
+                    throw new Error(data.message || '保存失败');
                 }
             } catch (error) {
-                console.error('❌ 删除条件单失败:', error);
-                alert('删除失败: ' + error.message);
+                console.error('❌ 保存做多条件单失败:', error);
+                alert('保存失败: ' + error.message);
+                updateLongOrderUI();
             }
         }
         
-        // 重置条件单触发状态
-        async function resetConditionalOrderTrigger(orderId) {
-            if (!confirm('确定要重置触发状态吗？重置后该条件单将可以再次触发。')) {
+        // 重置做空触发状态
+        async function resetShortTrigger() {
+            if (!shortOrderData || !shortOrderData.id) {
+                alert('条件单不存在');
+                return;
+            }
+            
+            if (!confirm('确定要重置做空条件单的触发状态吗？重置后将可以再次触发。')) {
                 return;
             }
             
@@ -13501,14 +13476,14 @@ ${data.sMsg || result.message || ''}`);
             if (!accountId) return;
             
             try {
-                const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}/${orderId}/reset-trigger`, {
+                const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}/${shortOrderData.id}/reset-trigger`, {
                     method: 'POST'
                 });
                 
                 const data = await response.json();
                 
                 if (data.success) {
-                    alert('✅ 触发状态已重置');
+                    alert('✅ 做空条件单触发状态已重置');
                     await loadConditionalOrders();
                 } else {
                     throw new Error(data.message || '重置失败');
@@ -13519,10 +13494,38 @@ ${data.sMsg || result.message || ''}`);
             }
         }
         
-        // 页面加载时自动加载条件单列表
-        document.addEventListener('DOMContentLoaded', function() {
-            loadConditionalOrders();
-        });
+        // 重置做多触发状态
+        async function resetLongTrigger() {
+            if (!longOrderData || !longOrderData.id) {
+                alert('条件单不存在');
+                return;
+            }
+            
+            if (!confirm('确定要重置做多条件单的触发状态吗？重置后将可以再次触发。')) {
+                return;
+            }
+            
+            const accountId = getCurrentAccountId();
+            if (!accountId) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}/${longOrderData.id}/reset-trigger`, {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('✅ 做多条件单触发状态已重置');
+                    await loadConditionalOrders();
+                } else {
+                    throw new Error(data.message || '重置失败');
+                }
+            } catch (error) {
+                console.error('❌ 重置触发状态失败:', error);
+                alert('重置失败: ' + error.message);
+            }
+        }
 
     </script>
 </body>

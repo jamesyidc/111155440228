@@ -35,3 +35,6 @@
 {"time": "2026-03-02 21:21:11", "timestamp": 1772457671.0, "symbol": "NEAR", "event_type": "new_high", "price": 1.2258, "previous_high": 1.2237, "previous_time": "2026-03-02 21:17:46"}
 {"time": "2026-03-02 21:24:36", "timestamp": 1772457876.0, "symbol": "NEAR", "event_type": "new_high", "price": 1.2324, "previous_high": 1.2258, "previous_time": "2026-03-02 21:21:11"}
 {"time": "2026-03-02 22:29:29", "timestamp": 1772461769.0, "symbol": "NEAR", "event_type": "new_high", "price": 1.2341, "previous_high": 1.2324, "previous_time": "2026-03-02 21:24:36"}
+{"time": "2026-03-02 22:32:53", "timestamp": 1772461973.0, "symbol": "NEAR", "event_type": "new_high", "price": 1.2506, "previous_high": 1.2341, "previous_time": "2026-03-02 22:29:29"}
+{"time": "2026-03-02 22:36:19", "timestamp": 1772462179.0, "symbol": "NEAR", "event_type": "new_high", "price": 1.2601, "previous_high": 1.2506, "previous_time": "2026-03-02 22:32:53"}
+{"time": "2026-03-02 22:43:09", "timestamp": 1772462589.0, "symbol": "NEAR", "event_type": "new_high", "price": 1.2681, "previous_high": 1.2601, "previous_time": "2026-03-02 22:36:19"}
