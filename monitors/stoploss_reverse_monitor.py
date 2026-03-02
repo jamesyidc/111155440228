@@ -413,16 +413,19 @@ def check_account(account_id):
         for config in configs:
             if config['type'] == 'long_stoploss_reverse':
                 if not config.get('enabled', False):
-                    logger.debug(f"配置未启用: {config['id']}")
+                    logger.info(f"⏸️  配置未启用，跳过反手操作: {config['id']} (账户: {account_id})")
+                    logger.info(f"💡 提示: 请在前端页面启用'多单止损反手开空'开关")
                     continue
                 
                 if not config.get('allow_trigger', True):
-                    logger.debug(f"触发权限已禁用: {config['id']}")
+                    logger.info(f"🔒 触发权限已禁用，需要手动重置: {config['id']} (账户: {account_id})")
+                    logger.info(f"💡 提示: 请在前端页面点击'重置'按钮")
                     continue
                 
                 strategy_code = config.get('target_strategy_code')
                 if not strategy_code:
-                    logger.warning(f"⚠️ 未设置目标策略: {config['id']}")
+                    logger.warning(f"⚠️ 未设置目标策略，跳过反手操作: {config['id']} (账户: {account_id})")
+                    logger.warning(f"💡 提示: 请在前端页面选择反手策略（涨幅前8名/后8名做空）")
                     continue
                 
                 # 执行反手策略
@@ -475,6 +478,33 @@ def main():
     logger.info("🔄 止损反手开单监控器启动")
     logger.info(f"📋 监控账户: {', '.join(ACCOUNTS)}")
     logger.info(f"⏱️  检查间隔: {CHECK_INTERVAL} 秒")
+    logger.info("=" * 60)
+    
+    # 启动时检查各账户的配置状态
+    logger.info("📊 检查各账户止损反手配置状态...")
+    for account_id in ACCOUNTS:
+        configs = load_reverse_configs(account_id)
+        if not configs:
+            logger.info(f"  • {account_id}: ⚪ 无配置")
+            continue
+        
+        for config in configs:
+            config_name = config.get('name', config.get('id', 'Unknown'))
+            enabled = config.get('enabled', False)
+            allow_trigger = config.get('allow_trigger', True)
+            strategy_code = config.get('target_strategy_code')
+            
+            if enabled and allow_trigger and strategy_code:
+                logger.info(f"  • {account_id}: ✅ {config_name} - 已启用 - 策略: {strategy_code}")
+            elif enabled and not allow_trigger:
+                logger.info(f"  • {account_id}: 🔒 {config_name} - 已启用但需重置触发权限")
+            elif enabled and not strategy_code:
+                logger.info(f"  • {account_id}: ⚠️  {config_name} - 已启用但未选择策略")
+            else:
+                logger.info(f"  • {account_id}: ⏸️  {config_name} - 未启用（不会执行反手）")
+    
+    logger.info("=" * 60)
+    logger.info("💡 提示: 只有'已启用'且'已选择策略'的账户才会自动执行反手操作")
     logger.info("=" * 60)
     
     while True:
