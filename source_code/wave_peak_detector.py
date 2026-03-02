@@ -358,7 +358,7 @@ class WavePeakDetector:
         # 如果波峰数量=3，检测前3个波峰的A1>A2>A3
         
         if len(wave_peaks) >= 4:
-            # 取前4个波峰（从早上开始）
+            # 取前4个或5个波峰（从早上开始）
             peak1 = wave_peaks[0]  # 第1个波峰 = A1
             peak2 = wave_peaks[1]  # 第2个波峰 = A2
             peak3 = wave_peaks[2]  # 第3个波峰 = A3
@@ -368,6 +368,13 @@ class WavePeakDetector:
             a2 = peak2['a_point']['value']
             a3 = peak3['a_point']['value']
             a4 = peak4['a_point']['value']
+            
+            # 如果有5个或更多波峰，也取A5
+            a5 = None
+            peak5 = None
+            if len(wave_peaks) >= 5:
+                peak5 = wave_peaks[4]
+                a5 = peak5['a_point']['value']
             
             # 优先检测A1 > A2 > A3（第1、2、3个波峰）- 最早的信号
             if (a1 > a2) and (a2 > a3):
@@ -438,6 +445,43 @@ class WavePeakDetector:
                                 'decrease': a4 < a3,
                                 'diff': a4 - a3,
                                 'diff_pct': ((a4 - a3) / abs(a3) * 100) if a3 != 0 else 0
+                            }
+                        }
+                    }
+                }
+            
+            # 如果有5个波峰且A2>A3>A4不满足，再检测A3 > A4 > A5（第3、4、5个波峰）
+            if a5 is not None and (a3 > a4) and (a4 > a5):
+                peak_indices = "3-4-5"
+                warning_msg = f'🚨 暴跌预警！波峰{peak_indices} A点递减（A3 > A4 > A5），即将暴跌'
+                
+                return {
+                    'signal_type': 'crash_warning_a_descending',
+                    'pattern_name': 'A点递减（A3 > A4 > A5）',
+                    'consecutive_peaks': 3,
+                    'peak_indices': peak_indices,
+                    'warning_level': 'critical',
+                    'warning': warning_msg,
+                    'operation_tip': '逢高做空',
+                    'peaks': [peak3, peak4, peak5],
+                    'pattern': {
+                        'a_descending': True,
+                        'description': 'A点递减（A3 > A4 > A5），反弹高点逐渐降低，买盘力量衰竭'
+                    },
+                    'comparisons': {
+                        'a_values': {
+                            'a3': a3,
+                            'a4': a4,
+                            'a5': a5,
+                            'a4_vs_a3': {
+                                'decrease': a4 < a3,
+                                'diff': a4 - a3,
+                                'diff_pct': ((a4 - a3) / abs(a3) * 100) if a3 != 0 else 0
+                            },
+                            'a5_vs_a4': {
+                                'decrease': a5 < a4,
+                                'diff': a5 - a4,
+                                'diff_pct': ((a5 - a4) / abs(a4) * 100) if a4 != 0 else 0
                             }
                         }
                     }
