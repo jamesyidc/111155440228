@@ -802,7 +802,8 @@
             
             if (shortEnabled) {
                 shortStatusText.innerHTML = '<span style="color: #10b981;">✅ 已启用</span>';
-                shortThresholdText.textContent = `-${shortThreshold.toFixed(1)}%`;
+                // shortThreshold 本身就是负数，直接显示
+                shortThresholdText.textContent = `${shortThreshold.toFixed(1)}%`;
             } else {
                 shortStatusText.innerHTML = '<span style="color: #9ca3af;">⭕ 未启用</span>';
                 shortThresholdText.textContent = '--';
@@ -814,6 +815,7 @@
             
             if (longEnabled) {
                 longStatusText.innerHTML = '<span style="color: #10b981;">✅ 已启用</span>';
+                // longThreshold 是正数，加上+号
                 longThresholdText.textContent = `+${longThreshold.toFixed(1)}%`;
             } else {
                 longStatusText.innerHTML = '<span style="color: #9ca3af;">⭕ 未启用</span>';
