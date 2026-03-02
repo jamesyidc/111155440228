@@ -17491,7 +17491,8 @@ def get_coin_change_tpsl_overview(account_id):
         
         # 2. 获取当前27币涨跌幅数据
         beijing_tz = timezone(timedelta(hours=8))
-        beijing_date = datetime.now(timezone.utc).astimezone(beijing_tz).strftime('%Y%m%d')
+        beijing_now = datetime.now(timezone.utc).astimezone(beijing_tz)
+        beijing_date = beijing_now.strftime('%Y%m%d')
         coin_change_file = os.path.join(coin_change_dir, f'coin_change_{beijing_date}.jsonl')
         
         current_data = {
@@ -17502,20 +17503,36 @@ def get_coin_change_tpsl_overview(account_id):
             'data_available': False
         }
         
-        if os.path.exists(coin_change_file):
-            with open(coin_change_file, 'r', encoding='utf-8') as f:
-                lines = f.readlines()
-                if lines:
-                    last_line = lines[-1].strip()
-                    if last_line:
-                        data = json.loads(last_line)
-                        current_data = {
-                            'total_change': data.get('total_change', 0),
-                            'up_coins': data.get('up_coins', 0),
-                            'down_coins': data.get('down_coins', 0),
-                            'beijing_time': data.get('beijing_time', '--'),
-                            'data_available': True
-                        }
+        # 尝试读取当天数据，如果不存在或为空，尝试前一天
+        file_to_read = None
+        if os.path.exists(coin_change_file) and os.path.getsize(coin_change_file) > 0:
+            file_to_read = coin_change_file
+        else:
+            # 尝试前一天的数据（跨日期时的回退机制）
+            yesterday = beijing_now - timedelta(days=1)
+            yesterday_date = yesterday.strftime('%Y%m%d')
+            yesterday_file = os.path.join(coin_change_dir, f'coin_change_{yesterday_date}.jsonl')
+            if os.path.exists(yesterday_file) and os.path.getsize(yesterday_file) > 0:
+                file_to_read = yesterday_file
+                print(f"[回退] 当天数据不存在，使用前一天数据: {yesterday_date}")
+        
+        if file_to_read:
+            try:
+                with open(file_to_read, 'r', encoding='utf-8') as f:
+                    lines = f.readlines()
+                    if lines:
+                        last_line = lines[-1].strip()
+                        if last_line:
+                            data = json.loads(last_line)
+                            current_data = {
+                                'total_change': data.get('total_change', 0),
+                                'up_coins': data.get('up_coins', 0),
+                                'down_coins': data.get('down_coins', 0),
+                                'beijing_time': data.get('beijing_time', '--'),
+                                'data_available': True
+                            }
+            except Exception as e:
+                print(f"[错误] 读取数据文件失败: {e}")
         
         # 3. 读取执行记录
         execution_file = os.path.join(settings_dir, f'{account_id}_coin_change_tpsl_execution.jsonl')

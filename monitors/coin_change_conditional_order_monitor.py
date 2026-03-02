@@ -18,10 +18,13 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
+# 导入北京时间工具
+from utils.beijing_time import get_beijing_now_str, get_beijing_date_str, get_beijing_datetime_str
+
 # 配置日志
 log_dir = project_root / 'data' / 'coin_change_conditional_orders' / 'logs'
 log_dir.mkdir(parents=True, exist_ok=True)
-log_file = log_dir / f'monitor_{datetime.now().strftime("%Y%m%d")}.log'
+log_file = log_dir / f'monitor_{get_beijing_date_str()}.log'
 
 logging.basicConfig(
     level=logging.INFO,
@@ -142,11 +145,11 @@ def log_trigger_event(account_id, order, total_change, success, message):
     events_dir = project_root / 'data' / 'coin_change_conditional_orders' / 'trigger_events'
     events_dir.mkdir(parents=True, exist_ok=True)
     
-    date_str = datetime.now().strftime('%Y%m%d')
+    date_str = get_beijing_date_str()
     events_file = events_dir / f'{account_id}_trigger_events_{date_str}.jsonl'
     
     event = {
-        'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'timestamp': get_beijing_now_str(),
         'account_id': account_id,
         'order_id': order.get('id'),
         'order_type': order.get('order_type'),
@@ -172,7 +175,7 @@ def update_order_trigger_status(account_id, order_id, triggered):
             url = f"{FLASK_API_BASE}/api/okx-trading/coin-change-conditional-orders/{account_id}/{order_id}/trigger"
             data = {
                 'allow_trigger': False,
-                'last_triggered_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                'last_triggered_at': get_beijing_now_str()
             }
         else:
             # 重置触发状态
@@ -207,9 +210,9 @@ def update_jsonl_trigger_status(account_id, order_id, triggered):
         if order.get('id') == order_id:
             order['allow_trigger'] = not triggered
             if triggered:
-                order['last_triggered_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                order['last_triggered_at'] = get_beijing_now_str()
                 order['triggered_count'] = order.get('triggered_count', 0) + 1
-            order['updated_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            order['updated_at'] = get_beijing_now_str()
             updated = True
             break
     
@@ -231,7 +234,7 @@ def monitor_loop():
     while True:
         try:
             logger.info("=" * 80)
-            logger.info(f"🔍 开始检查条件单触发 [{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}]")
+            logger.info(f"🔍 开始检查条件单触发 [北京时间 {get_beijing_now_str()}]")
             
             # 获取27币涨跌幅数据
             total_change = get_coin_change_data()

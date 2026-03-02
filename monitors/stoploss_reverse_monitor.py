@@ -21,6 +21,9 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
+# 导入北京时间工具
+from utils.beijing_time import get_beijing_now_str, get_beijing_date_str, get_beijing_datetime_str
+
 # Telegram配置
 try:
     from config.telegram_config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
@@ -33,7 +36,7 @@ except ImportError:
 log_dir = project_root / 'data' / 'stoploss_reverse_orders' / 'logs'
 log_dir.mkdir(parents=True, exist_ok=True)
 
-log_file = log_dir / f"monitor_{datetime.now().strftime('%Y%m%d')}.log"
+log_file = log_dir / f"monitor_{get_beijing_date_str()}.log"
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s [%(levelname)s] %(message)s',
@@ -133,9 +136,9 @@ def update_trigger_permission(account_id, config_id, allow_trigger):
         for config in configs:
             if config['id'] == config_id:
                 config['allow_trigger'] = allow_trigger
-                config['updated_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                config['updated_at'] = get_beijing_now_str()
                 if not allow_trigger:
-                    config['last_triggered_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    config['last_triggered_at'] = get_beijing_now_str()
                     config['triggered_count'] = config.get('triggered_count', 0) + 1
                 updated = True
                 break
@@ -159,10 +162,10 @@ def update_trigger_permission(account_id, config_id, allow_trigger):
 
 def log_trigger_event(account_id, config_id, config_type, strategy_code, result, stop_loss_info=None):
     """记录触发事件"""
-    event_file = TRIGGER_EVENTS_DIR / f"{account_id}_trigger_events_{datetime.now().strftime('%Y%m%d')}.jsonl"
+    event_file = TRIGGER_EVENTS_DIR / f"{account_id}_trigger_events_{get_beijing_date_str()}.jsonl"
     
     event = {
-        'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'timestamp': get_beijing_now_str(),
         'account_id': account_id,
         'config_id': config_id,
         'config_type': config_type,
@@ -185,7 +188,7 @@ def check_crash_warning_stop_loss(account_id):
     检查暴跌预警止损事件
     读取今天的止损记录文件
     """
-    date_str = datetime.now().strftime('%Y%m%d')
+    date_str = get_beijing_date_str()
     stop_loss_file = CRASH_WARNING_DIR / f"crash_warning_stop_loss_{date_str}.jsonl"
     
     if not stop_loss_file.exists():
@@ -213,7 +216,7 @@ def check_crash_warning_stop_loss(account_id):
 
 def mark_stop_loss_as_processed(account_id, stop_loss_record):
     """标记止损记录为已处理"""
-    date_str = datetime.now().strftime('%Y%m%d')
+    date_str = get_beijing_date_str()
     stop_loss_file = CRASH_WARNING_DIR / f"crash_warning_stop_loss_{date_str}.jsonl"
     
     if not stop_loss_file.exists():
@@ -231,7 +234,7 @@ def mark_stop_loss_as_processed(account_id, stop_loss_record):
                     if (record.get('account_id') == account_id and 
                         record.get('timestamp') == stop_loss_record.get('timestamp')):
                         record['reverse_processed'] = True
-                        record['reverse_processed_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        record['reverse_processed_at'] = get_beijing_now_str()
                     records.append(record)
         
         # 写回文件
@@ -290,7 +293,7 @@ def execute_reverse_strategy(account_id, config_type, strategy_code, stop_loss_p
 
 def send_reverse_notification(account_id, config_type, strategy_code, result, stop_loss_info):
     """发送反手开单通知"""
-    time_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    time_str = get_beijing_now_str()
     
     # 判断是多单止损还是空单止损
     if config_type == 'long_stoploss_reverse':
@@ -366,9 +369,9 @@ def save_frontend_notification(account_id, config_type, strategy_code, result, s
     notification_file = notifications_dir / f"{account_id}_notifications.jsonl"
     
     notification = {
-        'id': f"reverse_{datetime.now().strftime('%Y%m%d%H%M%S')}",
+        'id': f"reverse_{get_beijing_datetime_str()}",
         'type': 'stoploss_reverse',
-        'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'timestamp': get_beijing_now_str(),
         'account_id': account_id,
         'config_type': config_type,
         'strategy_code': strategy_code,

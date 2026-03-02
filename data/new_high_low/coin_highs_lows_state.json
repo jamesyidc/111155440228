@@ -1,25 +1,25 @@
 {
   "BTC": {
-    "highest_price": 69437.8,
-    "highest_time": "2026-03-02 23:44:37",
+    "highest_price": 69447.0,
+    "highest_time": "2026-03-03 00:08:32",
     "lowest_price": 63867.5,
     "lowest_time": "2026-02-28 20:54:32"
   },
   "ETH": {
-    "highest_price": 2058.11,
-    "highest_time": "2026-03-02 23:44:37",
+    "highest_price": 2058.25,
+    "highest_time": "2026-03-03 00:08:32",
     "lowest_price": 1851.92,
     "lowest_time": "2026-02-23 10:00:28"
   },
   "SOL": {
-    "highest_price": 88.93,
-    "highest_time": "2026-03-03 00:01:42",
+    "highest_price": 89.43,
+    "highest_time": "2026-03-03 00:08:32",
     "lowest_price": 77.19,
     "lowest_time": "2026-02-23 12:41:28"
   },
   "BNB": {
-    "highest_price": 649.2,
-    "highest_time": "2026-03-03 00:01:42",
+    "highest_price": 649.6,
+    "highest_time": "2026-03-03 00:08:32",
     "lowest_price": 584.9,
     "lowest_time": "2026-02-23 10:00:28"
   },
