@@ -4728,6 +4728,26 @@ data/
                                        placeholder="空单止盈阈值">
                                 <span style="color: #92400e; font-size: 13px; font-weight: 600;">%</span>
                             </div>
+                            
+                            <!-- 空单触发状态显示 -->
+                            <div style="margin-bottom: 8px; padding: 8px; background: rgba(220, 38, 38, 0.05); border-radius: 6px; border: 1px solid rgba(220, 38, 38, 0.2);">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                    <span style="font-size: 11px; color: #991b1b; font-weight: 600;">🎯 目标触发值：</span>
+                                    <span id="coinChangeShortTargetValue" style="font-size: 13px; font-weight: 700; color: #dc2626;">-10.0%</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                    <span style="font-size: 11px; color: #991b1b; font-weight: 600;">📍 当前位置：</span>
+                                    <span id="coinChangeShortCurrentValue" style="font-size: 13px; font-weight: 700;">--</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 11px; color: #991b1b; font-weight: 600;">📏 距离触发：</span>
+                                    <span id="coinChangeShortDistance" style="font-size: 13px; font-weight: 700;">--</span>
+                                </div>
+                                <div style="margin-top: 6px; padding: 4px 8px; background: rgba(220, 38, 38, 0.1); border-radius: 4px; text-align: center;">
+                                    <span id="coinChangeShortStatus" style="font-size: 11px; font-weight: 600; color: #991b1b;">⏳ 等待触发</span>
+                                </div>
+                            </div>
+                            
                             <div style="font-size: 11px; color: #92400e; background: rgba(251, 191, 36, 0.1); padding: 8px; border-radius: 6px; border-left: 3px solid #f59e0b;">
                                 💡 当27币涨跌幅之和 <strong>跌破 -阈值</strong> 时，自动平掉所有空单。<br>
                                 例如：阈值设置10%，当总和 ≤ -10% 时触发空单止盈。
@@ -4773,6 +4793,26 @@ data/
                                        placeholder="多单止盈阈值">
                                 <span style="color: #92400e; font-size: 13px; font-weight: 600;">%</span>
                             </div>
+                            
+                            <!-- 多单触发状态显示 -->
+                            <div style="margin-bottom: 8px; padding: 8px; background: rgba(16, 185, 129, 0.05); border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                    <span style="font-size: 11px; color: #065f46; font-weight: 600;">🎯 目标触发值：</span>
+                                    <span id="coinChangeLongTargetValue" style="font-size: 13px; font-weight: 700; color: #10b981;">+10.0%</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                    <span style="font-size: 11px; color: #065f46; font-weight: 600;">📍 当前位置：</span>
+                                    <span id="coinChangeLongCurrentValue" style="font-size: 13px; font-weight: 700;">--</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 11px; color: #065f46; font-weight: 600;">📏 距离触发：</span>
+                                    <span id="coinChangeLongDistance" style="font-size: 13px; font-weight: 700;">--</span>
+                                </div>
+                                <div style="margin-top: 6px; padding: 4px 8px; background: rgba(16, 185, 129, 0.1); border-radius: 4px; text-align: center;">
+                                    <span id="coinChangeLongStatus" style="font-size: 11px; font-weight: 600; color: #065f46;">⏳ 等待触发</span>
+                                </div>
+                            </div>
+                            
                             <div style="font-size: 11px; color: #92400e; background: rgba(251, 191, 36, 0.1); padding: 8px; border-radius: 6px; border-left: 3px solid #f59e0b;">
                                 💡 当27币涨跌幅之和 <strong>突破 +阈值</strong> 时，自动平掉所有多单。<br>
                                 例如：阈值设置15%，当总和 ≥ +15% 时触发多单止盈。
@@ -9612,33 +9652,8 @@ ${data.sMsg || result.message || ''}`);
         }
         
         // 📈 加载27币涨跌幅止盈数据
+        // 📈 加载27币涨跌幅止盈完整数据（使用综合API）
         async function loadCoinChangeTpslData() {
-            try {
-                const response = await fetch('/api/coin-change-tracker/latest');
-                const data = await response.json();
-                
-                if (data && data.total_change !== undefined) {
-                    const totalChange = data.total_change || 0;
-                    const displayEl = document.getElementById('coinChangeTotalDisplay');
-                    
-                    displayEl.textContent = `${totalChange >= 0 ? '+' : ''}${totalChange.toFixed(2)}%`;
-                    displayEl.style.color = totalChange >= 0 ? '#10b981' : '#ef4444';
-                    
-                    document.getElementById('coinChangeUpCount').textContent = data.up_coins || 0;
-                    document.getElementById('coinChangeDownCount').textContent = data.down_coins || 0;
-                    document.getElementById('coinChangeUpdateTime').textContent = data.beijing_time ? data.beijing_time.split(' ')[1] : '--';
-                    
-                    console.log(`✅ [27币涨跌幅止盈] 数据已更新: ${totalChange.toFixed(2)}%`);
-                } else {
-                    console.warn('⚠️ [27币涨跌幅止盈] 获取数据失败');
-                }
-            } catch (e) {
-                console.error('❌ [27币涨跌幅止盈] 获取数据异常:', e);
-            }
-        }
-        
-        // 📈 加载27币涨跌幅止盈配置
-        async function loadCoinChangeTpslSettings() {
             const account = accounts.find(acc => acc.id === currentAccount);
             if (!account) {
                 console.log('[27币涨跌幅止盈] 未选择账户');
@@ -9646,31 +9661,104 @@ ${data.sMsg || result.message || ''}`);
             }
             
             try {
-                const response = await fetch(`/api/okx-trading/coin-change-tpsl-settings/${account.id}`);
+                const response = await fetch(`/api/okx-trading/coin-change-tpsl-overview/${account.id}`);
                 const result = await response.json();
                 
-                if (result) {
-                    // 更新空单止盈配置
-                    const shortTpSwitch = document.getElementById('coinChangeShortTpSwitch');
-                    const shortTpThreshold = document.getElementById('coinChangeShortTpThreshold');
-                    if (shortTpSwitch && shortTpThreshold) {
-                        shortTpSwitch.checked = result.shortTakeProfitEnabled || false;
-                        shortTpThreshold.value = result.shortTakeProfitThreshold || 10.0;
+                if (result.success) {
+                    // 1. 更新当前27币数据
+                    const totalChange = result.currentData.total_change || 0;
+                    const displayEl = document.getElementById('coinChangeTotalDisplay');
+                    displayEl.textContent = `${totalChange >= 0 ? '+' : ''}${totalChange.toFixed(2)}%`;
+                    displayEl.style.color = totalChange >= 0 ? '#10b981' : '#ef4444';
+                    
+                    document.getElementById('coinChangeUpCount').textContent = result.currentData.up_coins || 0;
+                    document.getElementById('coinChangeDownCount').textContent = result.currentData.down_coins || 0;
+                    const timeStr = result.currentData.beijing_time || '--';
+                    document.getElementById('coinChangeUpdateTime').textContent = timeStr.includes(' ') ? timeStr.split(' ')[1] : timeStr;
+                    
+                    // 2. 更新配置（只在设置加载时更新，数据刷新时不改变用户输入）
+                    if (!document.getElementById('coinChangeShortTpSwitch').dataset.userEditing) {
+                        document.getElementById('coinChangeShortTpSwitch').checked = result.config.shortTakeProfitEnabled || false;
+                        document.getElementById('coinChangeShortTpThreshold').value = result.config.shortTakeProfitThreshold || 10.0;
+                        document.getElementById('coinChangeLongTpSwitch').checked = result.config.longTakeProfitEnabled || false;
+                        document.getElementById('coinChangeLongTpThreshold').value = result.config.longTakeProfitThreshold || 10.0;
                     }
                     
-                    // 更新多单止盈配置
-                    const longTpSwitch = document.getElementById('coinChangeLongTpSwitch');
-                    const longTpThreshold = document.getElementById('coinChangeLongTpThreshold');
-                    if (longTpSwitch && longTpThreshold) {
-                        longTpSwitch.checked = result.longTakeProfitEnabled || false;
-                        longTpThreshold.value = result.longTakeProfitThreshold || 10.0;
+                    // 3. 更新空单触发状态
+                    const shortTargetValue = result.triggerStatus.shortTargetValue;
+                    const shortCurrentValue = totalChange;
+                    const shortDistance = result.triggerStatus.shortDistance;
+                    const shortTriggered = result.triggerStatus.shortTriggered;
+                    
+                    document.getElementById('coinChangeShortTargetValue').textContent = `${shortTargetValue.toFixed(1)}%`;
+                    document.getElementById('coinChangeShortCurrentValue').textContent = `${shortCurrentValue >= 0 ? '+' : ''}${shortCurrentValue.toFixed(2)}%`;
+                    document.getElementById('coinChangeShortCurrentValue').style.color = shortCurrentValue >= 0 ? '#10b981' : '#dc2626';
+                    
+                    if (result.config.shortTakeProfitEnabled) {
+                        if (shortTriggered) {
+                            document.getElementById('coinChangeShortDistance').textContent = '已触发!';
+                            document.getElementById('coinChangeShortDistance').style.color = '#dc2626';
+                            document.getElementById('coinChangeShortStatus').innerHTML = '🔥 <strong>已触发止盈！</strong>';
+                            document.getElementById('coinChangeShortStatus').style.color = '#dc2626';
+                            document.getElementById('coinChangeShortStatus').style.background = 'rgba(220, 38, 38, 0.2)';
+                        } else {
+                            document.getElementById('coinChangeShortDistance').textContent = `${Math.abs(shortDistance).toFixed(2)}%`;
+                            document.getElementById('coinChangeShortDistance').style.color = '#92400e';
+                            document.getElementById('coinChangeShortStatus').innerHTML = `⏳ 等待触发（还需下跌 ${Math.abs(shortDistance).toFixed(2)}%）`;
+                            document.getElementById('coinChangeShortStatus').style.color = '#991b1b';
+                            document.getElementById('coinChangeShortStatus').style.background = 'rgba(220, 38, 38, 0.1)';
+                        }
+                    } else {
+                        document.getElementById('coinChangeShortDistance').textContent = '--';
+                        document.getElementById('coinChangeShortStatus').textContent = '⭕ 未启用';
+                        document.getElementById('coinChangeShortStatus').style.color = '#9ca3af';
+                        document.getElementById('coinChangeShortStatus').style.background = 'rgba(156, 163, 175, 0.1)';
                     }
                     
-                    console.log(`✅ [27币涨跌幅止盈] 配置已加载: 空单${result.shortTakeProfitEnabled?'已启用':'未启用'}/${result.shortTakeProfitThreshold}%, 多单${result.longTakeProfitEnabled?'已启用':'未启用'}/${result.longTakeProfitThreshold}%`);
+                    // 4. 更新多单触发状态
+                    const longTargetValue = result.triggerStatus.longTargetValue;
+                    const longCurrentValue = totalChange;
+                    const longDistance = result.triggerStatus.longDistance;
+                    const longTriggered = result.triggerStatus.longTriggered;
+                    
+                    document.getElementById('coinChangeLongTargetValue').textContent = `+${longTargetValue.toFixed(1)}%`;
+                    document.getElementById('coinChangeLongCurrentValue').textContent = `${longCurrentValue >= 0 ? '+' : ''}${longCurrentValue.toFixed(2)}%`;
+                    document.getElementById('coinChangeLongCurrentValue').style.color = longCurrentValue >= 0 ? '#10b981' : '#dc2626';
+                    
+                    if (result.config.longTakeProfitEnabled) {
+                        if (longTriggered) {
+                            document.getElementById('coinChangeLongDistance').textContent = '已触发!';
+                            document.getElementById('coinChangeLongDistance').style.color = '#10b981';
+                            document.getElementById('coinChangeLongStatus').innerHTML = '🔥 <strong>已触发止盈！</strong>';
+                            document.getElementById('coinChangeLongStatus').style.color = '#10b981';
+                            document.getElementById('coinChangeLongStatus').style.background = 'rgba(16, 185, 129, 0.2)';
+                        } else {
+                            document.getElementById('coinChangeLongDistance').textContent = `${Math.abs(longDistance).toFixed(2)}%`;
+                            document.getElementById('coinChangeLongDistance').style.color = '#92400e';
+                            document.getElementById('coinChangeLongStatus').innerHTML = `⏳ 等待触发（还需上涨 ${Math.abs(longDistance).toFixed(2)}%）`;
+                            document.getElementById('coinChangeLongStatus').style.color = '#065f46';
+                            document.getElementById('coinChangeLongStatus').style.background = 'rgba(16, 185, 129, 0.1)';
+                        }
+                    } else {
+                        document.getElementById('coinChangeLongDistance').textContent = '--';
+                        document.getElementById('coinChangeLongStatus').textContent = '⭕ 未启用';
+                        document.getElementById('coinChangeLongStatus').style.color = '#9ca3af';
+                        document.getElementById('coinChangeLongStatus').style.background = 'rgba(156, 163, 175, 0.1)';
+                    }
+                    
+                    console.log(`✅ [27币涨跌幅止盈] 数据已更新: ${totalChange.toFixed(2)}% | 空单${shortTriggered?'已触发':'未触发'} | 多单${longTriggered?'已触发':'未触发'}`);
+                } else {
+                    console.warn('⚠️ [27币涨跌幅止盈] 获取数据失败:', result.error);
                 }
             } catch (e) {
-                console.error('❌ [27币涨跌幅止盈] 加载配置异常:', e);
+                console.error('❌ [27币涨跌幅止盈] 获取数据异常:', e);
             }
+        }
+        
+        // 📈 加载27币涨跌幅止盈配置（保留作为独立函数，用于初始化）
+        async function loadCoinChangeTpslSettings() {
+            // 直接调用综合数据加载函数
+            await loadCoinChangeTpslData();
         }
         
         // 📈 保存27币涨跌幅止盈配置
@@ -9706,7 +9794,8 @@ ${data.sMsg || result.message || ''}`);
                 
                 if (result.success) {
                     console.log('✅ [27币涨跌幅止盈] 配置保存成功');
-                    // 不显示alert，只在控制台记录
+                    // 保存成功后立即重新加载数据以更新触发状态显示
+                    await loadCoinChangeTpslData();
                 } else {
                     console.error('❌ [27币涨跌幅止盈] 配置保存失败:', result.message);
                 }

@@ -17459,6 +17459,143 @@ def get_coin_change_current():
             'error': str(e)
         })
 
+@app.route('/api/okx-trading/coin-change-tpsl-overview/<account_id>', methods=['GET'])
+def get_coin_change_tpsl_overview(account_id):
+    """获取27币涨跌幅止盈完整概览（配置+当前数据+执行状态）"""
+    try:
+        import json
+        import os
+        from datetime import datetime, timezone, timedelta
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        settings_dir = os.path.join(current_dir, 'data', 'okx_tpsl_settings')
+        coin_change_dir = os.path.join(current_dir, 'data', 'coin_change_tracker')
+        
+        # 1. 读取配置
+        config_file = os.path.join(settings_dir, f'{account_id}_coin_change_tpsl.jsonl')
+        config = {
+            'account_id': account_id,
+            'shortTakeProfitEnabled': False,
+            'shortTakeProfitThreshold': 10.0,
+            'longTakeProfitEnabled': False,
+            'longTakeProfitThreshold': 10.0,
+            'last_updated': None,
+            'comment': '27币涨跌幅止盈配置 - 空单跌破止盈/多单突破止盈'
+        }
+        
+        if os.path.exists(config_file):
+            with open(config_file, 'r', encoding='utf-8') as f:
+                first_line = f.readline().strip()
+                if first_line:
+                    config = json.loads(first_line)
+        
+        # 2. 获取当前27币涨跌幅数据
+        beijing_tz = timezone(timedelta(hours=8))
+        beijing_date = datetime.now(timezone.utc).astimezone(beijing_tz).strftime('%Y%m%d')
+        coin_change_file = os.path.join(coin_change_dir, f'coin_change_{beijing_date}.jsonl')
+        
+        current_data = {
+            'total_change': 0,
+            'up_coins': 0,
+            'down_coins': 0,
+            'beijing_time': '--',
+            'data_available': False
+        }
+        
+        if os.path.exists(coin_change_file):
+            with open(coin_change_file, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
+                if lines:
+                    last_line = lines[-1].strip()
+                    if last_line:
+                        data = json.loads(last_line)
+                        current_data = {
+                            'total_change': data.get('total_change', 0),
+                            'up_coins': data.get('up_coins', 0),
+                            'down_coins': data.get('down_coins', 0),
+                            'beijing_time': data.get('beijing_time', '--'),
+                            'data_available': True
+                        }
+        
+        # 3. 读取执行记录
+        execution_file = os.path.join(settings_dir, f'{account_id}_coin_change_tpsl_execution.jsonl')
+        executions = []
+        if os.path.exists(execution_file):
+            with open(execution_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    if line.strip():
+                        executions.append(json.loads(line))
+        
+        # 获取最近执行记录
+        recent_executions = executions[-10:] if executions else []
+        
+        # 4. 计算触发状态
+        short_triggered = False
+        long_triggered = False
+        short_distance = 0
+        long_distance = 0
+        
+        if current_data['data_available']:
+            total_change = current_data['total_change']
+            short_threshold = -abs(config['shortTakeProfitThreshold'])
+            long_threshold = abs(config['longTakeProfitThreshold'])
+            
+            # 空单止盈：当前值 <= -阈值时触发
+            if config['shortTakeProfitEnabled']:
+                short_triggered = total_change <= short_threshold
+                short_distance = total_change - short_threshold  # 负数表示已触发，正数表示距离触发还有多少
+            
+            # 多单止盈：当前值 >= +阈值时触发
+            if config['longTakeProfitEnabled']:
+                long_triggered = total_change >= long_threshold
+                long_distance = total_change - long_threshold  # 正数表示已触发，负数表示距离触发还有多少
+        
+        # 5. 统计
+        total_executions = len(executions)
+        successful_executions = sum(1 for e in executions if e.get('success'))
+        short_tp_count = sum(1 for e in executions if e.get('triggerType') == 'short_take_profit')
+        long_tp_count = sum(1 for e in executions if e.get('triggerType') == 'long_take_profit')
+        
+        # 获取今日执行次数
+        today_str = beijing_date
+        today_executions = [e for e in executions if today_str in e.get('timestamp', '')]
+        today_count = len(today_executions)
+        
+        return jsonify({
+            'success': True,
+            'account_id': account_id,
+            'config': {
+                'shortTakeProfitEnabled': config['shortTakeProfitEnabled'],
+                'shortTakeProfitThreshold': config['shortTakeProfitThreshold'],
+                'longTakeProfitEnabled': config['longTakeProfitEnabled'],
+                'longTakeProfitThreshold': config['longTakeProfitThreshold'],
+                'last_updated': config.get('last_updated', '--')
+            },
+            'currentData': current_data,
+            'triggerStatus': {
+                'shortTriggered': short_triggered,
+                'longTriggered': long_triggered,
+                'shortDistance': round(short_distance, 2),
+                'longDistance': round(long_distance, 2),
+                'shortTargetValue': -abs(config['shortTakeProfitThreshold']),
+                'longTargetValue': abs(config['longTakeProfitThreshold'])
+            },
+            'statistics': {
+                'total': total_executions,
+                'successful': successful_executions,
+                'shortTakeProfit': short_tp_count,
+                'longTakeProfit': long_tp_count,
+                'todayExecutions': today_count
+            },
+            'recentExecutions': recent_executions
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        })
+
 @app.route('/api/okx-trading/confirm-structure-alerts/<account_id>', methods=['GET'])
 def get_confirm_structure_alerts(account_id):
     """获取确认结构提醒记录"""
