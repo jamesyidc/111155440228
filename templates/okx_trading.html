@@ -7,7 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <meta name="version" content="2.9.1-20260303">
-    <title>OKX实盘交易系统 v2.9.2-{{ cache_buster }}</title>
+    <title>OKX实盘交易系统 v2.9.2-{{ cache_buster|default('') }}</title>
     <!-- 
     版本: 2026-03-03 v2.9.1 - 对冲底仓状态显示修复 
     
@@ -5409,7 +5409,7 @@ data/
                     <h3 style="color: #3730a3; margin-bottom: 16px; display: flex; align-items: center; gap: 6px; font-size: 16px;">
                         🌙 0点0分对冲底仓
                         <span style="font-size: 11px; color: #78716c; font-weight: 400; margin-left: 8px;">每天00:00同时开多单和空单</span>
-                        <span style="font-size: 10px; color: #dc2626; background: #fef2f2; padding: 2px 6px; border-radius: 4px; margin-left: auto;">v2.9.2-{{ cache_buster }}</span>
+                        <span style="font-size: 10px; color: #dc2626; background: #fef2f2; padding: 2px 6px; border-radius: 4px; margin-left: auto;">v2.9.2-{{ cache_buster|default('') }}</span>
                     </h3>
                     
                     <!-- 启用开关 -->
@@ -7773,10 +7773,13 @@ data/
                 
             } catch (error) {
                 console.error('[init] 初始化失败:', error);
+                console.error('[init] 错误堆栈:', error.stack);
+                console.error('[init] 错误名称:', error.name);
+                console.error('[init] 错误消息:', error.message);
                 // 即使失败也要隐藏加载界面
                 setTimeout(() => {
                     hideLoadingOverlay();
-                    alert('系统初始化失败，部分功能可能不可用');
+                    alert(`系统初始化失败，部分功能可能不可用\n\n错误: ${error.message}`);
                 }, 1000);
             }
             
