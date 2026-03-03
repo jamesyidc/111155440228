@@ -5454,8 +5454,8 @@ data/
                             <span style="color: #3730a3; font-size: 13px; font-weight: 600;">🔵 启用自动开单</span>
                             <span id="midnightHedgeEnabledStatus" style="font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: 600; background: #fef2f2; color: #dc2626;">⏳ 加载中...</span>
                             <script>
-                                // 立即加载对冲底仓状态和策略
-                                (async function() {
+                                // 延迟加载对冲底仓状态和策略（等待DOM完全加载）
+                                setTimeout(async function() {
                                     try {
                                         const accountId = 'account_poit_main'; // 默认账户
                                         const response = await fetch(`/api/okx-trading/midnight-hedge/${accountId}`);
@@ -5467,6 +5467,8 @@ data/
                                             const switchEl = document.getElementById('midnightHedgeEnabled');
                                             const longStrategyEl = document.getElementById('midnightHedgeLongStrategy');
                                             const shortStrategyEl = document.getElementById('midnightHedgeShortStrategy');
+                                            
+                                            console.log('📋 加载对冲底仓配置:', config);
                                             
                                             // 更新启用状态
                                             if (statusEl && switchEl) {
@@ -5481,24 +5483,27 @@ data/
                                                     statusEl.style.background = '#fee2e2';
                                                     statusEl.style.color = '#dc2626';
                                                 }
+                                                console.log('✅ 状态已更新:', config.enabled);
                                             }
                                             
                                             // 更新策略选择
                                             if (longStrategyEl && config.long_strategy_code) {
                                                 longStrategyEl.value = config.long_strategy_code;
-                                                console.log('✅ 多单策略已加载:', config.long_strategy_code);
+                                                console.log('✅ 多单策略已设置:', config.long_strategy_code);
+                                            } else {
+                                                console.warn('⚠️ 多单策略下拉框未找到或策略为空');
                                             }
                                             if (shortStrategyEl && config.short_strategy_code) {
                                                 shortStrategyEl.value = config.short_strategy_code;
-                                                console.log('✅ 空单策略已加载:', config.short_strategy_code);
+                                                console.log('✅ 空单策略已设置:', config.short_strategy_code);
+                                            } else {
+                                                console.warn('⚠️ 空单策略下拉框未找到或策略为空');
                                             }
-                                            
-                                            console.log('✅ 对冲底仓配置已加载:', config);
                                         }
                                     } catch (error) {
                                         console.error('❌ 加载对冲底仓状态失败:', error);
                                     }
-                                })();
+                                }, 500); // 延迟500ms确保DOM元素已加载
                             </script>
                         </div>
                         <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
