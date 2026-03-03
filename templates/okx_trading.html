@@ -5453,9 +5453,41 @@ data/
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <span style="color: #3730a3; font-size: 13px; font-weight: 600;">🔵 启用自动开单</span>
                             <span id="midnightHedgeEnabledStatus" style="font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: 600; background: #fef2f2; color: #dc2626;">⏳ 加载中...</span>
+                            <script>
+                                // 立即加载对冲底仓状态
+                                (async function() {
+                                    try {
+                                        const accountId = 'account_poit_main'; // 默认账户
+                                        const response = await fetch(`/api/okx-trading/midnight-hedge/${accountId}`);
+                                        const data = await response.json();
+                                        
+                                        if (data.success && data.config) {
+                                            const statusEl = document.getElementById('midnightHedgeEnabledStatus');
+                                            const switchEl = document.getElementById('midnightHedgeEnabled');
+                                            
+                                            if (statusEl && switchEl) {
+                                                switchEl.checked = data.config.enabled;
+                                                
+                                                if (data.config.enabled) {
+                                                    statusEl.textContent = '✅ 已启用';
+                                                    statusEl.style.background = '#d1fae5';
+                                                    statusEl.style.color = '#047857';
+                                                } else {
+                                                    statusEl.textContent = '⏸️ 已禁用';
+                                                    statusEl.style.background = '#fee2e2';
+                                                    statusEl.style.color = '#dc2626';
+                                                }
+                                                console.log('✅ 对冲底仓状态已加载:', data.config.enabled);
+                                            }
+                                        }
+                                    } catch (error) {
+                                        console.error('❌ 加载对冲底仓状态失败:', error);
+                                    }
+                                })();
+                            </script>
                         </div>
                         <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
-                            <input type="checkbox" id="midnightHedgeEnabled" onchange="console.log('🔧 开关被点击了！checked=', this.checked); alert('开关被点击: ' + this.checked); toggleMidnightHedge(this.checked)" style="opacity: 0; width: 0; height: 0;">
+                            <input type="checkbox" id="midnightHedgeEnabled" onchange="toggleMidnightHedge(this.checked)" style="opacity: 0; width: 0; height: 0;">
                             <span class="slider slider-midnight-hedge" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;">
                                 <style>
                                     #midnightHedgeEnabled:checked + .slider-midnight-hedge { background-color: #6366f1; }
@@ -14575,7 +14607,7 @@ ${data.sMsg || result.message || ''}`);
                 } else {
                     console.error('❌ API返回失败:', data.message);
                     throw new Error(data.message || '更新失败');
-
+                }
             } catch (error) {
                 console.error('❌ 更新对冲底仓配置失败:', error);
                 alert('更新失败: ' + error.message);
