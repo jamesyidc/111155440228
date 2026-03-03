@@ -14387,19 +14387,30 @@ ${data.sMsg || result.message || ''}`);
         
         // 显示配置
         function displayMidnightHedgeConfig(config) {
+            console.log('📋 显示对冲底仓配置:', config);
+            console.log('🔵 启用状态:', config.enabled);
+            
             // 更新启用开关
             document.getElementById('midnightHedgeEnabled').checked = config.enabled;
+            console.log('✅ 开关已更新为:', config.enabled);
             
             // 更新启用状态显示
             const enabledStatusEl = document.getElementById('midnightHedgeEnabledStatus');
+            if (!enabledStatusEl) {
+                console.error('❌ 找不到状态显示元素 midnightHedgeEnabledStatus');
+                return;
+            }
+            
             if (config.enabled) {
                 enabledStatusEl.textContent = '✅ 已启用';
                 enabledStatusEl.style.background = '#d1fae5';
                 enabledStatusEl.style.color = '#047857';
+                console.log('✅ 状态标签已更新为: 已启用');
             } else {
                 enabledStatusEl.textContent = '⏸️ 已禁用';
                 enabledStatusEl.style.background = '#fee2e2';
                 enabledStatusEl.style.color = '#dc2626';
+                console.log('⏸️ 状态标签已更新为: 已禁用');
             }
             
             // 更新策略选择
