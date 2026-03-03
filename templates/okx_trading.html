@@ -6342,6 +6342,11 @@ data/
         let currentAccount = 'account_poit_main';
         let isLoadingAccountSettings = false;  // 防止加载设置时触发保存
         
+        // 获取当前选中的账户ID
+        function getCurrentAccountId() {
+            return currentAccount;
+        }
+        
         // API请求超时控制
         async function fetchWithTimeout(url, options = {}, timeout = 5000) {
             const controller = new AbortController();
