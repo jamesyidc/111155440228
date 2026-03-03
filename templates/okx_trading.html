@@ -5452,7 +5452,7 @@ data/
                     <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background: rgba(99, 102, 241, 0.1); border-radius: 8px; margin-bottom: 12px; border: 1px solid #818cf8;">
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <span style="color: #3730a3; font-size: 13px; font-weight: 600;">🔵 启用自动开单</span>
-                            <span id="midnightHedgeEnabledStatus" style="font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: 600;"></span>
+                            <span id="midnightHedgeEnabledStatus" style="font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: 600; background: #fef2f2; color: #dc2626;">⏳ 加载中...</span>
                         </div>
                         <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
                             <input type="checkbox" id="midnightHedgeEnabled" onchange="toggleMidnightHedge(this.checked)" style="opacity: 0; width: 0; height: 0;">
@@ -14943,6 +14943,26 @@ ${data.sMsg || result.message || ''}`);
             console.log('✅ 页面加载完成，通知系统已启动');
         });
 
+    </script>
+    
+    <!-- 🔴 立即执行的版本验证脚本 -->
+    <script>
+        console.log('🚀 页面版本: v2.9.3-{{ cache_buster|default("20260303") }}');
+        console.log('⏰ 当前时间:', new Date().toISOString());
+        console.log('🔍 检查关键元素是否存在...');
+        
+        // 立即检查元素
+        setTimeout(() => {
+            const statusEl = document.getElementById('midnightHedgeEnabledStatus');
+            console.log('📋 midnightHedgeEnabledStatus 元素:', statusEl);
+            console.log('📋 当前内容:', statusEl ? statusEl.textContent : '❌ 元素不存在');
+            
+            if (statusEl && statusEl.textContent === '⏳ 加载中...') {
+                console.log('✅ 元素存在且显示默认状态，页面是最新版本');
+            } else {
+                console.error('❌ 元素不存在或状态异常，可能是旧版本');
+            }
+        }, 100);
     </script>
 </body>
 </html>
