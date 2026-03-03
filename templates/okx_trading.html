@@ -5469,6 +5469,12 @@ data/
                                             const shortStrategyEl = document.getElementById('midnightHedgeShortStrategy');
                                             
                                             console.log('📋 加载对冲底仓配置:', config);
+                                            console.log('🔍 查找DOM元素:', {
+                                                statusEl: !!statusEl,
+                                                switchEl: !!switchEl,
+                                                longStrategyEl: !!longStrategyEl,
+                                                shortStrategyEl: !!shortStrategyEl
+                                            });
                                             
                                             // 更新启用状态
                                             if (statusEl && switchEl) {
@@ -5489,21 +5495,31 @@ data/
                                             // 更新策略选择
                                             if (longStrategyEl && config.long_strategy_code) {
                                                 longStrategyEl.value = config.long_strategy_code;
+                                                // 强制触发视觉更新
+                                                longStrategyEl.dispatchEvent(new Event('change', { bubbles: true }));
                                                 console.log('✅ 多单策略已设置:', config.long_strategy_code);
                                             } else {
-                                                console.warn('⚠️ 多单策略下拉框未找到或策略为空');
+                                                console.warn('⚠️ 多单策略下拉框未找到或策略为空', {
+                                                    element: !!longStrategyEl,
+                                                    value: config.long_strategy_code
+                                                });
                                             }
                                             if (shortStrategyEl && config.short_strategy_code) {
                                                 shortStrategyEl.value = config.short_strategy_code;
+                                                // 强制触发视觉更新
+                                                shortStrategyEl.dispatchEvent(new Event('change', { bubbles: true }));
                                                 console.log('✅ 空单策略已设置:', config.short_strategy_code);
                                             } else {
-                                                console.warn('⚠️ 空单策略下拉框未找到或策略为空');
+                                                console.warn('⚠️ 空单策略下拉框未找到或策略为空', {
+                                                    element: !!shortStrategyEl,
+                                                    value: config.short_strategy_code
+                                                });
                                             }
                                         }
                                     } catch (error) {
                                         console.error('❌ 加载对冲底仓状态失败:', error);
                                     }
-                                }, 500); // 延迟500ms确保DOM元素已加载
+                                }, 1200); // 延迟1200ms确保所有DOM元素已加载完成
                             </script>
                         </div>
                         <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
