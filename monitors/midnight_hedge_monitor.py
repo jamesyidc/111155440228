@@ -151,9 +151,9 @@ def get_positions_pnl(account_id):
     """获取账户持仓盈亏"""
     try:
         url = f"{FLASK_API_BASE}/api/okx-trading/positions"
-        params = {'account': account_id}
+        payload = {'account': account_id}
         
-        response = requests.get(url, params=params, timeout=10)
+        response = requests.post(url, json=payload, timeout=10)
         
         if response.status_code == 200:
             data = response.json()
