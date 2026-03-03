@@ -278,6 +278,46 @@ def execute_strategy(account_id, strategy_code, side):
         }
 
 
+def update_config_permission(account_id, side, allow_trigger):
+    """更新配置文件中的执行权限"""
+    config_file = CONFIG_DIR / f'{account_id}_hedge_config.jsonl'
+    
+    if not config_file.exists():
+        logger.error(f"配置文件不存在: {config_file}")
+        return False
+    
+    try:
+        # 读取配置
+        with open(config_file, 'r', encoding='utf-8') as f:
+            line = f.read().strip()
+            config = json.loads(line) if line else {}
+        
+        # 更新权限字段
+        if side == 'long':
+            config['allow_long_trigger'] = allow_trigger
+            if not allow_trigger:
+                config['long_last_triggered_at'] = get_beijing_now_str()
+                config['long_triggered_count'] = config.get('long_triggered_count', 0) + 1
+        elif side == 'short':
+            config['allow_short_trigger'] = allow_trigger
+            if not allow_trigger:
+                config['short_last_triggered_at'] = get_beijing_now_str()
+                config['short_triggered_count'] = config.get('short_triggered_count', 0) + 1
+        
+        config['updated_at'] = get_beijing_now_str()
+        
+        # 写回配置
+        with open(config_file, 'w', encoding='utf-8') as f:
+            f.write(json.dumps(config, ensure_ascii=False) + '\n')
+        
+        logger.info(f"✅ 已更新 {account_id} {side}单执行权限: {allow_trigger}")
+        return True
+        
+    except Exception as e:
+        logger.error(f"更新配置权限失败: {e}")
+        return False
+
+
 def check_and_execute_midnight_hedge():
     """检查并执行0点0分对冲"""
     beijing_time = get_beijing_time()
@@ -287,19 +327,12 @@ def check_and_execute_midnight_hedge():
     if current_minute != '00:00':
         return
     
-    # 检查是否今天已经执行过
-    today_date = get_beijing_date_str()
-    execution_flag_file = CONFIG_DIR / f'executed_{today_date}.flag'
-    
-    if execution_flag_file.exists():
-        logger.debug(f"⏸️  今天已执行过，跳过")
-        return
-    
     logger.info("=" * 80)
-    logger.info(f"🌙 北京时间 00:00:00 - 开始执行对冲底仓开单")
+    logger.info(f"🌙 北京时间 {current_minute}:00 - 检查对冲底仓开单")
     logger.info("=" * 80)
     
     # 遍历所有账户
+    any_executed = False
     for account_id in ACCOUNTS:
         config = load_config(account_id)
         
@@ -313,37 +346,58 @@ def check_and_execute_midnight_hedge():
         
         long_strategy = config.get('long_strategy_code')
         short_strategy = config.get('short_strategy_code')
+        allow_long = config.get('allow_long_trigger', True)
+        allow_short = config.get('allow_short_trigger', True)
         
         if not long_strategy or not short_strategy:
             logger.warning(f"⚠️  {account_id}: 未配置策略，跳过")
             continue
         
-        logger.info(f"✅ {account_id}: 开始执行对冲开单")
-        logger.info(f"   多单策略: {long_strategy}")
-        logger.info(f"   空单策略: {short_strategy}")
+        logger.info(f"📋 {account_id}: 检查执行权限")
+        logger.info(f"   多单策略: {long_strategy} | 允许执行: {'✅' if allow_long else '❌'}")
+        logger.info(f"   空单策略: {short_strategy} | 允许执行: {'✅' if allow_short else '❌'}")
         
-        # 执行多单
-        long_result = execute_strategy(account_id, long_strategy, 'long')
-        if long_result['success']:
-            logger.info(f"   ✅ 多单开仓成功: {long_result.get('order_id')}")
+        long_result = {'success': False, 'skipped': True, 'reason': '未启用执行权限'}
+        short_result = {'success': False, 'skipped': True, 'reason': '未启用执行权限'}
+        
+        # 执行多单（如果允许）
+        if allow_long:
+            logger.info(f"🔵 {account_id}: 开始执行多单开仓")
+            long_result = execute_strategy(account_id, long_strategy, 'long')
+            if long_result['success']:
+                logger.info(f"   ✅ 多单开仓成功: {long_result.get('order_id')}")
+                # 禁用多单执行权限
+                update_config_permission(account_id, 'long', False)
+                any_executed = True
+            else:
+                logger.error(f"   ❌ 多单开仓失败: {long_result.get('error')}")
         else:
-            logger.error(f"   ❌ 多单开仓失败: {long_result.get('error')}")
+            logger.info(f"⏸️  {account_id}: 多单执行权限已关闭，跳过")
         
-        # 执行空单
-        short_result = execute_strategy(account_id, short_strategy, 'short')
-        if short_result['success']:
-            logger.info(f"   ✅ 空单开仓成功: {short_result.get('order_id')}")
+        # 执行空单（如果允许）
+        if allow_short:
+            logger.info(f"🔴 {account_id}: 开始执行空单开仓")
+            short_result = execute_strategy(account_id, short_strategy, 'short')
+            if short_result['success']:
+                logger.info(f"   ✅ 空单开仓成功: {short_result.get('order_id')}")
+                # 禁用空单执行权限
+                update_config_permission(account_id, 'short', False)
+                any_executed = True
+            else:
+                logger.error(f"   ❌ 空单开仓失败: {short_result.get('error')}")
         else:
-            logger.error(f"   ❌ 空单开仓失败: {short_result.get('error')}")
+            logger.info(f"⏸️  {account_id}: 空单执行权限已关闭，跳过")
         
-        # 保存执行记录
+        # 保存执行记录（无论是否执行）
+        today_date = get_beijing_date_str()
         execution_record = {
             'account_id': account_id,
             'execution_time': get_beijing_now_str(),
             'date': today_date,
             'long_order': long_result,
             'short_order': short_result,
-            'both_success': long_result['success'] and short_result['success']
+            'long_allowed': allow_long,
+            'short_allowed': allow_short
         }
         
         save_execution_record(account_id, execution_record)
@@ -381,10 +435,11 @@ def check_and_execute_midnight_hedge():
             }
             save_pnl_record(account_id, pnl_record_short)
     
-    # 创建执行标记文件
-    execution_flag_file.touch()
     logger.info("=" * 80)
-    logger.info(f"✅ 对冲底仓开单完成，已创建执行标记")
+    if any_executed:
+        logger.info(f"✅ 对冲底仓开单检查完成，已执行 {sum([1 for _ in [any_executed]])} 个账户")
+    else:
+        logger.info(f"⏸️  对冲底仓开单检查完成，无账户执行（权限未开启）")
     logger.info("=" * 80)
 
 

@@ -26,3 +26,16 @@
 2026-03-03 03:51:59,214 [INFO] ✅ 盈亏记录更新完成
 2026-03-03 03:56:59,217 [INFO] 🔄 开始更新盈亏记录...
 2026-03-03 03:56:59,226 [INFO] ✅ 盈亏记录更新完成
+2026-03-03 04:01:59,229 [INFO] 🔄 开始更新盈亏记录...
+2026-03-03 04:01:59,234 [INFO] ✅ 盈亏记录更新完成
+2026-03-03 04:06:59,238 [INFO] 🔄 开始更新盈亏记录...
+2026-03-03 04:06:59,246 [INFO] ✅ 盈亏记录更新完成
+2026-03-03 04:08:11,744 [INFO] ⛔ 收到停止信号，监控器退出
+2026-03-03 04:08:12,048 [INFO] 🚀 0点0分对冲底仓监控器启动
+2026-03-03 04:08:12,049 [INFO] 📊 检查间隔: 30秒
+2026-03-03 04:08:12,049 [INFO] 👥 监控账户: account_main, account_fangfang12, account_anchor, account_poit, account_poit_main, account_dadanini
+2026-03-03 04:08:12,049 [INFO] ⏰ 执行时间: 每天北京时间 00:00:00
+2026-03-03 04:08:12,049 [INFO] 💰 盈亏更新: 每5分钟更新一次
+2026-03-03 04:08:12,049 [INFO] 🔄 开始更新盈亏记录...
+2026-03-03 04:08:12,051 [ERROR] 获取持仓盈亏失败: HTTPConnectionPool(host='localhost', port=9002): Max retries exceeded with url: /api/okx-trading/positions (Caused by NewConnectionError("HTTPConnection(host='localhost', port=9002): Failed to establish a new connection: [Errno 111] Connection refused"))
+2026-03-03 04:08:12,051 [INFO] ✅ 盈亏记录更新完成

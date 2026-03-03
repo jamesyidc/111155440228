@@ -18196,6 +18196,12 @@ def api_get_midnight_hedge_config(account_id):
                 'enabled': False,
                 'long_strategy_code': None,
                 'short_strategy_code': None,
+                'allow_long_trigger': True,
+                'allow_short_trigger': True,
+                'long_triggered_count': 0,
+                'short_triggered_count': 0,
+                'long_last_triggered_at': None,
+                'short_last_triggered_at': None,
                 'execution_time': '00:00:00',
                 'created_at': get_beijing_now_str(),
                 'updated_at': get_beijing_now_str()
@@ -18204,6 +18210,20 @@ def api_get_midnight_hedge_config(account_id):
             # 写入默认配置
             with open(config_file, 'w', encoding='utf-8') as f:
                 f.write(json.dumps(config, ensure_ascii=False) + '\n')
+        else:
+            # 确保旧配置有权限字段
+            if 'allow_long_trigger' not in config:
+                config['allow_long_trigger'] = True
+            if 'allow_short_trigger' not in config:
+                config['allow_short_trigger'] = True
+            if 'long_triggered_count' not in config:
+                config['long_triggered_count'] = 0
+            if 'short_triggered_count' not in config:
+                config['short_triggered_count'] = 0
+            if 'long_last_triggered_at' not in config:
+                config['long_last_triggered_at'] = None
+            if 'short_last_triggered_at' not in config:
+                config['short_last_triggered_at'] = None
         
         return jsonify({
             'success': True,
@@ -18253,6 +18273,12 @@ def api_update_midnight_hedge_config(account_id):
                 'enabled': False,
                 'long_strategy_code': None,
                 'short_strategy_code': None,
+                'allow_long_trigger': True,  # 多单执行权限
+                'allow_short_trigger': True,  # 空单执行权限
+                'long_triggered_count': 0,
+                'short_triggered_count': 0,
+                'long_last_triggered_at': None,
+                'short_last_triggered_at': None,
                 'execution_time': '00:00:00',
                 'created_at': get_beijing_now_str()
             }
@@ -18264,6 +18290,24 @@ def api_update_midnight_hedge_config(account_id):
             config['long_strategy_code'] = data['long_strategy_code']
         if 'short_strategy_code' in data:
             config['short_strategy_code'] = data['short_strategy_code']
+        if 'allow_long_trigger' in data:
+            config['allow_long_trigger'] = data['allow_long_trigger']
+        if 'allow_short_trigger' in data:
+            config['allow_short_trigger'] = data['allow_short_trigger']
+        
+        # 初始化缺失的字段
+        if 'allow_long_trigger' not in config:
+            config['allow_long_trigger'] = True
+        if 'allow_short_trigger' not in config:
+            config['allow_short_trigger'] = True
+        if 'long_triggered_count' not in config:
+            config['long_triggered_count'] = 0
+        if 'short_triggered_count' not in config:
+            config['short_triggered_count'] = 0
+        if 'long_last_triggered_at' not in config:
+            config['long_last_triggered_at'] = None
+        if 'short_last_triggered_at' not in config:
+            config['short_last_triggered_at'] = None
         
         config['updated_at'] = get_beijing_now_str()
         
@@ -18274,6 +18318,69 @@ def api_update_midnight_hedge_config(account_id):
         return jsonify({
             'success': True,
             'message': '配置已更新',
+            'config': config,
+            'timestamp': get_beijing_now_str()
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+
+@app.route('/api/okx-trading/midnight-hedge/<account_id>/reset-permission', methods=['POST'])
+def api_reset_midnight_hedge_permission(account_id):
+    """重置0点0分对冲底仓执行权限"""
+    try:
+        import json
+        import os
+        from flask import request
+        from utils.beijing_time import get_beijing_now_str
+        
+        data = request.get_json()
+        side = data.get('side')  # 'long', 'short', 或 'both'
+        
+        if side not in ['long', 'short', 'both']:
+            return jsonify({
+                'success': False,
+                'error': 'side参数必须是long、short或both'
+            }), 400
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        config_file = os.path.join(current_dir, 'data', 'midnight_hedge_orders', f'{account_id}_hedge_config.jsonl')
+        
+        if not os.path.exists(config_file):
+            return jsonify({
+                'success': False,
+                'error': '配置文件不存在'
+            }), 404
+        
+        # 读取配置
+        with open(config_file, 'r', encoding='utf-8') as f:
+            line = f.readline().strip()
+            config = json.loads(line) if line else {}
+        
+        # 重置权限
+        reset_info = []
+        if side in ['long', 'both']:
+            config['allow_long_trigger'] = True
+            reset_info.append('多单')
+        if side in ['short', 'both']:
+            config['allow_short_trigger'] = True
+            reset_info.append('空单')
+        
+        config['updated_at'] = get_beijing_now_str()
+        
+        # 写回文件
+        with open(config_file, 'w', encoding='utf-8') as f:
+            f.write(json.dumps(config, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'message': f"{'和'.join(reset_info)}执行权限已重置",
             'config': config,
             'timestamp': get_beijing_now_str()
         })

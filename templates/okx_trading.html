@@ -5475,6 +5475,52 @@ data/
                         </div>
                     </div>
                     
+                    <!-- 执行权限控制 -->
+                    <div style="background: rgba(255, 255, 255, 0.9); border-radius: 8px; padding: 12px; margin-bottom: 12px; border: 2px solid #f59e0b;">
+                        <div style="color: #92400e; font-size: 12px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+                            🔐 执行权限控制
+                            <span style="font-size: 10px; color: #78716c; font-weight: 400;">（开单后需手动重置）</span>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <!-- 多单权限 -->
+                            <div style="background: rgba(16, 185, 129, 0.1); border-radius: 6px; padding: 10px; border: 1px solid #10b981;">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                                    <span style="color: #065f46; font-size: 11px; font-weight: 600;">🟢 多单开仓</span>
+                                    <span id="midnightHedgeLongPermission" style="font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 600;"></span>
+                                </div>
+                                <button onclick="resetMidnightHedgePermission('long')" 
+                                        style="width: 100%; padding: 6px; border: 1px solid #10b981; border-radius: 4px; background: white; color: #047857; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                                    🔄 重置多单权限
+                                </button>
+                                <div id="midnightHedgeLongTriggerInfo" style="font-size: 9px; color: #059669; margin-top: 4px; display: none;">
+                                    <div>触发次数: <span id="midnightHedgeLongTriggerCount">0</span></div>
+                                    <div>上次触发: <span id="midnightHedgeLongLastTriggered">--</span></div>
+                                </div>
+                            </div>
+                            
+                            <!-- 空单权限 -->
+                            <div style="background: rgba(239, 68, 68, 0.1); border-radius: 6px; padding: 10px; border: 1px solid #ef4444;">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                                    <span style="color: #7f1d1d; font-size: 11px; font-weight: 600;">🔴 空单开仓</span>
+                                    <span id="midnightHedgeShortPermission" style="font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 600;"></span>
+                                </div>
+                                <button onclick="resetMidnightHedgePermission('short')" 
+                                        style="width: 100%; padding: 6px; border: 1px solid #ef4444; border-radius: 4px; background: white; color: #dc2626; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                                    🔄 重置空单权限
+                                </button>
+                                <div id="midnightHedgeShortTriggerInfo" style="font-size: 9px; color: #dc2626; margin-top: 4px; display: none;">
+                                    <div>触发次数: <span id="midnightHedgeShortTriggerCount">0</span></div>
+                                    <div>上次触发: <span id="midnightHedgeShortLastTriggered">--</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 8px; padding: 8px; background: rgba(251, 191, 36, 0.1); border-radius: 4px; border-left: 3px solid #f59e0b;">
+                            <p style="color: #92400e; font-size: 10px; margin: 0; line-height: 1.5;">
+                                ⚠️ <strong>重要：</strong>为防止重复下单，每次开单成功后该方向的执行权限会自动关闭，需手动点击"重置权限"才能再次执行。
+                            </p>
+                        </div>
+                    </div>
+                    
                     <!-- 今日执行记录 -->
                     <div id="midnightHedgeTodayRecord" style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px; margin-bottom: 12px; display: none;">
                         <div style="color: #3730a3; font-size: 11px; font-weight: 600; margin-bottom: 8px;">📊 今日执行记录</div>
@@ -14348,6 +14394,52 @@ ${data.sMsg || result.message || ''}`);
             if (config.short_strategy_code) {
                 document.getElementById('midnightHedgeShortStrategy').value = config.short_strategy_code;
             }
+            
+            // 更新多单权限状态
+            const longPermEl = document.getElementById('midnightHedgeLongPermission');
+            const longTriggerInfoEl = document.getElementById('midnightHedgeLongTriggerInfo');
+            const allowLongTrigger = config.allow_long_trigger !== false;  // 默认true
+            
+            if (allowLongTrigger) {
+                longPermEl.textContent = '✅ 允许执行';
+                longPermEl.style.background = '#d1fae5';
+                longPermEl.style.color = '#047857';
+                longTriggerInfoEl.style.display = 'none';
+            } else {
+                longPermEl.textContent = '⏸️ 已禁用';
+                longPermEl.style.background = '#fee2e2';
+                longPermEl.style.color = '#dc2626';
+                
+                // 显示触发信息
+                if (config.long_triggered_count > 0) {
+                    longTriggerInfoEl.style.display = 'block';
+                    document.getElementById('midnightHedgeLongTriggerCount').textContent = config.long_triggered_count || 0;
+                    document.getElementById('midnightHedgeLongLastTriggered').textContent = config.long_last_triggered_at || '--';
+                }
+            }
+            
+            // 更新空单权限状态
+            const shortPermEl = document.getElementById('midnightHedgeShortPermission');
+            const shortTriggerInfoEl = document.getElementById('midnightHedgeShortTriggerInfo');
+            const allowShortTrigger = config.allow_short_trigger !== false;  // 默认true
+            
+            if (allowShortTrigger) {
+                shortPermEl.textContent = '✅ 允许执行';
+                shortPermEl.style.background = '#d1fae5';
+                shortPermEl.style.color = '#047857';
+                shortTriggerInfoEl.style.display = 'none';
+            } else {
+                shortPermEl.textContent = '⏸️ 已禁用';
+                shortPermEl.style.background = '#fee2e2';
+                shortPermEl.style.color = '#dc2626';
+                
+                // 显示触发信息
+                if (config.short_triggered_count > 0) {
+                    shortTriggerInfoEl.style.display = 'block';
+                    document.getElementById('midnightHedgeShortTriggerCount').textContent = config.short_triggered_count || 0;
+                    document.getElementById('midnightHedgeShortLastTriggered').textContent = config.short_last_triggered_at || '--';
+                }
+            }
         }
         
         // 切换启用状态
@@ -14379,6 +14471,46 @@ ${data.sMsg || result.message || ''}`);
                 alert('更新失败: ' + error.message);
                 // 恢复开关状态
                 document.getElementById('midnightHedgeEnabled').checked = !enabled;
+            }
+        }
+        
+        // 重置执行权限
+        async function resetMidnightHedgePermission(side) {
+            const accountId = getCurrentAccountId();
+            if (!accountId) {
+                alert('请先选择账户');
+                return;
+            }
+            
+            const sideName = side === 'long' ? '多单' : '空单';
+            if (!confirm(`确定要重置${sideName}执行权限吗？\n\n重置后，系统在北京时间00:00会自动执行该方向的开仓。`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/okx-trading/midnight-hedge/${accountId}/reset-permission`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        side: side
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log(`✅ ${data.message}`);
+                    alert(`✅ ${data.message}`);
+                    // 重新加载配置
+                    await loadMidnightHedgeConfig();
+                } else {
+                    throw new Error(data.error || '重置失败');
+                }
+            } catch (error) {
+                console.error('❌ 重置权限失败:', error);
+                alert('重置失败: ' + error.message);
             }
         }
         
