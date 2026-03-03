@@ -7725,10 +7725,19 @@ data/
                 
                 // 🔥 加载当前账户的止盈止损设置和百分比状态
                 if (currentAccount) {
-                    loadTakeProfitStopLossSettings();
-                    loadPercentTpslStatus();
-                    loadCoinChangeTpslData();
-                    loadCoinChangeTpslSettings();
+                    // 使用setTimeout确保函数已定义
+                    if (typeof loadTakeProfitStopLossSettings === 'function') {
+                        await loadTakeProfitStopLossSettings();
+                    }
+                    if (typeof loadPercentTpslStatus === 'function') {
+                        loadPercentTpslStatus();
+                    }
+                    if (typeof loadCoinChangeTpslData === 'function') {
+                        loadCoinChangeTpslData();
+                    }
+                    if (typeof loadCoinChangeTpslSettings === 'function') {
+                        loadCoinChangeTpslSettings();
+                    }
                 }
                 
                 // 步骤2: 加载常用币列表（优先级高，影响其他数据）
