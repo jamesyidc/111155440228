@@ -7766,10 +7766,10 @@ data/
                 // 步骤6: 加载交易日志和账户限额（次要数据）
                 setLoadingStep('step-logs');
                 Promise.all([
-                    loadTradingLogs(),
-                    loadAccountLimit(),
-                    loadTopSignalConfig(),  // 🆕 加载见顶信号策略配置
-                    loadBottomSignalConfig()  // 🆕 加载见底信号策略配置
+                    typeof loadTradingLogs === 'function' ? loadTradingLogs() : Promise.resolve(),
+                    typeof loadAccountLimit === 'function' ? loadAccountLimit() : Promise.resolve(),
+                    typeof loadTopSignalConfig === 'function' ? loadTopSignalConfig() : Promise.resolve(),  // 🆕 加载见顶信号策略配置
+                    typeof loadBottomSignalConfig === 'function' ? loadBottomSignalConfig() : Promise.resolve()  // 🆕 加载见底信号策略配置
                 ]);
                 updateProgress(6, '✓ 所有数据加载完成！', 'step-logs');
                 
@@ -7874,20 +7874,20 @@ data/
             renderAccountTabs();
             loadAccountData();
             refreshAccountData();  // 刷新账户信息和持仓
-            loadTakeProfitStopLossSettings();  // 加载该账户的止盈止损设置
-            loadPercentTpslStatus();  // 📊 加载百分比止盈止损监控状态
-            loadCoinChangeTpslData();  // 📈 加载27币涨跌幅数据
-            loadCoinChangeTpslSettings();  // 📈 加载27币涨跌幅止盈配置
-            loadConditionalOrders();  // 🎯 加载27币涨跌幅条件单
-            loadStoplossReverseOrders();  // 🔄 加载止损反手开单配置
-            loadMidnightHedgeConfig();  // 🌙 加载0点0分对冲底仓配置
-            loadCurrentMarketSentiment();  // 🔥 加载当前市场情绪
-            loadAutoStrategySettings();  // 加载该账户的抄底策略设置
-            loadAutoStrategySettingsTop();  // 🆕 加载该账户的追涨策略设置
-            loadUpRatio0StrategySettings();  // 🆕 加载该账户的上涨占比0策略设置
-            loadTopSignalConfig();  // 🆕 加载见顶信号做空策略设置
-            loadBottomSignalConfig();  // 🆕 加载见底信号做多策略设置
-            refreshStrategyStatus();  // 🆕 刷新策略状态总览
+            if (typeof loadTakeProfitStopLossSettings === 'function') loadTakeProfitStopLossSettings();  // 加载该账户的止盈止损设置
+            if (typeof loadPercentTpslStatus === 'function') loadPercentTpslStatus();  // 📊 加载百分比止盈止损监控状态
+            if (typeof loadCoinChangeTpslData === 'function') loadCoinChangeTpslData();  // 📈 加载27币涨跌幅数据
+            if (typeof loadCoinChangeTpslSettings === 'function') loadCoinChangeTpslSettings();  // 📈 加载27币涨跌幅止盈配置
+            if (typeof loadConditionalOrders === 'function') loadConditionalOrders();  // 🎯 加载27币涨跌幅条件单
+            if (typeof loadStoplossReverseOrders === 'function') loadStoplossReverseOrders();  // 🔄 加载止损反手开单配置
+            if (typeof loadMidnightHedgeConfig === 'function') loadMidnightHedgeConfig();  // 🌙 加载0点0分对冲底仓配置
+            if (typeof loadCurrentMarketSentiment === 'function') loadCurrentMarketSentiment();  // 🔥 加载当前市场情绪
+            if (typeof loadAutoStrategySettings === 'function') loadAutoStrategySettings();  // 加载该账户的抄底策略设置
+            if (typeof loadAutoStrategySettingsTop === 'function') loadAutoStrategySettingsTop();  // 🆕 加载该账户的追涨策略设置
+            if (typeof loadUpRatio0StrategySettings === 'function') loadUpRatio0StrategySettings();  // 🆕 加载该账户的上涨占比0策略设置
+            if (typeof loadTopSignalConfig === 'function') loadTopSignalConfig();  // 🆕 加载见顶信号做空策略设置
+            if (typeof loadBottomSignalConfig === 'function') loadBottomSignalConfig();  // 🆕 加载见底信号做多策略设置
+            if (typeof refreshStrategyStatus === 'function') refreshStrategyStatus();  // 🆕 刷新策略状态总览
             
             const account = accounts.find(acc => acc.id === accountId);
             console.log(`[selectAccount] 已切换到账户: ${account ? account.name : '未找到'} (${accountId})`);
