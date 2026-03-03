@@ -18164,6 +18164,226 @@ def api_reset_stoploss_reverse_trigger(account_id, config_id):
             'traceback': traceback.format_exc()
         }), 500
 
+
+# ==================== 0点0分对冲底仓 API ====================
+
+@app.route('/api/okx-trading/midnight-hedge/<account_id>', methods=['GET'])
+def api_get_midnight_hedge_config(account_id):
+    """获取指定账户的0点0分对冲底仓配置"""
+    try:
+        import json
+        import os
+        from utils.beijing_time import get_beijing_now_str
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        config_dir = os.path.join(current_dir, 'data', 'midnight_hedge_orders')
+        os.makedirs(config_dir, exist_ok=True)
+        
+        config_file = os.path.join(config_dir, f'{account_id}_hedge_config.jsonl')
+        
+        # 读取配置
+        config = None
+        if os.path.exists(config_file):
+            with open(config_file, 'r', encoding='utf-8') as f:
+                line = f.readline().strip()
+                if line:
+                    config = json.loads(line)
+        
+        # 如果没有配置，返回默认配置
+        if not config:
+            config = {
+                'account_id': account_id,
+                'enabled': False,
+                'long_strategy_code': None,
+                'short_strategy_code': None,
+                'execution_time': '00:00:00',
+                'created_at': get_beijing_now_str(),
+                'updated_at': get_beijing_now_str()
+            }
+            
+            # 写入默认配置
+            with open(config_file, 'w', encoding='utf-8') as f:
+                f.write(json.dumps(config, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'config': config,
+            'account_id': account_id,
+            'timestamp': get_beijing_now_str()
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+
+@app.route('/api/okx-trading/midnight-hedge/<account_id>', methods=['POST'])
+def api_update_midnight_hedge_config(account_id):
+    """更新0点0分对冲底仓配置"""
+    try:
+        import json
+        import os
+        from flask import request
+        from utils.beijing_time import get_beijing_now_str
+        
+        data = request.get_json()
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        config_dir = os.path.join(current_dir, 'data', 'midnight_hedge_orders')
+        os.makedirs(config_dir, exist_ok=True)
+        
+        config_file = os.path.join(config_dir, f'{account_id}_hedge_config.jsonl')
+        
+        # 读取现有配置
+        config = None
+        if os.path.exists(config_file):
+            with open(config_file, 'r', encoding='utf-8') as f:
+                line = f.readline().strip()
+                if line:
+                    config = json.loads(line)
+        
+        # 如果没有配置，创建新配置
+        if not config:
+            config = {
+                'account_id': account_id,
+                'enabled': False,
+                'long_strategy_code': None,
+                'short_strategy_code': None,
+                'execution_time': '00:00:00',
+                'created_at': get_beijing_now_str()
+            }
+        
+        # 更新配置
+        if 'enabled' in data:
+            config['enabled'] = data['enabled']
+        if 'long_strategy_code' in data:
+            config['long_strategy_code'] = data['long_strategy_code']
+        if 'short_strategy_code' in data:
+            config['short_strategy_code'] = data['short_strategy_code']
+        
+        config['updated_at'] = get_beijing_now_str()
+        
+        # 写回文件
+        with open(config_file, 'w', encoding='utf-8') as f:
+            f.write(json.dumps(config, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'message': '配置已更新',
+            'config': config,
+            'timestamp': get_beijing_now_str()
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+
+@app.route('/api/okx-trading/midnight-hedge/<account_id>/execution-records', methods=['GET'])
+def api_get_midnight_hedge_executions(account_id):
+    """获取0点0分对冲底仓执行记录"""
+    try:
+        import json
+        import os
+        from utils.beijing_time import get_beijing_date_str
+        
+        # 获取日期参数
+        date_str = request.args.get('date', get_beijing_date_str())
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        execution_dir = os.path.join(current_dir, 'data', 'midnight_hedge_orders', 'execution_records')
+        execution_file = os.path.join(execution_dir, f'{account_id}_executions_{date_str}.jsonl')
+        
+        records = []
+        if os.path.exists(execution_file):
+            with open(execution_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        records.append(json.loads(line))
+        
+        return jsonify({
+            'success': True,
+            'records': records,
+            'count': len(records),
+            'date': date_str,
+            'account_id': account_id
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+
+@app.route('/api/okx-trading/midnight-hedge/<account_id>/pnl-records', methods=['GET'])
+def api_get_midnight_hedge_pnl(account_id):
+    """获取0点0分对冲底仓盈亏记录"""
+    try:
+        import json
+        import os
+        from utils.beijing_time import get_beijing_date_str
+        
+        # 获取日期参数
+        date_str = request.args.get('date', get_beijing_date_str())
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        pnl_dir = os.path.join(current_dir, 'data', 'midnight_hedge_orders', 'pnl_records')
+        pnl_file = os.path.join(pnl_dir, f'{account_id}_pnl_{date_str}.jsonl')
+        
+        records = []
+        if os.path.exists(pnl_file):
+            with open(pnl_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        records.append(json.loads(line))
+        
+        # 分离多单和空单记录
+        long_records = [r for r in records if r.get('side') == 'long']
+        short_records = [r for r in records if r.get('side') == 'short']
+        
+        # 计算统计数据
+        long_pnl = sum(r.get('unrealized_pnl', 0) for r in long_records)
+        short_pnl = sum(r.get('unrealized_pnl', 0) for r in short_records)
+        total_pnl = long_pnl + short_pnl
+        
+        return jsonify({
+            'success': True,
+            'records': records,
+            'long_records': long_records,
+            'short_records': short_records,
+            'stats': {
+                'long_pnl': long_pnl,
+                'short_pnl': short_pnl,
+                'total_pnl': total_pnl,
+                'long_count': len(long_records),
+                'short_count': len(short_records)
+            },
+            'date': date_str,
+            'account_id': account_id
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+
 @app.route('/api/okx-trading/frontend-notifications/<account_id>', methods=['GET'])
 def api_get_frontend_notifications(account_id):
     """获取前端通知（未读的）"""

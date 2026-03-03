@@ -464,6 +464,23 @@ module.exports = {
       error_file: '/home/user/webapp/logs/stoploss-reverse-error.log',
       out_file: '/home/user/webapp/logs/stoploss-reverse-out.log',
       log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
+    },
+    
+    // Midnight Hedge Monitor - 0点0分对冲底仓监控器
+    {
+      name: 'midnight-hedge-monitor',
+      script: 'monitors/midnight_hedge_monitor.py',
+      interpreter: 'python3',
+      cwd: '/home/user/webapp',
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '300M',
+      env: {
+        PYTHONPATH: '/home/user/webapp'
+      },
+      error_file: '/home/user/webapp/logs/midnight-hedge-error.log',
+      out_file: '/home/user/webapp/logs/midnight-hedge-out.log',
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
     }
   ]
 };

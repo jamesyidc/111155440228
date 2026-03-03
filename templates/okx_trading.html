@@ -5403,6 +5403,120 @@ data/
                     </details>
                 </div>
 
+                <!-- 🌙 0点0分对冲底仓 -->
+                <div class="info-card" style="margin-top: 16px; background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); border: 2px solid #6366f1;">
+                    <h3 style="color: #3730a3; margin-bottom: 16px; display: flex; align-items: center; gap: 6px; font-size: 16px;">
+                        🌙 0点0分对冲底仓
+                        <span style="font-size: 11px; color: #78716c; font-weight: 400; margin-left: 8px;">每天00:00同时开多单和空单</span>
+                    </h3>
+                    
+                    <!-- 启用开关 -->
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background: rgba(99, 102, 241, 0.1); border-radius: 8px; margin-bottom: 12px; border: 1px solid #818cf8;">
+                        <span style="color: #3730a3; font-size: 13px; font-weight: 600;">🔵 启用自动开单</span>
+                        <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                            <input type="checkbox" id="midnightHedgeEnabled" onchange="toggleMidnightHedge(this.checked)" style="opacity: 0; width: 0; height: 0;">
+                            <span class="slider slider-midnight-hedge" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;">
+                                <style>
+                                    #midnightHedgeEnabled:checked + .slider-midnight-hedge { background-color: #6366f1; }
+                                    #midnightHedgeEnabled:checked + .slider-midnight-hedge:before { transform: translateX(20px); }
+                                    .slider-midnight-hedge:before {
+                                        position: absolute;
+                                        content: "";
+                                        height: 18px;
+                                        width: 18px;
+                                        left: 3px;
+                                        bottom: 3px;
+                                        background-color: white;
+                                        transition: .4s;
+                                        border-radius: 50%;
+                                    }
+                                </style>
+                            </span>
+                        </label>
+                    </div>
+                    
+                    <!-- 说明 -->
+                    <div style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+                        <div style="color: #3730a3; font-size: 11px; font-weight: 600; margin-bottom: 6px;">💡 工作原理</div>
+                        <div style="color: #4338ca; font-size: 12px; line-height: 1.6;">
+                            每天北京时间 <strong>00:00:00</strong> 自动执行：<br>
+                            1️⃣ 开一份多单（底仓）<br>
+                            2️⃣ 开一份空单（对冲）<br>
+                            分别跟踪盈亏，记录到JSONL文件
+                        </div>
+                    </div>
+                    
+                    <!-- 策略选择 -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                        <!-- 多单策略 -->
+                        <div style="background: rgba(16, 185, 129, 0.1); border-radius: 8px; padding: 12px; border: 2px solid #10b981;">
+                            <div style="color: #065f46; font-size: 11px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 4px;">
+                                <span>🟢</span> 多单策略
+                            </div>
+                            <select id="midnightHedgeLongStrategy" onchange="saveMidnightHedgeSettings()" 
+                                    style="width: 100%; padding: 8px; border: 1px solid #10b981; border-radius: 6px; font-size: 12px; color: #047857; font-weight: 600; background: white;">
+                                <option value="">-- 选择策略 --</option>
+                                <option value="STG_LONG_TOP8">涨幅前8名做多</option>
+                                <option value="STG_LONG_BOTTOM8">涨幅后8名做多（抄底）</option>
+                            </select>
+                        </div>
+                        
+                        <!-- 空单策略 -->
+                        <div style="background: rgba(239, 68, 68, 0.1); border-radius: 8px; padding: 12px; border: 2px solid #ef4444;">
+                            <div style="color: #7f1d1d; font-size: 11px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 4px;">
+                                <span>🔴</span> 空单策略
+                            </div>
+                            <select id="midnightHedgeShortStrategy" onchange="saveMidnightHedgeSettings()" 
+                                    style="width: 100%; padding: 8px; border: 1px solid #ef4444; border-radius: 6px; font-size: 12px; color: #dc2626; font-weight: 600; background: white;">
+                                <option value="">-- 选择策略 --</option>
+                                <option value="STG_SHORT_TOP8">涨幅前8名做空</option>
+                                <option value="STG_SHORT_BOTTOM8">涨幅后8名做空</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- 今日执行记录 -->
+                    <div id="midnightHedgeTodayRecord" style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px; margin-bottom: 12px; display: none;">
+                        <div style="color: #3730a3; font-size: 11px; font-weight: 600; margin-bottom: 8px;">📊 今日执行记录</div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px;">
+                            <div style="padding: 6px; background: rgba(16, 185, 129, 0.1); border-radius: 4px;">
+                                <div style="color: #065f46; font-weight: 600;">多单 🟢</div>
+                                <div id="midnightHedgeLongStatus" style="color: #047857; font-size: 10px; margin-top: 4px;">未执行</div>
+                            </div>
+                            <div style="padding: 6px; background: rgba(239, 68, 68, 0.1); border-radius: 4px;">
+                                <div style="color: #7f1d1d; font-weight: 600;">空单 🔴</div>
+                                <div id="midnightHedgeShortStatus" style="color: #991b1b; font-size: 10px; margin-top: 4px;">未执行</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 盈亏统计 -->
+                    <div id="midnightHedgePnlStats" style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px; display: none;">
+                        <div style="color: #3730a3; font-size: 11px; font-weight: 600; margin-bottom: 8px;">💰 今日盈亏</div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-size: 11px;">
+                            <div style="text-align: center; padding: 6px; background: rgba(16, 185, 129, 0.1); border-radius: 4px;">
+                                <div style="color: #065f46; font-size: 10px;">多单盈亏</div>
+                                <div id="midnightHedgeLongPnl" style="color: #047857; font-weight: 700; margin-top: 2px;">+0.00</div>
+                            </div>
+                            <div style="text-align: center; padding: 6px; background: rgba(239, 68, 68, 0.1); border-radius: 4px;">
+                                <div style="color: #7f1d1d; font-size: 10px;">空单盈亏</div>
+                                <div id="midnightHedgeShortPnl" style="color: #991b1b; font-weight: 700; margin-top: 2px;">+0.00</div>
+                            </div>
+                            <div style="text-align: center; padding: 6px; background: rgba(99, 102, 241, 0.1); border-radius: 4px;">
+                                <div style="color: #3730a3; font-size: 10px;">总盈亏</div>
+                                <div id="midnightHedgeTotalPnl" style="color: #4338ca; font-weight: 700; margin-top: 2px;">+0.00</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 提示信息 -->
+                    <div style="margin-top: 12px; padding: 8px; background: rgba(99, 102, 241, 0.1); border-radius: 6px; border-left: 3px solid #6366f1;">
+                        <p style="color: #3730a3; font-size: 11px; margin: 0; line-height: 1.5;">
+                            💡 <strong>提示：</strong>启用后系统将在每天00:00自动开单，请确保账户余额充足。对冲开单可有效降低市场风险。
+                        </p>
+                    </div>
+                </div>
+
                 <!-- 📉 涨幅后8名策略（抄底） -->
                 <div class="info-card" style="margin-top: 16px; background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%); border: 2px solid #8b5cf6;">
                     <h3 style="color: #5b21b6; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
@@ -7700,6 +7814,7 @@ data/
             loadCoinChangeTpslSettings();  // 📈 加载27币涨跌幅止盈配置
             loadConditionalOrders();  // 🎯 加载27币涨跌幅条件单
             loadStoplossReverseOrders();  // 🔄 加载止损反手开单配置
+            loadMidnightHedgeConfig();  // 🌙 加载0点0分对冲底仓配置
             loadCurrentMarketSentiment();  // 🔥 加载当前市场情绪
             loadAutoStrategySettings();  // 加载该账户的抄底策略设置
             loadAutoStrategySettingsTop();  // 🆕 加载该账户的追涨策略设置
@@ -14184,6 +14299,183 @@ ${data.sMsg || result.message || ''}`);
             } catch (error) {
                 console.error('❌ 重置触发状态失败:', error);
                 alert('重置失败: ' + error.message);
+            }
+        }
+
+        // ==================== 0点0分对冲底仓管理 ====================
+        
+        let midnightHedgeData = null;  // 0点0分对冲底仓数据
+        
+        // 加载0点0分对冲底仓配置
+        async function loadMidnightHedgeConfig() {
+            const accountId = getCurrentAccountId();
+            if (!accountId) {
+                console.warn('⚠️ 未选择账户，无法加载对冲底仓配置');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/okx-trading/midnight-hedge/${accountId}`);
+                const data = await response.json();
+                
+                if (data.success && data.config) {
+                    console.log('✅ 加载对冲底仓配置:', data.config);
+                    midnightHedgeData = data.config;
+                    displayMidnightHedgeConfig(data.config);
+                    
+                    // 加载今日执行记录和盈亏
+                    await loadMidnightHedgeRecords();
+                } else {
+                    throw new Error(data.error || '加载失败');
+                }
+            } catch (error) {
+                console.error('❌ 加载对冲底仓配置失败:', error);
+            }
+        }
+        
+        // 显示配置
+        function displayMidnightHedgeConfig(config) {
+            // 更新启用开关
+            document.getElementById('midnightHedgeEnabled').checked = config.enabled;
+            
+            // 更新策略选择
+            if (config.long_strategy_code) {
+                document.getElementById('midnightHedgeLongStrategy').value = config.long_strategy_code;
+            }
+            if (config.short_strategy_code) {
+                document.getElementById('midnightHedgeShortStrategy').value = config.short_strategy_code;
+            }
+        }
+        
+        // 切换启用状态
+        async function toggleMidnightHedge(enabled) {
+            const accountId = getCurrentAccountId();
+            if (!accountId) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/midnight-hedge/${accountId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        enabled: enabled
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log(`✅ 对冲底仓已${enabled ? '启用' : '停用'}`);
+                    midnightHedgeData = data.config;
+                } else {
+                    throw new Error(data.message || '更新失败');
+                }
+            } catch (error) {
+                console.error('❌ 更新对冲底仓配置失败:', error);
+                alert('更新失败: ' + error.message);
+                // 恢复开关状态
+                document.getElementById('midnightHedgeEnabled').checked = !enabled;
+            }
+        }
+        
+        // 保存配置
+        async function saveMidnightHedgeSettings() {
+            const accountId = getCurrentAccountId();
+            if (!accountId) return;
+            
+            const longStrategy = document.getElementById('midnightHedgeLongStrategy').value;
+            const shortStrategy = document.getElementById('midnightHedgeShortStrategy').value;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/midnight-hedge/${accountId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        long_strategy_code: longStrategy,
+                        short_strategy_code: shortStrategy
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log('✅ 对冲底仓配置已保存');
+                    midnightHedgeData = data.config;
+                } else {
+                    throw new Error(data.message || '保存失败');
+                }
+            } catch (error) {
+                console.error('❌ 保存对冲底仓配置失败:', error);
+                alert('保存失败: ' + error.message);
+            }
+        }
+        
+        // 加载今日执行记录和盈亏
+        async function loadMidnightHedgeRecords() {
+            const accountId = getCurrentAccountId();
+            if (!accountId) return;
+            
+            try {
+                // 加载执行记录
+                const execResponse = await fetch(`/api/okx-trading/midnight-hedge/${accountId}/execution-records`);
+                const execData = await execResponse.json();
+                
+                // 加载盈亏记录
+                const pnlResponse = await fetch(`/api/okx-trading/midnight-hedge/${accountId}/pnl-records`);
+                const pnlData = await pnlResponse.json();
+                
+                if (execData.success && execData.records && execData.records.length > 0) {
+                    // 显示今日执行记录
+                    const record = execData.records[0];  // 最新记录
+                    document.getElementById('midnightHedgeTodayRecord').style.display = 'block';
+                    
+                    // 更新多单状态
+                    const longStatus = document.getElementById('midnightHedgeLongStatus');
+                    if (record.long_order && record.long_order.success) {
+                        longStatus.textContent = `✅ 已执行 (${record.long_order.order_id})`;
+                        longStatus.style.color = '#047857';
+                    } else {
+                        longStatus.textContent = '❌ 执行失败';
+                        longStatus.style.color = '#dc2626';
+                    }
+                    
+                    // 更新空单状态
+                    const shortStatus = document.getElementById('midnightHedgeShortStatus');
+                    if (record.short_order && record.short_order.success) {
+                        shortStatus.textContent = `✅ 已执行 (${record.short_order.order_id})`;
+                        shortStatus.style.color = '#047857';
+                    } else {
+                        shortStatus.textContent = '❌ 执行失败';
+                        shortStatus.style.color = '#dc2626';
+                    }
+                }
+                
+                if (pnlData.success && pnlData.stats) {
+                    // 显示盈亏统计
+                    document.getElementById('midnightHedgePnlStats').style.display = 'block';
+                    
+                    const stats = pnlData.stats;
+                    
+                    // 更新多单盈亏
+                    const longPnlEl = document.getElementById('midnightHedgeLongPnl');
+                    longPnlEl.textContent = `${stats.long_pnl >= 0 ? '+' : ''}${stats.long_pnl.toFixed(2)}`;
+                    longPnlEl.style.color = stats.long_pnl >= 0 ? '#047857' : '#dc2626';
+                    
+                    // 更新空单盈亏
+                    const shortPnlEl = document.getElementById('midnightHedgeShortPnl');
+                    shortPnlEl.textContent = `${stats.short_pnl >= 0 ? '+' : ''}${stats.short_pnl.toFixed(2)}`;
+                    shortPnlEl.style.color = stats.short_pnl >= 0 ? '#047857' : '#dc2626';
+                    
+                    // 更新总盈亏
+                    const totalPnlEl = document.getElementById('midnightHedgeTotalPnl');
+                    totalPnlEl.textContent = `${stats.total_pnl >= 0 ? '+' : ''}${stats.total_pnl.toFixed(2)}`;
+                    totalPnlEl.style.color = stats.total_pnl >= 0 ? '#4338ca' : '#dc2626';
+                }
+            } catch (error) {
+                console.error('❌ 加载对冲底仓记录失败:', error);
             }
         }
 
