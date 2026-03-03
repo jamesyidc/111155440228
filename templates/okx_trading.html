@@ -5412,7 +5412,10 @@ data/
                     
                     <!-- 启用开关 -->
                     <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background: rgba(99, 102, 241, 0.1); border-radius: 8px; margin-bottom: 12px; border: 1px solid #818cf8;">
-                        <span style="color: #3730a3; font-size: 13px; font-weight: 600;">🔵 启用自动开单</span>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="color: #3730a3; font-size: 13px; font-weight: 600;">🔵 启用自动开单</span>
+                            <span id="midnightHedgeEnabledStatus" style="font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: 600;"></span>
+                        </div>
                         <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
                             <input type="checkbox" id="midnightHedgeEnabled" onchange="toggleMidnightHedge(this.checked)" style="opacity: 0; width: 0; height: 0;">
                             <span class="slider slider-midnight-hedge" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;">
@@ -14387,6 +14390,18 @@ ${data.sMsg || result.message || ''}`);
             // 更新启用开关
             document.getElementById('midnightHedgeEnabled').checked = config.enabled;
             
+            // 更新启用状态显示
+            const enabledStatusEl = document.getElementById('midnightHedgeEnabledStatus');
+            if (config.enabled) {
+                enabledStatusEl.textContent = '✅ 已启用';
+                enabledStatusEl.style.background = '#d1fae5';
+                enabledStatusEl.style.color = '#047857';
+            } else {
+                enabledStatusEl.textContent = '⏸️ 已禁用';
+                enabledStatusEl.style.background = '#fee2e2';
+                enabledStatusEl.style.color = '#dc2626';
+            }
+            
             // 更新策略选择
             if (config.long_strategy_code) {
                 document.getElementById('midnightHedgeLongStrategy').value = config.long_strategy_code;
@@ -14463,6 +14478,18 @@ ${data.sMsg || result.message || ''}`);
                 if (data.success) {
                     console.log(`✅ 对冲底仓已${enabled ? '启用' : '停用'}`);
                     midnightHedgeData = data.config;
+                    
+                    // 更新状态显示
+                    const enabledStatusEl = document.getElementById('midnightHedgeEnabledStatus');
+                    if (enabled) {
+                        enabledStatusEl.textContent = '✅ 已启用';
+                        enabledStatusEl.style.background = '#d1fae5';
+                        enabledStatusEl.style.color = '#047857';
+                    } else {
+                        enabledStatusEl.textContent = '⏸️ 已禁用';
+                        enabledStatusEl.style.background = '#fee2e2';
+                        enabledStatusEl.style.color = '#dc2626';
+                    }
                 } else {
                     throw new Error(data.message || '更新失败');
                 }
