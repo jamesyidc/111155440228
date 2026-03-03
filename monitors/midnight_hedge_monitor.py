@@ -101,6 +101,141 @@ def save_pnl_record(account_id, record):
         logger.error(f"保存盈亏记录失败: {e}")
 
 
+def update_pnl_record(account_id, order_id, side, current_price, unrealized_pnl, unrealized_pnl_percent):
+    """更新盈亏记录"""
+    date_str = get_beijing_date_str()
+    pnl_file = PNL_DIR / f'{account_id}_pnl_{date_str}.jsonl'
+    
+    # 读取所有记录
+    records = []
+    if pnl_file.exists():
+        with open(pnl_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                if line.strip():
+                    records.append(json.loads(line))
+    
+    # 查找并更新对应订单的记录
+    updated = False
+    for record in records:
+        if record.get('order_id') == order_id:
+            record['current_price'] = current_price
+            record['unrealized_pnl'] = unrealized_pnl
+            record['unrealized_pnl_percent'] = unrealized_pnl_percent
+            record['last_updated'] = get_beijing_now_str()
+            updated = True
+            break
+    
+    # 如果没有找到记录，创建新记录
+    if not updated:
+        new_record = {
+            'account_id': account_id,
+            'order_id': order_id,
+            'side': side,
+            'current_price': current_price,
+            'unrealized_pnl': unrealized_pnl,
+            'unrealized_pnl_percent': unrealized_pnl_percent,
+            'last_updated': get_beijing_now_str()
+        }
+        records.append(new_record)
+    
+    # 写回文件
+    try:
+        with open(pnl_file, 'w', encoding='utf-8') as f:
+            for record in records:
+                f.write(json.dumps(record, ensure_ascii=False) + '\n')
+    except Exception as e:
+        logger.error(f"更新盈亏记录失败: {e}")
+
+
+def get_positions_pnl(account_id):
+    """获取账户持仓盈亏"""
+    try:
+        url = f"{FLASK_API_BASE}/api/okx-trading/positions"
+        params = {'account': account_id}
+        
+        response = requests.get(url, params=params, timeout=10)
+        
+        if response.status_code == 200:
+            data = response.json()
+            if data.get('success') and data.get('positions'):
+                positions = data['positions']
+                
+                long_pnl = 0
+                short_pnl = 0
+                
+                # 读取今日执行记录，获取订单ID
+                date_str = get_beijing_date_str()
+                execution_file = EXECUTION_DIR / f'{account_id}_executions_{date_str}.jsonl'
+                
+                hedge_order_ids = set()
+                if execution_file.exists():
+                    with open(execution_file, 'r', encoding='utf-8') as f:
+                        for line in f:
+                            if line.strip():
+                                record = json.loads(line)
+                                if record.get('long_order', {}).get('order_id'):
+                                    hedge_order_ids.add(record['long_order']['order_id'])
+                                if record.get('short_order', {}).get('order_id'):
+                                    hedge_order_ids.add(record['short_order']['order_id'])
+                
+                # 遍历持仓，查找对冲订单
+                for pos in positions:
+                    # 检查是否是今日对冲订单
+                    pos_side = pos.get('posSide', '')
+                    pnl = float(pos.get('upl', 0))  # 未实现盈亏
+                    
+                    if pos_side == 'long':
+                        long_pnl += pnl
+                    elif pos_side == 'short':
+                        short_pnl += pnl
+                
+                return {
+                    'long_pnl': long_pnl,
+                    'short_pnl': short_pnl,
+                    'total_pnl': long_pnl + short_pnl
+                }
+        
+        return None
+        
+    except Exception as e:
+        logger.error(f"获取持仓盈亏失败: {e}")
+        return None
+
+
+def update_all_pnl():
+    """更新所有账户的盈亏记录"""
+    logger.info("🔄 开始更新盈亏记录...")
+    
+    for account_id in ACCOUNTS:
+        config = load_config(account_id)
+        
+        if not config or not config.get('enabled'):
+            continue
+        
+        # 获取持仓盈亏
+        pnl_data = get_positions_pnl(account_id)
+        
+        if pnl_data:
+            logger.info(f"💰 {account_id}: 多单盈亏={pnl_data['long_pnl']:.2f}, 空单盈亏={pnl_data['short_pnl']:.2f}, 总盈亏={pnl_data['total_pnl']:.2f}")
+            
+            # 保存到盈亏记录
+            date_str = get_beijing_date_str()
+            pnl_file = PNL_DIR / f'{account_id}_pnl_{date_str}.jsonl'
+            
+            pnl_record = {
+                'account_id': account_id,
+                'timestamp': get_beijing_now_str(),
+                'long_pnl': pnl_data['long_pnl'],
+                'short_pnl': pnl_data['short_pnl'],
+                'total_pnl': pnl_data['total_pnl']
+            }
+            
+            save_pnl_record(account_id, pnl_record)
+    
+    logger.info("✅ 盈亏记录更新完成")
+
+
+
 def execute_strategy(account_id, strategy_code, side):
     """执行策略开单"""
     try:
@@ -259,16 +394,26 @@ def monitor_loop():
     logger.info(f"📊 检查间隔: {CHECK_INTERVAL}秒")
     logger.info(f"👥 监控账户: {', '.join(ACCOUNTS)}")
     logger.info(f"⏰ 执行时间: 每天北京时间 00:00:00")
+    logger.info(f"💰 盈亏更新: 每5分钟更新一次")
+    
+    last_pnl_update = 0  # 上次盈亏更新时间戳
+    PNL_UPDATE_INTERVAL = 300  # 盈亏更新间隔（秒）= 5分钟
     
     while True:
         try:
             beijing_time = get_beijing_time()
             current_time = beijing_time.strftime('%H:%M:%S')
+            current_timestamp = time.time()
             
-            # 每分钟的00秒检查一次
+            # 每分钟的00秒检查一次是否需要执行对冲开单
             if beijing_time.second == 0:
                 logger.debug(f"⏰ [{current_time}] 检查是否需要执行对冲开单...")
                 check_and_execute_midnight_hedge()
+            
+            # 每5分钟更新一次盈亏记录
+            if current_timestamp - last_pnl_update >= PNL_UPDATE_INTERVAL:
+                update_all_pnl()
+                last_pnl_update = current_timestamp
             
             time.sleep(CHECK_INTERVAL)
             

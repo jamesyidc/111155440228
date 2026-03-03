@@ -18350,26 +18350,38 @@ def api_get_midnight_hedge_pnl(account_id):
                     if line:
                         records.append(json.loads(line))
         
-        # 分离多单和空单记录
-        long_records = [r for r in records if r.get('side') == 'long']
-        short_records = [r for r in records if r.get('side') == 'short']
+        # 获取最新的盈亏记录
+        latest_pnl = None
+        long_pnl = 0
+        short_pnl = 0
+        total_pnl = 0
         
-        # 计算统计数据
-        long_pnl = sum(r.get('unrealized_pnl', 0) for r in long_records)
-        short_pnl = sum(r.get('unrealized_pnl', 0) for r in short_records)
-        total_pnl = long_pnl + short_pnl
+        if records:
+            # 按时间戳排序，获取最新记录
+            latest_pnl = records[-1]
+            
+            # 如果最新记录包含汇总数据，直接使用
+            if 'long_pnl' in latest_pnl and 'short_pnl' in latest_pnl and 'total_pnl' in latest_pnl:
+                long_pnl = latest_pnl.get('long_pnl', 0)
+                short_pnl = latest_pnl.get('short_pnl', 0)
+                total_pnl = latest_pnl.get('total_pnl', 0)
+            else:
+                # 否则从侧边记录计算（兼容旧格式）
+                long_records = [r for r in records if r.get('side') == 'long']
+                short_records = [r for r in records if r.get('side') == 'short']
+                long_pnl = sum(r.get('unrealized_pnl', 0) for r in long_records)
+                short_pnl = sum(r.get('unrealized_pnl', 0) for r in short_records)
+                total_pnl = long_pnl + short_pnl
         
         return jsonify({
             'success': True,
             'records': records,
-            'long_records': long_records,
-            'short_records': short_records,
+            'latest_pnl': latest_pnl,
             'stats': {
-                'long_pnl': long_pnl,
-                'short_pnl': short_pnl,
-                'total_pnl': total_pnl,
-                'long_count': len(long_records),
-                'short_count': len(short_records)
+                'long_pnl': round(long_pnl, 2),
+                'short_pnl': round(short_pnl, 2),
+                'total_pnl': round(total_pnl, 2),
+                'last_updated': latest_pnl.get('timestamp') if latest_pnl else None
             },
             'date': date_str,
             'account_id': account_id
