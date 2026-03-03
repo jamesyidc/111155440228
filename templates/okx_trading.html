@@ -5454,7 +5454,7 @@ data/
                             <span style="color: #3730a3; font-size: 13px; font-weight: 600;">🔵 启用自动开单</span>
                             <span id="midnightHedgeEnabledStatus" style="font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: 600; background: #fef2f2; color: #dc2626;">⏳ 加载中...</span>
                             <script>
-                                // 立即加载对冲底仓状态
+                                // 立即加载对冲底仓状态和策略
                                 (async function() {
                                     try {
                                         const accountId = 'account_poit_main'; // 默认账户
@@ -5462,13 +5462,17 @@ data/
                                         const data = await response.json();
                                         
                                         if (data.success && data.config) {
+                                            const config = data.config;
                                             const statusEl = document.getElementById('midnightHedgeEnabledStatus');
                                             const switchEl = document.getElementById('midnightHedgeEnabled');
+                                            const longStrategyEl = document.getElementById('midnightHedgeLongStrategy');
+                                            const shortStrategyEl = document.getElementById('midnightHedgeShortStrategy');
                                             
+                                            // 更新启用状态
                                             if (statusEl && switchEl) {
-                                                switchEl.checked = data.config.enabled;
+                                                switchEl.checked = config.enabled;
                                                 
-                                                if (data.config.enabled) {
+                                                if (config.enabled) {
                                                     statusEl.textContent = '✅ 已启用';
                                                     statusEl.style.background = '#d1fae5';
                                                     statusEl.style.color = '#047857';
@@ -5477,8 +5481,19 @@ data/
                                                     statusEl.style.background = '#fee2e2';
                                                     statusEl.style.color = '#dc2626';
                                                 }
-                                                console.log('✅ 对冲底仓状态已加载:', data.config.enabled);
                                             }
+                                            
+                                            // 更新策略选择
+                                            if (longStrategyEl && config.long_strategy_code) {
+                                                longStrategyEl.value = config.long_strategy_code;
+                                                console.log('✅ 多单策略已加载:', config.long_strategy_code);
+                                            }
+                                            if (shortStrategyEl && config.short_strategy_code) {
+                                                shortStrategyEl.value = config.short_strategy_code;
+                                                console.log('✅ 空单策略已加载:', config.short_strategy_code);
+                                            }
+                                            
+                                            console.log('✅ 对冲底仓配置已加载:', config);
                                         }
                                     } catch (error) {
                                         console.error('❌ 加载对冲底仓状态失败:', error);

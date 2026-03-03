@@ -48,3 +48,4 @@
 {"time": "2026-03-03 13:20:59", "timestamp": 1772515259.0, "symbol": "APT", "event_type": "new_high", "price": 0.9892, "previous_high": 0.9886, "previous_time": "2026-03-03 06:27:43"}
 {"time": "2026-03-03 13:27:48", "timestamp": 1772515668.0, "symbol": "NEAR", "event_type": "new_high", "price": 1.4489, "previous_high": 1.4436, "previous_time": "2026-03-03 13:20:59"}
 {"time": "2026-03-03 15:20:15", "timestamp": 1772522415.0, "symbol": "APT", "event_type": "new_high", "price": 0.9904, "previous_high": 0.9892, "previous_time": "2026-03-03 13:20:59"}
+{"time": "2026-03-03 16:07:56", "timestamp": 1772525276.0, "symbol": "APT", "event_type": "new_high", "price": 0.9907, "previous_high": 0.9904, "previous_time": "2026-03-03 15:20:15"}
