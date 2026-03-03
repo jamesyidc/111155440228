@@ -5491,7 +5491,7 @@ data/
                     </div>
                     
                     <!-- 盈亏统计 -->
-                    <div id="midnightHedgePnlStats" style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px; display: none;">
+                    <div id="midnightHedgePnlStats" style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px; display: block;">
                         <div style="color: #3730a3; font-size: 11px; font-weight: 600; margin-bottom: 8px;">💰 今日盈亏</div>
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-size: 11px;">
                             <div style="text-align: center; padding: 6px; background: rgba(16, 185, 129, 0.1); border-radius: 4px;">
@@ -14456,26 +14456,44 @@ ${data.sMsg || result.message || ''}`);
                     }
                 }
                 
-                if (pnlData.success && pnlData.stats) {
-                    // 显示盈亏统计
+                if (pnlData.success) {
+                    // 始终显示盈亏统计（即使为0）
                     document.getElementById('midnightHedgePnlStats').style.display = 'block';
                     
-                    const stats = pnlData.stats;
+                    const stats = pnlData.stats || { long_pnl: 0, short_pnl: 0, total_pnl: 0 };
                     
                     // 更新多单盈亏
                     const longPnlEl = document.getElementById('midnightHedgeLongPnl');
                     longPnlEl.textContent = `${stats.long_pnl >= 0 ? '+' : ''}${stats.long_pnl.toFixed(2)}`;
                     longPnlEl.style.color = stats.long_pnl >= 0 ? '#047857' : '#dc2626';
                     
+                    // 更新多单盈亏百分比（如果有）
+                    const longPnlPercentEl = document.getElementById('midnightHedgeLongPnlPercent');
+                    if (longPnlPercentEl && stats.long_pnl_percent !== undefined) {
+                        longPnlPercentEl.textContent = `${stats.long_pnl_percent >= 0 ? '+' : ''}${stats.long_pnl_percent.toFixed(2)}%`;
+                    }
+                    
                     // 更新空单盈亏
                     const shortPnlEl = document.getElementById('midnightHedgeShortPnl');
                     shortPnlEl.textContent = `${stats.short_pnl >= 0 ? '+' : ''}${stats.short_pnl.toFixed(2)}`;
                     shortPnlEl.style.color = stats.short_pnl >= 0 ? '#047857' : '#dc2626';
                     
+                    // 更新空单盈亏百分比（如果有）
+                    const shortPnlPercentEl = document.getElementById('midnightHedgeShortPnlPercent');
+                    if (shortPnlPercentEl && stats.short_pnl_percent !== undefined) {
+                        shortPnlPercentEl.textContent = `${stats.short_pnl_percent >= 0 ? '+' : ''}${stats.short_pnl_percent.toFixed(2)}%`;
+                    }
+                    
                     // 更新总盈亏
                     const totalPnlEl = document.getElementById('midnightHedgeTotalPnl');
                     totalPnlEl.textContent = `${stats.total_pnl >= 0 ? '+' : ''}${stats.total_pnl.toFixed(2)}`;
                     totalPnlEl.style.color = stats.total_pnl >= 0 ? '#4338ca' : '#dc2626';
+                    
+                    // 更新总盈亏百分比（如果有）
+                    const totalPnlPercentEl = document.getElementById('midnightHedgeTotalPnlPercent');
+                    if (totalPnlPercentEl && stats.total_pnl_percent !== undefined) {
+                        totalPnlPercentEl.textContent = `${stats.total_pnl_percent >= 0 ? '+' : ''}${stats.total_pnl_percent.toFixed(2)}%`;
+                    }
                 }
             } catch (error) {
                 console.error('❌ 加载对冲底仓记录失败:', error);
