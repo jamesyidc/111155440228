@@ -1900,6 +1900,35 @@
     </style>
 </head>
 <body>
+    <script>
+        // 🔴 强制版本检查 - 确保加载最新JavaScript
+        (function() {
+            const REQUIRED_VERSION = 'v2.9.3';
+            const currentVersion = document.title.match(/v[\d.]+/)?.[0] || 'unknown';
+            console.log('🔍 版本检查:', currentVersion, '需要:', REQUIRED_VERSION);
+            
+            // 检查关键元素是否存在
+            const checkElements = () => {
+                const hasStatusElement = !!document.getElementById('midnightHedgeEnabledStatus');
+                console.log('✅ 状态元素检查:', hasStatusElement ? '存在' : '❌ 缺失');
+                return hasStatusElement;
+            };
+            
+            // 页面加载完成后检查
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => {
+                    setTimeout(() => {
+                        if (!checkElements() && !sessionStorage.getItem('forcedReload')) {
+                            console.warn('⚠️ 检测到旧版本元素缺失，强制刷新...');
+                            sessionStorage.setItem('forcedReload', 'true');
+                            location.reload(true);
+                        }
+                    }, 1000);
+                });
+            }
+        })();
+    </script>
+    
     <!-- 🔴 版本验证横幅 - 方便确认是否加载最新代码 -->
     <div style="position: fixed; top: 0; left: 0; right: 0; background: linear-gradient(90deg, #dc2626, #ef4444); color: white; padding: 8px 16px; z-index: 99999; text-align: center; font-size: 13px; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">
         🚀 OKX交易系统 v2.9.3-{{ cache_buster|default('20260303') }} | 最新版本已加载 | 如看到此横幅说明缓存已清除
