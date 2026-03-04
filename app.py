@@ -24418,14 +24418,18 @@ def get_coin_change_latest():
 
 @app.route('/api/coin-change-tracker/history', methods=['GET'])
 def get_coin_change_history():
-    """获取27币涨跌幅历史数据"""
+    """获取27币涨跌幅历史数据（优化版：支持字段过滤）"""
     try:
         from datetime import datetime, timezone, timedelta
         from pathlib import Path
+        import time
+        
+        start_time = time.time()
         
         # 获取参数
         date_str = request.args.get('date')  # YYYY-MM-DD 或 YYYYMMDD
         limit = int(request.args.get('limit', 1440))  # 默认1天的数据(1440分钟)
+        lite = request.args.get('lite', 'true').lower() == 'true'  # 🆕 轻量模式：不返回changes详情
         
         data_dir = Path('/home/user/webapp/data/coin_change_tracker')
         if not data_dir.exists():
@@ -24462,13 +24466,33 @@ def get_coin_change_history():
             # 取最后limit条
             for line in lines[-limit:]:
                 if line.strip():
-                    records.append(json.loads(line.strip()))
+                    record = json.loads(line.strip())
+                    
+                    # 🚀 性能优化：轻量模式下移除changes字段（最占空间）
+                    if lite and 'changes' in record:
+                        # 只保留统计信息，移除详细的27币数据
+                        record_lite = {
+                            'timestamp': record.get('timestamp'),
+                            'beijing_time': record.get('beijing_time'),
+                            'total_change': record.get('total_change'),
+                            'cumulative_pct': record.get('cumulative_pct'),
+                            'up_ratio': record.get('up_ratio'),
+                            'up_coins': record.get('up_coins'),
+                            'down_coins': record.get('down_coins')
+                        }
+                        records.append(record_lite)
+                    else:
+                        records.append(record)
+        
+        elapsed = time.time() - start_time
         
         response = jsonify({
             'success': True,
             'date': file_date_str,
             'count': len(records),
-            'data': records
+            'data': records,
+            'lite_mode': lite,  # 🆕 返回模式标识
+            'elapsed_ms': round(elapsed * 1000, 2)  # 🆕 返回处理时间
         })
         # 添加禁用缓存的响应头
         response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
