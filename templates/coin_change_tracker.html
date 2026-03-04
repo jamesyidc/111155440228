@@ -5083,6 +5083,34 @@ pm2 status                                                # 查看所有进程�
                                 html += `状态: <span style="font-weight: 600; color: ${statusColor};">${status}</span>`;
                                 html += `</div>`;
                                 html += `</div>`;
+                            } else if (p.seriesName === '5分钟涨速') {
+                                const velocityValue = p.value;
+                                
+                                if (velocityValue !== null && velocityValue !== undefined) {
+                                    let velocityStatus = '平稳';
+                                    let velocityStatusColor = '#6B7280';
+                                    const absVelocity = Math.abs(velocityValue);
+                                    
+                                    if (absVelocity > 5) {
+                                        velocityStatus = '剧烈波动';
+                                        velocityStatusColor = '#DC2626';
+                                    } else if (absVelocity > 2) {
+                                        velocityStatus = '较大波动';
+                                        velocityStatusColor = '#F59E0B';
+                                    }
+                                    
+                                    html += `<div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #E5E7EB;">`;
+                                    html += `<div style="margin-bottom: 4px;">`;
+                                    html += `${p.marker}<span style="font-weight: 600;">${p.seriesName}</span>`;
+                                    html += `</div>`;
+                                    html += `<div style="font-size: 16px; font-weight: bold; color: ${velocityValue > 0 ? '#10B981' : velocityValue < 0 ? '#EF4444' : '#6B7280'};">`;
+                                    html += `${velocityValue > 0 ? '+' : ''}${velocityValue.toFixed(2)}%`;
+                                    html += `</div>`;
+                                    html += `<div style="margin-top: 4px; font-size: 13px; color: #6B7280;">`;
+                                    html += `波动状态: <span style="font-weight: 600; color: ${velocityStatusColor};">${velocityStatus}</span>`;
+                                    html += `</div>`;
+                                    html += `</div>`;
+                                }
                             }
                         });
                         
@@ -5128,6 +5156,23 @@ pm2 status                                                # 查看所有进程�
                         axisLine: {
                             lineStyle: {
                                 color: '#9CA3AF'
+                            }
+                        },
+                        splitLine: {
+                            show: false
+                        }
+                    },
+                    {
+                        type: 'value',
+                        name: '5分钟涨速 (%)',
+                        position: 'right',
+                        offset: 60,
+                        axisLabel: {
+                            formatter: '{value}%'
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#F97316'
                             }
                         },
                         splitLine: {
@@ -5184,6 +5229,24 @@ pm2 status                                                # 查看所有进程�
                         showSymbol: true,
                         symbol: 'circle',
                         symbolSize: 5,
+                        connectNulls: true
+                    },
+                    {
+                        id: 'velocity-line',  // 🔥 唯一ID
+                        name: '5分钟涨速',
+                        type: 'line',
+                        yAxisIndex: 2,
+                        smooth: true,
+                        data: [],
+                        lineStyle: {
+                            color: '#F97316',
+                            width: 2,
+                            type: 'dashed'
+                        },
+                        itemStyle: {
+                            color: '#F97316'
+                        },
+                        showSymbol: false,
                         connectNulls: true
                     }
                 ]
@@ -7025,6 +7088,101 @@ pm2 status                                                # 查看所有进程�
                     
                     console.log('Times count:', times.length, 'Changes count:', changes.length, 'RSI count:', rsiValues.length);
                     
+                    // 🔥 加载涨速数据
+                    let velocityUrl = '/api/coin-change-tracker/velocity-history?limit=1440';
+                    if (date) {
+                        velocityUrl += `&date=${formatDate(date)}`;
+                    }
+                    velocityUrl += `&_t=${Date.now()}`;
+                    
+                    console.log('Fetching velocity data from:', velocityUrl);
+                    
+                    let velocityData = [];
+                    let velocityValues = [];
+                    
+                    try {
+                        const velocityResponse = await fetch(velocityUrl, {
+                            cache: 'no-store',
+                            headers: {
+                                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                                'Pragma': 'no-cache',
+                                'Expires': '0'
+                            }
+                        });
+                        const velocityResult = await velocityResponse.json();
+                        
+                        if (velocityResult.success && velocityResult.data && velocityResult.data.length > 0) {
+                            velocityData = velocityResult.data;
+                            
+                            // 创建涨速时间戳映射表
+                            const velocityMap = {};
+                            velocityData.forEach(d => {
+                                const timeStr = d.beijing_time || '';
+                                const time = timeStr.split(' ')[1] || '';
+                                if (time) {
+                                    velocityMap[time] = d.velocity_5min;
+                                }
+                            });
+                            
+                            // 辅助函数：查找±3分钟内最近的涨速值
+                            const findNearbyVelocity = (targetTime) => {
+                                const targetMinutes = timeToMinutes(targetTime);
+                                if (targetMinutes < 0) return null;
+                                
+                                let closestVelocity = null;
+                                let minDiff = Infinity;
+                                
+                                Object.keys(velocityMap).forEach(velocityTime => {
+                                    const velocityMinutes = timeToMinutes(velocityTime);
+                                    if (velocityMinutes < 0) return;
+                                    
+                                    const diff = Math.abs(velocityMinutes - targetMinutes);
+                                    // 在±3分钟内查找
+                                    if (diff <= 3 && diff < minDiff) {
+                                        minDiff = diff;
+                                        closestVelocity = velocityMap[velocityTime];
+                                    }
+                                });
+                                
+                                return closestVelocity;
+                            };
+                            
+                            // 将涨速值映射到涨跌幅的时间轴
+                            velocityValues = times.map(time => {
+                                // 先尝试精确匹配
+                                if (velocityMap[time] !== undefined) {
+                                    return velocityMap[time];
+                                }
+                                // 如果精确匹配失败，使用±3分钟模糊匹配
+                                return findNearbyVelocity(time);
+                            });
+                            
+                            console.log('✅ 涨速数据加载成功，原始数据点:', velocityData.length, '映射后数据点:', velocityValues.length);
+                            console.log('✅ 涨速非空数据点:', velocityValues.filter(v => v !== null).length);
+                            
+                            // 显示涨速样本
+                            const validVelocities = velocityValues.filter(v => v !== null && v !== undefined);
+                            if (validVelocities.length > 0) {
+                                console.log('📊 涨速样本:', {
+                                    first5: velocityValues.slice(0, 5),
+                                    last5: velocityValues.slice(-5),
+                                    max: Math.max(...validVelocities).toFixed(2),
+                                    min: Math.min(...validVelocities).toFixed(2)
+                                });
+                            }
+                        } else {
+                            console.log('⚠️ 涨速数据文件不存在或为空');
+                            // 如果没有涨速数据，填充null数组
+                            velocityValues = times.map(() => null);
+                        }
+                    } catch (e) {
+                        console.warn('⚠️ 涨速数据加载失败:', e);
+                        // 出错时也填充null数组
+                        velocityValues = times.map(() => null);
+                    }
+                    
+                    console.log('Velocity count:', velocityValues.length);
+                    
                     // 加载波峰数据
                     let wavePeaksData = [];
                     let falseBreakout = null;
@@ -7320,6 +7478,37 @@ pm2 status                                                # 查看所有进程�
                                     </div>`;
                                 }
                                 
+                                // 🔥 新增：显示5分钟涨速数据
+                                const velocityParam = params.find(p => p.seriesName === '5分钟涨速');
+                                if (velocityParam && velocityParam.value !== null && velocityParam.value !== undefined) {
+                                    const velocityValue = velocityParam.value;
+                                    
+                                    let velocityStatus = '平稳';
+                                    let velocityStatusColor = '#6B7280';
+                                    const absVelocity = Math.abs(velocityValue);
+                                    
+                                    if (absVelocity > 5) {
+                                        velocityStatus = '剧烈波动';
+                                        velocityStatusColor = '#DC2626';
+                                    } else if (absVelocity > 2) {
+                                        velocityStatus = '较大波动';
+                                        velocityStatusColor = '#F59E0B';
+                                    }
+                                    
+                                    html += `<div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #E5E7EB;">
+                                        <div style="margin-bottom: 4px;">
+                                            ${velocityParam.marker}<span style="font-weight: 600; color: #F97316;">5分钟涨速</span>
+                                        </div>
+                                        <div style="font-size: 14px; font-weight: bold; color: ${velocityValue > 0 ? '#10B981' : velocityValue < 0 ? '#EF4444' : '#6B7280'};">
+                                            ${velocityValue > 0 ? '+' : ''}${velocityValue.toFixed(2)}%
+                                        </div>
+                                        <div style="display: flex; align-items: center; justify-content: space-between; font-size: 12px; margin-top: 4px;">
+                                            <span style="color: #6B7280;">波动状态:</span>
+                                            <span style="font-weight: 600; color: ${velocityStatusColor};">${velocityStatus}</span>
+                                        </div>
+                                    </div>`;
+                                }
+                                
                                 html += '</div>';
                                 return html;
                             }
@@ -7355,6 +7544,23 @@ pm2 status                                                # 查看所有进程�
                                 axisLine: {
                                     lineStyle: {
                                         color: '#9CA3AF'
+                                    }
+                                },
+                                splitLine: {
+                                    show: false
+                                }
+                            },
+                            {
+                                type: 'value',
+                                name: '5分钟涨速 (%)',
+                                position: 'right',
+                                offset: 60,
+                                axisLabel: {
+                                    formatter: '{value}%'
+                                },
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#F97316'
                                     }
                                 },
                                 splitLine: {
@@ -8095,6 +8301,36 @@ pm2 status                                                # 查看所有进程�
                                 })(),
                                 symbol: 'pin',
                                 symbolSize: 50
+                            }
+                        },
+                        // 🔥 新增：5分钟涨速线
+                        {
+                            id: 'velocity-line',
+                            name: '5分钟涨速',
+                            type: 'line',
+                            yAxisIndex: 2,  // 使用第三个Y轴（velocity）
+                            smooth: true,
+                            data: velocityValues.length > 0 ? velocityValues : [],
+                            lineStyle: {
+                                width: 2,
+                                type: 'dashed',  // 虚线
+                                color: '#F97316'  // 橙色
+                            },
+                            itemStyle: {
+                                color: '#F97316'
+                            },
+                            showSymbol: false,
+                            connectNulls: true,
+                            z: 8,  // 设置z-index
+                            emphasis: {
+                                focus: 'series',
+                                lineStyle: {
+                                    width: 3,
+                                    color: '#EA580C',
+                                    type: 'dashed',
+                                    shadowBlur: 10,
+                                    shadowColor: 'rgba(249, 115, 22, 0.5)'
+                                }
                             }
                         },
                         // 独立的市场情绪信号系列（不受图例切换影响）

@@ -18,3 +18,12 @@
 {"timestamp": "2026-02-21T03:30:53.454557", "account_id": "account_poit_main", "instId": "CFX-USDT-SWAP", "posSide": "long", "triggerType": "sentiment_take_profit", "success": true, "message": "市价平仓成功", "error": ""}
 {"timestamp": "2026-02-21T03:30:54.283289", "account_id": "account_poit_main", "instId": "UNI-USDT-SWAP", "posSide": "long", "triggerType": "sentiment_take_profit", "success": true, "message": "市价平仓成功", "error": ""}
 {"timestamp": "2026-02-25T12:29:57.485634", "account_id": "account_poit_main", "instId": "APT-USDT-SWAP", "posSide": "short", "triggerType": "stop_loss", "success": false, "message": "", "error": ""}
+{"timestamp": "2026-03-03T18:56:05.846088", "account_id": "account_poit_main", "instId": "TAO-USDT-SWAP", "posSide": "long", "triggerType": "stop_loss", "success": true, "message": "stop_loss设置成功", "error": ""}
+{"timestamp": "2026-03-03T18:56:06.678531", "account_id": "account_poit_main", "instId": "XRP-USDT-SWAP", "posSide": "long", "triggerType": "stop_loss", "success": false, "message": "", "error": ""}
+{"timestamp": "2026-03-03T18:56:07.530823", "account_id": "account_poit_main", "instId": "NEAR-USDT-SWAP", "posSide": "long", "triggerType": "stop_loss", "success": false, "message": "", "error": ""}
+{"timestamp": "2026-03-03T19:03:18.681545", "account_id": "account_poit_main", "instId": "SOL-USDT-SWAP", "posSide": "long", "triggerType": "stop_loss", "success": true, "message": "stop_loss设置成功", "error": ""}
+{"timestamp": "2026-03-03T19:07:24.953133", "account_id": "account_poit_main", "instId": "CRO-USDT-SWAP", "posSide": "long", "triggerType": "stop_loss", "success": false, "message": "", "error": ""}
+{"timestamp": "2026-03-03T19:07:25.881204", "account_id": "account_poit_main", "instId": "FIL-USDT-SWAP", "posSide": "long", "triggerType": "stop_loss", "success": false, "message": "", "error": ""}
+{"timestamp": "2026-03-03T20:51:54.131878", "account_id": "account_poit_main", "instId": "LINK-USDT-SWAP", "posSide": "long", "triggerType": "stop_loss", "success": false, "message": "", "error": ""}
+{"timestamp": "2026-03-03T20:51:54.968687", "account_id": "account_poit_main", "instId": "LDO-USDT-SWAP", "posSide": "long", "triggerType": "stop_loss", "success": true, "message": "stop_loss设置成功", "error": ""}
+{"timestamp": "2026-03-03T21:03:11.527079", "account_id": "account_poit_main", "instId": "STX-USDT-SWAP", "posSide": "long", "triggerType": "stop_loss", "success": false, "message": "", "error": ""}
