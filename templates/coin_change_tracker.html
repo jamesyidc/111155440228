@@ -6990,11 +6990,12 @@ pm2 status                                                # 查看所有进程�
                     
                     // 处理预判数据
                     // const predictionData = await getPredictionForDate(currentDate);
-                    if (predictionData) {
+                    if (predictionData && predictionData.signal) {
                         window.dailyPredictionData = predictionData;
                         console.log('📊 已加载日期预判数据:', currentDate, predictionData.signal);
                         // 更新预判卡片显示
                         updatePredictionCardFromData(predictionData);
+                        console.log('✅ window.dailyPredictionData已更新，包含信号:', window.dailyPredictionData.signal);
                     } else {
                         window.dailyPredictionData = null;
                         console.log('⚠️ 日期无预判数据:', currentDate);
@@ -7187,7 +7188,9 @@ pm2 status                                                # 查看所有进程�
                             let velocityStats = {
                                 max: null,
                                 min: null,
-                                avg: null
+                                avg: null,
+                                count: validVelocities.length,
+                                dataStartTime: null  // 🆕 记录数据开始时间
                             };
                             if (validVelocities.length > 0) {
                                 const maxVel = Math.max(...validVelocities);
@@ -7196,15 +7199,26 @@ pm2 status                                                # 查看所有进程�
                                 velocityStats = {
                                     max: maxVel,
                                     min: minVel,
-                                    avg: avgVel
+                                    avg: avgVel,
+                                    count: validVelocities.length,
+                                    dataStartTime: null
                                 };
+                                
+                                // 🆕 找到第一个有效涨速数据的时间点
+                                const firstValidIndex = velocityValues.findIndex(v => v !== null && v !== undefined);
+                                if (firstValidIndex >= 0 && times[firstValidIndex]) {
+                                    velocityStats.dataStartTime = times[firstValidIndex];
+                                }
+                                
                                 console.log('📊 涨速样本:', {
                                     first5: velocityValues.slice(0, 5),
                                     last5: velocityValues.slice(-5),
+                                    dataStartTime: velocityStats.dataStartTime || '未知',
                                     max: maxVel.toFixed(2),
                                     min: minVel.toFixed(2),
                                     avg: avgVel.toFixed(2)
                                 });
+                                console.log(`   ⚠️ 注意：前5分钟(00:00-00:05)无涨速数据属于正常现象，需要先积累5分钟历史数据才能计算`);
                             }
                             // 保存到全局变量，供图表title使用
                             window.velocityStatsForChart = velocityStats;
@@ -7358,14 +7372,39 @@ pm2 status                                                # 查看所有进程�
                     }
                     
                     try {
-                        // 构建title文本，包含日期和velocity统计
+                        // 构建title文本，包含日期、预测信号和velocity统计
                         let titleText = currentDate ? `日期: ${currentDate}` : '';
+                        
+                        // 🆕 添加预测信号到title
+                        if (window.dailyPredictionData && window.dailyPredictionData.signal) {
+                            const signal = window.dailyPredictionData.signal;
+                            let signalEmoji = '📊';
+                            if (signal === '诱空试盘抄底') signalEmoji = '🎯';
+                            else if (signal === '做空') signalEmoji = '📉';
+                            else if (signal === '低吸') signalEmoji = '🎣';
+                            else if (signal === '等待新低') signalEmoji = '⏳';
+                            else if (signal === '诱多不参与') signalEmoji = '🚫';
+                            
+                            titleText += `    |    ${signalEmoji}预判: ${signal}`;
+                            console.log('📊 图表title已添加预测信号:', signal);
+                        }
+                        
+                        // 添加velocity统计
                         if (window.velocityStatsForChart && window.velocityStatsForChart.max !== null) {
                             const stats = window.velocityStatsForChart;
                             const maxText = stats.max >= 0 ? `+${stats.max.toFixed(2)}%` : `${stats.max.toFixed(2)}%`;
                             const minText = stats.min >= 0 ? `+${stats.min.toFixed(2)}%` : `${stats.min.toFixed(2)}%`;
                             const avgText = stats.avg >= 0 ? `+${stats.avg.toFixed(2)}%` : `${stats.avg.toFixed(2)}%`;
-                            titleText += `    |    5分钟涨速: 最高 ${maxText}  最低 ${minText}  平均 ${avgText}`;
+                            
+                            // 🆕 如果有数据开始时间，显示提示
+                            let velocityNote = '';
+                            if (stats.dataStartTime && stats.dataStartTime !== '00:00' && !stats.dataStartTime.startsWith('00:00')) {
+                                // 提取HH:MM格式
+                                const timeStr = stats.dataStartTime.substring(0, 5);
+                                velocityNote = ` (${timeStr}起)`;
+                            }
+                            
+                            titleText += `    |    5分钟涨速${velocityNote}: 最高 ${maxText}  最低 ${minText}  平均 ${avgText}`;
                         }
                         
                         trendChart.setOption({
