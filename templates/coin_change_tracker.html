@@ -7162,23 +7162,41 @@ pm2 status                                                # 查看所有进程�
                             
                             // 显示涨速样本
                             const validVelocities = velocityValues.filter(v => v !== null && v !== undefined);
+                            let velocityStats = {
+                                max: null,
+                                min: null,
+                                avg: null
+                            };
                             if (validVelocities.length > 0) {
+                                const maxVel = Math.max(...validVelocities);
+                                const minVel = Math.min(...validVelocities);
+                                const avgVel = validVelocities.reduce((sum, v) => sum + v, 0) / validVelocities.length;
+                                velocityStats = {
+                                    max: maxVel,
+                                    min: minVel,
+                                    avg: avgVel
+                                };
                                 console.log('📊 涨速样本:', {
                                     first5: velocityValues.slice(0, 5),
                                     last5: velocityValues.slice(-5),
-                                    max: Math.max(...validVelocities).toFixed(2),
-                                    min: Math.min(...validVelocities).toFixed(2)
+                                    max: maxVel.toFixed(2),
+                                    min: minVel.toFixed(2),
+                                    avg: avgVel.toFixed(2)
                                 });
                             }
+                            // 保存到全局变量，供图表title使用
+                            window.velocityStatsForChart = velocityStats;
                         } else {
                             console.log('⚠️ 涨速数据文件不存在或为空');
                             // 如果没有涨速数据，填充null数组
                             velocityValues = times.map(() => null);
+                            window.velocityStatsForChart = { max: null, min: null, avg: null };
                         }
                     } catch (e) {
                         console.warn('⚠️ 涨速数据加载失败:', e);
                         // 出错时也填充null数组
                         velocityValues = times.map(() => null);
+                        window.velocityStatsForChart = { max: null, min: null, avg: null };
                     }
                     
                     console.log('Velocity count:', velocityValues.length);
@@ -7381,9 +7399,19 @@ pm2 status                                                # 查看所有进程�
                     }
                     
                     try {
+                        // 构建title文本，包含日期和velocity统计
+                        let titleText = currentDate ? `日期: ${currentDate}` : '';
+                        if (window.velocityStatsForChart && window.velocityStatsForChart.max !== null) {
+                            const stats = window.velocityStatsForChart;
+                            const maxText = stats.max >= 0 ? `+${stats.max.toFixed(2)}%` : `${stats.max.toFixed(2)}%`;
+                            const minText = stats.min >= 0 ? `+${stats.min.toFixed(2)}%` : `${stats.min.toFixed(2)}%`;
+                            const avgText = stats.avg >= 0 ? `+${stats.avg.toFixed(2)}%` : `${stats.avg.toFixed(2)}%`;
+                            titleText += `    |    5分钟涨速: 最高 ${maxText}  最低 ${minText}  平均 ${avgText}`;
+                        }
+                        
                         trendChart.setOption({
                         title: {
-                            text: currentDate ? `日期: ${currentDate}` : '',
+                            text: titleText,
                             left: 'left',
                             top: 5,
                             textStyle: {
