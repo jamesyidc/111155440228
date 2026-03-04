@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>测试日期切换时10分钟统计数据更新</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">测试日期切换时10分钟统计数据更新</h1>
+        
+        <div class="bg-white p-6 rounded-lg shadow mb-6">
+            <h2 class="text-xl font-bold mb-4">日期选择</h2>
+            <div class="flex gap-4 mb-4">
+                <button id="btn2020" class="px-4 py-2 bg-blue-500 text-white rounded">2026-02-20</button>
+                <button id="btnToday" class="px-4 py-2 bg-green-500 text-white rounded">今天 (2026-03-01)</button>
+            </div>
+            <div>
+                <label>选择日期: </label>
+                <input type="date" id="datePicker" value="2026-03-01" max="2026-03-01" 
+                       class="border rounded px-2 py-1">
+            </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow mb-6">
+            <h2 class="text-xl font-bold mb-4">10分钟上涨占比平均值</h2>
+            <div id="stats" class="space-y-2">
+                <div>平均值: <span id="avg" class="font-bold text-blue-600">--</span></div>
+                <div>最高值: <span id="max" class="font-bold text-green-600">--</span></div>
+                <div>最低值: <span id="min" class="font-bold text-red-600">--</span></div>
+            </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-xl font-bold mb-4">数据详情</h2>
+            <pre id="dataDetail" class="bg-gray-50 p-4 rounded text-sm overflow-auto max-h-96"></pre>
+        </div>
+    </div>
+    
+    <script>
+        async function loadHistoryData(date) {
+            const dateStr = date || formatDate(new Date());
+            console.log('📅 加载日期数据:', dateStr);
+            
+            const url = `/api/coin-change-tracker/history?date=${dateStr}&_t=${Date.now()}`;
+            const response = await fetch(url, {
+                cache: 'no-store',
+                headers: {
+                    'Cache-Control': 'no-cache',
+                    'Pragma': 'no-cache'
+                }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success && result.data && result.data.length > 0) {
+                const data = result.data;
+                console.log(`✅ 获取到 ${data.length} 条历史数据`);
+                
+                // 计算10分钟区间的平均上涨占比
+                const interval = 10;
+                const groupedData = [];
+                
+                for (let i = 0; i < data.length; i++) {
+                    const item = data[i];
+                    const timeStr = item.beijing_time ? item.beijing_time.split(' ')[1] : '';
+                    
+                    if (!timeStr) continue;
+                    
+                    const [hours, minutes] = timeStr.split(':').map(Number);
+                    const totalMinutes = hours * 60 + minutes;
+                    const groupIndex = Math.floor(totalMinutes / interval);
+                    
+                    let upRatio = 0;
+                    if (item.up_ratio !== undefined) {
+                        upRatio = item.up_ratio;
+                    } else if (item.changes) {
+                        const changesArray = Object.values(item.changes);
+                        const upCoins = changesArray.filter(coin => coin.change_pct > 0).length;
+                        const totalCoins = changesArray.length;
+                        upRatio = totalCoins > 0 ? (upCoins / totalCoins * 100) : 0;
+                    }
+                    
+                    if (!groupedData[groupIndex]) {
+                        groupedData[groupIndex] = { sum: 0, count: 0 };
+                    }
+                    
+                    groupedData[groupIndex].sum += upRatio;
+                    groupedData[groupIndex].count++;
+                }
+                
+                // 只取前12个区间（0-2点）
+                const earlyMorningData = [];
+                for (let idx = 0; idx < 12; idx++) {
+                    if (groupedData[idx] && groupedData[idx].count > 0) {
+                        earlyMorningData.push(groupedData[idx].sum / groupedData[idx].count);
+                    }
+                }
+                
+                if (earlyMorningData.length > 0) {
+                    const avgValue = earlyMorningData.reduce((a, b) => a + b, 0) / earlyMorningData.length;
+                    const maxValue = Math.max(...earlyMorningData);
+                    const minValue = Math.min(...earlyMorningData);
+                    
+                    document.getElementById('avg').textContent = avgValue.toFixed(2) + '%';
+                    document.getElementById('max').textContent = maxValue.toFixed(2) + '%';
+                    document.getElementById('min').textContent = minValue.toFixed(2) + '%';
+                    
+                    document.getElementById('dataDetail').textContent = JSON.stringify({
+                        date: dateStr,
+                        dataCount: data.length,
+                        earlyMorningIntervals: earlyMorningData.length,
+                        stats: { avg: avgValue, max: maxValue, min: minValue },
+                        earlyMorningData: earlyMorningData.map(v => v.toFixed(2))
+                    }, null, 2);
+                    
+                    console.log('📊 统计数据:', { avg: avgValue, max: maxValue, min: minValue });
+                } else {
+                    console.warn('⚠️ 没有0-2点的数据');
+                    document.getElementById('dataDetail').textContent = '没有0-2点的数据';
+                }
+            } else {
+                console.error('❌ 数据加载失败');
+                document.getElementById('dataDetail').textContent = '数据加载失败: ' + JSON.stringify(result, null, 2);
+            }
+        }
+        
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+        
+        // 绑定按钮事件
+        document.getElementById('btn2020').addEventListener('click', () => {
+            loadHistoryData('2026-02-20');
+        });
+        
+        document.getElementById('btnToday').addEventListener('click', () => {
+            loadHistoryData('2026-03-01');
+        });
+        
+        document.getElementById('datePicker').addEventListener('change', (e) => {
+            loadHistoryData(e.target.value);
+        });
+        
+        // 自动加载今天的数据
+        loadHistoryData('2026-03-01');
+    </script>
+</body>
+</html>

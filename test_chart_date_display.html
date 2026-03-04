@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>测试图表日期显示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">测试图表日期显示</h1>
+        
+        <div class="bg-white p-6 rounded-lg shadow mb-6">
+            <h2 class="text-xl font-bold mb-4">日期选择</h2>
+            <div class="flex gap-4">
+                <button id="btn2020" class="px-4 py-2 bg-blue-500 text-white rounded">2026-02-20</button>
+                <button id="btn0301" class="px-4 py-2 bg-green-500 text-white rounded">2026-03-01</button>
+            </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow mb-6">
+            <h2 class="text-xl font-bold mb-4">主趋势图测试</h2>
+            <div id="trendChart" style="height: 400px;"></div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-xl font-bold mb-4">10分钟柱状图测试</h2>
+            <div id="upRatioBarChart" style="height: 300px;"></div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-lg shadow mt-6">
+            <h2 class="text-xl font-bold mb-4">控制台日志</h2>
+            <pre id="logs" class="bg-gray-50 p-4 rounded text-sm overflow-auto max-h-96"></pre>
+        </div>
+    </div>
+    
+    <script>
+        let trendChart = null;
+        let upRatioBarChart = null;
+        let logs = [];
+        
+        function log(msg) {
+            console.log(msg);
+            logs.push(`[${new Date().toLocaleTimeString()}] ${msg}`);
+            document.getElementById('logs').textContent = logs.join('\n');
+        }
+        
+        // 初始化图表
+        function initCharts() {
+            log('📊 初始化图表...');
+            
+            const trendChartDom = document.getElementById('trendChart');
+            const upRatioBarChartDom = document.getElementById('upRatioBarChart');
+            
+            trendChart = echarts.init(trendChartDom);
+            upRatioBarChart = echarts.init(upRatioBarChartDom);
+            
+            log('✅ 图表实例创建成功');
+        }
+        
+        // 加载数据并更新图表
+        async function loadDataAndUpdateCharts(date) {
+            log(`📅 加载日期: ${date}`);
+            
+            try {
+                const url = `/api/coin-change-tracker/history?date=${date}&_t=${Date.now()}`;
+                log(`🔗 请求URL: ${url}`);
+                
+                const response = await fetch(url);
+                const result = await response.json();
+                
+                if (result.success && result.data && result.data.length > 0) {
+                    const data = result.data;
+                    log(`✅ 获取到 ${data.length} 条数据`);
+                    
+                    // 提取时间和涨跌幅
+                    const times = data.map(d => d.beijing_time ? d.beijing_time.split(' ')[1] : '');
+                    const changes = data.map(d => d.total_change || 0);
+                    
+                    // 更新主趋势图
+                    trendChart.setOption({
+                        title: {
+                            text: `日期: ${date}`,
+                            left: 'left',
+                            top: 5,
+                            textStyle: {
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                color: '#1F2937'
+                            }
+                        },
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            top: '15%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: times,
+                            axisLabel: {
+                                rotate: 45,
+                                fontSize: 10
+                            }
+                        },
+                        yAxis: {
+                            type: 'value',
+                            name: '涨跌幅(%)'
+                        },
+                        series: [{
+                            name: '27币涨跌幅之和',
+                            type: 'line',
+                            data: changes,
+                            smooth: true,
+                            lineStyle: {
+                                color: '#3B82F6',
+                                width: 2
+                            }
+                        }]
+                    });
+                    
+                    log('✅ 主趋势图更新成功');
+                    
+                    // 计算10分钟上涨占比
+                    const interval = 10;
+                    const groupedData = [];
+                    
+                    for (let i = 0; i < data.length; i++) {
+                        const item = data[i];
+                        const timeStr = item.beijing_time ? item.beijing_time.split(' ')[1] : '';
+                        if (!timeStr) continue;
+                        
+                        const [hours, minutes] = timeStr.split(':').map(Number);
+                        const totalMinutes = hours * 60 + minutes;
+                        const groupIndex = Math.floor(totalMinutes / interval);
+                        
+                        let upRatio = 0;
+                        if (item.up_ratio !== undefined) {
+                            upRatio = item.up_ratio;
+                        } else if (item.changes) {
+                            const changesArray = Object.values(item.changes);
+                            const upCoins = changesArray.filter(coin => coin.change_pct > 0).length;
+                            const totalCoins = changesArray.length;
+                            upRatio = totalCoins > 0 ? (upCoins / totalCoins * 100) : 0;
+                        }
+                        
+                        if (!groupedData[groupIndex]) {
+                            groupedData[groupIndex] = { sum: 0, count: 0 };
+                        }
+                        
+                        groupedData[groupIndex].sum += upRatio;
+                        groupedData[groupIndex].count++;
+                    }
+                    
+                    // 生成柱状图数据（前12个区间，0-2点）
+                    const barData = [];
+                    const timeLabels = [];
+                    
+                    for (let idx = 0; idx < 12; idx++) {
+                        const hours = Math.floor(idx * 10 / 60);
+                        const minutes = (idx * 10) % 60;
+                        timeLabels.push(`${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`);
+                        
+                        if (groupedData[idx] && groupedData[idx].count > 0) {
+                            barData.push((groupedData[idx].sum / groupedData[idx].count).toFixed(2));
+                        } else {
+                            barData.push(0);
+                        }
+                    }
+                    
+                    // 更新10分钟柱状图
+                    upRatioBarChart.setOption({
+                        title: {
+                            text: `日期: ${date}`,
+                            left: 'left',
+                            top: 5,
+                            textStyle: {
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                color: '#1F2937'
+                            }
+                        },
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            top: '15%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: timeLabels
+                        },
+                        yAxis: {
+                            type: 'value',
+                            name: '上涨占比(%)',
+                            min: 0,
+                            max: 100
+                        },
+                        series: [{
+                            name: '上涨占比',
+                            type: 'bar',
+                            data: barData,
+                            itemStyle: {
+                                color: function(params) {
+                                    const value = parseFloat(params.value);
+                                    if (value > 55) return '#10B981';
+                                    if (value >= 45) return '#F59E0B';
+                                    return '#EF4444';
+                                }
+                            }
+                        }]
+                    });
+                    
+                    log('✅ 10分钟柱状图更新成功');
+                    
+                } else {
+                    log('❌ 数据加载失败或为空');
+                }
+            } catch (error) {
+                log('❌ 错误: ' + error.message);
+            }
+        }
+        
+        // 初始化
+        window.addEventListener('load', () => {
+            log('🚀 页面加载完成');
+            initCharts();
+            loadDataAndUpdateCharts('2026-03-01');
+        });
+        
+        // 绑定按钮事件
+        document.getElementById('btn2020').addEventListener('click', () => {
+            loadDataAndUpdateCharts('2026-02-20');
+        });
+        
+        document.getElementById('btn0301').addEventListener('click', () => {
+            loadDataAndUpdateCharts('2026-03-01');
+        });
+    </script>
+</body>
+</html>

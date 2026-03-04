@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二级触发显示测试</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6">二级触发显示测试</h1>
+        
+        <!-- 二级触发区域 -->
+        <div id="secondTriggerSection" class="mt-4 bg-gradient-to-r from-orange-50 to-yellow-50 rounded-lg p-4 shadow-md border-2 border-orange-300" style="display: none;">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-sm font-bold text-orange-800 flex items-center">
+                    🔔 二级触发 (2点后分析)
+                </h3>
+                <span id="secondTriggerStatus" class="px-2 py-1 rounded-full text-xs font-semibold">--</span>
+            </div>
+            
+            <!-- 触发状态 -->
+            <div id="secondTriggerTriggered" class="mb-3" style="display: none;">
+                <div class="flex items-center space-x-2 mb-2">
+                    <span class="text-xs text-gray-600">✅ 已触发</span>
+                    <span id="secondTriggerAction" class="px-3 py-1 rounded-lg text-sm font-bold">--</span>
+                </div>
+                <div class="bg-white rounded-lg p-3 border-l-4 border-orange-400">
+                    <div class="text-xs text-gray-600 mb-1">📊 2点后前三根柱子：</div>
+                    <div id="secondTriggerBars" class="text-sm font-semibold text-gray-800 mb-2">--</div>
+                    <div id="secondTriggerDescription" class="text-xs text-gray-700">--</div>
+                </div>
+            </div>
+            
+            <!-- 未触发状态 -->
+            <div id="secondTriggerNotTriggered" class="text-xs text-gray-600" style="display: none;">
+                <span id="secondTriggerNotTriggeredReason">--</span>
+            </div>
+            
+            <!-- 等待检查 -->
+            <div id="secondTriggerPending" class="text-xs text-gray-600" style="display: none;">
+                将在2:30后检查2点后三根柱子，判断立即做多或等跌后做多
+            </div>
+        </div>
+        
+        <button onclick="loadData()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+            加载数据
+        </button>
+        
+        <pre id="rawData" class="mt-4 bg-white p-4 rounded-lg text-xs overflow-auto max-h-96"></pre>
+    </div>
+    
+    <script>
+        function displaySecondTriggerInfo(predictionData) {
+            console.log('📊 displaySecondTriggerInfo 被调用:', predictionData);
+            const signal = predictionData.signal || '';
+            const secondTrigger = predictionData.second_trigger;
+            const secondTriggerSection = document.getElementById('secondTriggerSection');
+            
+            // 如果不是低吸信号，隐藏二级触发区域
+            if (signal !== '低吸') {
+                console.log('❌ 不是低吸信号，隐藏二级触发区域');
+                secondTriggerSection.style.display = 'none';
+                return;
+            }
+            
+            // 显示二级触发区域
+            console.log('✅ 是低吸信号，显示二级触发区域');
+            secondTriggerSection.style.display = 'block';
+            
+            // 如果没有二级触发数据，显示等待检查
+            if (!secondTrigger) {
+                console.log('⏳ 没有二级触发数据，显示等待检查');
+                document.getElementById('secondTriggerPending').style.display = 'block';
+                document.getElementById('secondTriggerTriggered').style.display = 'none';
+                document.getElementById('secondTriggerNotTriggered').style.display = 'none';
+                document.getElementById('secondTriggerStatus').textContent = '⏳ 待检查';
+                document.getElementById('secondTriggerStatus').className = 'px-2 py-1 rounded-full text-xs font-semibold bg-gray-200 text-gray-700';
+                return;
+            }
+            
+            // 有二级触发数据
+            console.log('📊 有二级触发数据:', secondTrigger);
+            document.getElementById('secondTriggerPending').style.display = 'none';
+            
+            if (secondTrigger.triggered) {
+                // 已触发
+                console.log('✅ 已触发');
+                document.getElementById('secondTriggerTriggered').style.display = 'block';
+                document.getElementById('secondTriggerNotTriggered').style.display = 'none';
+                document.getElementById('secondTriggerStatus').textContent = '✅ 已触发';
+                document.getElementById('secondTriggerStatus').className = 'px-2 py-1 rounded-full text-xs font-semibold bg-green-200 text-green-800';
+                
+                // 操作建议
+                const actionEl = document.getElementById('secondTriggerAction');
+                if (secondTrigger.action === 'immediate_long') {
+                    actionEl.textContent = '🚀 立即做多';
+                    actionEl.className = 'px-3 py-1 rounded-lg text-sm font-bold bg-green-500 text-white';
+                } else if (secondTrigger.action === 'wait_dip_then_long') {
+                    actionEl.textContent = '⏳ 等跌后做多';
+                    actionEl.className = 'px-3 py-1 rounded-lg text-sm font-bold bg-orange-500 text-white';
+                }
+                
+                // 柱子颜色
+                const bars = secondTrigger.bars || [];
+                const barEmojis = bars.map(color => {
+                    if (color === 'green') return '🟢';
+                    if (color === 'red') return '🔴';
+                    if (color === 'yellow') return '🟡';
+                    if (color === 'blank') return '⚪';
+                    return '⚫';
+                }).join(' ');
+                document.getElementById('secondTriggerBars').textContent = barEmojis + ' ' + bars.join('/');
+                
+                // 描述
+                document.getElementById('secondTriggerDescription').textContent = secondTrigger.description || '';
+            } else {
+                // 未触发
+                console.log('⭕ 未触发');
+                document.getElementById('secondTriggerTriggered').style.display = 'none';
+                document.getElementById('secondTriggerNotTriggered').style.display = 'block';
+                document.getElementById('secondTriggerStatus').textContent = '⭕ 未触发';
+                document.getElementById('secondTriggerStatus').className = 'px-2 py-1 rounded-full text-xs font-semibold bg-gray-200 text-gray-700';
+                document.getElementById('secondTriggerNotTriggeredReason').textContent = secondTrigger.description || '2点后柱子组合不满足触发条件';
+            }
+        }
+        
+        async function loadData() {
+            try {
+                const response = await fetch('/api/coin-change-tracker/daily-prediction');
+                const result = await response.json();
+                console.log('API 返回数据:', result);
+                
+                document.getElementById('rawData').textContent = JSON.stringify(result, null, 2);
+                
+                if (result.success && result.data) {
+                    displaySecondTriggerInfo(result.data);
+                }
+            } catch (error) {
+                console.error('加载数据失败:', error);
+            }
+        }
+        
+        // 页面加载时自动加载数据
+        window.onload = loadData;
+    </script>
+</body>
+</html>

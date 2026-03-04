@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
     <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <title>OKX实盘交易系统 v2.9.0</title>
+    <meta http-equiv="Expires" content="-1">
+    <meta name="cache-buster" content="{{ cache_buster|default('20260303172848') }}">
+    <title>OKX实盘交易系统 v2.9.4-FIX-FINAL-{{ cache_buster|default('20260303172848') }}</title>
     <!-- 
-    版本: 2026-02-25 v2.9.0 
+    版本: 2026-03-04 v2.9.4-FIX-FINAL - 盈亏显示修复（强制缓存刷新） 
     
     🔥 智能止损检测系统 (2026-02-25) - NEW:
     ============================================================
@@ -1899,6 +1900,42 @@
     </style>
 </head>
 <body>
+    <script>
+        // 🔴 强制版本检查 - 确保加载最新JavaScript
+        (function() {
+            const REQUIRED_VERSION = 'v2.9.3';
+            const currentVersion = document.title.match(/v[\d.]+/)?.[0] || 'unknown';
+            console.log('🔍 版本检查:', currentVersion, '需要:', REQUIRED_VERSION);
+            
+            // 检查关键元素是否存在
+            const checkElements = () => {
+                const hasStatusElement = !!document.getElementById('midnightHedgeEnabledStatus');
+                console.log('✅ 状态元素检查:', hasStatusElement ? '存在' : '❌ 缺失');
+                return hasStatusElement;
+            };
+            
+            // 页面加载完成后检查
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => {
+                    setTimeout(() => {
+                        if (!checkElements() && !sessionStorage.getItem('forcedReload')) {
+                            console.warn('⚠️ 检测到旧版本元素缺失，强制刷新...');
+                            sessionStorage.setItem('forcedReload', 'true');
+                            location.reload(true);
+                        }
+                    }, 1000);
+                });
+            }
+        })();
+    </script>
+    
+    <!-- 🔴 版本验证横幅 - 方便确认是否加载最新代码 -->
+    <div style="position: fixed; top: 0; left: 0; right: 0; background: linear-gradient(90deg, #10b981, #059669); color: white; padding: 8px 16px; z-index: 99999; text-align: center; font-size: 13px; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">
+        🎉 OKX交易系统 v2.9.4-FIX (2026-03-04) | 盈亏显示已修复 | 绿色横幅=最新版
+        <button onclick="this.parentElement.remove()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); border: none; color: white; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">关闭</button>
+    </div>
+    <div style="height: 40px;"></div> <!-- 占位，避免内容被横幅遮挡 -->
+    
     <!-- 加载进度覆盖层 -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-content">
@@ -4669,49 +4706,55 @@ data/
                     </h3>
                     
                     <!-- 当前27币数据 -->
-                    <div style="padding: 10px; background: rgba(251, 191, 36, 0.15); border-radius: 8px; border: 1px solid #f59e0b; margin-bottom: 10px;">
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                            <span style="color: #92400e; font-weight: 600; font-size: 13px;">📊 27币涨跌幅之和</span>
-                            <span style="font-size: 18px; font-weight: 700;" id="coinChangeTotalDisplay">--</span>
-                        </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-top: 8px;">
-                            <div style="padding: 6px; background: rgba(16, 185, 129, 0.1); border-radius: 4px; border-left: 2px solid #10b981;">
-                                <div style="font-size: 9px; color: #065f46; margin-bottom: 2px;">📈 上涨币种</div>
-                                <div id="coinChangeUpCount" style="font-size: 14px; font-weight: 700; color: #059669;">--</div>
-                            </div>
-                            <div style="padding: 6px; background: rgba(239, 68, 68, 0.1); border-radius: 4px; border-left: 2px solid #ef4444;">
-                                <div style="font-size: 9px; color: #991b1b; margin-bottom: 2px;">📉 下跌币种</div>
-                                <div id="coinChangeDownCount" style="font-size: 14px; font-weight: 700; color: #dc2626;">--</div>
-                            </div>
-                            <div style="padding: 6px; background: rgba(59, 130, 246, 0.1); border-radius: 4px; border-left: 2px solid #3b82f6;">
-                                <div style="font-size: 9px; color: #1e3a8a; margin-bottom: 2px;">⏰ 更新时间</div>
-                                <div id="coinChangeUpdateTime" style="font-size: 10px; font-weight: 600; color: #1e40af;">--</div>
+                    <div style="padding: 12px; background: rgba(251, 191, 36, 0.15); border-radius: 8px; border: 1px solid #f59e0b; margin-bottom: 12px;">
+                        <!-- 涨跌幅之和 - 大号显示 -->
+                        <div style="text-align: center; padding: 12px; background: rgba(255, 255, 255, 0.7); border-radius: 6px; margin-bottom: 10px;">
+                            <div style="color: #92400e; font-size: 11px; font-weight: 600; margin-bottom: 4px;">📊 27币涨跌幅之和</div>
+                            <div style="font-size: 28px; font-weight: 700; font-family: 'Courier New', monospace;" id="coinChangeTotalDisplay">--</div>
+                            <div style="margin-top: 8px; font-size: 11px; color: #92400e; opacity: 0.8;">
+                                <span>📈 <span id="coinChangeUpCount" style="font-weight: 700; color: #059669;">--</span></span>
+                                <span style="margin: 0 8px;">|</span>
+                                <span>📉 <span id="coinChangeDownCount" style="font-weight: 700; color: #dc2626;">--</span></span>
+                                <span style="margin: 0 8px;">|</span>
+                                <span>⏰ <span id="coinChangeUpdateTime" style="font-weight: 600;">--</span></span>
                             </div>
                         </div>
                         
-                        <!-- 止盈配置状态总览 -->
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px;">
-                            <!-- 空单止盈状态 -->
-                            <div style="padding: 8px; background: rgba(220, 38, 38, 0.08); border-radius: 6px; border: 1px solid rgba(220, 38, 38, 0.2);">
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                                    <span style="font-size: 10px; color: #991b1b; font-weight: 600;">📉 空单止盈</span>
-                                    <span id="coinChangeShortTpStatusBadge" style="font-size: 9px; padding: 2px 6px; border-radius: 3px; background: rgba(156, 163, 175, 0.2); color: #6b7280; font-weight: 600;">⭕ 未启用</span>
+                        <!-- 止盈配置状态总览 - 大卡片样式 -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <!-- 空单止盈状态 - 放大版 -->
+                            <div style="padding: 12px; background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(220, 38, 38, 0.1) 100%); border-radius: 8px; border: 2px solid rgba(220, 38, 38, 0.3); position: relative;">
+                                <div style="position: absolute; top: 8px; right: 8px;">
+                                    <span id="coinChangeShortTpStatusBadge" style="font-size: 10px; padding: 3px 8px; border-radius: 4px; background: rgba(156, 163, 175, 0.3); color: #6b7280; font-weight: 700;">⭕ 未启用</span>
                                 </div>
-                                <div style="display: flex; align-items: center; justify-content: space-between;">
-                                    <span style="font-size: 9px; color: #991b1b;">目标值：</span>
-                                    <span id="coinChangeShortTpTargetDisplay" style="font-size: 13px; font-weight: 700; color: #dc2626;">--</span>
+                                <div style="margin-bottom: 8px;">
+                                    <div style="font-size: 14px; color: #991b1b; font-weight: 700; display: flex; align-items: center; gap: 4px;">
+                                        <span style="font-size: 20px;">🩸</span>
+                                        <span>做空止盈</span>
+                                    </div>
+                                    <div style="font-size: 10px; color: #991b1b; opacity: 0.7; margin-top: 2px;">跌破阈值自动平空单</div>
+                                </div>
+                                <div style="background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 6px; border-left: 3px solid #dc2626;">
+                                    <div style="font-size: 10px; color: #991b1b; margin-bottom: 4px;">触发阈值</div>
+                                    <div style="font-size: 24px; font-weight: 700; color: #dc2626; font-family: 'Courier New', monospace;" id="coinChangeShortTpTargetDisplay">--</div>
                                 </div>
                             </div>
                             
-                            <!-- 多单止盈状态 -->
-                            <div style="padding: 8px; background: rgba(16, 185, 129, 0.08); border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.2);">
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                                    <span style="font-size: 10px; color: #065f46; font-weight: 600;">📈 多单止盈</span>
-                                    <span id="coinChangeLongTpStatusBadge" style="font-size: 9px; padding: 2px 6px; border-radius: 3px; background: rgba(156, 163, 175, 0.2); color: #6b7280; font-weight: 600;">⭕ 未启用</span>
+                            <!-- 多单止盈状态 - 放大版 -->
+                            <div style="padding: 12px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.1) 100%); border-radius: 8px; border: 2px solid rgba(16, 185, 129, 0.3); position: relative;">
+                                <div style="position: absolute; top: 8px; right: 8px;">
+                                    <span id="coinChangeLongTpStatusBadge" style="font-size: 10px; padding: 3px 8px; border-radius: 4px; background: rgba(156, 163, 175, 0.3); color: #6b7280; font-weight: 700;">⭕ 未启用</span>
                                 </div>
-                                <div style="display: flex; align-items: center; justify-content: space-between;">
-                                    <span style="font-size: 9px; color: #065f46;">目标值：</span>
-                                    <span id="coinChangeLongTpTargetDisplay" style="font-size: 13px; font-weight: 700; color: #10b981;">--</span>
+                                <div style="margin-bottom: 8px;">
+                                    <div style="font-size: 14px; color: #065f46; font-weight: 700; display: flex; align-items: center; gap: 4px;">
+                                        <span style="font-size: 20px;">🚀</span>
+                                        <span>做多止盈</span>
+                                    </div>
+                                    <div style="font-size: 10px; color: #065f46; opacity: 0.7; margin-top: 2px;">突破阈值自动平多单</div>
+                                </div>
+                                <div style="background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 6px; border-left: 3px solid #10b981;">
+                                    <div style="font-size: 10px; color: #065f46; margin-bottom: 4px;">触发阈值</div>
+                                    <div style="font-size: 24px; font-weight: 700; color: #10b981; font-family: 'Courier New', monospace;" id="coinChangeLongTpTargetDisplay">--</div>
                                 </div>
                             </div>
                         </div>
@@ -4852,6 +4895,794 @@ data/
                         <p style="color: #166534; font-size: 11px; margin: 0; line-height: 1.5;">
                             💡 <strong>提示：</strong>27币涨跌幅止盈基于27个主流币种的24小时涨跌幅之和计算。监控服务每30秒检查一次，达到阈值时自动平仓并发送Telegram通知。每个账户的配置独立保存。
                         </p>
+                    </div>
+                </div>
+
+                <!-- 🎯 27币涨跌幅条件单 -->
+                <div class="info-card" style="margin-top: 16px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b;">
+                    <h3 style="color: #92400e; margin-bottom: 16px; display: flex; align-items: center; gap: 6px; font-size: 16px;">
+                        🎯 27币涨跌幅条件单
+                        <span style="font-size: 11px; color: #78716c; font-weight: 400; margin-left: 8px;">自动监控触发开仓</span>
+                    </h3>
+                    
+                    <!-- 两个条件单卡片 - 上下布局 -->
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        
+                        <!-- 做空条件单卡片 -->
+                        <div id="shortConditionalCard" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(220, 38, 38, 0.03)); border: 2px solid #ef4444; border-radius: 12px; padding: 14px; position: relative;">
+                            <!-- 状态徽章 -->
+                            <div style="position: absolute; top: 10px; right: 10px;">
+                                <span id="shortOrderStatusBadge" style="padding: 3px 10px; border-radius: 12px; font-size: 10px; font-weight: 700; background: #9ca3af; color: white;">⚪ 未启用</span>
+                            </div>
+                            
+                            <!-- 标题 -->
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                                <span style="font-size: 24px;">🩸</span>
+                                <div>
+                                    <div style="color: #dc2626; font-weight: 700; font-size: 16px;">做空条件单</div>
+                                    <div style="color: #991b1b; font-size: 10px; margin-top: 2px;">涨幅过高时开空单</div>
+                                </div>
+                            </div>
+                            
+                            <!-- 启用开关 -->
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; background: rgba(255, 255, 255, 0.5); border-radius: 8px; margin-bottom: 10px;">
+                                <span style="color: #7c2d12; font-size: 12px; font-weight: 600;">🔴 启用条件单</span>
+                                <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                    <input type="checkbox" id="shortOrderEnabled" onchange="toggleShortOrder(this.checked)" style="opacity: 0; width: 0; height: 0;">
+                                    <span class="slider slider-short" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;">
+                                        <style>
+                                            #shortOrderEnabled:checked + .slider-short { background-color: #ef4444; }
+                                            #shortOrderEnabled:checked + .slider-short:before { transform: translateX(20px); }
+                                            .slider-short:before {
+                                                position: absolute;
+                                                content: "";
+                                                height: 18px;
+                                                width: 18px;
+                                                left: 3px;
+                                                bottom: 3px;
+                                                background-color: white;
+                                                transition: .4s;
+                                                border-radius: 50%;
+                                            }
+                                        </style>
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <!-- 触发条件设置 -->
+                            <div style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px; margin-bottom: 10px;">
+                                <div style="color: #7c2d12; font-size: 11px; font-weight: 600; margin-bottom: 8px;">📊 触发条件</div>
+                                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                                    <span style="color: #991b1b; font-size: 12px; white-space: nowrap;">27币涨跌幅之和</span>
+                                    <span style="color: #dc2626; font-weight: 700; font-size: 13px;">≥</span>
+                                    <input type="number" id="shortTriggerValue" value="50" step="5" 
+                                           style="flex: 1; padding: 6px 8px; border: 1px solid #ef4444; border-radius: 6px; font-size: 14px; font-weight: 700; text-align: center; color: #dc2626; width: 70px;"
+                                           onchange="saveShortOrderSettings()">
+                                    <span style="color: #dc2626; font-size: 13px; font-weight: 700;">%</span>
+                                </div>
+                                <div style="color: #78716c; font-size: 10px; text-align: center; margin-top: 4px;">
+                                    💡 当涨幅超过此值时触发
+                                </div>
+                            </div>
+                            
+                            <!-- 目标策略 -->
+                            <div style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px;">
+                                <div style="color: #7c2d12; font-size: 11px; font-weight: 600; margin-bottom: 8px;">🎯 执行策略</div>
+                                <select id="shortTargetStrategy" onchange="saveShortOrderSettings()" 
+                                        style="width: 100%; padding: 8px 10px; border: 1px solid #ef4444; border-radius: 6px; font-size: 12px; color: #dc2626; font-weight: 600; background: white;">
+                                    <option value="">-- 选择策略 --</option>
+                                    <option value="STG_SHORT_TOP8">涨幅前8名做空（涨势最强）</option>
+                                    <option value="STG_SHORT_BOTTOM8">涨幅后8名做空（跌势最强）</option>
+                                </select>
+                            </div>
+                            
+                            <!-- 触发权限显示 -->
+                            <div id="shortTriggerPermission" style="margin-top: 10px; padding: 8px; background: rgba(34, 197, 94, 0.1); border-radius: 6px; border-left: 3px solid #22c55e; display: none;">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="color: #166534; font-size: 11px; font-weight: 600;">🟢 触发权限：可触发</span>
+                                    <button onclick="resetShortTrigger()" style="padding: 3px 8px; background: #f59e0b; color: white; border: none; border-radius: 4px; font-size: 10px; cursor: pointer;">🔄 重置</button>
+                                </div>
+                            </div>
+                            <div id="shortTriggeredInfo" style="margin-top: 10px; padding: 8px; background: rgba(239, 68, 68, 0.1); border-radius: 6px; border-left: 3px solid #dc2626; display: none;">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="color: #7f1d1d; font-size: 11px; font-weight: 600;">🔴 已触发，需重置</span>
+                                    <button onclick="resetShortTrigger()" style="padding: 3px 8px; background: #f59e0b; color: white; border: none; border-radius: 4px; font-size: 10px; cursor: pointer; font-weight: 600;">🔄 重置</button>
+                                </div>
+                                <div id="shortLastTriggeredTime" style="color: #78716c; font-size: 10px; margin-top: 4px;"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- 做多条件单卡片 -->
+                        <div id="longConditionalCard" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.03)); border: 2px solid #10b981; border-radius: 12px; padding: 14px; position: relative;">
+                            <!-- 状态徽章 -->
+                            <div style="position: absolute; top: 10px; right: 10px;">
+                                <span id="longOrderStatusBadge" style="padding: 3px 10px; border-radius: 12px; font-size: 10px; font-weight: 700; background: #9ca3af; color: white;">⚪ 未启用</span>
+                            </div>
+                            
+                            <!-- 标题 -->
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                                <span style="font-size: 24px;">🚀</span>
+                                <div>
+                                    <div style="color: #059669; font-weight: 700; font-size: 16px;">做多条件单</div>
+                                    <div style="color: #065f46; font-size: 10px; margin-top: 2px;">跌幅过大时开多单</div>
+                                </div>
+                            </div>
+                            
+                            <!-- 启用开关 -->
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; background: rgba(255, 255, 255, 0.5); border-radius: 8px; margin-bottom: 10px;">
+                                <span style="color: #064e3b; font-size: 12px; font-weight: 600;">🟢 启用条件单</span>
+                                <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                    <input type="checkbox" id="longOrderEnabled" onchange="toggleLongOrder(this.checked)" style="opacity: 0; width: 0; height: 0;">
+                                    <span class="slider slider-long" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;">
+                                        <style>
+                                            #longOrderEnabled:checked + .slider-long { background-color: #10b981; }
+                                            #longOrderEnabled:checked + .slider-long:before { transform: translateX(20px); }
+                                            .slider-long:before {
+                                                position: absolute;
+                                                content: "";
+                                                height: 18px;
+                                                width: 18px;
+                                                left: 3px;
+                                                bottom: 3px;
+                                                background-color: white;
+                                                transition: .4s;
+                                                border-radius: 50%;
+                                            }
+                                        </style>
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <!-- 触发条件设置 -->
+                            <div style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px; margin-bottom: 10px;">
+                                <div style="color: #064e3b; font-size: 11px; font-weight: 600; margin-bottom: 8px;">📊 触发条件</div>
+                                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                                    <span style="color: #065f46; font-size: 12px; white-space: nowrap;">27币涨跌幅之和</span>
+                                    <span style="color: #059669; font-weight: 700; font-size: 13px;">≤</span>
+                                    <input type="number" id="longTriggerValue" value="-30" step="5" 
+                                           style="flex: 1; padding: 6px 8px; border: 1px solid #10b981; border-radius: 6px; font-size: 14px; font-weight: 700; text-align: center; color: #059669; width: 70px;"
+                                           onchange="saveLongOrderSettings()">
+                                    <span style="color: #059669; font-size: 13px; font-weight: 700;">%</span>
+                                </div>
+                                <div style="color: #78716c; font-size: 10px; text-align: center; margin-top: 4px;">
+                                    💡 当跌幅超过此值时触发
+                                </div>
+                            </div>
+                            
+                            <!-- 目标策略 -->
+                            <div style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px;">
+                                <div style="color: #064e3b; font-size: 11px; font-weight: 600; margin-bottom: 8px;">🎯 执行策略</div>
+                                <select id="longTargetStrategy" onchange="saveLongOrderSettings()" 
+                                        style="width: 100%; padding: 8px 10px; border: 1px solid #10b981; border-radius: 6px; font-size: 12px; color: #059669; font-weight: 600; background: white;">
+                                    <option value="">-- 选择策略 --</option>
+                                    <option value="STG_LONG_TOP8">涨幅前8名做多（追涨）</option>
+                                    <option value="STG_LONG_BOTTOM8">涨幅后8名做多（抄底）</option>
+                                </select>
+                            </div>
+                            
+                            <!-- 触发权限显示 -->
+                            <div id="longTriggerPermission" style="margin-top: 10px; padding: 8px; background: rgba(34, 197, 94, 0.1); border-radius: 6px; border-left: 3px solid #22c55e; display: none;">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="color: #166534; font-size: 11px; font-weight: 600;">🟢 触发权限：可触发</span>
+                                    <button onclick="resetLongTrigger()" style="padding: 3px 8px; background: #f59e0b; color: white; border: none; border-radius: 4px; font-size: 10px; cursor: pointer;">🔄 重置</button>
+                                </div>
+                            </div>
+                            <div id="longTriggeredInfo" style="margin-top: 10px; padding: 8px; background: rgba(239, 68, 68, 0.1); border-radius: 6px; border-left: 3px solid #dc2626; display: none;">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="color: #7f1d1d; font-size: 11px; font-weight: 600;">🔴 已触发，需重置</span>
+                                    <button onclick="resetLongTrigger()" style="padding: 3px 8px; background: #f59e0b; color: white; border: none; border-radius: 4px; font-size: 10px; cursor: pointer; font-weight: 600;">🔄 重置</button>
+                                </div>
+                                <div id="longLastTriggeredTime" style="color: #78716c; font-size: 10px; margin-top: 4px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 说明 -->
+                    <div style="margin-top: 12px; padding: 8px; background: rgba(34, 197, 94, 0.1); border-radius: 6px; border-left: 3px solid #22c55e;">
+                        <p style="color: #166534; font-size: 11px; margin: 0; line-height: 1.5;">
+                            💡 <strong>提示：</strong>条件单每60秒检查一次27币涨跌幅之和。达到触发条件时自动执行策略开仓，触发后需手动重置才能再次触发。
+                        </p>
+                    </div>
+                    
+                    <!-- 详细功能说明（伸缩） -->
+                    <details style="margin-top: 10px; background: #f8fafc; border-radius: 12px;">
+                        <summary style="cursor: pointer; padding: 10px; font-weight: 600; color: #f59e0b; background: rgba(245, 158, 11, 0.1); border-radius: 12px; user-select: none; list-style: none; display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 14px;">📚</span>
+                            <span>详细功能说明</span>
+                            <span style="margin-left: auto; font-size: 12px; opacity: 0.7;">▼</span>
+                        </summary>
+                        <div style="padding: 12px; background: #fff; border-radius: 0 0 12px 12px;">
+                            <div style="color: #374151; font-size: 11px; line-height: 1.6;">
+                                <h4 style="color: #f59e0b; font-size: 13px; margin: 0 0 8px 0; font-weight: 700;">🎯 工作原理</h4>
+                                <ul style="margin: 0 0 12px 16px; padding: 0;">
+                                    <li><strong>监控频率：</strong>每60秒检查一次27个主要币种的24小时价格变化</li>
+                                    <li><strong>触发计算：</strong>将27个币种的涨跌幅相加得到总值</li>
+                                    <li><strong>做空条件：</strong>当总值 ≥ 设定阈值（如50%）时触发做空策略</li>
+                                    <li><strong>做多条件：</strong>当总值 ≤ 设定阈值（如-30%）时触发做多策略</li>
+                                </ul>
+                                
+                                <h4 style="color: #f59e0b; font-size: 13px; margin: 12px 0 8px 0; font-weight: 700;">🔒 防重复触发机制</h4>
+                                <ul style="margin: 0 0 12px 16px; padding: 0;">
+                                    <li>触发一次后，<code>allow_trigger</code>自动设为false</li>
+                                    <li>需要人工判断市场情况后，手动点击"重置"按钮</li>
+                                    <li>重置后权限恢复，可再次触发</li>
+                                    <li>目的：避免极端行情下连续触发导致损失放大</li>
+                                </ul>
+                                
+                                <h4 style="color: #f59e0b; font-size: 13px; margin: 12px 0 8px 0; font-weight: 700;">🎯 策略选择建议</h4>
+                                <table style="width: 100%; font-size: 11px; border-collapse: collapse; margin-top: 8px;">
+                                    <thead>
+                                        <tr style="background: #f8fafc;">
+                                            <th style="padding: 6px; border: 1px solid #e5e7eb; text-align: left;">市场情况</th>
+                                            <th style="padding: 6px; border: 1px solid #e5e7eb; text-align: left;">推荐策略</th>
+                                            <th style="padding: 6px; border: 1px solid #e5e7eb; text-align: left;">原因</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 6px; border: 1px solid #e5e7eb;">强势上涨</td>
+                                            <td style="padding: 6px; border: 1px solid #e5e7eb;">涨幅前8名做空</td>
+                                            <td style="padding: 6px; border: 1px solid #e5e7eb;">捕捉过热回调</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 6px; border: 1px solid #e5e7eb;">强势下跌</td>
+                                            <td style="padding: 6px; border: 1px solid #e5e7eb;">涨幅后8名做多</td>
+                                            <td style="padding: 6px; border: 1px solid #e5e7eb;">超跌反弹（抄底）</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <h4 style="color: #f59e0b; font-size: 13px; margin: 12px 0 8px 0; font-weight: 700;">⚙️ 配置要求</h4>
+                                <ul style="margin: 0 0 12px 16px; padding: 0;">
+                                    <li><strong>启用开关：</strong>必须打开（界面上的开关）</li>
+                                    <li><strong>触发阈值：</strong>设置合适的百分比（建议做空≥40%，做多≤-25%）</li>
+                                    <li><strong>目标策略：</strong>从下拉菜单选择具体的开仓策略</li>
+                                    <li><strong>触发权限：</strong>确保显示"可触发"状态</li>
+                                </ul>
+                                
+                                <div style="margin-top: 12px; padding: 8px; background: rgba(245, 158, 11, 0.1); border-left: 3px solid #f59e0b; border-radius: 4px;">
+                                    <p style="margin: 0; color: #92400e; font-size: 10px;">
+                                        <strong>💡 提示：</strong>建议先在小仓位测试，观察触发效果后再逐步加大规模。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- 🔄 止损反手开单 -->
+                <div class="info-card" style="margin-top: 16px; background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); border: 2px solid #ec4899;">
+                    <h3 style="color: #831843; margin-bottom: 16px; display: flex; align-items: center; gap: 6px; font-size: 16px;">
+                        🔄 止损反手开单
+                        <span style="font-size: 11px; color: #78716c; font-weight: 400; margin-left: 8px;">止损后自动反向开仓</span>
+                    </h3>
+                    
+                    <!-- 两个反手配置卡片 - 上下布局 -->
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        
+                        <!-- 多单止损反手开空卡片 -->
+                        <div id="longStoplossReverseCard" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(220, 38, 38, 0.03)); border: 2px solid #ef4444; border-radius: 12px; padding: 14px; position: relative;">
+                            <!-- 状态徽章 -->
+                            <div style="position: absolute; top: 10px; right: 10px;">
+                                <span id="longReverseStatusBadge" style="padding: 3px 10px; border-radius: 12px; font-size: 10px; font-weight: 700; background: #9ca3af; color: white;">⚪ 未启用</span>
+                            </div>
+                            
+                            <!-- 标题 -->
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                                <span style="font-size: 24px;">🔻</span>
+                                <div>
+                                    <div style="color: #dc2626; font-weight: 700; font-size: 16px;">多单止损反手开空</div>
+                                    <div style="color: #991b1b; font-size: 10px; margin-top: 2px;">多单触发止损时自动开空单</div>
+                                </div>
+                            </div>
+                            
+                            <!-- 启用开关 -->
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; background: rgba(255, 255, 255, 0.5); border-radius: 8px; margin-bottom: 10px;">
+                                <span style="color: #7c2d12; font-size: 12px; font-weight: 600;">🔴 启用反手开单</span>
+                                <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                    <input type="checkbox" id="longReverseEnabled" onchange="toggleLongReverse(this.checked)" style="opacity: 0; width: 0; height: 0;">
+                                    <span class="slider slider-long-reverse" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;">
+                                        <style>
+                                            #longReverseEnabled:checked + .slider-long-reverse { background-color: #ef4444; }
+                                            #longReverseEnabled:checked + .slider-long-reverse:before { transform: translateX(20px); }
+                                            .slider-long-reverse:before {
+                                                position: absolute;
+                                                content: "";
+                                                height: 18px;
+                                                width: 18px;
+                                                left: 3px;
+                                                bottom: 3px;
+                                                background-color: white;
+                                                transition: .4s;
+                                                border-radius: 50%;
+                                            }
+                                        </style>
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <!-- 触发条件说明 -->
+                            <div style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px; margin-bottom: 10px;">
+                                <div style="color: #7c2d12; font-size: 11px; font-weight: 600; margin-bottom: 8px;">📊 触发条件</div>
+                                <div style="color: #991b1b; font-size: 12px; line-height: 1.5;">
+                                    当多单仓位触发止损时，自动执行反手开空单策略
+                                </div>
+                            </div>
+                            
+                            <!-- 目标策略 -->
+                            <div style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px;">
+                                <div style="color: #7c2d12; font-size: 11px; font-weight: 600; margin-bottom: 8px;">🎯 反手开空策略</div>
+                                <select id="longReverseTargetStrategy" onchange="saveLongReverseSettings()" 
+                                        style="width: 100%; padding: 8px 10px; border: 1px solid #ef4444; border-radius: 6px; font-size: 12px; color: #dc2626; font-weight: 600; background: white;">
+                                    <option value="">-- 选择策略 --</option>
+                                    <option value="STG_SHORT_TOP8">涨幅前8名做空（涨势最强）</option>
+                                    <option value="STG_SHORT_BOTTOM8">涨幅后8名做空（跌势最强）</option>
+                                </select>
+                            </div>
+                            
+                            <!-- 触发权限显示 -->
+                            <div id="longReverseTriggerPermission" style="margin-top: 10px; padding: 8px; background: rgba(34, 197, 94, 0.1); border-radius: 6px; border-left: 3px solid #22c55e; display: none;">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="color: #166534; font-size: 11px; font-weight: 600;">🟢 触发权限：可触发</span>
+                                    <button onclick="resetLongReverseTrigger()" style="padding: 3px 8px; background: #f59e0b; color: white; border: none; border-radius: 4px; font-size: 10px; cursor: pointer;">🔄 重置</button>
+                                </div>
+                            </div>
+                            <div id="longReverseTriggeredInfo" style="margin-top: 10px; padding: 8px; background: rgba(239, 68, 68, 0.1); border-radius: 6px; border-left: 3px solid #dc2626; display: none;">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="color: #7f1d1d; font-size: 11px; font-weight: 600;">🔴 已触发，需重置</span>
+                                    <button onclick="resetLongReverseTrigger()" style="padding: 3px 8px; background: #f59e0b; color: white; border: none; border-radius: 4px; font-size: 10px; cursor: pointer; font-weight: 600;">🔄 重置</button>
+                                </div>
+                                <div id="longReverseLastTriggeredTime" style="color: #78716c; font-size: 10px; margin-top: 4px;"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- 空单止损反手开多卡片 -->
+                        <div id="shortStoplossReverseCard" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.03)); border: 2px solid #10b981; border-radius: 12px; padding: 14px; position: relative;">
+                            <!-- 状态徽章 -->
+                            <div style="position: absolute; top: 10px; right: 10px;">
+                                <span id="shortReverseStatusBadge" style="padding: 3px 10px; border-radius: 12px; font-size: 10px; font-weight: 700; background: #9ca3af; color: white;">⚪ 未启用</span>
+                            </div>
+                            
+                            <!-- 标题 -->
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                                <span style="font-size: 24px;">🔺</span>
+                                <div>
+                                    <div style="color: #059669; font-weight: 700; font-size: 16px;">空单止损反手开多</div>
+                                    <div style="color: #065f46; font-size: 10px; margin-top: 2px;">空单触发止损时自动开多单</div>
+                                </div>
+                            </div>
+                            
+                            <!-- 启用开关 -->
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; background: rgba(255, 255, 255, 0.5); border-radius: 8px; margin-bottom: 10px;">
+                                <span style="color: #065f46; font-size: 12px; font-weight: 600;">🟢 启用反手开单</span>
+                                <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                                    <input type="checkbox" id="shortReverseEnabled" onchange="toggleShortReverse(this.checked)" style="opacity: 0; width: 0; height: 0;">
+                                    <span class="slider slider-short-reverse" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;">
+                                        <style>
+                                            #shortReverseEnabled:checked + .slider-short-reverse { background-color: #10b981; }
+                                            #shortReverseEnabled:checked + .slider-short-reverse:before { transform: translateX(20px); }
+                                            .slider-short-reverse:before {
+                                                position: absolute;
+                                                content: "";
+                                                height: 18px;
+                                                width: 18px;
+                                                left: 3px;
+                                                bottom: 3px;
+                                                background-color: white;
+                                                transition: .4s;
+                                                border-radius: 50%;
+                                            }
+                                        </style>
+                                    </span>
+                                </label>
+                            </div>
+                            
+                            <!-- 触发条件说明 -->
+                            <div style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px; margin-bottom: 10px;">
+                                <div style="color: #065f46; font-size: 11px; font-weight: 600; margin-bottom: 8px;">📊 触发条件</div>
+                                <div style="color: #047857; font-size: 12px; line-height: 1.5;">
+                                    当空单仓位触发止损时，自动执行反手开多单策略
+                                </div>
+                            </div>
+                            
+                            <!-- 目标策略 -->
+                            <div style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px;">
+                                <div style="color: #065f46; font-size: 11px; font-weight: 600; margin-bottom: 8px;">🎯 反手开多策略</div>
+                                <select id="shortReverseTargetStrategy" onchange="saveShortReverseSettings()" 
+                                        style="width: 100%; padding: 8px 10px; border: 1px solid #10b981; border-radius: 6px; font-size: 12px; color: #059669; font-weight: 600; background: white;">
+                                    <option value="">-- 选择策略 --</option>
+                                    <option value="STG_LONG_TOP8">涨幅前8名做多（涨势最强）</option>
+                                    <option value="STG_LONG_BOTTOM8">涨幅后8名做多（跌势最强，抄底）</option>
+                                </select>
+                            </div>
+                            
+                            <!-- 触发权限显示 -->
+                            <div id="shortReverseTriggerPermission" style="margin-top: 10px; padding: 8px; background: rgba(34, 197, 94, 0.1); border-radius: 6px; border-left: 3px solid #22c55e; display: none;">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="color: #166534; font-size: 11px; font-weight: 600;">🟢 触发权限：可触发</span>
+                                    <button onclick="resetShortReverseTrigger()" style="padding: 3px 8px; background: #f59e0b; color: white; border: none; border-radius: 4px; font-size: 10px; cursor: pointer;">🔄 重置</button>
+                                </div>
+                            </div>
+                            <div id="shortReverseTriggeredInfo" style="margin-top: 10px; padding: 8px; background: rgba(239, 68, 68, 0.1); border-radius: 6px; border-left: 3px solid #dc2626; display: none;">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="color: #7f1d1d; font-size: 11px; font-weight: 600;">🔴 已触发，需重置</span>
+                                    <button onclick="resetShortReverseTrigger()" style="padding: 3px 8px; background: #f59e0b; color: white; border: none; border-radius: 4px; font-size: 10px; cursor: pointer; font-weight: 600;">🔄 重置</button>
+                                </div>
+                                <div id="shortReverseLastTriggeredTime" style="color: #78716c; font-size: 10px; margin-top: 4px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 说明 -->
+                    <div style="margin-top: 12px; padding: 8px; background: rgba(236, 72, 153, 0.1); border-radius: 6px; border-left: 3px solid #ec4899;">
+                        <p style="color: #831843; font-size: 11px; margin: 0; line-height: 1.5;">
+                            💡 <strong>提示：</strong>系统监控所有止损事件。当检测到止损时自动执行反向开仓策略，触发后需手动重置才能再次触发。
+                        </p>
+                    </div>
+                    
+                    <!-- 详细功能说明（伸缩） -->
+                    <details style="margin-top: 10px; background: #f8fafc; border-radius: 12px;">
+                        <summary style="cursor: pointer; padding: 10px; font-weight: 600; color: #ec4899; background: rgba(236, 72, 153, 0.1); border-radius: 12px; user-select: none; list-style: none; display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 14px;">📚</span>
+                            <span>详细功能说明</span>
+                            <span style="margin-left: auto; font-size: 12px; opacity: 0.7;">▼</span>
+                        </summary>
+                        <div style="padding: 12px; background: #fff; border-radius: 0 0 12px 12px;">
+                            <div style="color: #374151; font-size: 11px; line-height: 1.6;">
+                                <h4 style="color: #ec4899; font-size: 13px; margin: 0 0 8px 0; font-weight: 700;">🔄 工作原理</h4>
+                                <ul style="margin: 0 0 12px 16px; padding: 0;">
+                                    <li><strong>监控频率：</strong>每60秒检查一次止损事件</li>
+                                    <li><strong>联动对象：</strong>与"智能止损系统"（暴跌预警止损）联动</li>
+                                    <li><strong>触发流程：</strong>暴跌预警 → 智能止损平仓 → 止损反手监控器检测 → 自动反手开仓</li>
+                                    <li><strong>自动执行：</strong>无需人工确认，满足条件立即执行</li>
+                                </ul>
+                                
+                                <h4 style="color: #ec4899; font-size: 13px; margin: 12px 0 8px 0; font-weight: 700;">🔑 执行反手的3个必要条件</h4>
+                                <table style="width: 100%; font-size: 11px; border-collapse: collapse; margin-top: 8px;">
+                                    <thead>
+                                        <tr style="background: #fce7f3;">
+                                            <th style="padding: 6px; border: 1px solid #f9a8d4; text-align: center;">条件</th>
+                                            <th style="padding: 6px; border: 1px solid #f9a8d4; text-align: left;">说明</th>
+                                            <th style="padding: 6px; border: 1px solid #f9a8d4; text-align: left;">如何设置</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4; text-align: center;">1️⃣</td>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;"><strong>启用开关</strong></td>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;">打开"启用反手开单"开关</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4; text-align: center;">2️⃣</td>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;"><strong>触发权限</strong></td>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;">首次启用自动为true；触发后需点击"重置"</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4; text-align: center;">3️⃣</td>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;"><strong>选择策略</strong></td>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;">下拉菜单选择反手策略（涨幅前8/后8）</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div style="margin-top: 8px; padding: 6px; background: rgba(239, 68, 68, 0.1); border-left: 3px solid #dc2626; border-radius: 4px;">
+                                    <p style="margin: 0; color: #991b1b; font-size: 10px;">
+                                        <strong>⚠️ 重要：</strong>必须同时满足以上3个条件才会执行反手！缺少任何一个条件都会跳过。
+                                    </p>
+                                </div>
+                                
+                                <h4 style="color: #ec4899; font-size: 13px; margin: 12px 0 8px 0; font-weight: 700;">🚫 不会执行反手的情况</h4>
+                                <ul style="margin: 0 0 12px 16px; padding: 0;">
+                                    <li><strong>⏸️ 未启用：</strong>开关关闭 → 日志提示"配置未启用"</li>
+                                    <li><strong>🔒 已触发：</strong>触发后自动禁用 → 日志提示"触发权限已禁用，需要手动重置"</li>
+                                    <li><strong>⚠️ 无策略：</strong>未选择反手策略 → 日志提示"未设置目标策略"</li>
+                                    <li><strong>⚪ 无配置：</strong>首次使用未创建配置 → 访问前端页面自动创建</li>
+                                </ul>
+                                
+                                <h4 style="color: #ec4899; font-size: 13px; margin: 12px 0 8px 0; font-weight: 700;">📡 通知方式</h4>
+                                <ul style="margin: 0 0 12px 16px; padding: 0;">
+                                    <li><strong>Telegram通知：</strong>实时推送到手机，包含止损信息、反手策略、执行结果</li>
+                                    <li><strong>前端弹窗：</strong>右上角精美弹窗，10秒倒计时自动关闭</li>
+                                    <li><strong>弹窗内容：</strong>平仓数量、总盈亏、反手策略、开仓详情</li>
+                                </ul>
+                                
+                                <h4 style="color: #ec4899; font-size: 13px; margin: 12px 0 8px 0; font-weight: 700;">🎯 策略选择建议</h4>
+                                <table style="width: 100%; font-size: 11px; border-collapse: collapse; margin-top: 8px;">
+                                    <thead>
+                                        <tr style="background: #fce7f3;">
+                                            <th style="padding: 6px; border: 1px solid #f9a8d4; text-align: left;">市场情况</th>
+                                            <th style="padding: 6px; border: 1px solid #f9a8d4; text-align: left;">止损类型</th>
+                                            <th style="padding: 6px; border: 1px solid #f9a8d4; text-align: left;">推荐反手策略</th>
+                                            <th style="padding: 6px; border: 1px solid #f9a8d4; text-align: left;">原因</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;">强势下跌</td>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;">多单止损</td>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;">涨幅前8名做空</td>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;">反弹后继续下跌</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;">持续下跌</td>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;">多单止损</td>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;">涨幅后8名做空</td>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;">跟随弱势币</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;">超跌反弹</td>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;">空单止损</td>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;">涨幅后8名做多</td>
+                                            <td style="padding: 6px; border: 1px solid #f9a8d4;">抄底机会</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <h4 style="color: #ec4899; font-size: 13px; margin: 12px 0 8px 0; font-weight: 700;">📊 监控器日志说明</h4>
+                                <ul style="margin: 0 0 12px 16px; padding: 0;">
+                                    <li><strong>✅ 已启用且有策略：</strong>会执行反手</li>
+                                    <li><strong>⏸️ 未启用：</strong>不会执行反手，需打开开关</li>
+                                    <li><strong>🔒 已触发需重置：</strong>不会执行反手，需点击重置按钮</li>
+                                    <li><strong>⚠️ 未选择策略：</strong>不会执行反手，需选择策略</li>
+                                </ul>
+                                <div style="margin-top: 8px; padding: 6px; background: rgba(34, 197, 94, 0.1); border-left: 3px solid #22c55e; border-radius: 4px;">
+                                    <p style="margin: 0; color: #166534; font-size: 10px;">
+                                        <strong>💡 查看日志：</strong><code>pm2 logs stoploss-reverse-monitor --lines 50 --nostream</code>
+                                    </p>
+                                </div>
+                                
+                                <div style="margin-top: 12px; padding: 8px; background: rgba(236, 72, 153, 0.1); border-left: 3px solid #ec4899; border-radius: 4px;">
+                                    <p style="margin: 0; color: #831843; font-size: 10px;">
+                                        <strong>💡 快速启动：</strong>1) 打开启用开关 → 2) 选择反手策略 → 3) 确认监控器运行 → 完成！系统将自动监控，无需人工干预。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- 🌙 0点0分对冲底仓 -->
+                <div class="info-card" style="margin-top: 16px; background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); border: 2px solid #6366f1;">
+                    <h3 style="color: #3730a3; margin-bottom: 16px; display: flex; align-items: center; gap: 6px; font-size: 16px;">
+                        🌙 0点0分对冲底仓
+                        <span style="font-size: 11px; color: #78716c; font-weight: 400; margin-left: 8px;">每天00:00同时开多单和空单</span>
+                        <span style="font-size: 10px; color: #dc2626; background: #fef2f2; padding: 2px 6px; border-radius: 4px; margin-left: auto;">v2.9.3-{{ cache_buster|default('20260303') }}</span>
+                    </h3>
+                    
+                    <!-- 启用开关 -->
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background: rgba(99, 102, 241, 0.1); border-radius: 8px; margin-bottom: 12px; border: 1px solid #818cf8;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="color: #3730a3; font-size: 13px; font-weight: 600;">🔵 启用自动开单</span>
+                            <span id="midnightHedgeEnabledStatus" style="font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: 600; background: #fef2f2; color: #dc2626;">⏳ 加载中...</span>
+                            <script>
+                                // 延迟加载对冲底仓状态和策略（等待DOM完全加载）
+                                setTimeout(async function() {
+                                    try {
+                                        // 🔧 使用当前选中的账户ID，而不是硬编码
+                                        const accountId = getCurrentAccountId();
+                                        if (!accountId) {
+                                            console.warn('⚠️ 未选择账户，跳过加载对冲底仓配置');
+                                            return;
+                                        }
+                                        const response = await fetch(`/api/okx-trading/midnight-hedge/${accountId}`);
+                                        const data = await response.json();
+                                        
+                                        if (data.success && data.config) {
+                                            const config = data.config;
+                                            const statusEl = document.getElementById('midnightHedgeEnabledStatus');
+                                            const switchEl = document.getElementById('midnightHedgeEnabled');
+                                            const longStrategyEl = document.getElementById('midnightHedgeLongStrategy');
+                                            const shortStrategyEl = document.getElementById('midnightHedgeShortStrategy');
+                                            
+                                            console.log('📋 加载对冲底仓配置:', config);
+                                            console.log('🔍 查找DOM元素:', {
+                                                statusEl: !!statusEl,
+                                                switchEl: !!switchEl,
+                                                longStrategyEl: !!longStrategyEl,
+                                                shortStrategyEl: !!shortStrategyEl
+                                            });
+                                            
+                                            // 🆕 直接调用完整的displayMidnightHedgeConfig函数
+                                            // 这个函数会更新：开关状态、策略下拉、权限状态
+                                            if (typeof displayMidnightHedgeConfig === 'function') {
+                                                displayMidnightHedgeConfig(config);
+                                                console.log('✅ 已调用displayMidnightHedgeConfig完整更新UI');
+                                            } else {
+                                                console.error('❌ displayMidnightHedgeConfig函数未定义');
+                                            }
+                                        }
+                                    } catch (error) {
+                                        console.error('❌ 加载对冲底仓状态失败:', error);
+                                    }
+                                }, 1200); // 延迟1200ms确保所有DOM元素已加载完成
+                            </script>
+                        </div>
+                        <label class="switch" style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                            <input type="checkbox" id="midnightHedgeEnabled" onchange="toggleMidnightHedge(this.checked)" style="opacity: 0; width: 0; height: 0;">
+                            <span class="slider slider-midnight-hedge" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px;">
+                                <style>
+                                    #midnightHedgeEnabled:checked + .slider-midnight-hedge { background-color: #6366f1; }
+                                    #midnightHedgeEnabled:checked + .slider-midnight-hedge:before { transform: translateX(20px); }
+                                    .slider-midnight-hedge:before {
+                                        position: absolute;
+                                        content: "";
+                                        height: 18px;
+                                        width: 18px;
+                                        left: 3px;
+                                        bottom: 3px;
+                                        background-color: white;
+                                        transition: .4s;
+                                        border-radius: 50%;
+                                    }
+                                </style>
+                            </span>
+                        </label>
+                    </div>
+                    
+                    <!-- 说明 -->
+                    <div style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+                        <div style="color: #3730a3; font-size: 11px; font-weight: 600; margin-bottom: 6px;">💡 工作原理</div>
+                        <div style="color: #4338ca; font-size: 12px; line-height: 1.6;">
+                            每天北京时间 <strong>00:00:00</strong> 自动执行：<br>
+                            1️⃣ 开一份多单（底仓）<br>
+                            2️⃣ 开一份空单（对冲）<br>
+                            分别跟踪盈亏，记录到JSONL文件
+                        </div>
+                    </div>
+                    
+                    <!-- 策略选择 -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                        <!-- 多单策略 -->
+                        <div style="background: rgba(16, 185, 129, 0.1); border-radius: 8px; padding: 12px; border: 2px solid #10b981;">
+                            <div style="color: #065f46; font-size: 11px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 4px;">
+                                <span>🟢</span> 多单策略
+                            </div>
+                            <select id="midnightHedgeLongStrategy" onchange="saveMidnightHedgeSettings()" 
+                                    style="width: 100%; padding: 8px; border: 1px solid #10b981; border-radius: 6px; font-size: 12px; color: #047857; font-weight: 600; background: white;">
+                                <option value="">-- 选择策略 --</option>
+                                <option value="STG_LONG_TOP8">涨幅前8名做多</option>
+                                <option value="STG_LONG_BOTTOM8">涨幅后8名做多（抄底）</option>
+                            </select>
+                        </div>
+                        
+                        <!-- 空单策略 -->
+                        <div style="background: rgba(239, 68, 68, 0.1); border-radius: 8px; padding: 12px; border: 2px solid #ef4444;">
+                            <div style="color: #7f1d1d; font-size: 11px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 4px;">
+                                <span>🔴</span> 空单策略
+                            </div>
+                            <select id="midnightHedgeShortStrategy" onchange="saveMidnightHedgeSettings()" 
+                                    style="width: 100%; padding: 8px; border: 1px solid #ef4444; border-radius: 6px; font-size: 12px; color: #dc2626; font-weight: 600; background: white;">
+                                <option value="">-- 选择策略 --</option>
+                                <option value="STG_SHORT_TOP8">涨幅前8名做空</option>
+                                <option value="STG_SHORT_BOTTOM8">涨幅后8名做空</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- 执行权限控制 -->
+                    <div style="background: rgba(255, 255, 255, 0.9); border-radius: 8px; padding: 12px; margin-bottom: 12px; border: 2px solid #f59e0b;">
+                        <div style="color: #92400e; font-size: 12px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+                            🔐 执行权限控制
+                            <span style="font-size: 10px; color: #78716c; font-weight: 400;">（开单后需手动重置）</span>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <!-- 多单权限 -->
+                            <div style="background: rgba(16, 185, 129, 0.1); border-radius: 6px; padding: 10px; border: 1px solid #10b981;">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                                    <span style="color: #065f46; font-size: 11px; font-weight: 600;">🟢 多单开仓</span>
+                                    <span id="midnightHedgeLongPermission" style="font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 600;"></span>
+                                </div>
+                                <button onclick="resetMidnightHedgePermission('long')" 
+                                        style="width: 100%; padding: 6px; border: 1px solid #10b981; border-radius: 4px; background: white; color: #047857; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                                    🔄 重置多单权限
+                                </button>
+                                <div id="midnightHedgeLongTriggerInfo" style="font-size: 9px; color: #059669; margin-top: 4px; display: none;">
+                                    <div>触发次数: <span id="midnightHedgeLongTriggerCount">0</span></div>
+                                    <div>上次触发: <span id="midnightHedgeLongLastTriggered">--</span></div>
+                                </div>
+                            </div>
+                            
+                            <!-- 空单权限 -->
+                            <div style="background: rgba(239, 68, 68, 0.1); border-radius: 6px; padding: 10px; border: 1px solid #ef4444;">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                                    <span style="color: #7f1d1d; font-size: 11px; font-weight: 600;">🔴 空单开仓</span>
+                                    <span id="midnightHedgeShortPermission" style="font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 600;"></span>
+                                </div>
+                                <button onclick="resetMidnightHedgePermission('short')" 
+                                        style="width: 100%; padding: 6px; border: 1px solid #ef4444; border-radius: 4px; background: white; color: #dc2626; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                                    🔄 重置空单权限
+                                </button>
+                                <div id="midnightHedgeShortTriggerInfo" style="font-size: 9px; color: #dc2626; margin-top: 4px; display: none;">
+                                    <div>触发次数: <span id="midnightHedgeShortTriggerCount">0</span></div>
+                                    <div>上次触发: <span id="midnightHedgeShortLastTriggered">--</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 8px; padding: 8px; background: rgba(251, 191, 36, 0.1); border-radius: 4px; border-left: 3px solid #f59e0b;">
+                            <p style="color: #92400e; font-size: 10px; margin: 0; line-height: 1.5;">
+                                ⚠️ <strong>重要：</strong>为防止重复下单，每次开单成功后该方向的执行权限会自动关闭，需手动点击"重置权限"才能再次执行。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- 今日执行记录 -->
+                    <div id="midnightHedgeTodayRecord" style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px; margin-bottom: 12px; display: none;">
+                        <div style="color: #3730a3; font-size: 11px; font-weight: 600; margin-bottom: 8px;">📊 今日执行记录</div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px;">
+                            <div style="padding: 6px; background: rgba(16, 185, 129, 0.1); border-radius: 4px;">
+                                <div style="color: #065f46; font-weight: 600;">多单 🟢</div>
+                                <div id="midnightHedgeLongStatus" style="color: #047857; font-size: 10px; margin-top: 4px;">未执行</div>
+                            </div>
+                            <div style="padding: 6px; background: rgba(239, 68, 68, 0.1); border-radius: 4px;">
+                                <div style="color: #7f1d1d; font-weight: 600;">空单 🔴</div>
+                                <div id="midnightHedgeShortStatus" style="color: #991b1b; font-size: 10px; margin-top: 4px;">未执行</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 盈亏统计 -->
+                    <div id="midnightHedgePnlStats" style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px; display: block;">
+                        <div style="color: #3730a3; font-size: 14px; font-weight: 700; margin-bottom: 10px;">💰 今日盈亏</div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-size: 11px;">
+                            <div style="text-align: center; padding: 6px; background: rgba(16, 185, 129, 0.1); border-radius: 4px;">
+                                <div style="color: #065f46; font-size: 11px; font-weight: 600;">多单盈利</div>
+                                <div id="midnightHedgeLongPnl" style="color: #047857; font-weight: 700; margin-top: 2px; font-size: 13px;">+0.00</div>
+                                <div id="midnightHedgeLongPnlPercent" style="color: #059669; font-size: 9px; margin-top: 2px;">0.00%</div>
+                            </div>
+                            <div style="text-align: center; padding: 6px; background: rgba(239, 68, 68, 0.1); border-radius: 4px;">
+                                <div style="color: #7f1d1d; font-size: 11px; font-weight: 600;">空单盈利</div>
+                                <div id="midnightHedgeShortPnl" style="color: #991b1b; font-weight: 700; margin-top: 2px; font-size: 13px;">+0.00</div>
+                                <div id="midnightHedgeShortPnlPercent" style="color: #b91c1c; font-size: 9px; margin-top: 2px;">0.00%</div>
+                            </div>
+                            <div style="text-align: center; padding: 6px; background: rgba(99, 102, 241, 0.1); border-radius: 4px;">
+                                <div style="color: #3730a3; font-size: 11px; font-weight: 600;">总盈亏</div>
+                                <div id="midnightHedgeTotalPnl" style="color: #4338ca; font-weight: 700; margin-top: 2px; font-size: 13px;">+0.00</div>
+                                <div id="midnightHedgeTotalPnlPercent" style="color: #4f46e5; font-size: 9px; margin-top: 2px;">0.00%</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 提示信息 -->
+                    <div style="margin-top: 12px; padding: 8px; background: rgba(99, 102, 241, 0.1); border-radius: 6px; border-left: 3px solid #6366f1;">
+                        <p style="color: #3730a3; font-size: 11px; margin: 0; line-height: 1.5;">
+                            💡 <strong>提示：</strong>启用后系统将在每天00:00自动开单，请确保账户余额充足。对冲开单可有效降低市场风险。
+                        </p>
+                    </div>
+                    
+                    <!-- 💰 独立盈亏显示框 -->
+                    <div style="margin-top: 16px; padding: 16px; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-radius: 12px; border: 3px solid #10b981; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);">
+                        <div style="text-align: center; margin-bottom: 12px;">
+                            <h3 style="color: #065f46; font-size: 16px; font-weight: 800; margin: 0; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                💰 对冲底仓实时盈亏
+                            </h3>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+                            <!-- 多单盈亏 -->
+                            <div style="text-align: center; padding: 12px; background: white; border-radius: 8px; border: 2px solid #10b981; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);">
+                                <div style="color: #065f46; font-size: 12px; font-weight: 700; margin-bottom: 6px;">🟢 多单盈亏</div>
+                                <div id="hedgeLongPnlDisplay" style="color: #047857; font-weight: 900; font-size: 20px; font-family: 'Courier New', monospace; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">+0.00</div>
+                                <div style="color: #059669; font-size: 10px; margin-top: 4px; font-weight: 600;">USDT</div>
+                            </div>
+                            
+                            <!-- 空单盈亏 -->
+                            <div style="text-align: center; padding: 12px; background: white; border-radius: 8px; border: 2px solid #ef4444; box-shadow: 0 2px 8px rgba(239, 68, 68, 0.15);">
+                                <div style="color: #7f1d1d; font-size: 12px; font-weight: 700; margin-bottom: 6px;">🔴 空单盈亏</div>
+                                <div id="hedgeShortPnlDisplay" style="color: #dc2626; font-weight: 900; font-size: 20px; font-family: 'Courier New', monospace; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">+0.00</div>
+                                <div style="color: #b91c1c; font-size: 10px; margin-top: 4px; font-weight: 600;">USDT</div>
+                            </div>
+                            
+                            <!-- 总盈亏 -->
+                            <div style="text-align: center; padding: 12px; background: white; border-radius: 8px; border: 2px solid #3b82f6; box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);">
+                                <div style="color: #1e40af; font-size: 12px; font-weight: 700; margin-bottom: 6px;">💙 总盈亏</div>
+                                <div id="hedgeTotalPnlDisplay" style="color: #2563eb; font-weight: 900; font-size: 20px; font-family: 'Courier New', monospace; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">+0.00</div>
+                                <div style="color: #3b82f6; font-size: 10px; margin-top: 4px; font-weight: 600;">USDT</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 更新时间显示 -->
+                        <div style="text-align: center; margin-top: 10px;">
+                            <span id="hedgePnlUpdateTime" style="color: #059669; font-size: 10px; font-weight: 600;">📡 实时更新中...</span>
+                        </div>
                     </div>
                 </div>
 
@@ -5589,6 +6420,11 @@ data/
         // 当前账户
         let currentAccount = 'account_poit_main';
         let isLoadingAccountSettings = false;  // 防止加载设置时触发保存
+        
+        // 获取当前选中的账户ID
+        function getCurrentAccountId() {
+            return currentAccount;
+        }
         
         // API请求超时控制
         async function fetchWithTimeout(url, options = {}, timeout = 5000) {
@@ -7009,10 +7845,19 @@ data/
                 
                 // 🔥 加载当前账户的止盈止损设置和百分比状态
                 if (currentAccount) {
-                    loadTakeProfitStopLossSettings();
-                    loadPercentTpslStatus();
-                    loadCoinChangeTpslData();
-                    loadCoinChangeTpslSettings();
+                    // 使用setTimeout确保函数已定义
+                    if (typeof loadTakeProfitStopLossSettings === 'function') {
+                        await loadTakeProfitStopLossSettings();
+                    }
+                    if (typeof loadPercentTpslStatus === 'function') {
+                        loadPercentTpslStatus();
+                    }
+                    if (typeof loadCoinChangeTpslData === 'function') {
+                        loadCoinChangeTpslData();
+                    }
+                    if (typeof loadCoinChangeTpslSettings === 'function') {
+                        loadCoinChangeTpslSettings();
+                    }
                 }
                 
                 // 步骤2: 加载常用币列表（优先级高，影响其他数据）
@@ -7041,10 +7886,11 @@ data/
                 // 步骤6: 加载交易日志和账户限额（次要数据）
                 setLoadingStep('step-logs');
                 Promise.all([
-                    loadTradingLogs(),
-                    loadAccountLimit(),
-                    loadTopSignalConfig(),  // 🆕 加载见顶信号策略配置
-                    loadBottomSignalConfig()  // 🆕 加载见底信号策略配置
+                    typeof loadTradingLogs === 'function' ? loadTradingLogs() : Promise.resolve(),
+                    typeof loadAccountLimit === 'function' ? loadAccountLimit() : Promise.resolve(),
+                    typeof loadTopSignalConfig === 'function' ? loadTopSignalConfig() : Promise.resolve(),  // 🆕 加载见顶信号策略配置
+                    typeof loadBottomSignalConfig === 'function' ? loadBottomSignalConfig() : Promise.resolve(),  // 🆕 加载见底信号策略配置
+                    typeof loadMidnightHedgeConfig === 'function' ? loadMidnightHedgeConfig() : Promise.resolve()  // 🌙 加载对冲底仓配置和盈亏数据
                 ]);
                 updateProgress(6, '✓ 所有数据加载完成！', 'step-logs');
                 
@@ -7057,10 +7903,13 @@ data/
                 
             } catch (error) {
                 console.error('[init] 初始化失败:', error);
+                console.error('[init] 错误堆栈:', error.stack);
+                console.error('[init] 错误名称:', error.name);
+                console.error('[init] 错误消息:', error.message);
                 // 即使失败也要隐藏加载界面
                 setTimeout(() => {
                     hideLoadingOverlay();
-                    alert('系统初始化失败，部分功能可能不可用');
+                    alert(`系统初始化失败，部分功能可能不可用\n\n错误: ${error.message}`);
                 }, 1000);
             }
             
@@ -7146,17 +7995,20 @@ data/
             renderAccountTabs();
             loadAccountData();
             refreshAccountData();  // 刷新账户信息和持仓
-            loadTakeProfitStopLossSettings();  // 加载该账户的止盈止损设置
-            loadPercentTpslStatus();  // 📊 加载百分比止盈止损监控状态
-            loadCoinChangeTpslData();  // 📈 加载27币涨跌幅数据
-            loadCoinChangeTpslSettings();  // 📈 加载27币涨跌幅止盈配置
-            loadCurrentMarketSentiment();  // 🔥 加载当前市场情绪
-            loadAutoStrategySettings();  // 加载该账户的抄底策略设置
-            loadAutoStrategySettingsTop();  // 🆕 加载该账户的追涨策略设置
-            loadUpRatio0StrategySettings();  // 🆕 加载该账户的上涨占比0策略设置
-            loadTopSignalConfig();  // 🆕 加载见顶信号做空策略设置
-            loadBottomSignalConfig();  // 🆕 加载见底信号做多策略设置
-            refreshStrategyStatus();  // 🆕 刷新策略状态总览
+            if (typeof loadTakeProfitStopLossSettings === 'function') loadTakeProfitStopLossSettings();  // 加载该账户的止盈止损设置
+            if (typeof loadPercentTpslStatus === 'function') loadPercentTpslStatus();  // 📊 加载百分比止盈止损监控状态
+            if (typeof loadCoinChangeTpslData === 'function') loadCoinChangeTpslData();  // 📈 加载27币涨跌幅数据
+            if (typeof loadCoinChangeTpslSettings === 'function') loadCoinChangeTpslSettings();  // 📈 加载27币涨跌幅止盈配置
+            if (typeof loadConditionalOrders === 'function') loadConditionalOrders();  // 🎯 加载27币涨跌幅条件单
+            if (typeof loadStoplossReverseOrders === 'function') loadStoplossReverseOrders();  // 🔄 加载止损反手开单配置
+            if (typeof loadMidnightHedgeConfig === 'function') loadMidnightHedgeConfig();  // 🌙 加载0点0分对冲底仓配置
+            if (typeof loadCurrentMarketSentiment === 'function') loadCurrentMarketSentiment();  // 🔥 加载当前市场情绪
+            if (typeof loadAutoStrategySettings === 'function') loadAutoStrategySettings();  // 加载该账户的抄底策略设置
+            if (typeof loadAutoStrategySettingsTop === 'function') loadAutoStrategySettingsTop();  // 🆕 加载该账户的追涨策略设置
+            if (typeof loadUpRatio0StrategySettings === 'function') loadUpRatio0StrategySettings();  // 🆕 加载该账户的上涨占比0策略设置
+            if (typeof loadTopSignalConfig === 'function') loadTopSignalConfig();  // 🆕 加载见顶信号做空策略设置
+            if (typeof loadBottomSignalConfig === 'function') loadBottomSignalConfig();  // 🆕 加载见底信号做多策略设置
+            if (typeof refreshStrategyStatus === 'function') refreshStrategyStatus();  // 🆕 刷新策略状态总览
             
             const account = accounts.find(acc => acc.id === accountId);
             console.log(`[selectAccount] 已切换到账户: ${account ? account.name : '未找到'} (${accountId})`);
@@ -12996,6 +13848,1282 @@ ${data.sMsg || result.message || ''}`);
             }
         }
 
+        // ========================================
+        // ========================================
+        // 27币涨跌幅条件单管理（简化版 - 固定2个条件单）
+        // ========================================
+        
+        let shortOrderData = null;
+        let longOrderData = null;
+        
+        // 加载条件单数据
+        async function loadConditionalOrders() {
+            const accountId = getCurrentAccountId();
+            if (!accountId) {
+                console.log('❌ 未选择账户');
+                return;
+            }
+            
+            try {
+                console.log('📊 加载条件单数据...');
+                const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    // 分离做空和做多条件单
+                    shortOrderData = data.orders.find(o => o.order_type === 'open_short');
+                    longOrderData = data.orders.find(o => o.order_type === 'open_long');
+                    
+                    // 更新UI
+                    updateShortOrderUI();
+                    updateLongOrderUI();
+                    
+                    console.log('✅ 条件单数据已加载');
+                } else {
+                    console.error('❌ 加载失败:', data.message);
+                }
+            } catch (error) {
+                console.error('❌ 加载条件单失败:', error);
+            }
+        }
+        
+        // 更新做空条件单UI
+        function updateShortOrderUI() {
+            if (shortOrderData) {
+                document.getElementById('shortOrderEnabled').checked = shortOrderData.enabled;
+                document.getElementById('shortTriggerValue').value = shortOrderData.trigger_value || 50;
+                document.getElementById('shortTargetStrategy').value = shortOrderData.target_strategy_code || '';
+                
+                const statusBadge = document.getElementById('shortOrderStatusBadge');
+                if (shortOrderData.enabled) {
+                    statusBadge.textContent = '✅ 已启用';
+                    statusBadge.style.background = '#10b981';
+                } else {
+                    statusBadge.textContent = '⚪ 未启用';
+                    statusBadge.style.background = '#9ca3af';
+                }
+                
+                updateShortTriggerStatus();
+            } else {
+                document.getElementById('shortOrderEnabled').checked = false;
+                document.getElementById('shortTriggerValue').value = 50;
+                document.getElementById('shortTargetStrategy').value = '';
+                document.getElementById('shortOrderStatusBadge').textContent = '⚪ 未启用';
+                document.getElementById('shortOrderStatusBadge').style.background = '#9ca3af';
+            }
+        }
+        
+        // 更新做多条件单UI
+        function updateLongOrderUI() {
+            if (longOrderData) {
+                document.getElementById('longOrderEnabled').checked = longOrderData.enabled;
+                document.getElementById('longTriggerValue').value = longOrderData.trigger_value || -30;
+                document.getElementById('longTargetStrategy').value = longOrderData.target_strategy_code || '';
+                
+                const statusBadge = document.getElementById('longOrderStatusBadge');
+                if (longOrderData.enabled) {
+                    statusBadge.textContent = '✅ 已启用';
+                    statusBadge.style.background = '#10b981';
+                } else {
+                    statusBadge.textContent = '⚪ 未启用';
+                    statusBadge.style.background = '#9ca3af';
+                }
+                
+                updateLongTriggerStatus();
+            } else {
+                document.getElementById('longOrderEnabled').checked = false;
+                document.getElementById('longTriggerValue').value = -30;
+                document.getElementById('longTargetStrategy').value = '';
+                document.getElementById('longOrderStatusBadge').textContent = '⚪ 未启用';
+                document.getElementById('longOrderStatusBadge').style.background = '#9ca3af';
+            }
+        }
+        
+        // 更新做空触发状态
+        function updateShortTriggerStatus() {
+            const permissionDiv = document.getElementById('shortTriggerPermission');
+            const triggeredDiv = document.getElementById('shortTriggeredInfo');
+            const timeSpan = document.getElementById('shortLastTriggeredTime');
+            
+            if (!shortOrderData) {
+                permissionDiv.style.display = 'none';
+                triggeredDiv.style.display = 'none';
+                return;
+            }
+            
+            if (shortOrderData.allow_trigger) {
+                permissionDiv.style.display = 'block';
+                triggeredDiv.style.display = 'none';
+            } else {
+                permissionDiv.style.display = 'none';
+                triggeredDiv.style.display = 'block';
+                if (shortOrderData.last_triggered_at) {
+                    timeSpan.textContent = `最后触发: ${shortOrderData.last_triggered_at}`;
+                }
+            }
+        }
+        
+        // 更新做多触发状态
+        function updateLongTriggerStatus() {
+            const permissionDiv = document.getElementById('longTriggerPermission');
+            const triggeredDiv = document.getElementById('longTriggeredInfo');
+            const timeSpan = document.getElementById('longLastTriggeredTime');
+            
+            if (!longOrderData) {
+                permissionDiv.style.display = 'none';
+                triggeredDiv.style.display = 'none';
+                return;
+            }
+            
+            if (longOrderData.allow_trigger) {
+                permissionDiv.style.display = 'block';
+                triggeredDiv.style.display = 'none';
+            } else {
+                permissionDiv.style.display = 'none';
+                triggeredDiv.style.display = 'block';
+                if (longOrderData.last_triggered_at) {
+                    timeSpan.textContent = `最后触发: ${longOrderData.last_triggered_at}`;
+                }
+            }
+        }
+        
+        // 切换做空条件单启用状态
+        async function toggleShortOrder(enabled) {
+            await saveShortOrderSettings();
+        }
+        
+        // 切换做多条件单启用状态
+        async function toggleLongOrder(enabled) {
+            await saveLongOrderSettings();
+        }
+        
+        // 保存做空条件单设置
+        async function saveShortOrderSettings() {
+            const accountId = getCurrentAccountId();
+            if (!accountId) {
+                alert('请先选择账户');
+                return;
+            }
+            
+            const enabled = document.getElementById('shortOrderEnabled').checked;
+            const triggerValue = parseFloat(document.getElementById('shortTriggerValue').value);
+            const targetStrategy = document.getElementById('shortTargetStrategy').value;
+            
+            if (isNaN(triggerValue)) {
+                alert('请输入有效的触发值');
+                return;
+            }
+            
+            if (enabled && !targetStrategy) {
+                alert('启用条件单时必须选择目标策略');
+                document.getElementById('shortOrderEnabled').checked = false;
+                return;
+            }
+            
+            try {
+                const payload = {
+                    enabled: enabled,
+                    order_type: 'open_short',
+                    trigger_condition: 'above',
+                    trigger_value: triggerValue,
+                    target_strategy_code: targetStrategy
+                };
+                
+                if (shortOrderData && shortOrderData.id) {
+                    payload.id = shortOrderData.id;
+                }
+                
+                console.log('💾 保存做空条件单:', payload);
+                const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log('✅ 做空条件单已保存');
+                    shortOrderData = data.order;
+                    updateShortOrderUI();
+                } else {
+                    throw new Error(data.message || '保存失败');
+                }
+            } catch (error) {
+                console.error('❌ 保存做空条件单失败:', error);
+                alert('保存失败: ' + error.message);
+                updateShortOrderUI();
+            }
+        }
+        
+        // 保存做多条件单设置
+        async function saveLongOrderSettings() {
+            const accountId = getCurrentAccountId();
+            if (!accountId) {
+                alert('请先选择账户');
+                return;
+            }
+            
+            const enabled = document.getElementById('longOrderEnabled').checked;
+            const triggerValue = parseFloat(document.getElementById('longTriggerValue').value);
+            const targetStrategy = document.getElementById('longTargetStrategy').value;
+            
+            if (isNaN(triggerValue)) {
+                alert('请输入有效的触发值');
+                return;
+            }
+            
+            if (enabled && !targetStrategy) {
+                alert('启用条件单时必须选择目标策略');
+                document.getElementById('longOrderEnabled').checked = false;
+                return;
+            }
+            
+            try {
+                const payload = {
+                    enabled: enabled,
+                    order_type: 'open_long',
+                    trigger_condition: 'below',
+                    trigger_value: triggerValue,
+                    target_strategy_code: targetStrategy
+                };
+                
+                if (longOrderData && longOrderData.id) {
+                    payload.id = longOrderData.id;
+                }
+                
+                console.log('💾 保存做多条件单:', payload);
+                const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log('✅ 做多条件单已保存');
+                    longOrderData = data.order;
+                    updateLongOrderUI();
+                } else {
+                    throw new Error(data.message || '保存失败');
+                }
+            } catch (error) {
+                console.error('❌ 保存做多条件单失败:', error);
+                alert('保存失败: ' + error.message);
+                updateLongOrderUI();
+            }
+        }
+        
+        // 重置做空触发状态
+        async function resetShortTrigger() {
+            if (!shortOrderData || !shortOrderData.id) {
+                alert('条件单不存在');
+                return;
+            }
+            
+            if (!confirm('确定要重置做空条件单的触发状态吗？重置后将可以再次触发。')) {
+                return;
+            }
+            
+            const accountId = getCurrentAccountId();
+            if (!accountId) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}/${shortOrderData.id}/reset-trigger`, {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('✅ 做空条件单触发状态已重置');
+                    await loadConditionalOrders();
+                } else {
+                    throw new Error(data.message || '重置失败');
+                }
+            } catch (error) {
+                console.error('❌ 重置触发状态失败:', error);
+                alert('重置失败: ' + error.message);
+            }
+        }
+        
+        // 重置做多触发状态
+        async function resetLongTrigger() {
+            if (!longOrderData || !longOrderData.id) {
+                alert('条件单不存在');
+                return;
+            }
+            
+            if (!confirm('确定要重置做多条件单的触发状态吗？重置后将可以再次触发。')) {
+                return;
+            }
+            
+            const accountId = getCurrentAccountId();
+            if (!accountId) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/coin-change-conditional-orders/${accountId}/${longOrderData.id}/reset-trigger`, {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('✅ 做多条件单触发状态已重置');
+                    await loadConditionalOrders();
+                } else {
+                    throw new Error(data.message || '重置失败');
+                }
+            } catch (error) {
+                console.error('❌ 重置触发状态失败:', error);
+                alert('重置失败: ' + error.message);
+            }
+        }
+
+        // ==================== 止损反手开单管理 ====================
+        
+        let longReverseData = null;  // 多单止损反手数据
+        let shortReverseData = null;  // 空单止损反手数据
+        
+        // 加载止损反手配置
+        async function loadStoplossReverseOrders() {
+            const accountId = getCurrentAccountId();
+            if (!accountId) {
+                console.warn('⚠️ 未选择账户，无法加载止损反手配置');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/okx-trading/stoploss-reverse-orders/${accountId}`);
+                const data = await response.json();
+                
+                if (data.success && data.configs) {
+                    console.log('✅ 加载止损反手配置:', data.configs);
+                    
+                    // 查找两个配置
+                    for (const config of data.configs) {
+                        if (config.type === 'long_stoploss_reverse') {
+                            longReverseData = config;
+                            displayLongReverseConfig(config);
+                        } else if (config.type === 'short_stoploss_reverse') {
+                            shortReverseData = config;
+                            displayShortReverseConfig(config);
+                        }
+                    }
+                } else {
+                    throw new Error(data.error || '加载失败');
+                }
+            } catch (error) {
+                console.error('❌ 加载止损反手配置失败:', error);
+            }
+        }
+        
+        // 显示多单止损反手配置
+        function displayLongReverseConfig(config) {
+            // 更新启用开关
+            document.getElementById('longReverseEnabled').checked = config.enabled;
+            
+            // 更新状态徽章
+            const statusBadge = document.getElementById('longReverseStatusBadge');
+            if (config.enabled) {
+                statusBadge.textContent = '✅ 已启用';
+                statusBadge.style.background = '#22c55e';
+            } else {
+                statusBadge.textContent = '⚪ 未启用';
+                statusBadge.style.background = '#9ca3af';
+            }
+            
+            // 更新目标策略
+            if (config.target_strategy_code) {
+                document.getElementById('longReverseTargetStrategy').value = config.target_strategy_code;
+            }
+            
+            // 更新触发权限显示
+            const permissionDiv = document.getElementById('longReverseTriggerPermission');
+            const triggeredDiv = document.getElementById('longReverseTriggeredInfo');
+            
+            if (config.allow_trigger) {
+                permissionDiv.style.display = 'block';
+                triggeredDiv.style.display = 'none';
+            } else {
+                permissionDiv.style.display = 'none';
+                triggeredDiv.style.display = 'block';
+                
+                // 显示最后触发时间
+                if (config.last_triggered_at) {
+                    document.getElementById('longReverseLastTriggeredTime').textContent = 
+                        `最后触发: ${config.last_triggered_at}`;
+                }
+            }
+        }
+        
+        // 显示空单止损反手配置
+        function displayShortReverseConfig(config) {
+            // 更新启用开关
+            document.getElementById('shortReverseEnabled').checked = config.enabled;
+            
+            // 更新状态徽章
+            const statusBadge = document.getElementById('shortReverseStatusBadge');
+            if (config.enabled) {
+                statusBadge.textContent = '✅ 已启用';
+                statusBadge.style.background = '#22c55e';
+            } else {
+                statusBadge.textContent = '⚪ 未启用';
+                statusBadge.style.background = '#9ca3af';
+            }
+            
+            // 更新目标策略
+            if (config.target_strategy_code) {
+                document.getElementById('shortReverseTargetStrategy').value = config.target_strategy_code;
+            }
+            
+            // 更新触发权限显示
+            const permissionDiv = document.getElementById('shortReverseTriggerPermission');
+            const triggeredDiv = document.getElementById('shortReverseTriggeredInfo');
+            
+            if (config.allow_trigger) {
+                permissionDiv.style.display = 'block';
+                triggeredDiv.style.display = 'none';
+            } else {
+                permissionDiv.style.display = 'none';
+                triggeredDiv.style.display = 'block';
+                
+                // 显示最后触发时间
+                if (config.last_triggered_at) {
+                    document.getElementById('shortReverseLastTriggeredTime').textContent = 
+                        `最后触发: ${config.last_triggered_at}`;
+                }
+            }
+        }
+        
+        // 切换多单止损反手
+        async function toggleLongReverse(enabled) {
+            const accountId = getCurrentAccountId();
+            if (!accountId) {
+                alert('⚠️ 请先选择账户');
+                document.getElementById('longReverseEnabled').checked = false;
+                return;
+            }
+            
+            if (!longReverseData) {
+                alert('⚠️ 配置数据未加载');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/okx-trading/stoploss-reverse-orders/${accountId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: longReverseData.id,
+                        enabled: enabled,
+                        target_strategy_code: document.getElementById('longReverseTargetStrategy').value
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log('✅ 多单止损反手配置已更新');
+                    await loadStoplossReverseOrders();
+                } else {
+                    throw new Error(data.error || '更新失败');
+                }
+            } catch (error) {
+                console.error('❌ 更新失败:', error);
+                alert('更新失败: ' + error.message);
+                document.getElementById('longReverseEnabled').checked = !enabled;
+            }
+        }
+        
+        // 切换空单止损反手
+        async function toggleShortReverse(enabled) {
+            const accountId = getCurrentAccountId();
+            if (!accountId) {
+                alert('⚠️ 请先选择账户');
+                document.getElementById('shortReverseEnabled').checked = false;
+                return;
+            }
+            
+            if (!shortReverseData) {
+                alert('⚠️ 配置数据未加载');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/okx-trading/stoploss-reverse-orders/${accountId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: shortReverseData.id,
+                        enabled: enabled,
+                        target_strategy_code: document.getElementById('shortReverseTargetStrategy').value
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log('✅ 空单止损反手配置已更新');
+                    await loadStoplossReverseOrders();
+                } else {
+                    throw new Error(data.error || '更新失败');
+                }
+            } catch (error) {
+                console.error('❌ 更新失败:', error);
+                alert('更新失败: ' + error.message);
+                document.getElementById('shortReverseEnabled').checked = !enabled;
+            }
+        }
+        
+        // 保存多单止损反手设置
+        async function saveLongReverseSettings() {
+            const accountId = getCurrentAccountId();
+            if (!accountId || !longReverseData) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/stoploss-reverse-orders/${accountId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: longReverseData.id,
+                        enabled: document.getElementById('longReverseEnabled').checked,
+                        target_strategy_code: document.getElementById('longReverseTargetStrategy').value
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log('✅ 多单止损反手设置已保存');
+                    await loadStoplossReverseOrders();
+                } else {
+                    throw new Error(data.error || '保存失败');
+                }
+            } catch (error) {
+                console.error('❌ 保存失败:', error);
+                alert('保存失败: ' + error.message);
+            }
+        }
+        
+        // 保存空单止损反手设置
+        async function saveShortReverseSettings() {
+            const accountId = getCurrentAccountId();
+            if (!accountId || !shortReverseData) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/stoploss-reverse-orders/${accountId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: shortReverseData.id,
+                        enabled: document.getElementById('shortReverseEnabled').checked,
+                        target_strategy_code: document.getElementById('shortReverseTargetStrategy').value
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log('✅ 空单止损反手设置已保存');
+                    await loadStoplossReverseOrders();
+                } else {
+                    throw new Error(data.error || '保存失败');
+                }
+            } catch (error) {
+                console.error('❌ 保存失败:', error);
+                alert('保存失败: ' + error.message);
+            }
+        }
+        
+        // 重置多单止损反手触发权限
+        async function resetLongReverseTrigger() {
+            const accountId = getCurrentAccountId();
+            if (!accountId || !longReverseData) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/stoploss-reverse-orders/${accountId}/${longReverseData.id}/reset-trigger`, {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('✅ 多单止损反手触发状态已重置');
+                    await loadStoplossReverseOrders();
+                } else {
+                    throw new Error(data.message || '重置失败');
+                }
+            } catch (error) {
+                console.error('❌ 重置触发状态失败:', error);
+                alert('重置失败: ' + error.message);
+            }
+        }
+        
+        // 重置空单止损反手触发权限
+        async function resetShortReverseTrigger() {
+            const accountId = getCurrentAccountId();
+            if (!accountId || !shortReverseData) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/stoploss-reverse-orders/${accountId}/${shortReverseData.id}/reset-trigger`, {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('✅ 空单止损反手触发状态已重置');
+                    await loadStoplossReverseOrders();
+                } else {
+                    throw new Error(data.message || '重置失败');
+                }
+            } catch (error) {
+                console.error('❌ 重置触发状态失败:', error);
+                alert('重置失败: ' + error.message);
+            }
+        }
+
+        // ==================== 0点0分对冲底仓管理 ====================
+        
+        let midnightHedgeData = null;  // 0点0分对冲底仓数据
+        
+        // 加载0点0分对冲底仓配置
+        async function loadMidnightHedgeConfig() {
+            const accountId = getCurrentAccountId();
+            if (!accountId) {
+                console.warn('⚠️ 未选择账户，无法加载对冲底仓配置');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/okx-trading/midnight-hedge/${accountId}`);
+                const data = await response.json();
+                
+                if (data.success && data.config) {
+                    console.log('✅ 加载对冲底仓配置:', data.config);
+                    midnightHedgeData = data.config;
+                    displayMidnightHedgeConfig(data.config);
+                    
+                    // 加载今日执行记录和盈亏
+                    await loadMidnightHedgeRecords();
+                } else {
+                    throw new Error(data.error || '加载失败');
+                }
+            } catch (error) {
+                console.error('❌ 加载对冲底仓配置失败:', error);
+            }
+        }
+        
+        // 显示配置
+        function displayMidnightHedgeConfig(config) {
+            console.log('📋 显示对冲底仓配置:', config);
+            console.log('🔵 启用状态:', config.enabled);
+            
+            // 更新启用开关
+            document.getElementById('midnightHedgeEnabled').checked = config.enabled;
+            console.log('✅ 开关已更新为:', config.enabled);
+            
+            // 更新启用状态显示
+            const enabledStatusEl = document.getElementById('midnightHedgeEnabledStatus');
+            if (!enabledStatusEl) {
+                console.error('❌ 找不到状态显示元素 midnightHedgeEnabledStatus');
+                return;
+            }
+            
+            if (config.enabled) {
+                enabledStatusEl.textContent = '✅ 已启用';
+                enabledStatusEl.style.background = '#d1fae5';
+                enabledStatusEl.style.color = '#047857';
+                console.log('✅ 状态标签已更新为: 已启用');
+            } else {
+                enabledStatusEl.textContent = '⏸️ 已禁用';
+                enabledStatusEl.style.background = '#fee2e2';
+                enabledStatusEl.style.color = '#dc2626';
+                console.log('⏸️ 状态标签已更新为: 已禁用');
+            }
+            
+            // 更新策略选择
+            if (config.long_strategy_code) {
+                document.getElementById('midnightHedgeLongStrategy').value = config.long_strategy_code;
+            }
+            if (config.short_strategy_code) {
+                document.getElementById('midnightHedgeShortStrategy').value = config.short_strategy_code;
+            }
+            
+            // 更新多单权限状态
+            const longPermEl = document.getElementById('midnightHedgeLongPermission');
+            const longTriggerInfoEl = document.getElementById('midnightHedgeLongTriggerInfo');
+            const allowLongTrigger = config.allow_long_trigger !== false;  // 默认true
+            
+            if (allowLongTrigger) {
+                longPermEl.textContent = '✅ 允许执行';
+                longPermEl.style.background = '#d1fae5';
+                longPermEl.style.color = '#047857';
+                longTriggerInfoEl.style.display = 'none';
+            } else {
+                longPermEl.textContent = '⏸️ 已禁用';
+                longPermEl.style.background = '#fee2e2';
+                longPermEl.style.color = '#dc2626';
+                
+                // 显示触发信息
+                if (config.long_triggered_count > 0) {
+                    longTriggerInfoEl.style.display = 'block';
+                    document.getElementById('midnightHedgeLongTriggerCount').textContent = config.long_triggered_count || 0;
+                    document.getElementById('midnightHedgeLongLastTriggered').textContent = config.long_last_triggered_at || '--';
+                }
+            }
+            
+            // 更新空单权限状态
+            const shortPermEl = document.getElementById('midnightHedgeShortPermission');
+            const shortTriggerInfoEl = document.getElementById('midnightHedgeShortTriggerInfo');
+            const allowShortTrigger = config.allow_short_trigger !== false;  // 默认true
+            
+            if (allowShortTrigger) {
+                shortPermEl.textContent = '✅ 允许执行';
+                shortPermEl.style.background = '#d1fae5';
+                shortPermEl.style.color = '#047857';
+                shortTriggerInfoEl.style.display = 'none';
+            } else {
+                shortPermEl.textContent = '⏸️ 已禁用';
+                shortPermEl.style.background = '#fee2e2';
+                shortPermEl.style.color = '#dc2626';
+                
+                // 显示触发信息
+                if (config.short_triggered_count > 0) {
+                    shortTriggerInfoEl.style.display = 'block';
+                    document.getElementById('midnightHedgeShortTriggerCount').textContent = config.short_triggered_count || 0;
+                    document.getElementById('midnightHedgeShortLastTriggered').textContent = config.short_last_triggered_at || '--';
+                }
+            }
+        }
+        
+        // 切换启用状态
+        async function toggleMidnightHedge(enabled) {
+            console.log('🔧 toggleMidnightHedge 被调用，enabled =', enabled);
+            const accountId = getCurrentAccountId();
+            console.log('📋 当前账户ID =', accountId);
+            if (!accountId) {
+                console.error('❌ 没有选择账户！');
+                return;
+            }
+            
+            try {
+                const url = `/api/okx-trading/midnight-hedge/${accountId}`;
+                const payload = { enabled: enabled };
+                console.log('📤 发送 POST 请求:', url, payload);
+                
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                console.log('📥 收到响应，状态码:', response.status);
+                const data = await response.json();
+                console.log('📥 响应数据:', data);
+                
+                if (data.success) {
+                    console.log(`✅ 对冲底仓已${enabled ? '启用' : '停用'}`);
+                    console.log('✅ 保存的配置:', data.config);
+                    midnightHedgeData = data.config;
+                    
+                    // 更新状态显示
+                    const enabledStatusEl = document.getElementById('midnightHedgeEnabledStatus');
+                    console.log('🎨 更新状态标签，元素存在:', !!enabledStatusEl);
+                    if (enabledStatusEl) {
+                        if (enabled) {
+                            enabledStatusEl.textContent = '✅ 已启用';
+                            enabledStatusEl.style.background = '#d1fae5';
+                            enabledStatusEl.style.color = '#047857';
+                        } else {
+                            enabledStatusEl.textContent = '⏸️ 已禁用';
+                            enabledStatusEl.style.background = '#fee2e2';
+                            enabledStatusEl.style.color = '#dc2626';
+                        }
+                        console.log('✅ 状态标签已更新:', enabledStatusEl.textContent);
+                    } else {
+                        console.error('❌ 找不到状态标签元素 #midnightHedgeEnabledStatus');
+                    }
+                } else {
+                    console.error('❌ API返回失败:', data.message);
+                    throw new Error(data.message || '更新失败');
+                }
+            } catch (error) {
+                console.error('❌ 更新对冲底仓配置失败:', error);
+                alert('更新失败: ' + error.message);
+                // 恢复开关状态
+                document.getElementById('midnightHedgeEnabled').checked = !enabled;
+            }
+        }
+        
+        // 重置执行权限
+        async function resetMidnightHedgePermission(side) {
+            const accountId = getCurrentAccountId();
+            if (!accountId) {
+                alert('请先选择账户');
+                return;
+            }
+            
+            const sideName = side === 'long' ? '多单' : '空单';
+            if (!confirm(`确定要重置${sideName}执行权限吗？\n\n重置后，系统在北京时间00:00会自动执行该方向的开仓。`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/okx-trading/midnight-hedge/${accountId}/reset-permission`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        side: side
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log(`✅ ${data.message}`);
+                    alert(`✅ ${data.message}`);
+                    // 重新加载配置
+                    await loadMidnightHedgeConfig();
+                } else {
+                    throw new Error(data.error || '重置失败');
+                }
+            } catch (error) {
+                console.error('❌ 重置权限失败:', error);
+                alert('重置失败: ' + error.message);
+            }
+        }
+        
+        // 保存配置
+        async function saveMidnightHedgeSettings() {
+            const accountId = getCurrentAccountId();
+            if (!accountId) return;
+            
+            const longStrategy = document.getElementById('midnightHedgeLongStrategy').value;
+            const shortStrategy = document.getElementById('midnightHedgeShortStrategy').value;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/midnight-hedge/${accountId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        long_strategy_code: longStrategy,
+                        short_strategy_code: shortStrategy
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    console.log('✅ 对冲底仓配置已保存');
+                    midnightHedgeData = data.config;
+                } else {
+                    throw new Error(data.message || '保存失败');
+                }
+            } catch (error) {
+                console.error('❌ 保存对冲底仓配置失败:', error);
+                alert('保存失败: ' + error.message);
+            }
+        }
+        
+        // 加载今日执行记录和盈亏
+        async function loadMidnightHedgeRecords() {
+            const accountId = getCurrentAccountId();
+            console.log('🔍 [loadMidnightHedgeRecords] 开始加载盈亏记录, accountId:', accountId);
+            if (!accountId) {
+                console.warn('⚠️ [loadMidnightHedgeRecords] accountId为空，跳过加载');
+                return;
+            }
+            
+            try {
+                // 加载执行记录
+                const execResponse = await fetch(`/api/okx-trading/midnight-hedge/${accountId}/execution-records`);
+                const execData = await execResponse.json();
+                console.log('📋 [loadMidnightHedgeRecords] 执行记录:', execData);
+                
+                // 加载盈亏记录
+                const pnlResponse = await fetch(`/api/okx-trading/midnight-hedge/${accountId}/pnl-records`);
+                const pnlData = await pnlResponse.json();
+                console.log('💰 [loadMidnightHedgeRecords] 盈亏记录:', pnlData);
+                
+                if (execData.success && execData.records && execData.records.length > 0) {
+                    // 显示今日执行记录
+                    const record = execData.records[0];  // 最新记录
+                    document.getElementById('midnightHedgeTodayRecord').style.display = 'block';
+                    
+                    // 更新多单状态
+                    const longStatus = document.getElementById('midnightHedgeLongStatus');
+                    if (record.long_order && record.long_order.success) {
+                        longStatus.textContent = `✅ 已执行 (${record.long_order.order_id})`;
+                        longStatus.style.color = '#047857';
+                    } else {
+                        longStatus.textContent = '❌ 执行失败';
+                        longStatus.style.color = '#dc2626';
+                    }
+                    
+                    // 更新空单状态
+                    const shortStatus = document.getElementById('midnightHedgeShortStatus');
+                    if (record.short_order && record.short_order.success) {
+                        shortStatus.textContent = `✅ 已执行 (${record.short_order.order_id})`;
+                        shortStatus.style.color = '#047857';
+                    } else {
+                        shortStatus.textContent = '❌ 执行失败';
+                        shortStatus.style.color = '#dc2626';
+                    }
+                }
+                
+                if (pnlData.success) {
+                    console.log('✅ [loadMidnightHedgeRecords] 盈亏数据加载成功');
+                    // 始终显示盈亏统计（即使为0）
+                    document.getElementById('midnightHedgePnlStats').style.display = 'block';
+                    
+                    const stats = pnlData.stats || { long_pnl: 0, short_pnl: 0, total_pnl: 0 };
+                    console.log('📊 [loadMidnightHedgeRecords] 盈亏统计:', stats);
+                    
+                    // 更新多单盈亏
+                    const longPnlEl = document.getElementById('midnightHedgeLongPnl');
+                    const longPnlValue = `${stats.long_pnl >= 0 ? '+' : ''}${stats.long_pnl.toFixed(2)}`;
+                    console.log(`💚 [loadMidnightHedgeRecords] 更新多单盈亏: ${longPnlValue}`);
+                    longPnlEl.textContent = longPnlValue;
+                    longPnlEl.style.color = stats.long_pnl >= 0 ? '#047857' : '#dc2626';
+                    
+                    // 🆕 同时更新独立显示框的多单盈亏
+                    const hedgeLongPnlDisplay = document.getElementById('hedgeLongPnlDisplay');
+                    if (hedgeLongPnlDisplay) {
+                        hedgeLongPnlDisplay.textContent = longPnlValue;
+                        hedgeLongPnlDisplay.style.color = stats.long_pnl >= 0 ? '#047857' : '#dc2626';
+                        console.log(`✅ [独立显示框] 多单盈亏已更新: ${longPnlValue}`);
+                    } else {
+                        console.warn('⚠️ [独立显示框] 找不到元素 hedgeLongPnlDisplay');
+                    }
+                    
+                    // 更新多单盈亏百分比（如果有）
+                    const longPnlPercentEl = document.getElementById('midnightHedgeLongPnlPercent');
+                    if (longPnlPercentEl && stats.long_pnl_percent !== undefined) {
+                        longPnlPercentEl.textContent = `${stats.long_pnl_percent >= 0 ? '+' : ''}${stats.long_pnl_percent.toFixed(2)}%`;
+                    }
+                    
+                    // 更新空单盈亏
+                    const shortPnlEl = document.getElementById('midnightHedgeShortPnl');
+                    const shortPnlValue = `${stats.short_pnl >= 0 ? '+' : ''}${stats.short_pnl.toFixed(2)}`;
+                    console.log(`❤️ [loadMidnightHedgeRecords] 更新空单盈亏: ${shortPnlValue}`);
+                    shortPnlEl.textContent = shortPnlValue;
+                    shortPnlEl.style.color = stats.short_pnl >= 0 ? '#047857' : '#dc2626';
+                    
+                    // 🆕 同时更新独立显示框的空单盈亏
+                    const hedgeShortPnlDisplay = document.getElementById('hedgeShortPnlDisplay');
+                    if (hedgeShortPnlDisplay) {
+                        hedgeShortPnlDisplay.textContent = shortPnlValue;
+                        hedgeShortPnlDisplay.style.color = stats.short_pnl >= 0 ? '#047857' : '#dc2626';
+                        console.log(`✅ [独立显示框] 空单盈亏已更新: ${shortPnlValue}`);
+                    } else {
+                        console.warn('⚠️ [独立显示框] 找不到元素 hedgeShortPnlDisplay');
+                    }
+                    
+                    // 更新空单盈亏百分比（如果有）
+                    const shortPnlPercentEl = document.getElementById('midnightHedgeShortPnlPercent');
+                    if (shortPnlPercentEl && stats.short_pnl_percent !== undefined) {
+                        shortPnlPercentEl.textContent = `${stats.short_pnl_percent >= 0 ? '+' : ''}${stats.short_pnl_percent.toFixed(2)}%`;
+                    }
+                    
+                    // 更新总盈亏
+                    const totalPnlEl = document.getElementById('midnightHedgeTotalPnl');
+                    const totalPnlValue = `${stats.total_pnl >= 0 ? '+' : ''}${stats.total_pnl.toFixed(2)}`;
+                    console.log(`💙 [loadMidnightHedgeRecords] 更新总盈亏: ${totalPnlValue}`);
+                    totalPnlEl.textContent = totalPnlValue;
+                    totalPnlEl.style.color = stats.total_pnl >= 0 ? '#4338ca' : '#dc2626';
+                    
+                    // 🆕 同时更新独立显示框的总盈亏
+                    const hedgeTotalPnlDisplay = document.getElementById('hedgeTotalPnlDisplay');
+                    if (hedgeTotalPnlDisplay) {
+                        hedgeTotalPnlDisplay.textContent = totalPnlValue;
+                        hedgeTotalPnlDisplay.style.color = stats.total_pnl >= 0 ? '#2563eb' : '#dc2626';
+                        console.log(`✅ [独立显示框] 总盈亏已更新: ${totalPnlValue}`);
+                    } else {
+                        console.warn('⚠️ [独立显示框] 找不到元素 hedgeTotalPnlDisplay');
+                    }
+                    
+                    // 🆕 更新时间戳
+                    const updateTimeEl = document.getElementById('hedgePnlUpdateTime');
+                    if (updateTimeEl) {
+                        const now = new Date();
+                        const timeStr = now.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                        updateTimeEl.textContent = `📡 最后更新: ${timeStr}`;
+                        console.log(`✅ [独立显示框] 更新时间已更新: ${timeStr}`);
+                    } else {
+                        console.warn('⚠️ [独立显示框] 找不到元素 hedgePnlUpdateTime');
+                    }
+                    
+                    // 更新总盈亏百分比（如果有）
+                    const totalPnlPercentEl = document.getElementById('midnightHedgeTotalPnlPercent');
+                    if (totalPnlPercentEl && stats.total_pnl_percent !== undefined) {
+                        totalPnlPercentEl.textContent = `${stats.total_pnl_percent >= 0 ? '+' : ''}${stats.total_pnl_percent.toFixed(2)}%`;
+                    }
+                    
+                    console.log('✅ [loadMidnightHedgeRecords] 盈亏数据更新完成');
+                } else {
+                    console.warn('⚠️ [loadMidnightHedgeRecords] 盈亏数据加载失败或无数据');
+                }
+            } catch (error) {
+                console.error('❌ 加载对冲底仓记录失败:', error);
+            }
+        }
+
+        // ==================== 前端通知系统 ====================
+        
+        let notificationCheckInterval = null;
+        
+        // 启动通知检查
+        function startNotificationCheck() {
+            // 清除现有定时器
+            if (notificationCheckInterval) {
+                clearInterval(notificationCheckInterval);
+            }
+            
+            // 立即检查一次
+            checkFrontendNotifications();
+            
+            // 每5秒检查一次新通知
+            notificationCheckInterval = setInterval(() => {
+                checkFrontendNotifications();
+            }, 5000);
+            
+            console.log('✅ 通知检查已启动');
+        }
+        
+        // 停止通知检查
+        function stopNotificationCheck() {
+            if (notificationCheckInterval) {
+                clearInterval(notificationCheckInterval);
+                notificationCheckInterval = null;
+            }
+        }
+        
+        // 检查前端通知
+        async function checkFrontendNotifications() {
+            const accountId = getCurrentAccountId();
+            if (!accountId) return;
+            
+            try {
+                const response = await fetch(`/api/okx-trading/frontend-notifications/${accountId}`);
+                const data = await response.json();
+                
+                if (data.success && data.notifications && data.notifications.length > 0) {
+                    // 显示每个通知
+                    for (const notification of data.notifications) {
+                        showNotificationPopup(notification);
+                    }
+                }
+            } catch (error) {
+                console.error('❌ 检查通知失败:', error);
+            }
+        }
+        
+        // 显示通知弹窗
+        function showNotificationPopup(notification) {
+            const accountId = getCurrentAccountId();
+            const configType = notification.config_type;
+            const strategyCode = notification.strategy_code;
+            const result = notification.result;
+            const stopLossInfo = notification.stop_loss_info;
+            
+            // 判断是多单还是空单
+            const isLongReverse = configType === 'long_stoploss_reverse';
+            const title = isLongReverse ? '🔻 多单止损反手开空' : '🔺 空单止损反手开多';
+            const bgColor = isLongReverse ? 'linear-gradient(135deg, #fee2e2, #fecaca)' : 'linear-gradient(135deg, #dcfce7, #bbf7d0)';
+            const borderColor = isLongReverse ? '#dc2626' : '#16a34a';
+            
+            // 策略名称
+            const strategyNames = {
+                'STG_SHORT_TOP8': '涨幅前8名做空',
+                'STG_SHORT_BOTTOM8': '涨幅后8名做空',
+                'STG_LONG_TOP8': '涨幅前8名做多',
+                'STG_LONG_BOTTOM8': '涨幅后8名做多（抄底）'
+            };
+            const strategyName = strategyNames[strategyCode] || strategyCode;
+            
+            // 创建弹窗元素
+            const popup = document.createElement('div');
+            popup.id = `notification-${notification.id}`;
+            popup.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                width: 400px;
+                background: ${bgColor};
+                border: 3px solid ${borderColor};
+                border-radius: 12px;
+                padding: 20px;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            
+            popup.innerHTML = `
+                <style>
+                    @keyframes slideIn {
+                        from { transform: translateX(450px); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(450px); opacity: 0; }
+                    }
+                </style>
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px;">
+                    <div style="font-size: 18px; font-weight: 700; color: ${isLongReverse ? '#991b1b' : '#14532d'};">
+                        ${title}
+                    </div>
+                    <button onclick="closeNotificationPopup('${notification.id}', '${accountId}')" 
+                            style="background: none; border: none; font-size: 20px; cursor: pointer; color: #6b7280; padding: 0; line-height: 1;">
+                        ×
+                    </button>
+                </div>
+                
+                <div style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.7); border-radius: 8px;">
+                    <div style="font-size: 12px; color: #374151; margin-bottom: 4px;">
+                        <strong>止损信息:</strong>
+                    </div>
+                    <div style="font-size: 11px; color: #6b7280;">
+                        • 平仓数量: ${stopLossInfo.positions_closed} 个<br>
+                        • 总盈亏: ${stopLossInfo.total_loss.toFixed(2)} USDT<br>
+                        • 预警类型: ${stopLossInfo.warning_type || '暴跌预警'}
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 10px; padding: 10px; background: rgba(255,255,255,0.7); border-radius: 8px;">
+                    <div style="font-size: 12px; color: #374151; margin-bottom: 4px;">
+                        <strong>反手策略:</strong>
+                    </div>
+                    <div style="font-size: 11px; color: #6b7280;">
+                        ${strategyName}
+                    </div>
+                </div>
+                
+                <div style="padding: 10px; background: ${result.success ? 'rgba(34, 197, 94, 0.2)' : 'rgba(239, 68, 68, 0.2)'}; border-radius: 8px; margin-bottom: 10px;">
+                    <div style="font-size: 12px; font-weight: 600; color: ${result.success ? '#166534' : '#991b1b'}; margin-bottom: 4px;">
+                        ${result.success ? '✅ 执行成功' : '❌ 执行失败'}
+                    </div>
+                    ${result.success ? `
+                        <div style="font-size: 11px; color: #6b7280;">
+                            已开仓 ${result.orders ? result.orders.length : 0} 个订单
+                        </div>
+                    ` : `
+                        <div style="font-size: 11px; color: #991b1b;">
+                            ${result.error || '未知错误'}
+                        </div>
+                    `}
+                </div>
+                
+                <div style="text-align: center; font-size: 10px; color: #9ca3af;">
+                    <span id="countdown-${notification.id}">10</span> 秒后自动关闭
+                </div>
+            `;
+            
+            document.body.appendChild(popup);
+            
+            // 自动关闭倒计时
+            let countdown = notification.auto_close_seconds || 10;
+            const countdownEl = document.getElementById(`countdown-${notification.id}`);
+            
+            const countdownInterval = setInterval(() => {
+                countdown--;
+                if (countdownEl) {
+                    countdownEl.textContent = countdown;
+                }
+                
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    closeNotificationPopup(notification.id, accountId);
+                }
+            }, 1000);
+            
+            // 保存定时器ID，以便手动关闭时清除
+            popup.dataset.countdownInterval = countdownInterval;
+        }
+        
+        // 关闭通知弹窗
+        async function closeNotificationPopup(notificationId, accountId) {
+            const popup = document.getElementById(`notification-${notificationId}`);
+            if (!popup) return;
+            
+            // 清除倒计时
+            if (popup.dataset.countdownInterval) {
+                clearInterval(parseInt(popup.dataset.countdownInterval));
+            }
+            
+            // 添加退出动画
+            popup.style.animation = 'slideOut 0.3s ease-in';
+            
+            setTimeout(() => {
+                popup.remove();
+            }, 300);
+            
+            // 标记为已读
+            try {
+                await fetch(`/api/okx-trading/frontend-notifications/${accountId}/${notificationId}/mark-read`, {
+                    method: 'POST'
+                });
+            } catch (error) {
+                console.error('❌ 标记通知已读失败:', error);
+            }
+        }
+        
+        // 页面加载时启动通知检查
+        document.addEventListener('DOMContentLoaded', function() {
+            startNotificationCheck();
+            console.log('✅ 页面加载完成，通知系统已启动');
+        });
+
+    </script>
+    
+    <!-- 🔴 立即执行的版本验证脚本 -->
+    <script>
+        console.log('🚀 页面版本: v2.9.4-FIX-FINAL-20260303-17:28 | 缓存戳: 20260303172848');
+        console.log('⏰ 当前时间:', new Date().toISOString());
+        console.log('🔍 检查关键元素是否存在...');
+        
+        // 立即检查元素
+        setTimeout(() => {
+            const statusEl = document.getElementById('midnightHedgeEnabledStatus');
+            console.log('📋 midnightHedgeEnabledStatus 元素:', statusEl);
+            console.log('📋 当前内容:', statusEl ? statusEl.textContent : '❌ 元素不存在');
+            
+            if (statusEl && statusEl.textContent === '⏳ 加载中...') {
+                console.log('✅ 元素存在且显示默认状态，页面是最新版本');
+            } else {
+                console.error('❌ 元素不存在或状态异常，可能是旧版本');
+            }
+        }, 100);
+        
+        // 🔴 关键修复：页面加载完成后调用 init() 函数
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                console.log('🚀 DOMContentLoaded 事件触发，开始调用 init()');
+                init().catch(error => {
+                    console.error('❌ init() 初始化失败:', error);
+                    alert('页面初始化失败，请刷新页面重试');
+                });
+            });
+        } else {
+            console.log('🚀 页面已加载，立即调用 init()');
+            init().catch(error => {
+                console.error('❌ init() 初始化失败:', error);
+                alert('页面初始化失败，请刷新页面重试');
+            });
+        }
     </script>
 </body>
 </html>

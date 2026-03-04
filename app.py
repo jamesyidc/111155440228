@@ -15141,7 +15141,9 @@ def anchor_system_real():
 @app.route('/okx-trading')
 def okx_trading():
     """OKX实盘交易系统"""
-    response = make_response(render_template('okx_trading.html'))
+    # 添加时间戳参数强制刷新
+    version = str(int(time.time()))
+    response = make_response(render_template('okx_trading.html', cache_buster=version))
     # 禁用所有缓存
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
     response.headers['Pragma'] = 'no-cache'
@@ -15832,19 +15834,53 @@ def get_okx_account_info():
 
 @app.route('/api/okx-trading/positions', methods=['POST'])
 def get_okx_positions():
-    """获取OKX持仓列表"""
+    """获取OKX持仓列表（支持前端模式和监控器模式）"""
     try:
         import hmac
         import base64
         from datetime import datetime, timezone
         import requests
+        import json
+        import os
         
         data = request.get_json()
         api_key = data.get('apiKey', '')
         secret_key = data.get('apiSecret', '')
         passphrase = data.get('passphrase', '')
+        account_id = data.get('account', '')
         
         print(f"[get_okx_positions] 收到请求")
+        
+        # 🔑 支持两种模式：
+        # 模式1：前端传递凭证（apiKey, apiSecret, passphrase）
+        # 模式2：监控器传递账户ID（account），从配置文件读取凭证
+        
+        if not api_key and account_id:
+            # 监控器模式：从配置文件读取凭证
+            print(f"[get_okx_positions] 监控器模式 - 账户ID: {account_id}")
+            
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            config_file = os.path.join(current_dir, 'config', 'okx_api_credentials.json')
+            
+            if os.path.exists(config_file):
+                with open(config_file, 'r', encoding='utf-8') as f:
+                    credentials = json.load(f)
+                
+                # 尝试多种账户ID格式
+                account_creds = None
+                for key in [account_id, account_id.replace('account_', ''), 'main_account', 'trading_config']:
+                    if key in credentials:
+                        account_creds = credentials[key]
+                        print(f"[get_okx_positions] 找到凭证配置: {key}")
+                        break
+                
+                if account_creds:
+                    api_key = account_creds.get('api_key', '')
+                    secret_key = account_creds.get('secret_key', '')
+                    passphrase = account_creds.get('passphrase', '')
+                else:
+                    print(f"[get_okx_positions] 警告: 未找到账户 {account_id} 的凭证配置")
+        
         print(f"[get_okx_positions] API Key: {api_key[:8]}..." if api_key else "[get_okx_positions] API Key: 空")
         print(f"[get_okx_positions] Secret: {'已提供' if secret_key else '未提供'}")
         print(f"[get_okx_positions] Passphrase: {'已提供' if passphrase else '未提供'}")
@@ -15853,7 +15889,8 @@ def get_okx_positions():
             print(f"[get_okx_positions] 错误: API凭证不完整")
             return jsonify({
                 'success': False,
-                'error': 'API凭证不完整'
+                'error': 'API凭证不完整',
+                'account_id': account_id if account_id else None
             })
         
         # OKX API配置
@@ -17491,7 +17528,8 @@ def get_coin_change_tpsl_overview(account_id):
         
         # 2. 获取当前27币涨跌幅数据
         beijing_tz = timezone(timedelta(hours=8))
-        beijing_date = datetime.now(timezone.utc).astimezone(beijing_tz).strftime('%Y%m%d')
+        beijing_now = datetime.now(timezone.utc).astimezone(beijing_tz)
+        beijing_date = beijing_now.strftime('%Y%m%d')
         coin_change_file = os.path.join(coin_change_dir, f'coin_change_{beijing_date}.jsonl')
         
         current_data = {
@@ -17502,20 +17540,36 @@ def get_coin_change_tpsl_overview(account_id):
             'data_available': False
         }
         
-        if os.path.exists(coin_change_file):
-            with open(coin_change_file, 'r', encoding='utf-8') as f:
-                lines = f.readlines()
-                if lines:
-                    last_line = lines[-1].strip()
-                    if last_line:
-                        data = json.loads(last_line)
-                        current_data = {
-                            'total_change': data.get('total_change', 0),
-                            'up_coins': data.get('up_coins', 0),
-                            'down_coins': data.get('down_coins', 0),
-                            'beijing_time': data.get('beijing_time', '--'),
-                            'data_available': True
-                        }
+        # 尝试读取当天数据，如果不存在或为空，尝试前一天
+        file_to_read = None
+        if os.path.exists(coin_change_file) and os.path.getsize(coin_change_file) > 0:
+            file_to_read = coin_change_file
+        else:
+            # 尝试前一天的数据（跨日期时的回退机制）
+            yesterday = beijing_now - timedelta(days=1)
+            yesterday_date = yesterday.strftime('%Y%m%d')
+            yesterday_file = os.path.join(coin_change_dir, f'coin_change_{yesterday_date}.jsonl')
+            if os.path.exists(yesterday_file) and os.path.getsize(yesterday_file) > 0:
+                file_to_read = yesterday_file
+                print(f"[回退] 当天数据不存在，使用前一天数据: {yesterday_date}")
+        
+        if file_to_read:
+            try:
+                with open(file_to_read, 'r', encoding='utf-8') as f:
+                    lines = f.readlines()
+                    if lines:
+                        last_line = lines[-1].strip()
+                        if last_line:
+                            data = json.loads(last_line)
+                            current_data = {
+                                'total_change': data.get('total_change', 0),
+                                'up_coins': data.get('up_coins', 0),
+                                'down_coins': data.get('down_coins', 0),
+                                'beijing_time': data.get('beijing_time', '--'),
+                                'data_available': True
+                            }
+            except Exception as e:
+                print(f"[错误] 读取数据文件失败: {e}")
         
         # 3. 读取执行记录
         execution_file = os.path.join(settings_dir, f'{account_id}_coin_change_tpsl_execution.jsonl')
@@ -17595,6 +17649,1008 @@ def get_coin_change_tpsl_overview(account_id):
             'success': False,
             'error': str(e)
         })
+
+# ========== 27币涨跌幅条件单系统 API ==========
+
+@app.route('/api/okx-trading/coin-change-conditional-orders/<account_id>', methods=['GET'])
+def get_coin_change_conditional_orders(account_id):
+    """
+    获取27币涨跌幅条件单配置
+    
+    返回:
+    {
+        "success": True,
+        "account_id": "account_main",
+        "orders": [
+            {
+                "id": "cond_order_001",
+                "enabled": True,
+                "order_type": "open_short",  // open_short | open_long
+                "trigger_condition": "above",  // above | below
+                "trigger_value": 50.0,  // 27币涨跌幅之和阈值
+                "target_strategy_code": "STG_SHORT_001",  // 目标策略唯一编码
+                "allow_trigger": True,  // 是否允许触发
+                "triggered_count": 0,  // 已触发次数
+                "last_triggered_at": null,
+                "created_at": "2026-03-02 22:30:00"
+            }
+        ]
+    }
+    """
+    try:
+        import json
+        from pathlib import Path
+        from datetime import datetime
+        import pytz
+        
+        data_dir = Path('/home/user/webapp/data/coin_change_conditional_orders')
+        data_dir.mkdir(parents=True, exist_ok=True)
+        
+        order_file = data_dir / f'{account_id}_conditional_orders.jsonl'
+        
+        orders = []
+        if order_file.exists():
+            with open(order_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        try:
+                            order = json.loads(line)
+                            orders.append(order)
+                        except json.JSONDecodeError:
+                            continue
+        
+        return jsonify({
+            'success': True,
+            'account_id': account_id,
+            'orders': orders,
+            'total_orders': len(orders),
+            'timestamp': datetime.now(pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+@app.route('/api/okx-trading/coin-change-conditional-orders/<account_id>', methods=['POST'])
+def save_coin_change_conditional_order(account_id):
+    """
+    保存/更新27币涨跌幅条件单
+    
+    请求体:
+    {
+        "id": "cond_order_001",  // 可选，不提供则自动生成
+        "enabled": True,
+        "order_type": "open_short",  // open_short | open_long
+        "trigger_condition": "above",  // above | below
+        "trigger_value": 50.0,
+        "target_strategy_code": "STG_SHORT_001",
+        "allow_trigger": True
+    }
+    """
+    try:
+        import json
+        from pathlib import Path
+        from datetime import datetime
+        import pytz
+        import uuid
+        
+        data = request.json
+        beijing_tz = pytz.timezone('Asia/Shanghai')
+        now = datetime.now(beijing_tz)
+        
+        data_dir = Path('/home/user/webapp/data/coin_change_conditional_orders')
+        data_dir.mkdir(parents=True, exist_ok=True)
+        
+        order_file = data_dir / f'{account_id}_conditional_orders.jsonl'
+        
+        # 读取现有订单
+        existing_orders = {}
+        if order_file.exists():
+            with open(order_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        try:
+                            order = json.loads(line)
+                            existing_orders[order['id']] = order
+                        except json.JSONDecodeError:
+                            continue
+        
+        # 生成或使用提供的ID
+        order_id = data.get('id') or f"cond_order_{uuid.uuid4().hex[:8]}"
+        
+        # 如果是更新现有订单，保留某些字段
+        if order_id in existing_orders:
+            old_order = existing_orders[order_id]
+            order = {
+                'id': order_id,
+                'enabled': data.get('enabled', old_order.get('enabled', False)),
+                'order_type': data.get('order_type', old_order.get('order_type')),
+                'trigger_condition': data.get('trigger_condition', old_order.get('trigger_condition')),
+                'trigger_value': float(data.get('trigger_value', old_order.get('trigger_value', 0))),
+                'target_strategy_code': data.get('target_strategy_code', old_order.get('target_strategy_code')),
+                'allow_trigger': data.get('allow_trigger', old_order.get('allow_trigger', True)),
+                'triggered_count': old_order.get('triggered_count', 0),
+                'last_triggered_at': old_order.get('last_triggered_at'),
+                'created_at': old_order.get('created_at', now.strftime('%Y-%m-%d %H:%M:%S')),
+                'updated_at': now.strftime('%Y-%m-%d %H:%M:%S')
+            }
+        else:
+            # 新建订单
+            order = {
+                'id': order_id,
+                'enabled': data.get('enabled', False),
+                'order_type': data.get('order_type', 'open_short'),
+                'trigger_condition': data.get('trigger_condition', 'above'),
+                'trigger_value': float(data.get('trigger_value', 0)),
+                'target_strategy_code': data.get('target_strategy_code', ''),
+                'allow_trigger': data.get('allow_trigger', True),
+                'triggered_count': 0,
+                'last_triggered_at': None,
+                'created_at': now.strftime('%Y-%m-%d %H:%M:%S'),
+                'updated_at': now.strftime('%Y-%m-%d %H:%M:%S')
+            }
+        
+        # 更新字典
+        existing_orders[order_id] = order
+        
+        # 写回文件
+        with open(order_file, 'w', encoding='utf-8') as f:
+            for ord_id, ord_data in existing_orders.items():
+                f.write(json.dumps(ord_data, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'message': '条件单保存成功',
+            'order': order
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+@app.route('/api/okx-trading/coin-change-conditional-orders/<account_id>/<order_id>', methods=['DELETE'])
+def delete_coin_change_conditional_order(account_id, order_id):
+    """删除条件单"""
+    try:
+        import json
+        from pathlib import Path
+        
+        data_dir = Path('/home/user/webapp/data/coin_change_conditional_orders')
+        order_file = data_dir / f'{account_id}_conditional_orders.jsonl'
+        
+        if not order_file.exists():
+            return jsonify({
+                'success': False,
+                'error': '条件单文件不存在'
+            }), 404
+        
+        # 读取并过滤
+        existing_orders = {}
+        with open(order_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    try:
+                        order = json.loads(line)
+                        if order['id'] != order_id:
+                            existing_orders[order['id']] = order
+                    except json.JSONDecodeError:
+                        continue
+        
+        # 写回文件
+        with open(order_file, 'w', encoding='utf-8') as f:
+            for ord_id, ord_data in existing_orders.items():
+                f.write(json.dumps(ord_data, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'message': f'条件单 {order_id} 已删除'
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+@app.route('/api/okx-trading/coin-change-conditional-orders/<account_id>/<order_id>/reset-trigger', methods=['POST'])
+def reset_conditional_order_trigger(account_id, order_id):
+    """重置条件单触发权限"""
+    try:
+        import json
+        from pathlib import Path
+        from datetime import datetime
+        import pytz
+        
+        data_dir = Path('/home/user/webapp/data/coin_change_conditional_orders')
+        order_file = data_dir / f'{account_id}_conditional_orders.jsonl'
+        
+        if not order_file.exists():
+            return jsonify({
+                'success': False,
+                'error': '条件单文件不存在'
+            }), 404
+        
+        # 读取并更新
+        existing_orders = {}
+        found = False
+        with open(order_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    try:
+                        order = json.loads(line)
+                        if order['id'] == order_id:
+                            order['allow_trigger'] = True
+                            found = True
+                        existing_orders[order['id']] = order
+                    except json.JSONDecodeError:
+                        continue
+        
+        if not found:
+            return jsonify({
+                'success': False,
+                'error': f'条件单 {order_id} 不存在'
+            }), 404
+        
+        # 写回文件
+        with open(order_file, 'w', encoding='utf-8') as f:
+            for ord_id, ord_data in existing_orders.items():
+                f.write(json.dumps(ord_data, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'message': f'条件单 {order_id} 触发权限已重置'
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+@app.route('/api/okx-trading/available-strategies/<account_id>', methods=['GET'])
+def get_available_strategies(account_id):
+    """
+    获取可用的策略列表（用于下拉选择）
+    
+    参数:
+    - order_type: open_short | open_long (query parameter)
+    
+    返回:
+    {
+        "success": True,
+        "strategies": [
+            {
+                "code": "STG_SHORT_001",
+                "name": "涨幅前8名做空",
+                "type": "open_short",
+                "description": "当价格上涨时，对涨幅前8名币种开空单"
+            }
+        ]
+    }
+    """
+    try:
+        order_type = request.args.get('order_type', '')
+        
+        # 策略定义：基于27币涨跌幅排序
+        # 涨幅前8名 = 涨幅最高的8个（正数最大）
+        # 涨幅后8名 = 涨幅最低的8个（负数最大或正数最小）
+        strategies = [
+            {
+                'code': 'STG_SHORT_TOP8',
+                'name': '涨幅前8名做空',
+                'type': 'open_short',
+                'description': '对27币中涨幅前8名（涨幅最高）开空单'
+            },
+            {
+                'code': 'STG_SHORT_BOTTOM8',
+                'name': '涨幅后8名做空',
+                'type': 'open_short',
+                'description': '对27币中涨幅后8名（涨幅最低）开空单'
+            },
+            {
+                'code': 'STG_LONG_TOP8',
+                'name': '涨幅前8名做多',
+                'type': 'open_long',
+                'description': '对27币中涨幅前8名（涨幅最高）开多单'
+            },
+            {
+                'code': 'STG_LONG_BOTTOM8',
+                'name': '涨幅后8名做多',
+                'type': 'open_long',
+                'description': '对27币中涨幅后8名（涨幅最低）开多单（抄底）'
+            }
+        ]
+        
+        # 根据order_type过滤
+        if order_type:
+            strategies = [s for s in strategies if s['type'] == order_type]
+        
+        return jsonify({
+            'success': True,
+            'strategies': strategies,
+            'account_id': account_id
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+# ==================== 止损反手开单 API ====================
+
+@app.route('/api/okx-trading/stoploss-reverse-orders/<account_id>', methods=['GET'])
+def api_get_stoploss_reverse_orders(account_id):
+    """获取指定账户的止损反手配置"""
+    try:
+        import json
+        import os
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        settings_dir = os.path.join(current_dir, 'data', 'stoploss_reverse_orders')
+        os.makedirs(settings_dir, exist_ok=True)
+        
+        settings_file = os.path.join(settings_dir, f'{account_id}_stoploss_reverse.jsonl')
+        
+        # 读取配置（JSONL格式，每行一个配置）
+        configs = []
+        if os.path.exists(settings_file):
+            with open(settings_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        config = json.loads(line)
+                        configs.append(config)
+        
+        # 如果没有配置，返回默认配置
+        if not configs:
+            # 默认配置：多单止损反手和空单止损反手
+            default_configs = [
+                {
+                    'id': 'reverse_long_stoploss',
+                    'type': 'long_stoploss_reverse',  # 多单止损反手开空单
+                    'name': '多单止损反手开空',
+                    'description': '多单止损后自动反手开空单',
+                    'enabled': False,
+                    'allow_trigger': True,
+                    'target_strategy_code': None,  # 目标策略代码
+                    'triggered_count': 0,
+                    'last_triggered_at': None,
+                    'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                },
+                {
+                    'id': 'reverse_short_stoploss',
+                    'type': 'short_stoploss_reverse',  # 空单止损反手开多单
+                    'name': '空单止损反手开多',
+                    'description': '空单止损后自动反手开多单',
+                    'enabled': False,
+                    'allow_trigger': True,
+                    'target_strategy_code': None,
+                    'triggered_count': 0,
+                    'last_triggered_at': None,
+                    'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    'updated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                }
+            ]
+            
+            # 写入默认配置
+            with open(settings_file, 'w', encoding='utf-8') as f:
+                for config in default_configs:
+                    f.write(json.dumps(config, ensure_ascii=False) + '\n')
+            
+            configs = default_configs
+        
+        return jsonify({
+            'success': True,
+            'configs': configs,
+            'account_id': account_id,
+            'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+@app.route('/api/okx-trading/stoploss-reverse-orders/<account_id>', methods=['POST'])
+def api_update_stoploss_reverse_order(account_id):
+    """更新止损反手配置"""
+    try:
+        import json
+        import os
+        from flask import request
+        
+        data = request.get_json()
+        config_id = data.get('id')
+        
+        if not config_id:
+            return jsonify({
+                'success': False,
+                'error': '缺少配置ID'
+            }), 400
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        settings_dir = os.path.join(current_dir, 'data', 'stoploss_reverse_orders')
+        os.makedirs(settings_dir, exist_ok=True)
+        
+        settings_file = os.path.join(settings_dir, f'{account_id}_stoploss_reverse.jsonl')
+        
+        # 读取所有配置
+        configs = []
+        if os.path.exists(settings_file):
+            with open(settings_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        configs.append(json.loads(line))
+        
+        # 查找并更新配置
+        config_found = False
+        for i, config in enumerate(configs):
+            if config['id'] == config_id:
+                # 更新配置
+                config['enabled'] = data.get('enabled', config['enabled'])
+                config['target_strategy_code'] = data.get('target_strategy_code', config['target_strategy_code'])
+                config['updated_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                config_found = True
+                break
+        
+        if not config_found:
+            return jsonify({
+                'success': False,
+                'error': f'未找到配置ID: {config_id}'
+            }), 404
+        
+        # 写回文件
+        with open(settings_file, 'w', encoding='utf-8') as f:
+            for config in configs:
+                f.write(json.dumps(config, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'message': '配置已更新',
+            'config': config,
+            'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+@app.route('/api/okx-trading/stoploss-reverse-orders/<account_id>/<config_id>/reset-trigger', methods=['POST'])
+def api_reset_stoploss_reverse_trigger(account_id, config_id):
+    """重置止损反手触发权限"""
+    try:
+        import json
+        import os
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        settings_dir = os.path.join(current_dir, 'data', 'stoploss_reverse_orders')
+        settings_file = os.path.join(settings_dir, f'{account_id}_stoploss_reverse.jsonl')
+        
+        if not os.path.exists(settings_file):
+            return jsonify({
+                'success': False,
+                'error': '配置文件不存在'
+            }), 404
+        
+        # 读取所有配置
+        configs = []
+        with open(settings_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    configs.append(json.loads(line))
+        
+        # 查找并重置触发权限
+        config_found = False
+        for config in configs:
+            if config['id'] == config_id:
+                config['allow_trigger'] = True
+                config['updated_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                config_found = True
+                break
+        
+        if not config_found:
+            return jsonify({
+                'success': False,
+                'error': f'未找到配置ID: {config_id}'
+            }), 404
+        
+        # 写回文件
+        with open(settings_file, 'w', encoding='utf-8') as f:
+            for config in configs:
+                f.write(json.dumps(config, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'message': f'配置 {config_id} 触发权限已重置'
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+
+# ==================== 0点0分对冲底仓 API ====================
+
+@app.route('/api/okx-trading/midnight-hedge/<account_id>', methods=['GET'])
+def api_get_midnight_hedge_config(account_id):
+    """获取指定账户的0点0分对冲底仓配置"""
+    try:
+        import json
+        import os
+        from utils.beijing_time import get_beijing_now_str
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        config_dir = os.path.join(current_dir, 'data', 'midnight_hedge_orders')
+        os.makedirs(config_dir, exist_ok=True)
+        
+        config_file = os.path.join(config_dir, f'{account_id}_hedge_config.jsonl')
+        
+        # 读取配置
+        config = None
+        if os.path.exists(config_file):
+            with open(config_file, 'r', encoding='utf-8') as f:
+                line = f.readline().strip()
+                if line:
+                    config = json.loads(line)
+        
+        # 如果没有配置，返回默认配置
+        if not config:
+            config = {
+                'account_id': account_id,
+                'enabled': False,
+                'long_strategy_code': None,
+                'short_strategy_code': None,
+                'allow_long_trigger': True,
+                'allow_short_trigger': True,
+                'long_triggered_count': 0,
+                'short_triggered_count': 0,
+                'long_last_triggered_at': None,
+                'short_last_triggered_at': None,
+                'execution_time': '00:00:00',
+                'created_at': get_beijing_now_str(),
+                'updated_at': get_beijing_now_str()
+            }
+            
+            # 写入默认配置
+            with open(config_file, 'w', encoding='utf-8') as f:
+                f.write(json.dumps(config, ensure_ascii=False) + '\n')
+        else:
+            # 确保旧配置有权限字段
+            if 'allow_long_trigger' not in config:
+                config['allow_long_trigger'] = True
+            if 'allow_short_trigger' not in config:
+                config['allow_short_trigger'] = True
+            if 'long_triggered_count' not in config:
+                config['long_triggered_count'] = 0
+            if 'short_triggered_count' not in config:
+                config['short_triggered_count'] = 0
+            if 'long_last_triggered_at' not in config:
+                config['long_last_triggered_at'] = None
+            if 'short_last_triggered_at' not in config:
+                config['short_last_triggered_at'] = None
+        
+        return jsonify({
+            'success': True,
+            'config': config,
+            'account_id': account_id,
+            'timestamp': get_beijing_now_str()
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+
+@app.route('/api/okx-trading/midnight-hedge/<account_id>', methods=['POST'])
+def api_update_midnight_hedge_config(account_id):
+    """更新0点0分对冲底仓配置"""
+    try:
+        import json
+        import os
+        from flask import request
+        from utils.beijing_time import get_beijing_now_str
+        
+        data = request.get_json()
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        config_dir = os.path.join(current_dir, 'data', 'midnight_hedge_orders')
+        os.makedirs(config_dir, exist_ok=True)
+        
+        config_file = os.path.join(config_dir, f'{account_id}_hedge_config.jsonl')
+        
+        # 读取现有配置
+        config = None
+        if os.path.exists(config_file):
+            with open(config_file, 'r', encoding='utf-8') as f:
+                line = f.readline().strip()
+                if line:
+                    config = json.loads(line)
+        
+        # 如果没有配置，创建新配置
+        if not config:
+            config = {
+                'account_id': account_id,
+                'enabled': False,
+                'long_strategy_code': None,
+                'short_strategy_code': None,
+                'allow_long_trigger': True,  # 多单执行权限
+                'allow_short_trigger': True,  # 空单执行权限
+                'long_triggered_count': 0,
+                'short_triggered_count': 0,
+                'long_last_triggered_at': None,
+                'short_last_triggered_at': None,
+                'execution_time': '00:00:00',
+                'created_at': get_beijing_now_str()
+            }
+        
+        # 更新配置
+        if 'enabled' in data:
+            config['enabled'] = data['enabled']
+        if 'long_strategy_code' in data:
+            config['long_strategy_code'] = data['long_strategy_code']
+        if 'short_strategy_code' in data:
+            config['short_strategy_code'] = data['short_strategy_code']
+        if 'allow_long_trigger' in data:
+            config['allow_long_trigger'] = data['allow_long_trigger']
+        if 'allow_short_trigger' in data:
+            config['allow_short_trigger'] = data['allow_short_trigger']
+        
+        # 初始化缺失的字段
+        if 'allow_long_trigger' not in config:
+            config['allow_long_trigger'] = True
+        if 'allow_short_trigger' not in config:
+            config['allow_short_trigger'] = True
+        if 'long_triggered_count' not in config:
+            config['long_triggered_count'] = 0
+        if 'short_triggered_count' not in config:
+            config['short_triggered_count'] = 0
+        if 'long_last_triggered_at' not in config:
+            config['long_last_triggered_at'] = None
+        if 'short_last_triggered_at' not in config:
+            config['short_last_triggered_at'] = None
+        
+        config['updated_at'] = get_beijing_now_str()
+        
+        # 写回文件
+        with open(config_file, 'w', encoding='utf-8') as f:
+            f.write(json.dumps(config, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'message': '配置已更新',
+            'config': config,
+            'timestamp': get_beijing_now_str()
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+
+@app.route('/api/okx-trading/midnight-hedge/<account_id>/reset-permission', methods=['POST'])
+def api_reset_midnight_hedge_permission(account_id):
+    """重置0点0分对冲底仓执行权限"""
+    try:
+        import json
+        import os
+        from flask import request
+        from utils.beijing_time import get_beijing_now_str
+        
+        data = request.get_json()
+        side = data.get('side')  # 'long', 'short', 或 'both'
+        
+        if side not in ['long', 'short', 'both']:
+            return jsonify({
+                'success': False,
+                'error': 'side参数必须是long、short或both'
+            }), 400
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        config_file = os.path.join(current_dir, 'data', 'midnight_hedge_orders', f'{account_id}_hedge_config.jsonl')
+        
+        if not os.path.exists(config_file):
+            return jsonify({
+                'success': False,
+                'error': '配置文件不存在'
+            }), 404
+        
+        # 读取配置
+        with open(config_file, 'r', encoding='utf-8') as f:
+            line = f.readline().strip()
+            config = json.loads(line) if line else {}
+        
+        # 重置权限
+        reset_info = []
+        if side in ['long', 'both']:
+            config['allow_long_trigger'] = True
+            reset_info.append('多单')
+        if side in ['short', 'both']:
+            config['allow_short_trigger'] = True
+            reset_info.append('空单')
+        
+        config['updated_at'] = get_beijing_now_str()
+        
+        # 写回文件
+        with open(config_file, 'w', encoding='utf-8') as f:
+            f.write(json.dumps(config, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'message': f"{'和'.join(reset_info)}执行权限已重置",
+            'config': config,
+            'timestamp': get_beijing_now_str()
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+
+@app.route('/api/okx-trading/midnight-hedge/<account_id>/execution-records', methods=['GET'])
+def api_get_midnight_hedge_executions(account_id):
+    """获取0点0分对冲底仓执行记录"""
+    try:
+        import json
+        import os
+        from utils.beijing_time import get_beijing_date_str
+        
+        # 获取日期参数
+        date_str = request.args.get('date', get_beijing_date_str())
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        execution_dir = os.path.join(current_dir, 'data', 'midnight_hedge_orders', 'execution_records')
+        execution_file = os.path.join(execution_dir, f'{account_id}_executions_{date_str}.jsonl')
+        
+        records = []
+        if os.path.exists(execution_file):
+            with open(execution_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        records.append(json.loads(line))
+        
+        return jsonify({
+            'success': True,
+            'records': records,
+            'count': len(records),
+            'date': date_str,
+            'account_id': account_id
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+
+@app.route('/api/okx-trading/midnight-hedge/<account_id>/pnl-records', methods=['GET'])
+def api_get_midnight_hedge_pnl(account_id):
+    """获取0点0分对冲底仓盈亏记录（支持跨日期查询）"""
+    try:
+        import json
+        import os
+        from utils.beijing_time import get_beijing_date_str, get_beijing_time
+        from datetime import timedelta
+        
+        # 获取日期参数
+        date_str = request.args.get('date', get_beijing_date_str())
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        pnl_dir = os.path.join(current_dir, 'data', 'midnight_hedge_orders', 'pnl_records')
+        pnl_file = os.path.join(pnl_dir, f'{account_id}_pnl_{date_str}.jsonl')
+        
+        records = []
+        
+        # 如果今日文件不存在，尝试读取昨日文件（解决跨日期问题）
+        if not os.path.exists(pnl_file):
+            beijing_time = get_beijing_time()
+            yesterday_str = (beijing_time - timedelta(days=1)).strftime('%Y%m%d')
+            pnl_file_yesterday = os.path.join(pnl_dir, f'{account_id}_pnl_{yesterday_str}.jsonl')
+            
+            if os.path.exists(pnl_file_yesterday):
+                pnl_file = pnl_file_yesterday
+                date_str = yesterday_str  # 更新date_str以反映实际使用的日期
+        
+        if os.path.exists(pnl_file):
+            with open(pnl_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        records.append(json.loads(line))
+        
+        # 获取最新的盈亏记录
+        latest_pnl = None
+        long_pnl = 0
+        short_pnl = 0
+        total_pnl = 0
+        
+        if records:
+            # 按时间戳排序，获取最新记录
+            latest_pnl = records[-1]
+            
+            # 如果最新记录包含汇总数据，直接使用
+            if 'long_pnl' in latest_pnl and 'short_pnl' in latest_pnl and 'total_pnl' in latest_pnl:
+                long_pnl = latest_pnl.get('long_pnl', 0)
+                short_pnl = latest_pnl.get('short_pnl', 0)
+                total_pnl = latest_pnl.get('total_pnl', 0)
+            else:
+                # 否则从侧边记录计算（兼容旧格式）
+                long_records = [r for r in records if r.get('side') == 'long']
+                short_records = [r for r in records if r.get('side') == 'short']
+                long_pnl = sum(r.get('unrealized_pnl', 0) for r in long_records)
+                short_pnl = sum(r.get('unrealized_pnl', 0) for r in short_records)
+                total_pnl = long_pnl + short_pnl
+        
+        return jsonify({
+            'success': True,
+            'records': records,
+            'latest_pnl': latest_pnl,
+            'stats': {
+                'long_pnl': round(long_pnl, 2),
+                'short_pnl': round(short_pnl, 2),
+                'total_pnl': round(total_pnl, 2),
+                'last_updated': latest_pnl.get('timestamp') if latest_pnl else None
+            },
+            'date': date_str,
+            'account_id': account_id
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+
+@app.route('/api/okx-trading/frontend-notifications/<account_id>', methods=['GET'])
+def api_get_frontend_notifications(account_id):
+    """获取前端通知（未读的）"""
+    try:
+        import json
+        import os
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        notifications_dir = os.path.join(current_dir, 'data', 'frontend_notifications')
+        
+        if not os.path.exists(notifications_dir):
+            os.makedirs(notifications_dir, exist_ok=True)
+        
+        notification_file = os.path.join(notifications_dir, f'{account_id}_notifications.jsonl')
+        
+        # 读取所有未读通知
+        unread_notifications = []
+        if os.path.exists(notification_file):
+            with open(notification_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        notification = json.loads(line)
+                        if not notification.get('read', False):
+                            unread_notifications.append(notification)
+        
+        return jsonify({
+            'success': True,
+            'notifications': unread_notifications,
+            'count': len(unread_notifications),
+            'account_id': account_id,
+            'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+@app.route('/api/okx-trading/frontend-notifications/<account_id>/<notification_id>/mark-read', methods=['POST'])
+def api_mark_notification_read(account_id, notification_id):
+    """标记通知为已读"""
+    try:
+        import json
+        import os
+        
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        notifications_dir = os.path.join(current_dir, 'data', 'frontend_notifications')
+        notification_file = os.path.join(notifications_dir, f'{account_id}_notifications.jsonl')
+        
+        if not os.path.exists(notification_file):
+            return jsonify({
+                'success': False,
+                'error': '通知文件不存在'
+            }), 404
+        
+        # 读取所有通知
+        notifications = []
+        with open(notification_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    notifications.append(json.loads(line))
+        
+        # 标记指定通知为已读
+        notification_found = False
+        for notification in notifications:
+            if notification['id'] == notification_id:
+                notification['read'] = True
+                notification['read_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                notification_found = True
+                break
+        
+        if not notification_found:
+            return jsonify({
+                'success': False,
+                'error': f'未找到通知ID: {notification_id}'
+            }), 404
+        
+        # 写回文件
+        with open(notification_file, 'w', encoding='utf-8') as f:
+            for notification in notifications:
+                f.write(json.dumps(notification, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'message': f'通知 {notification_id} 已标记为已读'
+        })
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
 
 @app.route('/api/okx-trading/confirm-structure-alerts/<account_id>', methods=['GET'])
 def get_confirm_structure_alerts(account_id):
@@ -23625,6 +24681,167 @@ def get_rsi_history():
         })
 
 
+@app.route('/api/coin-change-tracker/velocity-history', methods=['GET'])
+def get_velocity_history():
+    """获取5分钟涨速历史数据"""
+    try:
+        from datetime import datetime, timezone, timedelta
+        from pathlib import Path
+        
+        # 获取参数
+        date_str = request.args.get('date')  # YYYY-MM-DD 或 YYYYMMDD
+        limit = int(request.args.get('limit', 1440))  # 默认1天的数据
+        
+        data_dir = Path('/home/user/webapp/data/coin_change_tracker')
+        if not data_dir.exists():
+            return jsonify({
+                'success': False,
+                'error': '数据目录不存在'
+            })
+        
+        # 如果没有指定日期,使用今天
+        if not date_str:
+            beijing_time = datetime.now(timezone(timedelta(hours=8)))
+            file_date_str = beijing_time.strftime('%Y%m%d')
+        else:
+            # 支持两种格式:YYYY-MM-DD 或 YYYYMMDD
+            if '-' in date_str:
+                file_date_str = date_str.replace('-', '')
+            else:
+                file_date_str = date_str
+        
+        # 读取涨速数据文件
+        velocity_file = data_dir / f'velocity_{file_date_str}.jsonl'
+        
+        if not velocity_file.exists():
+            return jsonify({
+                'success': False,
+                'error': f'涨速数据文件不存在: {file_date_str}',
+                'message': '涨速数据需要至少5分钟的历史数据才能生成'
+            })
+        
+        # 读取数据
+        records = []
+        with open(velocity_file, 'r') as f:
+            lines = f.readlines()
+            # 取最后limit条
+            for line in lines[-limit:]:
+                if line.strip():
+                    records.append(json.loads(line.strip()))
+        
+        response = jsonify({
+            'success': True,
+            'date': file_date_str,
+            'count': len(records),
+            'data': records
+        })
+        # 添加禁用缓存的响应头
+        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+        return response
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        })
+
+
+@app.route('/api/coin-change-tracker/velocity-stats', methods=['GET'])
+def get_velocity_stats():
+    """获取当日涨速统计：当前、最高、最低、平均"""
+    try:
+        from datetime import datetime, timezone, timedelta
+        from pathlib import Path
+        
+        # 获取参数
+        date_str = request.args.get('date')  # YYYY-MM-DD 或 YYYYMMDD
+        
+        data_dir = Path('/home/user/webapp/data/coin_change_tracker')
+        if not data_dir.exists():
+            return jsonify({
+                'success': False,
+                'error': '数据目录不存在'
+            })
+        
+        # 如果没有指定日期,使用今天
+        if not date_str:
+            beijing_time = datetime.now(timezone(timedelta(hours=8)))
+            file_date_str = beijing_time.strftime('%Y%m%d')
+        else:
+            # 支持两种格式:YYYY-MM-DD 或 YYYYMMDD
+            if '-' in date_str:
+                file_date_str = date_str.replace('-', '')
+            else:
+                file_date_str = date_str
+        
+        # 读取涨速数据文件
+        velocity_file = data_dir / f'velocity_{file_date_str}.jsonl'
+        
+        if not velocity_file.exists():
+            return jsonify({
+                'success': False,
+                'error': f'涨速数据文件不存在: {file_date_str}',
+                'message': '涨速数据需要至少5分钟的历史数据才能生成'
+            })
+        
+        # 读取所有数据计算统计
+        velocities = []
+        latest_record = None
+        
+        with open(velocity_file, 'r') as f:
+            lines = f.readlines()
+            for line in lines:
+                if line.strip():
+                    record = json.loads(line.strip())
+                    velocity = record.get('velocity_5min', 0)
+                    velocities.append(velocity)
+                    latest_record = record  # 保存最新记录
+        
+        if not velocities:
+            return jsonify({
+                'success': False,
+                'error': '没有可用的涨速数据'
+            })
+        
+        # 计算统计
+        current_velocity = velocities[-1] if velocities else 0
+        max_velocity = max(velocities)
+        min_velocity = min(velocities)
+        avg_velocity = sum(velocities) / len(velocities)
+        
+        stats = {
+            'current': round(current_velocity, 2),
+            'max': round(max_velocity, 2),
+            'min': round(min_velocity, 2),
+            'avg': round(avg_velocity, 2),
+            'beijing_time': latest_record.get('beijing_time') if latest_record else None,
+            'count': len(velocities)
+        }
+        
+        response = jsonify({
+            'success': True,
+            'date': file_date_str,
+            'stats': stats
+        })
+        # 添加禁用缓存的响应头
+        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+        return response
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        })
+
+
 def _record_crash_warning_event(date_str, crash_warning, peaks):
     """记录暴跌预警事件到JSONL文件"""
     try:
@@ -26190,6 +27407,166 @@ def api_new_high_low_stats():
         response.headers['Expires'] = '0'
         
         return response
+        
+    except Exception as e:
+        import traceback
+        return jsonify({
+            'success': False,
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }), 500
+
+@app.route('/api/price-position/new-high-low-peak-days', methods=['GET'])
+def api_new_high_low_peak_days():
+    """
+    统计历史上创新高和创新低次数最多的日期
+    
+    返回：
+    {
+        "success": True,
+        "peak_new_high_day": {
+            "date": "2026-02-25",
+            "count": 156,
+            "details": {...}
+        },
+        "peak_new_low_day": {
+            "date": "2026-03-01",
+            "count": 234,
+            "details": {...}
+        },
+        "daily_stats_file": "path/to/daily_stats.jsonl"
+    }
+    """
+    try:
+        from datetime import datetime
+        import pytz
+        import json
+        from pathlib import Path
+        from collections import defaultdict
+        
+        data_dir = Path('/home/user/webapp/data/new_high_low')
+        daily_stats_file = data_dir / 'daily_peak_stats.jsonl'
+        
+        # 扫描所有JSONL文件，按日期统计
+        daily_stats = defaultdict(lambda: {'new_high': 0, 'new_low': 0, 'details': {}})
+        
+        for file_path in sorted(data_dir.glob('new_high_low_events_*.jsonl')):
+            date_str = file_path.stem.replace('new_high_low_events_', '')
+            # 格式化为 YYYY-MM-DD
+            if len(date_str) == 8:
+                formatted_date = f"{date_str[:4]}-{date_str[4:6]}-{date_str[6:8]}"
+            else:
+                continue
+            
+            with open(file_path, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    
+                    try:
+                        event = json.loads(line)
+                        event_type = event.get('event_type', event.get('type', ''))
+                        symbol = event.get('symbol', '')
+                        
+                        if event_type == 'new_high':
+                            daily_stats[formatted_date]['new_high'] += 1
+                            if symbol not in daily_stats[formatted_date]['details']:
+                                daily_stats[formatted_date]['details'][symbol] = {'new_high': 0, 'new_low': 0}
+                            daily_stats[formatted_date]['details'][symbol]['new_high'] += 1
+                        elif event_type == 'new_low':
+                            daily_stats[formatted_date]['new_low'] += 1
+                            if symbol not in daily_stats[formatted_date]['details']:
+                                daily_stats[formatted_date]['details'][symbol] = {'new_high': 0, 'new_low': 0}
+                            daily_stats[formatted_date]['details'][symbol]['new_low'] += 1
+                    except json.JSONDecodeError:
+                        continue
+        
+        # 保存每日统计到JSONL
+        with open(daily_stats_file, 'w', encoding='utf-8') as f:
+            for date, stats in sorted(daily_stats.items()):
+                record = {
+                    'date': date,
+                    'new_high_count': stats['new_high'],
+                    'new_low_count': stats['new_low'],
+                    'total_count': stats['new_high'] + stats['new_low'],
+                    'details': stats['details'],
+                    'updated_at': datetime.now(pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
+                }
+                f.write(json.dumps(record, ensure_ascii=False) + '\n')
+        
+        # 找出创新高次数最多的日期
+        peak_high_date = None
+        peak_high_count = 0
+        peak_high_details = {}
+        
+        for date, stats in daily_stats.items():
+            if stats['new_high'] > peak_high_count:
+                peak_high_count = stats['new_high']
+                peak_high_date = date
+                peak_high_details = stats['details']
+        
+        # 找出创新低次数最多的日期
+        peak_low_date = None
+        peak_low_count = 0
+        peak_low_details = {}
+        
+        for date, stats in daily_stats.items():
+            if stats['new_low'] > peak_low_count:
+                peak_low_count = stats['new_low']
+                peak_low_date = date
+                peak_low_details = stats['details']
+        
+        # 保存峰值日的详细数据情况到单独的JSONL文件
+        peak_days_detail_file = data_dir / 'peak_days_detail_record.jsonl'
+        with open(peak_days_detail_file, 'w', encoding='utf-8') as f:
+            # 创新高峰值日记录
+            if peak_high_date:
+                high_record = {
+                    'type': 'peak_new_high_day',
+                    'date': peak_high_date,
+                    'new_high_count': peak_high_count,
+                    'new_low_count': daily_stats[peak_high_date]['new_low'],
+                    'total_count': peak_high_count + daily_stats[peak_high_date]['new_low'],
+                    'details': peak_high_details,
+                    'recorded_at': datetime.now(pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
+                }
+                f.write(json.dumps(high_record, ensure_ascii=False) + '\n')
+            
+            # 创新低峰值日记录
+            if peak_low_date:
+                low_record = {
+                    'type': 'peak_new_low_day',
+                    'date': peak_low_date,
+                    'new_high_count': daily_stats[peak_low_date]['new_high'],
+                    'new_low_count': peak_low_count,
+                    'total_count': daily_stats[peak_low_date]['new_high'] + peak_low_count,
+                    'details': peak_low_details,
+                    'recorded_at': datetime.now(pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
+                }
+                f.write(json.dumps(low_record, ensure_ascii=False) + '\n')
+        
+        return jsonify({
+            'success': True,
+            'timestamp': datetime.now(pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S'),
+            'peak_new_high_day': {
+                'date': peak_high_date,
+                'count': peak_high_count,
+                'new_low_count': daily_stats[peak_high_date]['new_low'] if peak_high_date else 0,
+                'total_count': peak_high_count + (daily_stats[peak_high_date]['new_low'] if peak_high_date else 0),
+                'details': peak_high_details
+            },
+            'peak_new_low_day': {
+                'date': peak_low_date,
+                'count': peak_low_count,
+                'new_high_count': daily_stats[peak_low_date]['new_high'] if peak_low_date else 0,
+                'total_count': (daily_stats[peak_low_date]['new_high'] if peak_low_date else 0) + peak_low_count,
+                'details': peak_low_details
+            },
+            'total_days_analyzed': len(daily_stats),
+            'daily_stats_file': str(daily_stats_file),
+            'peak_days_detail_file': str(peak_days_detail_file)
+        })
         
     except Exception as e:
         import traceback
@@ -29383,3 +30760,9 @@ def test_prediction_display():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=9002, debug=False)
+
+# 测试页面：对冲底仓开关测试
+@app.route('/test-midnight-hedge')
+def test_midnight_hedge():
+    """测试对冲底仓开关功能"""
+    return render_template('test_midnight_hedge.html')

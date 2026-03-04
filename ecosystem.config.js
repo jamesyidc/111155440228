@@ -430,6 +430,57 @@ module.exports = {
       error_file: '/home/user/webapp/logs/new-high-low-error.log',
       out_file: '/home/user/webapp/logs/new-high-low-out.log',
       log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
+    },
+    
+    // Coin Change Conditional Order Monitor - 27币涨跌幅条件单监控器
+    {
+      name: 'coin-change-conditional-order-monitor',
+      script: 'monitors/coin_change_conditional_order_monitor.py',
+      interpreter: 'python3',
+      cwd: '/home/user/webapp',
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '300M',
+      env: {
+        PYTHONPATH: '/home/user/webapp'
+      },
+      error_file: '/home/user/webapp/logs/coin-change-conditional-order-error.log',
+      out_file: '/home/user/webapp/logs/coin-change-conditional-order-out.log',
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
+    },
+    
+    // Stop-loss Reverse Order Monitor - 止损反手开单监控器
+    {
+      name: 'stoploss-reverse-monitor',
+      script: 'monitors/stoploss_reverse_monitor.py',
+      interpreter: 'python3',
+      cwd: '/home/user/webapp',
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '300M',
+      env: {
+        PYTHONPATH: '/home/user/webapp'
+      },
+      error_file: '/home/user/webapp/logs/stoploss-reverse-error.log',
+      out_file: '/home/user/webapp/logs/stoploss-reverse-out.log',
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
+    },
+    
+    // Midnight Hedge Monitor - 0点0分对冲底仓监控器
+    {
+      name: 'midnight-hedge-monitor',
+      script: 'monitors/midnight_hedge_monitor.py',
+      interpreter: 'python3',
+      cwd: '/home/user/webapp',
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '300M',
+      env: {
+        PYTHONPATH: '/home/user/webapp'
+      },
+      error_file: '/home/user/webapp/logs/midnight-hedge-error.log',
+      out_file: '/home/user/webapp/logs/midnight-hedge-out.log',
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
     }
   ]
 };

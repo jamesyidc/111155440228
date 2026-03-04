@@ -281,17 +281,122 @@ class PercentTPSLMonitor:
         print(f"[{self.account_id}] 📈 止盈: {take_profit_pct}% = +{take_profit_amount:.2f} USDT, 启用: {take_profit_enabled}")
         print(f"[{self.account_id}] 📉 止损: {stop_loss_pct}% = {stop_loss_amount:.2f} USDT, 启用: {stop_loss_enabled}")
         
+        # 检查是否启用确认模式
+        confirm_mode = settings.get('percentConfirmMode', False)
+        print(f"[{self.account_id}] 🔔 确认模式: {'已启用' if confirm_mode else '未启用'}")
+        
         # 检查止盈
         if take_profit_enabled and total_unrealized_pnl >= take_profit_amount:
             print(f"[{self.account_id}] 🎉 触发百分比止盈！")
-            self.execute_close_all(credentials, positions, 'percent_take_profit', 
-                                  total_margin, total_unrealized_pnl, take_profit_pct, take_profit_amount)
+            if confirm_mode:
+                # 确认模式：创建待确认记录
+                self.create_pending_confirmation(positions, 'percent_take_profit', 
+                                                total_margin, total_unrealized_pnl, take_profit_pct, take_profit_amount)
+            else:
+                # 直接执行
+                self.execute_close_all(credentials, positions, 'percent_take_profit', 
+                                      total_margin, total_unrealized_pnl, take_profit_pct, take_profit_amount)
         
         # 检查止损
         elif stop_loss_enabled and total_unrealized_pnl <= stop_loss_amount:
             print(f"[{self.account_id}] ⚠️ 触发百分比止损！")
-            self.execute_close_all(credentials, positions, 'percent_stop_loss',
-                                  total_margin, total_unrealized_pnl, stop_loss_pct, stop_loss_amount)
+            if confirm_mode:
+                # 确认模式：创建待确认记录
+                self.create_pending_confirmation(positions, 'percent_stop_loss',
+                                                total_margin, total_unrealized_pnl, stop_loss_pct, stop_loss_amount)
+            else:
+                # 直接执行
+                self.execute_close_all(credentials, positions, 'percent_stop_loss',
+                                      total_margin, total_unrealized_pnl, stop_loss_pct, stop_loss_amount)
+        
+        # 检查是否有待确认的记录需要执行
+        if confirm_mode:
+            self.check_confirmed_pending(credentials, positions)
+    
+    def create_pending_confirmation(self, positions, trigger_type, total_margin, total_unrealized_pnl, threshold_pct, threshold_amount):
+        """创建待确认记录"""
+        pending_file = SETTINGS_DIR / f'{self.account_id}_percent_tpsl_pending.jsonl'
+        
+        # 检查是否已有待确认记录
+        if pending_file.exists():
+            with open(pending_file, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
+                if lines:
+                    last_data = json.loads(lines[-1].strip())
+                    if last_data.get('status') == 'pending':
+                        print(f"[{self.account_id}] 🔔 已有待确认记录，跳过创建")
+                        return
+        
+        # 创建新的待确认记录
+        pending_data = {
+            'account_id': self.account_id,
+            'status': 'pending',
+            'triggerType': trigger_type,
+            'thresholdPercent': threshold_pct,
+            'thresholdAmount': threshold_amount,
+            'totalMargin': total_margin,
+            'totalPnl': total_unrealized_pnl,
+            'positionCount': len([p for p in positions if float(p.get('pos', 0)) != 0]),
+            'timestamp': datetime.now(timezone.utc).isoformat(),
+            'positions': [
+                {
+                    'instId': pos.get('instId'),
+                    'posSide': pos.get('posSide'),
+                    'pos': pos.get('pos')
+                }
+                for pos in positions if float(pos.get('pos', 0)) != 0
+            ]
+        }
+        
+        with open(pending_file, 'a', encoding='utf-8') as f:
+            f.write(json.dumps(pending_data, ensure_ascii=False) + '\n')
+        
+        print(f"[{self.account_id}] 🔔 已创建待确认记录")
+        
+        # 发送Telegram通知
+        emoji = "🎉" if trigger_type == 'percent_take_profit' else "⚠️"
+        type_name = "百分比止盈" if trigger_type == 'percent_take_profit' else "百分比止损"
+        message = f"{emoji} <b>{type_name}触发 - 等待确认</b>\n\n"
+        message += f"📊 总保证金: {total_margin:.2f} USDT\n"
+        message += f"💰 总盈亏: {total_unrealized_pnl:+.2f} USDT\n"
+        message += f"🎯 触发阈值: {threshold_pct}% ({threshold_amount:+.2f} USDT)\n"
+        message += f"📝 待平仓: {pending_data['positionCount']} 个持仓\n\n"
+        message += f"⚠️ 请登录交易页面确认执行"
+        self.send_telegram(message)
+    
+    def check_confirmed_pending(self, credentials, positions):
+        """检查并执行已确认的待确认记录"""
+        pending_file = SETTINGS_DIR / f'{self.account_id}_percent_tpsl_pending.jsonl'
+        if not pending_file.exists():
+            return
+        
+        with open(pending_file, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+        
+        if not lines:
+            return
+        
+        last_data = json.loads(lines[-1].strip())
+        if last_data.get('status') == 'confirmed':
+            print(f"[{self.account_id}] ✅ 发现已确认的待执行记录，开始执行")
+            
+            trigger_type = last_data['triggerType']
+            total_margin = last_data['totalMargin']
+            total_unrealized_pnl = last_data['totalPnl']
+            threshold_pct = last_data['thresholdPercent']
+            threshold_amount = last_data['thresholdAmount']
+            
+            # 执行平仓
+            self.execute_close_all(credentials, positions, trigger_type,
+                                  total_margin, total_unrealized_pnl, threshold_pct, threshold_amount)
+            
+            # 标记为已执行
+            last_data['status'] = 'executed'
+            last_data['execute_time'] = datetime.now(timezone.utc).isoformat()
+            lines[-1] = json.dumps(last_data, ensure_ascii=False) + '\n'
+            
+            with open(pending_file, 'w', encoding='utf-8') as f:
+                f.writelines(lines)
     
     def execute_close_all(self, credentials, positions, trigger_type, total_margin, total_unrealized_pnl, threshold_pct, threshold_amount):
         """执行全部平仓"""

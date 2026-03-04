@@ -277,6 +277,65 @@ def save_rsi_to_jsonl(rsi_data):
         print(f"[错误] 保存RSI JSONL失败: {e}")
 
 
+def save_velocity_to_jsonl(velocity_data):
+    """保存5分钟涨速数据到独立的JSONL文件"""
+    today = datetime.now(BEIJING_TZ).strftime('%Y%m%d')
+    velocity_file = DATA_DIR / f"velocity_{today}.jsonl"
+    
+    try:
+        with open(velocity_file, 'a', encoding='utf-8') as f:
+            f.write(json.dumps(velocity_data, ensure_ascii=False) + '\n')
+        print(f"[保存] 涨速数据已写入 {velocity_file}")
+    except Exception as e:
+        print(f"[错误] 保存涨速JSONL失败: {e}")
+
+
+def get_total_change_5min_ago():
+    """获取5分钟前的total_change值"""
+    try:
+        today = datetime.now(BEIJING_TZ).strftime('%Y%m%d')
+        jsonl_file = DATA_DIR / f"coin_change_{today}.jsonl"
+        
+        if not jsonl_file.exists():
+            return None
+        
+        # 读取今天的所有记录
+        with open(jsonl_file, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+        
+        if len(lines) < 2:
+            return None
+        
+        # 获取最后一条记录的时间戳
+        latest_record = json.loads(lines[-1].strip())
+        latest_timestamp = latest_record.get('timestamp', 0)
+        
+        # 5分钟前的时间戳（5分钟 = 300秒 = 300000毫秒）
+        target_timestamp = latest_timestamp - 300000
+        
+        # 查找最接近5分钟前的记录
+        closest_record = None
+        min_diff = float('inf')
+        
+        for line in lines:
+            record = json.loads(line.strip())
+            timestamp = record.get('timestamp', 0)
+            diff = abs(timestamp - target_timestamp)
+            
+            if diff < min_diff:
+                min_diff = diff
+                closest_record = record
+        
+        if closest_record:
+            return closest_record.get('total_change', 0)
+        
+        return None
+        
+    except Exception as e:
+        print(f"[错误] 获取5分钟前的total_change失败: {e}")
+        return None
+
+
 def main():
     """主循环"""
     print("=" * 60)
@@ -393,7 +452,25 @@ def main():
                 # 保存到JSONL
                 save_to_jsonl(record)
                 
-                log_msg = f"[统计] 总涨跌幅: {total_change:.2f}%, 币种数: {len(changes)}, 上涨占比: {up_ratio:.1f}% ({up_coins}↑/{total_coins - up_coins}↓)"
+                # 计算5分钟涨速
+                total_change_5min_ago = get_total_change_5min_ago()
+                if total_change_5min_ago is not None:
+                    velocity_5min = round(total_change - total_change_5min_ago, 2)
+                    
+                    # 保存涨速数据
+                    velocity_record = {
+                        'timestamp': int(time.time() * 1000),
+                        'beijing_time': now.strftime('%Y-%m-%d %H:%M:%S'),
+                        'velocity_5min': velocity_5min,
+                        'current_total_change': round(total_change, 2),
+                        'total_change_5min_ago': round(total_change_5min_ago, 2)
+                    }
+                    save_velocity_to_jsonl(velocity_record)
+                    
+                    log_msg = f"[统计] 总涨跌幅: {total_change:.2f}%, 5分钟涨速: {velocity_5min:+.2f}%, 币种数: {len(changes)}, 上涨占比: {up_ratio:.1f}% ({up_coins}↑/{total_coins - up_coins}↓)"
+                else:
+                    log_msg = f"[统计] 总涨跌幅: {total_change:.2f}%, 币种数: {len(changes)}, 上涨占比: {up_ratio:.1f}% ({up_coins}↑/{total_coins - up_coins}↓)"
+                
                 if total_rsi is not None:
                     log_msg += f", RSI之和: {total_rsi}"
                 print(log_msg)

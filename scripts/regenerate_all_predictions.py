@@ -112,30 +112,26 @@ def analyze_date(date_str):
             else:  # blank > 0，无论占比多少都是做空
                 signal = "做空"
                 description = f"🔴⚪ 红色+空白（空白占比{blank_ratio:.1f}%），预判下跌行情，建议做空。操作提示：相对高点做空"
-        # 情况2: 有绿+有红+有黄，且（红+黄）>= 3根（>=25%）→ 等待新低
-        elif green > 0 and red > 0 and yellow > 0 and (red + yellow) >= 3:
+        # 情况1: 有绿+有红+无黄 → 低吸（原始情况）
+        elif green > 0 and red > 0 and yellow == 0:
+            signal = "低吸"
+            description = "🟢🔴 有绿有红无黄，红色区间为低吸机会。操作提示：低点做多"
+        # 情况2优先: 有绿+有红+有黄，且黄柱子 >= 2根（大于1根）→ 等待新低（新增逻辑）
+        elif green > 0 and red > 0 and yellow >= 2:
             signal = "等待新低"
-            description = f"🟢🔴🟡 有绿有红有黄，红色+黄色共{red + yellow}根(>=3根)，可能还有新低，建议等待。操作提示：高点做空"
-        # 情况1: 有绿+有红+无黄 OR 有绿+有红+有黄但（红+黄）< 3根（<25%）→ 低吸
-        elif green > 0 and red > 0 and (yellow == 0 or (red + yellow) < 3):
-            if yellow == 0:
-                signal = "低吸"
-                description = "🟢🔴 有绿有红无黄，红色区间为低吸机会。操作提示：低点做多"
-            else:
-                signal = "低吸"
-                description = f"🟢🔴🟡 有绿有红有黄，但红色+黄色共{red + yellow}根(<3根)，红色区间为低吸机会。操作提示：低点做多"
+            description = f"🟢🔴🟡 有绿有红有黄，黄色柱子{yellow}根(>=2根)，可能还有新低，建议等待。操作提示：高点做空"
+        # 情况1扩展: 有绿+有红+有黄，但(红+黄) < 3根 OR 黄柱子只有1根 → 低吸（保留原逻辑+新增）
+        elif green > 0 and red > 0 and yellow > 0 and ((red + yellow) < 3 or yellow == 1):
+            signal = "低吸"
+            description = f"🟢🔴🟡 有绿有红有黄（红{red}+黄{yellow}共{red+yellow}根），红色区间为低吸机会。操作提示：低点做多"
         # 情况7: 红色+黄色（无绿色）→ 观望
         elif red > 0 and yellow > 0 and green == 0:
             signal = "观望"
             description = "🔴🟡 红色柱子+黄色柱子，没有绿色柱子，多空博弈方向不明。操作提示：无，不参与"
-        # 情况8: 只有绿色+黄色（无红色），且黄色>=3根 → 等待新低
-        elif green > 0 and yellow >= 3 and red == 0:
-            signal = "等待新低"
-            description = f"🟢🟡 只有绿色和黄色（黄色{yellow}根>=3根），可能还有新低，建议等待。操作提示：高点做空"
-        # 情况8b: 只有绿色+黄色（无红色），但黄色<3根 → 观望
-        elif green > 0 and yellow > 0 and yellow < 3 and red == 0:
+        # 情况8: 只有绿色+黄色（无红色）→ 观望
+        elif green > 0 and yellow > 0 and red == 0:
             signal = "观望"
-            description = f"🟢🟡 只有绿色和黄色（黄色{yellow}根<3根），信号不明确。操作提示：观望"
+            description = f"🟢🟡 只有绿色和黄色（黄色{yellow}根），没有红色柱子，无法判断低吸或新低。操作提示：观望"
         # 其他情况
         else:
             signal = "观望"
@@ -158,12 +154,19 @@ def analyze_date(date_str):
 
 def main():
     print("="*80)
-    print("🔧 重新生成2月份所有预判文件")
+    print("🔧 重新生成所有历史预判文件（使用最新逻辑）")
     print("="*80)
     print()
     
-    # 获取所有数据文件
-    data_files = sorted(glob.glob('data/coin_change_tracker/coin_change_202602*.jsonl'))
+    # 获取所有数据文件（不限制月份）
+    data_files = sorted(glob.glob('data/coin_change_tracker/coin_change_2026*.jsonl'))
+    
+    if not data_files:
+        print("❌ 未找到历史数据文件")
+        return
+    
+    print(f"📊 找到 {len(data_files)} 个数据文件")
+    print()
     
     success_count = 0
     error_count = 0
@@ -178,11 +181,15 @@ def main():
         prediction = analyze_date(date_str)
         
         if prediction:
-            # 保存预判文件
-            pred_file = f'data/daily_predictions/prediction_{date_str}.json'
+            # 保存预判文件（使用JSONL格式）
+            pred_dir = 'data/daily_predictions'
+            os.makedirs(pred_dir, exist_ok=True)
+            pred_file = f'{pred_dir}/prediction_{date_num}.jsonl'
             
+            # 写入JSONL格式（单行，is_final=True）
+            prediction['is_final'] = True
             with open(pred_file, 'w', encoding='utf-8') as f:
-                json.dump(prediction, f, ensure_ascii=False, indent=2)
+                f.write(json.dumps(prediction, ensure_ascii=False) + '\n')
             
             colors = prediction['color_counts']
             print(f"✅ {date_str}: 绿{colors['green']} 红{colors['red']} 黄{colors['yellow']} | {prediction['signal']}")
@@ -192,9 +199,11 @@ def main():
     
     print()
     print("="*80)
-    print(f"完成！")
+    print(f"✅ 重新生成完成！")
     print(f"  成功: {success_count} 个")
     print(f"  失败: {error_count} 个")
+    print(f"  保存格式: JSONL")
+    print(f"  保存目录: data/daily_predictions/")
     print("="*80)
 
 if __name__ == "__main__":
